@@ -1,0 +1,15 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {"source": "/category/:cat", "destination": "/category.html"},
+    {"source": "/product/:id", "destination": "/product.html"},
+    {"source": "/checkout", "destination": "/checkout.html"},
+    {"source": "/confirmation", "destination": "/confirmation.html"},
+    {"source": "/account", "destination": "/account.html"},
+    {"source": "/search", "destination": "/search.html"}
+  ],
+  "routes": [
+    {"handle": "filesystem"},
+    {"src": "/(.*)", "dest": "/404.html", "status": 404}
+  ]
+}
