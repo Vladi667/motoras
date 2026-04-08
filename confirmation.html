@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Comanda confirmata – Motoras</title>
+<meta name="description" content="Confirmare comandă Motoraș și sumarul final al achiziției."/>
+<link rel="stylesheet" href="css/app.css">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#cc1111;--dark:#0f1116;--dark2:#181b24;--mid:#484c58;--border:#e5e7ec;--bg:#f0f2f7;--gold:#e8a020;--green:#1a9e4a;}
+body{font-family:'Nunito Sans',sans-serif;font-size:14px;background:var(--bg);color:var(--dark);min-height:100vh;display:flex;flex-direction:column}
+.co-header{background:#fff;border-bottom:1px solid var(--border);padding:0 20px;height:68px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 8px rgba(0,0,0,.05)}
+.co-header img{height:48px}
+.conf-wrap{flex:1;max-width:680px;margin:40px auto;padding:0 20px;width:100%}
+.conf-card{background:#fff;border-radius:20px;border:1.5px solid var(--border);overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+.conf-top{background:linear-gradient(135deg,#f0fdf4,#dcfce7);padding:36px;text-align:center;border-bottom:1px solid #d1fae5}
+.conf-check{width:72px;height:72px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 8px 24px rgba(26,158,74,.30)}
+.conf-check svg{color:#fff}
+.conf-title{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:-.5px;margin-bottom:8px}
+.conf-sub{font-size:15px;color:var(--mid);line-height:1.6}
+.conf-body{padding:28px}
+.conf-row{display:flex;align-items:flex-start;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f5f6fa;gap:12px}
+.conf-row:last-child{border-bottom:none}
+.conf-key{font-size:12.5px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.4px;flex-shrink:0}
+.conf-val{font-size:14px;font-weight:700;color:var(--dark);text-align:right}
+.conf-val.order-id{font-family:'Barlow Condensed',sans-serif;font-size:22px;color:var(--red)}
+.steps-track{display:flex;align-items:center;justify-content:center;gap:0;margin:28px 0;padding:0 8px}
+.track-step{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1}
+.track-dot{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid var(--border)}
+.track-dot.done{background:var(--green);border-color:var(--green)}
+.track-dot.active{background:var(--red);border-color:var(--red)}
+.track-dot.pending{background:#fff;border-color:var(--border)}
+.track-dot svg{color:#fff}
+.track-label{font-size:11.5px;font-weight:700;color:var(--mid);text-align:center;white-space:nowrap}
+.track-line{flex:1;height:3px;background:var(--border);margin:0 -4px;align-self:flex-start;margin-top:17px}
+.track-line.done{background:var(--green)}
+.conf-items{margin:0 28px 20px;background:#fafbfc;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.conf-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border)}
+.conf-item:last-child{border-bottom:none}
+.conf-item img{width:48px;height:48px;border-radius:8px;object-fit:cover;background:#f0f0f0}
+.conf-item-name{flex:1;min-width:0;font-size:13px;font-weight:700;color:var(--dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.conf-item-price{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;color:var(--dark);flex-shrink:0}
+.conf-btns{display:flex;flex-direction:column;gap:10px;padding:0 28px 28px}
+.btn-track{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:#fff;padding:14px;border-radius:10px;border:none;font-size:15px;font-weight:800;font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(26,158,74,.28)}
+.btn-track:hover{background:#158a3e;transform:translateY(-1px)}
+.btn-continue{display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:var(--mid);padding:13px;border-radius:10px;border:1.5px solid var(--border);font-size:14px;font-weight:700;cursor:pointer;transition:all .18s;text-decoration:none}
+.btn-continue:hover{border-color:var(--dark);color:var(--dark)}
+@media(max-width:600px){.conf-btns{flex-direction:column}.track-label{font-size:10px}.track-dot{width:30px;height:30px}}
+
+/* ── Info pages design upgrade ── */
+:root {
+  --red:#c8100e;--red2:#a30d0b;--dark:#0d0f14;--dark2:#13161f;
+  --mid:#505568;--muted:#8892a0;--border:#e4e8ef;--bg:#edf0f5;
+  --gold:#e09618;--green:#18955f;
+  --shadow:0 4px 20px rgba(0,0,0,.07);
+}
+body { -webkit-font-smoothing:antialiased; }
+.header { box-shadow:0 1px 0 var(--border),0 4px 24px rgba(0,0,0,.05); }
+.btn-cart-mini {
+  background:var(--red);border-radius:9px;padding:8px 18px;
+  font-size:13px;font-weight:800;
+  box-shadow:0 4px 14px rgba(200,16,14,.28);
+  transition:all .18s;
+}
+.btn-cart-mini:hover { background:var(--red2);transform:translateY(-1px); }
+.page-banner {
+  background:linear-gradient(135deg,var(--dark2) 0%,#151929 55%,var(--dark3,#1a1e2a) 100%);
+  border-radius:20px;padding:44px 48px;
+}
+.page-banner h1 { font-size:44px;letter-spacing:-.8px; }
+.content-card {
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  border:1.5px solid var(--border);
+}
+.content-card h2 {
+  font-size:20px;letter-spacing:.2px;
+  gap:10px;padding-bottom:14px;
+}
+.content-card p { font-size:14px;line-height:1.85;color:var(--mid); }
+.content-card ul li { font-size:14px;line-height:1.75; }
+.info-chip {
+  border-radius:14px;border:1.5px solid var(--border);
+  transition:all .2s;
+}
+.info-chip:hover { box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px); }
+.info-chip-ico {
+  width:42px;height:42px;border-radius:11px;
+  background:linear-gradient(135deg,rgba(200,16,14,.09),rgba(200,16,14,.04));
+  border:1px solid rgba(200,16,14,.10);
+}
+.info-chip strong { font-size:13.5px;font-weight:800;color:var(--dark); }
+.info-chip span { font-size:13px;color:var(--muted); }
+.sidebar-card { border-radius:18px;border:1.5px solid var(--border);box-shadow:var(--shadow); }
+.faq-item { border-radius:14px;border:1.5px solid var(--border); }
+.faq-q { font-size:15px;font-weight:700;color:var(--dark);padding:17px 20px; }
+.faq-a { font-size:14px;line-height:1.8;color:var(--mid);padding:0 20px 20px; }
+.faq-item.open { border-color:var(--red);box-shadow:0 4px 20px rgba(200,16,14,.08); }
+.data-table th { font-size:11px;font-weight:800;letter-spacing:.6px;background:#f8fafc; }
+.data-table td { font-size:14px;color:var(--mid); }
+.alert { border-radius:10px;font-size:13.5px; }
+.footer { background:linear-gradient(180deg,var(--dark2) 0%,#0e1118 100%); }
+.footer-col a { font-size:13.5px;color:rgba(255,255,255,.48); }
+.footer-col a:hover { color:#fff; }
+.footer-col h4 { font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.32); }
+.footer-copy { font-size:12px;color:rgba(255,255,255,.18);letter-spacing:.2px; }
+.footer-legal a { font-size:12px;color:rgba(255,255,255,.26);font-weight:600;margin-right:14px; }
+.footer-legal a:hover { color:rgba(255,255,255,.68); }
+.bc-in a { color:var(--muted);font-weight:600; }
+.bc-in a:hover { color:var(--red); }
+.bc-current { color:var(--dark);font-weight:700; }
+.timeline .tl-dot { box-shadow:0 3px 10px rgba(200,16,14,.22); }
+.tl-body h4 { font-size:14.5px;font-weight:800; }
+.tl-body p { font-size:13.5px;color:var(--mid);line-height:1.75; }
+.btn-submit { background:var(--red);box-shadow:0 4px 16px rgba(200,16,14,.28); }
+.btn-submit:hover { background:var(--red2);transform:translateY(-1px); }
+.form-field input:focus,.form-field textarea:focus { border-color:var(--red);box-shadow:0 0 0 3px rgba(200,16,14,.07); }
+::selection { background:rgba(200,16,14,.15);color:var(--dark); }
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+
+</style>
+</head>
+<body>
+<header class="co-header"><a href="index.html"><img src="assets/logo.png" alt="Motoras"/></a></header>
+
+<div class="conf-wrap">
+  <div class="conf-card">
+    <div class="conf-top">
+      <div class="conf-check"><svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="conf-title">Comanda confirmata!</div>
+      <div class="conf-sub">Multumim pentru comanda ta!<br>Vei primi un email de confirmare in cateva minute.</div>
+    </div>
+
+    <div class="conf-body">
+      <div class="conf-row"><span class="conf-key">Nr. comanda</span><span class="conf-val order-id" id="confOrderId">#ORD-123456</span></div>
+      <div class="conf-row"><span class="conf-key">Email confirmare</span><span class="conf-val" id="confEmail">—</span></div>
+      <div class="conf-row"><span class="conf-key">Total comanda</span><span class="conf-val" id="confTotal" style="color:var(--red);font-family:'Barlow Condensed',sans-serif;font-size:22px">—</span></div>
+      <div class="conf-row"><span class="conf-key">Livrare estimata</span><span class="conf-val" style="color:var(--green)">Maine pana la 18:00 &#128666;</span></div>
+    </div>
+
+    <!-- Tracking steps -->
+    <div style="padding:0 28px">
+      <div style="font-size:12.5px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.4px;margin-bottom:16px">Statusul comenzii</div>
+      <div class="steps-track">
+        <div class="track-step"><div class="track-dot done"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="track-label">Plasata</div></div>
+        <div class="track-line done"></div>
+        <div class="track-step"><div class="track-dot active"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4"/></svg></div><div class="track-label">In procesare</div></div>
+        <div class="track-line"></div>
+        <div class="track-step"><div class="track-dot pending"><svg width="16" height="16" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="track-label">Expediat</div></div>
+        <div class="track-line"></div>
+        <div class="track-step"><div class="track-dot pending"><svg width="16" height="16" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><div class="track-label">Livrat</div></div>
+      </div>
+    </div>
+
+    <!-- Items ordered -->
+    <div style="padding:20px 28px 12px"><div style="font-size:12.5px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">Produsele tale</div></div>
+    <div class="conf-items" id="confItems"></div>
+
+    <div class="conf-btns">
+      <a href="account.html" class="btn-track">
+        <svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Urmareste comanda
+      </a>
+      <a href="index.html" class="btn-continue">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Continua cumparaturile
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+const order=window.MotorasStore.getLastOrder();
+const params=new URLSearchParams(location.search);
+const orderId=params.get('order')||'ORD-000000';
+document.getElementById('confOrderId').textContent='#'+orderId;
+if(order){
+  document.getElementById('confEmail').textContent=order.email||'—';
+  document.getElementById('confTotal').textContent=order.total.toLocaleString('ro-RO')+' RON';
+  document.getElementById('confItems').innerHTML=(order.items||[]).map(item=>`<div class="conf-item"><img src="${item.img}" alt="${item.name}"/><div class="conf-item-name">${item.name} x${item.qty}</div><div class="conf-item-price">${(item.price*item.qty).toLocaleString('ro-RO')} RON</div></div>`).join('');
+}else{
+  document.getElementById('confEmail').textContent='client@motoras.ro';
+  document.getElementById('confTotal').textContent='0 RON';
+  document.getElementById('confItems').innerHTML='<div style="padding:16px;text-align:center;color:#bbb;font-size:13px">Detalii comanda nu sunt disponibile.</div>';
+}
+</script>
+<script src="api.js"></script>
+<script>
+(async function(){
+  const params = new URLSearchParams(location.search);
+  const orderId = params.get('order') || '';
+  document.getElementById('confOrderId').textContent = '#' + orderId;
+  
+  // Try MotApi first, fallback to localStorage
+  let order = null;
+  if(window.MotApi && orderId){
+    const res = await window.MotApi.getOrder(orderId);
+    if(res.ok) order = res.order;
+  }
+  if(!order){
+    order = JSON.parse(localStorage.getItem('motoras_last_order') || 'null');
+  }
+  
+  if(order){
+    document.getElementById('confEmail').textContent = order.email || '—';
+    document.getElementById('confTotal').textContent = (order.total||0).toLocaleString('ro-RO') + ' RON';
+    const items = order.items || [];
+    document.getElementById('confItems').innerHTML = items.length === 0
+      ? '<div style="padding:16px;text-align:center;color:#bbb">Fara produse.</div>'
+      : items.map(item => `<div class="conf-item">
+          <img src="${item.img||''}" alt="${item.name||''}" onerror="this.style.display='none'"/>
+          <div class="conf-item-name">${item.name||''} x${item.qty||1}</div>
+          <div class="conf-item-price">${((item.price||0)*(item.qty||1)).toLocaleString('ro-RO')} RON</div>
+        </div>`).join('');
+  } else {
+    document.getElementById('confEmail').textContent = '—';
+    document.getElementById('confTotal').textContent = '0 RON';
+    document.getElementById('confItems').innerHTML = '<div style="padding:16px;text-align:center;color:#bbb;font-size:13px">Comanda a fost plasata cu succes!</div>';
+  }
+})();
+</script>
+
+// Dynamic order tracker
+(function() {
+  const statusSteps = { pending:0, processing:1, shipped:2, delivered:3, cancelled:0 };
+  function updateTracker(status) {
+    const step = statusSteps[status] || 0;
+    const steps = document.querySelectorAll('.tracker-step');
+    steps.forEach((el, i) => {
+      el.classList.toggle('active', i <= step);
+      el.classList.toggle('done', i < step);
+    });
+  }
+  // Re-run after MotApi loads order
+  const origScript = document.querySelector('script:last-of-type');
+  window._updateTracker = updateTracker;
+})();
+
+</body></html>

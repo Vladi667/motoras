@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Checkout – Motoras</title>
+<meta name="description" content="Checkout Motoraș cu livrare, facturare și sumar comandă, disponibil pentru conectarea plata online și sistemul de facturare."/>
+<link rel="stylesheet" href="css/app.css">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#cc1111;--red2:#a50d0d;--dark:#0f1116;--dark2:#181b24;--mid:#484c58;--border:#e5e7ec;--bg:#f0f2f7;--gold:#e8a020;--green:#1a9e4a;}
+body{font-family:'Nunito Sans',sans-serif;font-size:14px;background:var(--bg);color:var(--dark)}
+a{text-decoration:none;color:inherit}
+/* Minimal header for checkout */
+.co-header{background:#fff;border-bottom:1px solid var(--border);padding:0 20px;height:68px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(0,0,0,.05)}
+.co-logo img{height:48px}
+.co-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--mid);transition:color .15s}
+.co-back:hover{color:var(--red)}
+.co-secure{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--green)}
+/* Steps */
+.steps{background:#fff;border-bottom:1px solid var(--border);padding:14px 20px}
+.steps-in{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:0}
+.step{display:flex;align-items:center;gap:8px;padding:0 20px}
+.step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+.step.active .step-num{background:var(--red);color:#fff}
+.step.done .step-num{background:var(--green);color:#fff}
+.step.inactive .step-num{background:var(--border);color:var(--mid)}
+.step-label{font-size:13px;font-weight:700;white-space:nowrap}
+.step.active .step-label{color:var(--dark)}
+.step.inactive .step-label{color:#bbb}
+.step-sep{flex:1;height:2px;background:var(--border);max-width:60px}
+.step-sep.done{background:var(--green)}
+/* Layout */
+.co-layout{max-width:1100px;margin:28px auto;padding:0 20px;display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start}
+.card{background:#fff;border-radius:16px;border:1.5px solid var(--border);overflow:hidden;margin-bottom:20px}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.3px;padding:18px 22px;border-bottom:1px solid var(--border)}
+.form-body{padding:20px 22px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-body .full{grid-column:1/-1}
+.flabel{display:block;font-size:11.5px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+.finput{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;color:var(--dark);outline:none;transition:all .2s;background:#fafbfc}
+.finput:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 3px rgba(204,17,17,.07)}
+.finput::placeholder{color:#ccc}
+.fselect{width:100%;padding:11px 34px 11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;color:var(--dark);outline:none;transition:all .2s;background:#fafbfc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23888' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") right 12px center no-repeat;appearance:none;cursor:pointer}
+.fselect:focus{border-color:var(--red);background-color:#fff}
+/* Payment */
+.pay-methods{padding:18px 22px;display:flex;flex-direction:column;gap:10px}
+.pay-option{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all .18s}
+.pay-option:hover,.pay-option.selected{border-color:var(--red);background:rgba(204,17,17,.03)}
+.pay-radio{width:18px;height:18px;accent-color:var(--red);flex-shrink:0}
+.pay-icon{width:42px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pay-label{font-size:13.5px;font-weight:700;color:var(--dark)}
+.pay-sub{font-size:12px;color:var(--mid);font-weight:500;margin-top:2px}
+.stripe-badges{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.stripe-badge{height:22px;background:#f5f5f5;border-radius:4px;padding:0 8px;display:flex;align-items:center;font-size:11px;font-weight:700;color:#666}
+/* Order summary */
+.summary-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f5f5f5}
+.summary-item:last-child{border-bottom:none}
+.si-img{width:52px;height:52px;border-radius:8px;overflow:hidden;background:#f8f8f8;flex-shrink:0;border:1px solid var(--border);position:relative}
+.si-img img{width:100%;height:100%;object-fit:cover}
+.si-qty{position:absolute;top:-6px;right:-6px;background:var(--mid);color:#fff;font-size:10px;font-weight:800;border-radius:99px;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.si-name{flex:1;min-width:0;font-size:13px;font-weight:700;color:var(--dark);line-height:1.4}
+.si-brand{font-size:11px;color:var(--mid);font-weight:600;margin-top:2px}
+.si-price{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--dark);flex-shrink:0}
+.summary-totals{padding:14px 22px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px}
+.tot-row{display:flex;justify-content:space-between;font-size:13px;color:var(--mid);font-weight:600}
+.tot-total{display:flex;justify-content:space-between;align-items:center;padding-top:12px;margin-top:4px;border-top:1px solid var(--border)}
+.tot-total span{font-size:15px;font-weight:700;color:var(--dark)}
+.tot-total strong{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;color:var(--red)}
+.btn-place{width:100%;display:flex;align-items:center;justify-content:center;gap:9px;background:var(--red);color:#fff;padding:16px;border-radius:11px;border:none;font-size:17px;font-weight:800;font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:all .2s;box-shadow:0 6px 20px rgba(204,17,17,.32);margin:0 22px 22px}
+.btn-place:hover{background:var(--red2);transform:translateY(-2px)}
+.trust-line{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;color:var(--mid);font-weight:600;padding:0 22px 16px;flex-wrap:wrap;gap:12px}
+.trust-line svg{color:var(--green)}
+/* Discount */
+.discount-row{display:flex;gap:8px;padding:0 22px 16px}
+.discount-row input{flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;outline:none}
+.discount-row input:focus{border-color:var(--red)}
+.discount-row button{padding:10px 18px;background:var(--dark);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s}
+.discount-row button:hover{background:var(--red)}
+@media(max-width:900px){.co-layout{grid-template-columns:1fr}.form-body{grid-template-columns:1fr}}
+@media(max-width:600px){.steps{overflow-x:auto}.step-label{display:none}.steps-in{gap:0}.step{padding:0 12px}}
+
+/* ── Info pages design upgrade ── */
+:root {
+  --red:#c8100e;--red2:#a30d0b;--dark:#0d0f14;--dark2:#13161f;
+  --mid:#505568;--muted:#8892a0;--border:#e4e8ef;--bg:#edf0f5;
+  --gold:#e09618;--green:#18955f;
+  --shadow:0 4px 20px rgba(0,0,0,.07);
+}
+body { -webkit-font-smoothing:antialiased; }
+.header { box-shadow:0 1px 0 var(--border),0 4px 24px rgba(0,0,0,.05); }
+.btn-cart-mini {
+  background:var(--red);border-radius:9px;padding:8px 18px;
+  font-size:13px;font-weight:800;
+  box-shadow:0 4px 14px rgba(200,16,14,.28);
+  transition:all .18s;
+}
+.btn-cart-mini:hover { background:var(--red2);transform:translateY(-1px); }
+.page-banner {
+  background:linear-gradient(135deg,var(--dark2) 0%,#151929 55%,var(--dark3,#1a1e2a) 100%);
+  border-radius:20px;padding:44px 48px;
+}
+.page-banner h1 { font-size:44px;letter-spacing:-.8px; }
+.content-card {
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  border:1.5px solid var(--border);
+}
+.content-card h2 {
+  font-size:20px;letter-spacing:.2px;
+  gap:10px;padding-bottom:14px;
+}
+.content-card p { font-size:14px;line-height:1.85;color:var(--mid); }
+.content-card ul li { font-size:14px;line-height:1.75; }
+.info-chip {
+  border-radius:14px;border:1.5px solid var(--border);
+  transition:all .2s;
+}
+.info-chip:hover { box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px); }
+.info-chip-ico {
+  width:42px;height:42px;border-radius:11px;
+  background:linear-gradient(135deg,rgba(200,16,14,.09),rgba(200,16,14,.04));
+  border:1px solid rgba(200,16,14,.10);
+}
+.info-chip strong { font-size:13.5px;font-weight:800;color:var(--dark); }
+.info-chip span { font-size:13px;color:var(--muted); }
+.sidebar-card { border-radius:18px;border:1.5px solid var(--border);box-shadow:var(--shadow); }
+.faq-item { border-radius:14px;border:1.5px solid var(--border); }
+.faq-q { font-size:15px;font-weight:700;color:var(--dark);padding:17px 20px; }
+.faq-a { font-size:14px;line-height:1.8;color:var(--mid);padding:0 20px 20px; }
+.faq-item.open { border-color:var(--red);box-shadow:0 4px 20px rgba(200,16,14,.08); }
+.data-table th { font-size:11px;font-weight:800;letter-spacing:.6px;background:#f8fafc; }
+.data-table td { font-size:14px;color:var(--mid); }
+.alert { border-radius:10px;font-size:13.5px; }
+.footer { background:linear-gradient(180deg,var(--dark2) 0%,#0e1118 100%); }
+.footer-col a { font-size:13.5px;color:rgba(255,255,255,.48); }
+.footer-col a:hover { color:#fff; }
+.footer-col h4 { font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.32); }
+.footer-copy { font-size:12px;color:rgba(255,255,255,.18);letter-spacing:.2px; }
+.footer-legal a { font-size:12px;color:rgba(255,255,255,.26);font-weight:600;margin-right:14px; }
+.footer-legal a:hover { color:rgba(255,255,255,.68); }
+.bc-in a { color:var(--muted);font-weight:600; }
+.bc-in a:hover { color:var(--red); }
+.bc-current { color:var(--dark);font-weight:700; }
+.timeline .tl-dot { box-shadow:0 3px 10px rgba(200,16,14,.22); }
+.tl-body h4 { font-size:14.5px;font-weight:800; }
+.tl-body p { font-size:13.5px;color:var(--mid);line-height:1.75; }
+.btn-submit { background:var(--red);box-shadow:0 4px 16px rgba(200,16,14,.28); }
+.btn-submit:hover { background:var(--red2);transform:translateY(-1px); }
+.form-field input:focus,.form-field textarea:focus { border-color:var(--red);box-shadow:0 0 0 3px rgba(200,16,14,.07); }
+::selection { background:rgba(200,16,14,.15);color:var(--dark); }
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+
+</style>
+</head>
+<body>
+<header class="co-header">
+  <a href="index.html" class="co-logo"><img src="assets/logo.png" alt="Motoras"/></a>
+  <div style="display:flex;align-items:center;gap:20px">
+    <a href="index.html" class="co-back"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Continua cumparaturile</a>
+    <div class="co-secure"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Checkout securizat SSL</div>
+  </div>
+</header>
+
+<div class="steps">
+  <div class="steps-in">
+    <div class="step active"><div class="step-num">1</div><div class="step-label">Date livrare</div></div>
+    <div class="step-sep"></div>
+    <div class="step inactive"><div class="step-num">2</div><div class="step-label">Plata</div></div>
+    <div class="step-sep"></div>
+    <div class="step inactive"><div class="step-num">3</div><div class="step-label">Confirmare</div></div>
+  </div>
+</div>
+
+<div class="co-layout">
+  <!-- LEFT COLUMN -->
+  <div>
+    <!-- Contact -->
+    <div class="card">
+      <div class="card-title">Informatii de contact</div>
+      <div class="form-body">
+        <div class="full">
+          <label class="flabel">Email adresa</label>
+          <input class="finput" type="email" id="email" placeholder="nume@domeniu.ro" autocomplete="email"/>
+        </div>
+        <div class="full" style="display:flex;align-items:center;gap:8px;padding:0">
+          <input type="checkbox" id="newsletter" style="accent-color:var(--red);width:15px;height:15px"/>
+          <label for="newsletter" style="font-size:13px;color:var(--mid);cursor:pointer">Vreau sa primesc oferte si noutati pe email</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delivery -->
+    <div class="card">
+      <div class="card-title">Adresa de livrare</div>
+      <div class="form-body">
+        <div><label class="flabel">Prenume</label><input class="finput" type="text" id="fname" placeholder="Prenume" autocomplete="given-name"/></div>
+        <div><label class="flabel">Nume</label><input class="finput" type="text" id="lname" placeholder="Nume" autocomplete="family-name"/></div>
+        <div class="full"><label class="flabel">Companie (optional)</label><input class="finput" type="text" id="company" placeholder="Denumire firma (optional)" autocomplete="organization"/></div><div class="full"><label class="flabel">Observații comandă</label><input class="finput" type="text" id="orderNotes" placeholder="Ex: confirmare telefonică, livrare după 16:00"/></div>
+        <div class="full"><label class="flabel">Adresa</label><input class="finput" type="text" id="addr" placeholder="Strada, numar, bloc, apartament" autocomplete="street-address"/></div>
+        <div><label class="flabel">Oras</label><input class="finput" type="text" id="city" placeholder="București" autocomplete="address-level2"/></div>
+        <div><label class="flabel">Judet</label>
+          <select class="fselect" id="county">
+            <option value="">Selecteaza judetul</option>
+            <option value="Alba">Alba</option><option value="Arad">Arad</option><option value="Arges">Arges</option><option value="Bacau">Bacau</option><option value="Bihor">Bihor</option><option value="Bistrita-Nasaud">Bistrita-Nasaud</option><option value="Botosani">Botosani</option><option value="Brasov">Brasov</option><option value="Braila">Braila</option><option value="București">București</option><option value="Buzau">Buzau</option><option value="Caras-Severin">Caras-Severin</option><option value="Calarasi">Calarasi</option><option value="Cluj">Cluj</option><option value="Constanta">Constanta</option><option value="Covasna">Covasna</option><option value="Dambovita">Dambovita</option><option value="Dolj">Dolj</option><option value="Galati">Galati</option><option value="Giurgiu">Giurgiu</option><option value="Gorj">Gorj</option><option value="Harghita">Harghita</option><option value="Hunedoara">Hunedoara</option><option value="Ialomita">Ialomita</option><option value="Iasi">Iasi</option><option value="Ilfov">Ilfov</option><option value="Maramures">Maramures</option><option value="Mehedinti">Mehedinti</option><option value="Mures">Mures</option><option value="Neamt">Neamt</option><option value="Olt">Olt</option><option value="Prahova">Prahova</option><option value="Satu Mare">Satu Mare</option><option value="Salaj">Salaj</option><option value="Sibiu">Sibiu</option><option value="Suceava">Suceava</option><option value="Teleorman">Teleorman</option><option value="Timis">Timis</option><option value="Tulcea">Tulcea</option><option value="Vaslui">Vaslui</option><option value="Valcea">Valcea</option><option value="Vrancea">Vrancea</option>
+          </select>
+        </div>
+        <div><label class="flabel">Cod postal</label><input class="finput" type="text" id="zip" placeholder="010000" autocomplete="postal-code"/></div>
+        <div><label class="flabel">Telefon</label><input class="finput" type="tel" id="phone" placeholder="07xx xxx xxx" autocomplete="tel"/></div>
+      </div>
+    </div>
+
+    <!-- Shipping method -->
+    <div class="card">
+      <div class="card-title">Metoda de livrare</div>
+      <div class="pay-methods">
+        <div class="pay-option selected" onclick="selectShipping(this,'0')">
+          <input type="radio" name="shipping" class="pay-radio" checked/>
+          <div class="pay-icon" style="background:#f0fdf4"><svg width="20" height="20" fill="none" stroke="var(--green)" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <div style="flex:1"><div class="pay-label">Livrare standard Fan Courier</div><div class="pay-sub">Livrare in 24-48h lucratoare</div></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--green)">GRATUITA</div>
+        </div>
+        <div class="pay-option" onclick="selectShipping(this,'25')">
+          <input type="radio" name="shipping" class="pay-radio"/>
+          <div class="pay-icon" style="background:#eff6ff"><svg width="20" height="20" fill="none" stroke="var(--blue,#2563eb)" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div style="flex:1"><div class="pay-label">Livrare express DHL</div><div class="pay-sub">Livrare in aceeasi zi (comanda inainte de 12:00)</div></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--dark)">25 RON</div>
+        </div>
+        <div class="pay-option" onclick="selectShipping(this,'ridica')">
+          <input type="radio" name="shipping" class="pay-radio"/>
+          <div class="pay-icon" style="background:#fff7ed"><svg width="20" height="20" fill="none" stroke="var(--gold)" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div style="flex:1"><div class="pay-label">Ridicare din magazin</div><div class="pay-sub">Strada Agricultori nr. 2, București &bull; Lun-Vin 08-18</div></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--green)">GRATUITA</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment -->
+    <div class="card">
+      <div class="card-title">Metoda de plata</div>
+      <div class="pay-methods">
+        <div class="pay-option selected" onclick="selectPay(this,'card')">
+          <input type="radio" name="payment" class="pay-radio" checked/>
+          <div class="pay-icon" style="background:#f5f5ff"><svg width="20" height="20" fill="none" stroke="#5b4fcf" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <div><div class="pay-label">Card bancar (plata online)</div><div class="pay-sub">Visa, Mastercard, American Express</div>
+            <div class="stripe-badges"><span class="stripe-badge">VISA</span><span class="stripe-badge">Mastercard</span><span class="stripe-badge">3D Secure</span><span class="stripe-badge">&#128274; SSL</span></div>
+          </div>
+        </div>
+        <div class="pay-option" onclick="selectPay(this,'op')">
+          <input type="radio" name="payment" class="pay-radio"/>
+          <div class="pay-icon" style="background:#f0fdf4"><svg width="20" height="20" fill="none" stroke="var(--green)" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div><div class="pay-label">Ordin de plata / Transfer bancar</div><div class="pay-sub">Comanda se proceseaza dupa confirmarea platii (1-2 zile)</div></div>
+        </div>
+        <div class="pay-option" onclick="selectPay(this,'ramburs')">
+          <input type="radio" name="payment" class="pay-radio"/>
+          <div class="pay-icon" style="background:#fff7ed"><svg width="20" height="20" fill="none" stroke="var(--gold)" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <div><div class="pay-label">Ramburs la livrare</div><div class="pay-sub">Platesti curieru cand primesti coletul (+5 RON taxa)</div></div>
+        </div>
+      </div>
+      <!-- câmpuri demonstrative pentru card -->
+      <div id="cardFields" style="padding:0 22px 20px">
+        <div style="background:#f8f9fb;border:1.5px solid var(--border);border-radius:10px;padding:16px">
+          <div style="font-size:12px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px">Date card</div>
+          <input class="finput" type="text" placeholder="1234 5678 9012 3456" maxlength="19" style="margin-bottom:10px"/>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <input class="finput" type="text" placeholder="MM / AA" maxlength="7"/>
+            <input class="finput" type="text" placeholder="CVV" maxlength="4"/>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;color:var(--green);font-weight:600"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Plata securizata prin plata online. Datele cardului nu sunt stocate.</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-place" onclick="placeOrder()">
+      <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      PLASEAZA COMANDA
+    </button>
+  </div>
+
+  <!-- RIGHT COLUMN: Order Summary -->
+  <div>
+    <div class="card" style="position:sticky;top:20px">
+      <div class="card-title" style="display:flex;align-items:center;justify-content:space-between">
+        <span>Sumar comanda</span>
+        <a href="index.html" style="font-size:12px;color:var(--red);font-weight:700;text-transform:none;letter-spacing:0">Modifica</a>
+      </div>
+      <div style="padding:12px 22px" id="summaryItems">
+        <!-- populated by JS -->
+      </div>
+      <div class="discount-row">
+        <input type="text" id="discountCode" placeholder="Cod reducere" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;outline:none;flex:1"/>
+        <button onclick="applyDiscount()" style="padding:10px 18px;background:var(--dark);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--red)'" onmouseout="this.style.background='var(--dark)'">Aplica</button>
+      </div>
+      <div class="summary-totals">
+        <div class="tot-row"><span>Subtotal</span><span id="summSubtotal">0 RON</span></div>
+        <div class="tot-row"><span>Livrare</span><span id="summShipping" style="color:var(--green);font-weight:700">GRATUITA</span></div>
+        <div class="tot-row"><span>TVA (19%)</span><span id="summTva">0 RON</span></div>
+        <div class="tot-total"><span>Total</span><strong id="summTotal">0 RON</strong></div>
+      </div>
+      <button class="btn-place" onclick="placeOrder()">
+        <svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        PLASEAZA COMANDA
+      </button>
+      <div class="trust-line">
+        <span style="display:flex;align-items:center;gap:4px"><svg width="13" height="13" fill="none" stroke="var(--green)" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>SSL Securizat</span>
+        <span style="display:flex;align-items:center;gap:4px"><svg width="13" height="13" fill="none" stroke="var(--green)" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>Retur 30 zile</span>
+        <span style="display:flex;align-items:center;gap:4px"><svg width="13" height="13" fill="none" stroke="var(--green)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Garantie 2 ani</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let cart=JSON.parse(localStorage.getItem('motoras_cart')||'[]');
+let shippingCost=0;
+function renderSummary(){
+  const subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const tva=Math.round(subtotal*0.19);
+  const total=subtotal+shippingCost;
+  document.getElementById('summSubtotal').textContent=subtotal.toLocaleString('ro-RO')+' RON';
+  document.getElementById('summTva').textContent=tva.toLocaleString('ro-RO')+' RON';
+  document.getElementById('summTotal').textContent=total.toLocaleString('ro-RO')+' RON';
+  document.getElementById('summaryItems').innerHTML=cart.length===0?'<div style="text-align:center;padding:20px;color:#bbb;font-size:13px">Coșul este gol. <a href="index.html" style="color:var(--red);font-weight:700">Adauga produse</a></div>':cart.map(item=>`
+    <div class="summary-item">
+      <div class="si-img"><img src="${item.img}" alt="${item.name}"/><span class="si-qty">${item.qty}</span></div>
+      <div style="flex:1;min-width:0"><div class="si-name">${item.name}</div><div class="si-brand">${item.brand}</div></div>
+      <div class="si-price">${(item.price*item.qty).toLocaleString('ro-RO')} RON</div>
+    </div>`).join('');
+}
+function selectShipping(el,cost){document.querySelectorAll('.pay-option').forEach(o=>{if(o.closest('.pay-methods')===el.closest('.pay-methods'))o.classList.remove('selected')});el.classList.add('selected');el.querySelector('input').checked=true;shippingCost=cost==='ridica'?0:parseInt(cost)||0;document.getElementById('summShipping').textContent=shippingCost===0?'GRATUITA':shippingCost+' RON';document.getElementById('summShipping').style.color=shippingCost===0?'var(--green)':'var(--dark)';renderSummary();}
+function selectPay(el,type){document.querySelectorAll('#cardFields').forEach(f=>f.style.display='none');document.querySelectorAll('.pay-option').forEach(o=>{if(o.closest('.pay-methods')===el.closest('.pay-methods'))o.classList.remove('selected')});el.classList.add('selected');el.querySelector('input').checked=true;if(type==='card')document.getElementById('cardFields').style.display='block';else document.getElementById('cardFields').style.display='none';}
+function applyDiscount(){const code=document.getElementById('discountCode').value.trim().toUpperCase();if(code==='MOTORAS10')alert('Cod aplicat! Reducere 10% calculata.');else alert('Cod invalid sau expirat.');}
+async function placeOrder(){
+  const email=document.getElementById('email').value.trim();
+  const fname=document.getElementById('fname').value.trim();
+  const lname=document.getElementById('lname').value.trim();
+  const addr=document.getElementById('addr').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  const county=document.getElementById('county')?.value||'';
+  const city=document.getElementById('city')?.value?.trim()||'';
+  const zip=document.getElementById('zip')?.value?.trim()||'';
+  if(!email||!fname||!lname||!addr||!phone){
+    // Show inline validation errors
+    [['email',email],['fname',fname],['lname',lname],['addr',addr],['phone',phone]].forEach(([id,val])=>{
+      const el=document.getElementById(id);
+      if(el){el.style.borderColor=val?'':'var(--red,#c9100e)';el.style.boxShadow=val?'':'0 0 0 3px rgba(201,16,14,.12)';}
+    });
+    // Show error banner
+    let errBanner=document.getElementById('checkoutErr');
+    if(!errBanner){errBanner=document.createElement('div');errBanner.id='checkoutErr';errBanner.style.cssText='background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:12px 16px;color:#991b1b;font-size:13.5px;font-weight:700;margin-bottom:16px';document.querySelector('.checkout-form')?.prepend(errBanner);}
+    errBanner.textContent='⚠ Te rugăm să completezi toate câmpurile obligatorii.';
+    errBanner.style.display='block';
+    return;
+  }
+  // Clear errors
+  ['email','fname','lname','addr','phone'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.borderColor='';el.style.boxShadow='';}});
+  const errBanner=document.getElementById('checkoutErr');if(errBanner)errBanner.style.display='none';
+  if(cart.length===0){alert('Cosul este gol!');return;}
+  const btns=document.querySelectorAll('.btn-place');
+  btns.forEach(b=>{b.disabled=true;b.innerHTML='<svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg> Se proceseaza...';});
+  try{
+    if(!window.MotApi){throw new Error('API indisponibil');}
+    const result=await window.MotApi.createOrder({
+      email,firstName:fname,lastName:lname,
+      address:addr,county,city,zip,phone,
+      items:cart,
+      shippingCost,
+      shipping:document.querySelector('input[name="shipping"]:checked')?.closest('.pay-option')?.dataset?.method||'standard',
+      payment:document.querySelector('input[name="payment"]:checked')?.closest('.pay-option')?.dataset?.method||'card',
+    });
+    if(!result.ok){
+      alert(result.error||'Eroare la plasarea comenzii.');
+      btns.forEach(b=>{b.disabled=false;b.innerHTML='PLASEAZA COMANDA';});
+      return;
+    }
+    window.location.href='confirmation.html?order='+result.order.id;
+  }catch(e){
+    alert('Eroare: '+e.message);
+    btns.forEach(b=>{b.disabled=false;b.innerHTML='PLASEAZA COMANDA';});
+  }
+}
+renderSummary();
+</script>
+<script src="api.js"></script>
+</body></html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8"/>
+<meta name="description" content="Politică cookies – Motoraș."/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Politica cookies – Motoras</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#cc1111;--red2:#a50d0d;--dark:#0f1116;--dark2:#181b24;--mid:#484c58;--border:#e5e7ec;--bg:#f0f2f7;--gold:#e8a020;--green:#1a9e4a;--blue:#2563eb;}
+body{font-family:'Nunito Sans',sans-serif;font-size:14px;background:var(--bg);color:var(--dark)}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer}
+.header{background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:300;box-shadow:0 2px 20px rgba(0,0,0,.06)}
+.header-in{max-width:1320px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+.logo-img{height:50px;width:auto;object-fit:contain;display:block}
+.hdr-nav{display:flex;align-items:center;gap:0}
+.hdr-nav a{padding:10px 14px;font-size:13px;font-weight:700;color:var(--mid);transition:color .15s;border-radius:8px;white-space:nowrap}
+.hdr-nav a:hover,.hdr-nav a.active{color:var(--red)}
+.hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn-cart-mini{display:flex;align-items:center;gap:6px;background:var(--red);color:#fff;padding:8px 16px;border-radius:9px;font-size:13px;font-weight:700;border:none;box-shadow:0 4px 14px rgba(204,17,17,.28);cursor:pointer;position:relative;transition:background .15s;white-space:nowrap}
+.btn-cart-mini:hover{background:var(--red2)}
+.cart-dot{position:absolute;top:-5px;right:-5px;background:var(--gold);color:#fff;font-size:9px;font-weight:800;border-radius:99px;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px;border:2px solid #fff}
+.bc{background:#fff;border-bottom:1px solid var(--border);padding:10px 0}
+.bc-in{max-width:1320px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mid);font-weight:600;flex-wrap:wrap}
+.bc-in a{color:var(--mid);transition:color .15s}.bc-in a:hover{color:var(--red)}
+.bc-sep{color:#ccc;font-size:10px}
+.page-outer{max-width:1320px;margin:0 auto;padding:32px 20px 60px}
+.page-banner{background:linear-gradient(135deg,var(--dark2) 0%,#1e2235 60%,#111827 100%);border-radius:20px;padding:40px 44px;margin-bottom:32px;position:relative;overflow:hidden}
+.page-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 100% 50%,rgba(204,17,17,.12),transparent)}
+.page-banner-kicker{display:inline-flex;align-items:center;gap:7px;background:rgba(204,17,17,.18);color:rgba(255,200,180,1);font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:99px;border:1px solid rgba(204,17,17,.30);margin-bottom:16px;position:relative}
+.page-banner h1{font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:-.5px;line-height:1.05;margin-bottom:10px;position:relative}
+.page-banner p{font-size:15px;color:rgba(255,255,255,.60);line-height:1.75;max-width:680px;position:relative}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin:0 0 24px}
+.info-chip{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:18px 20px;display:flex;align-items:flex-start;gap:13px;transition:box-shadow .18s}
+.info-chip:hover{box-shadow:0 4px 20px rgba(0,0,0,.07)}
+.info-chip-ico{width:40px;height:40px;border-radius:10px;background:rgba(204,17,17,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.info-chip-ico svg{color:var(--red)}
+.info-chip strong{display:block;font-size:13px;font-weight:800;color:var(--dark);margin-bottom:4px}
+.info-chip span{font-size:13px;color:var(--mid);font-weight:500;line-height:1.5}
+.content-card{background:#fff;border-radius:16px;border:1.5px solid var(--border);padding:28px 32px;margin-bottom:22px}
+.content-card h2{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.3px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.content-card h2 svg{color:var(--red)}
+.content-card h3{font-size:15px;font-weight:800;color:var(--dark);margin:18px 0 8px}
+.content-card p{font-size:14px;color:var(--mid);line-height:1.8;margin-bottom:12px}
+.content-card p:last-child{margin-bottom:0}
+.content-card ul{padding-left:18px;display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.content-card ul li{font-size:14px;color:var(--mid);line-height:1.7}
+.content-card ul li strong{color:var(--dark)}
+.two-col-layout{display:grid;grid-template-columns:2fr 1fr;gap:22px;align-items:start}
+.sidebar-card{background:#fff;border-radius:16px;border:1.5px solid var(--border);padding:22px;position:sticky;top:88px}
+.sidebar-card h3{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--dark);text-transform:uppercase;margin-bottom:16px}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f5f5f5;font-size:13.5px;font-weight:600;color:var(--dark)}
+.sidebar-item:last-child{border-bottom:none}
+.sidebar-item svg{color:var(--red);flex-shrink:0}
+.faq-item{border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:10px;background:#fff;transition:border-color .18s}
+.faq-item.open{border-color:var(--red)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;font-size:14.5px;font-weight:700;color:var(--dark);gap:12px;list-style:none;user-select:none}
+.faq-q:hover{background:#fafbfc}
+.faq-q svg{flex-shrink:0;transition:transform .25s;color:var(--mid)}
+.faq-item.open .faq-q svg{transform:rotate(45deg);color:var(--red)}
+.faq-a{display:none;padding:0 20px 18px;font-size:13.5px;color:var(--mid);line-height:1.8}
+.faq-item.open .faq-a{display:block}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-field{display:flex;flex-direction:column;gap:7px}
+.form-field label{font-size:12px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.4px}
+.form-field input,.form-field textarea,.form-field select{padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;color:var(--dark);outline:none;transition:all .2s;background:#fafbfc}
+.form-field input:focus,.form-field textarea:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 3px rgba(204,17,17,.07)}
+.form-field.full{grid-column:1/-1}
+.form-field textarea{resize:vertical;min-height:100px}
+.btn-submit{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--red);color:#fff;padding:13px 28px;border-radius:10px;border:none;font-size:15px;font-weight:800;font-family:'Barlow Condensed',sans-serif;letter-spacing:.4px;text-transform:uppercase;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(204,17,17,.28)}
+.btn-submit:hover{background:var(--red2);transform:translateY(-1px)}
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:16px;padding-bottom:22px;position:relative}
+.tl-item:not(:last-child)::before{content:'';position:absolute;left:15px;top:32px;bottom:0;width:2px;background:var(--border)}
+.tl-dot{width:32px;height:32px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(204,17,17,.25)}
+.tl-dot svg{color:#fff}
+.tl-body h4{font-size:14px;font-weight:800;color:var(--dark);margin-bottom:4px}
+.tl-body p{font-size:13px;color:var(--mid);line-height:1.7}
+.data-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.data-table th{background:#f8f9fb;padding:11px 14px;text-align:left;font-size:11px;font-weight:800;color:var(--mid);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);white-space:nowrap}
+.data-table td{padding:11px 14px;border-bottom:1px solid #f5f6fa;color:var(--mid);vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table td strong{color:var(--dark)}
+.alert{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:10px;font-size:13.5px;font-weight:600;margin-bottom:16px}
+.alert-info{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
+.alert-warn{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
+.alert-ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.alert svg{flex-shrink:0;margin-top:1px}
+.map-box{background:linear-gradient(135deg,#f0f2f7,#e8ecf2);border-radius:14px;height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:1.5px solid var(--border);margin-top:16px}
+.stars-row{display:flex;align-items:center;gap:4px;margin:8px 0}
+.star-y{color:var(--gold);font-size:18px}
+.about-stat{text-align:center;padding:20px}
+.about-stat strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:38px;font-weight:800;color:var(--red);margin-bottom:4px}
+.about-stat span{font-size:13px;color:var(--mid);font-weight:600}
+.footer{background:var(--dark2);padding:44px 0 0}
+.footer-in{max-width:1320px;margin:0 auto;padding:0 20px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px}
+.footer-brand-img{height:44px;filter:brightness(0) invert(1);opacity:.8;margin-bottom:10px}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.75;max-width:260px}
+.footer-col h4{font-size:12px;font-weight:800;color:#fff;letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.4);font-weight:500;padding:3px 0;transition:color .15s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding:16px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.footer-legal a{font-size:12px;color:rgba(255,255,255,.3);font-weight:600;margin-right:12px;transition:color .15s}
+.footer-legal a:hover{color:rgba(255,255,255,.65)}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.2)}
+@media(max-width:900px){.hdr-nav{display:none}.two-col-layout{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr;gap:20px}.sidebar-card{position:static}.page-banner{padding:28px 24px}.page-banner h1{font-size:32px}}
+@media(max-width:600px){.footer-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column;align-items:flex-start}.page-banner{padding:22px 20px}.page-banner h1{font-size:28px}.info-grid{grid-template-columns:1fr}}
+
+/* ── Info pages design upgrade ── */
+:root {
+  --red:#c8100e;--red2:#a30d0b;--dark:#0d0f14;--dark2:#13161f;
+  --mid:#505568;--muted:#8892a0;--border:#e4e8ef;--bg:#edf0f5;
+  --gold:#e09618;--green:#18955f;
+  --shadow:0 4px 20px rgba(0,0,0,.07);
+}
+body { -webkit-font-smoothing:antialiased; }
+.header { box-shadow:0 1px 0 var(--border),0 4px 24px rgba(0,0,0,.05); }
+.btn-cart-mini {
+  background:var(--red);border-radius:9px;padding:8px 18px;
+  font-size:13px;font-weight:800;
+  box-shadow:0 4px 14px rgba(200,16,14,.28);
+  transition:all .18s;
+}
+.btn-cart-mini:hover { background:var(--red2);transform:translateY(-1px); }
+.page-banner {
+  background:linear-gradient(135deg,var(--dark2) 0%,#151929 55%,var(--dark3,#1a1e2a) 100%);
+  border-radius:20px;padding:44px 48px;
+}
+.page-banner h1 { font-size:44px;letter-spacing:-.8px; }
+.content-card {
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  border:1.5px solid var(--border);
+}
+.content-card h2 {
+  font-size:20px;letter-spacing:.2px;
+  gap:10px;padding-bottom:14px;
+}
+.content-card p { font-size:14px;line-height:1.85;color:var(--mid); }
+.content-card ul li { font-size:14px;line-height:1.75; }
+.info-chip {
+  border-radius:14px;border:1.5px solid var(--border);
+  transition:all .2s;
+}
+.info-chip:hover { box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px); }
+.info-chip-ico {
+  width:42px;height:42px;border-radius:11px;
+  background:linear-gradient(135deg,rgba(200,16,14,.09),rgba(200,16,14,.04));
+  border:1px solid rgba(200,16,14,.10);
+}
+.info-chip strong { font-size:13.5px;font-weight:800;color:var(--dark); }
+.info-chip span { font-size:13px;color:var(--muted); }
+.sidebar-card { border-radius:18px;border:1.5px solid var(--border);box-shadow:var(--shadow); }
+.faq-item { border-radius:14px;border:1.5px solid var(--border); }
+.faq-q { font-size:15px;font-weight:700;color:var(--dark);padding:17px 20px; }
+.faq-a { font-size:14px;line-height:1.8;color:var(--mid);padding:0 20px 20px; }
+.faq-item.open { border-color:var(--red);box-shadow:0 4px 20px rgba(200,16,14,.08); }
+.data-table th { font-size:11px;font-weight:800;letter-spacing:.6px;background:#f8fafc; }
+.data-table td { font-size:14px;color:var(--mid); }
+.alert { border-radius:10px;font-size:13.5px; }
+.footer { background:linear-gradient(180deg,var(--dark2) 0%,#0e1118 100%); }
+.footer-col a { font-size:13.5px;color:rgba(255,255,255,.48); }
+.footer-col a:hover { color:#fff; }
+.footer-col h4 { font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.32); }
+.footer-copy { font-size:12px;color:rgba(255,255,255,.18);letter-spacing:.2px; }
+.footer-legal a { font-size:12px;color:rgba(255,255,255,.26);font-weight:600;margin-right:14px; }
+.footer-legal a:hover { color:rgba(255,255,255,.68); }
+.bc-in a { color:var(--muted);font-weight:600; }
+.bc-in a:hover { color:var(--red); }
+.bc-current { color:var(--dark);font-weight:700; }
+.timeline .tl-dot { box-shadow:0 3px 10px rgba(200,16,14,.22); }
+.tl-body h4 { font-size:14.5px;font-weight:800; }
+.tl-body p { font-size:13.5px;color:var(--mid);line-height:1.75; }
+.btn-submit { background:var(--red);box-shadow:0 4px 16px rgba(200,16,14,.28); }
+.btn-submit:hover { background:var(--red2);transform:translateY(-1px); }
+.form-field input:focus,.form-field textarea:focus { border-color:var(--red);box-shadow:0 0 0 3px rgba(200,16,14,.07); }
+::selection { background:rgba(200,16,14,.15);color:var(--dark); }
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+
+</style>
+</head>
+<body>
+<header class="header"><div class="header-in">
+  <a href="index.html"><img src="assets/logo.png" alt="Motoras" class="logo-img"/></a>
+  <nav class="hdr-nav">
+    <a href="index.html">Acasa</a>
+    <a href="category.html?cat=piese">Piese</a>
+    <a href="category.html?cat=uleiuri">Uleiuri</a>
+    <a href="category.html?cat=filtre">Filtre</a>
+    <a href="category.html?cat=baterii">Baterii</a>
+    <a href="contact.html" class="">Contact</a>
+  </nav>
+  <div class="hdr-actions">
+    <a href="account.html" style="font-size:13px;font-weight:700;color:var(--mid);padding:8px 12px;border-radius:8px;transition:color .15s" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--mid)'">Contul meu</a>
+    <button class="btn-cart-mini" onclick="window.location.href='index.html'">
+      <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Cos <span class="cart-dot" id="cartDot">0</span>
+    </button>
+  </div>
+</div></header>
+<div class="bc"><div class="bc-in"><a href="index.html">Acasa</a><span class="bc-sep">&#8250;</span><span style="color:var(--dark)">Cookies</span></div></div>
+<div class="page-outer">
+  <div class="page-banner">
+    <div class="page-banner-kicker">🍪 Cookies</div>
+    <h1>Politica cookies</h1>
+    <p>Cum folosim cookie-urile, ce tipuri utilizam si cum iti gestionezi preferintele.</p>
+  </div>
+  
+<div class="two-col-layout">
+  <div>
+    <div class="content-card">
+      <h2><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>Tipuri de cookie-uri</h2>
+      <table class="data-table">
+        <thead><tr><th>Tip</th><th>Scop</th><th>Durata</th><th>Obligatoriu</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Esentiale</strong></td><td>Cosul de cumparaturi, sesiunea, securitatea</td><td>Sesiune</td><td style="color:var(--green);font-weight:700">DA</td></tr>
+          <tr><td><strong>Preferinte</strong></td><td>Vehiculul salvat, preferinte interfata</td><td>30 zile</td><td style="color:var(--mid)">Optional</td></tr>
+          <tr><td><strong>Analitice</strong></td><td>Statistici anonime de utilizare (Google Analytics)</td><td>2 ani</td><td style="color:var(--mid)">Optional</td></tr>
+          <tr><td><strong>Marketing</strong></td><td>Reclame personalizate, remarketing</td><td>90 zile</td><td style="color:var(--mid)">Optional</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="content-card">
+      <h2><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Cum gestionezi cookie-urile</h2>
+      <p>La prima vizita, ai posibilitatea sa accepti toate cookie-urile sau doar pe cele esentiale. Poti reveni oricand la aceasta optiune din butonul de mai jos.</p>
+      <button onclick="localStorage.removeItem('cookies');window.location.reload();" style="display:flex;align-items:center;gap:8px;background:var(--red);color:#fff;padding:11px 22px;border-radius:9px;border:none;font-size:13.5px;font-weight:700;cursor:pointer;margin-top:12px;transition:background .15s" onmouseover="this.style.background='var(--red2)'" onmouseout="this.style.background='var(--red)'"><svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>Reseteaza preferintele cookies</button>
+      <h3 style="margin-top:20px">Setarile browserului</h3>
+      <p>Poti dezactiva cookie-urile direct din setarile browserului tau. Atentie: dezactivarea cookie-urilor esentiale poate afecta functionarea cosului si a contului.</p>
+    </div>
+  </div>
+  <div>
+    <div class="sidebar-card">
+      <h3>Consimtamant actual</h3>
+      <div id="cookieStatus" style="font-size:13px;color:var(--mid);padding:10px 0"></div>
+      <div style="height:1px;background:var(--border);margin:12px 0"></div>
+      <h3>Resurse</h3>
+      <a href="confidentialitate.html" style="display:flex;align-items:center;gap:8px;padding:9px 0;font-size:13.5px;font-weight:600;color:var(--mid);border-bottom:1px solid #f5f5f5;transition:color .15s" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--mid)'"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Politica de confidentialitate</a>
+      <a href="termeni.html" style="display:flex;align-items:center;gap:8px;padding:9px 0;font-size:13.5px;font-weight:600;color:var(--mid);transition:color .15s" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--mid)'"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Termeni si conditii</a>
+    </div>
+  </div>
+</div>
+<script>
+const cs=document.getElementById('cookieStatus');
+const cv=localStorage.getItem('cookies');
+if(cs)cs.innerHTML=cv==='accepted'?'<span style="color:var(--green);font-weight:700">✓ Ai acceptat toate cookie-urile</span>':cv==='declined'?'<span style="color:var(--mid);font-weight:700">Ai acceptat doar cookie-urile esentiale</span>':'<span style="color:var(--gold);font-weight:700">⚠ Preferintele nu au fost setate</span>';
+</script>
+</div>
+<footer class="footer"><div class="footer-in">
+  <div class="footer-grid">
+    <div><img src="assets/logo.png" class="footer-brand-img" alt="Motoras"/><p class="footer-brand">Piese auto originale si aftermarket. Livrare rapida in toata Romania.</p></div>
+    <div class="footer-col"><h4>Magazin</h4><a href="category.html?cat=piese">Piese Auto</a><a href="category.html?cat=baterii">Baterii</a><a href="category.html?cat=uleiuri">Uleiuri</a><a href="category.html?cat=filtre">Filtre</a></div>
+    <div class="footer-col"><h4>Ajutor</h4><a href="livrare.html">Livrare &amp; plata</a><a href="retururi.html">Retururi</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h4>Legal</h4><a href="termeni.html">Termeni si conditii</a><a href="confidentialitate.html">Confidentialitate</a><a href="cookies.html">Cookies</a><a href="https://anpc.ro" target="_blank">ANPC</a></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-legal"><a href="termeni.html">Termeni</a><a href="confidentialitate.html">Confidentialitate</a><a href="cookies.html">Cookies</a><a href="retururi.html">Retur</a></div>
+    <div class="footer-copy">© 2026 Motoras SRL · CUI: RO12345678 · Reg. Com.: J40/1234/2020 · ANPC | SOL UE</div>
+  </div>
+</div></footer>
+<script>
+const _c=JSON.parse(localStorage.getItem('motoras_cart')||'[]');
+const _n=_c.reduce((s,i)=>s+i.qty,0);
+const _d=document.getElementById('cartDot');
+if(_d)_d.textContent=_n;
+document.querySelectorAll('.faq-q').forEach(q=>{
+  q.addEventListener('click',()=>q.closest('.faq-item').classList.toggle('open'));
+});
+</script>
+</body>
+</html>

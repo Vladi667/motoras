@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Motoraș – Piese Auto &amp; Detailing București</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#cc1111;--red2:#a50d0d;--red3:#7a0909;
+  --dark:#0f1116;--dark2:#181b24;--mid:#484c58;
+  --border:#e5e7ec;--bg:#f0f1f5;--white:#fff;
+  --gold:#e8a020;--green:#1a9e4a;
+  --r:16px;--r-sm:10px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito Sans',sans-serif;font-size:14px;background:var(--bg);color:var(--dark);}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer}
+
+/* ═══ ANNOUNCEMENT BAR ═══ */
+.ann-bar{background:var(--dark2);padding:7px 0;overflow:hidden}
+.ann-in{max-width:1320px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.ann-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#8b90a0;font-weight:500;white-space:nowrap}
+.ann-item strong{color:#c8ccda}
+.ann-dot{width:3px;height:3px;border-radius:50%;background:#2e3245;flex-shrink:0}
+@media(max-width:768px){
+  .ann-bar{display:none}
+}
+
+/* ═══ HEADER ═══ */
+.header{
+  background:rgba(255,255,255,.97);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:300;
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+}
+.header-in{
+  max-width:1320px;margin:0 auto;padding:0 20px;
+  display:grid;grid-template-columns:auto 1fr auto;
+  align-items:center;gap:20px;height:72px;
+}
+.logo a{display:flex;align-items:center}
+.logo img{height:54px;width:auto;object-fit:contain}
+
+/* Search */
+.search-form{
+  display:flex;align-items:center;
+  background:#f4f5f8;border:1.5px solid transparent;
+  border-radius:12px;overflow:hidden;height:44px;
+  transition:all .2s;
+}
+.search-form:focus-within{background:#fff;border-color:var(--red);box-shadow:0 0 0 4px rgba(204,17,17,.08)}
+.search-form input{flex:1;border:none;outline:none;padding:0 16px;font-size:13.5px;font-family:inherit;color:var(--dark);background:transparent;min-width:0}
+.search-form input::placeholder{color:#bbb}
+.search-btn{display:flex;align-items:center;gap:6px;background:var(--red);border:none;height:100%;padding:0 18px;cursor:pointer;font-size:13px;font-weight:700;color:#fff;font-family:inherit;transition:background .15s;white-space:nowrap}
+.search-btn:hover{background:var(--red2)}
+.search-btn .btn-label{display:block}
+
+/* Header right */
+.hdr-r{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+.hdr-top{display:flex;align-items:center;gap:18px}
+.hdr-addr{display:flex;align-items:center;gap:5px;font-size:12px;color:#777;font-weight:500;white-space:nowrap}
+.hdr-phone{display:flex;align-items:center;gap:6px;font-size:18px;font-weight:800;color:var(--red);font-family:'Barlow Condensed',sans-serif;letter-spacing:-.3px;white-space:nowrap}
+.hdr-actions{display:flex;align-items:center;gap:8px}
+.btn-acc{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--mid);padding:7px 13px;border:1.5px solid #dde0e8;border-radius:9px;background:#fff;transition:all .18s;white-space:nowrap}
+.btn-acc:hover{border-color:var(--red);color:var(--red)}
+.btn-cart{display:flex;align-items:center;gap:7px;background:var(--red);color:#fff;padding:8px 16px;border-radius:9px;font-size:13px;font-weight:700;border:none;transition:all .15s;box-shadow:0 4px 14px rgba(204,17,17,.28);white-space:nowrap;position:relative}
+.btn-cart:hover{background:var(--red2);transform:translateY(-1px)}
+.cart-count{position:absolute;top:-7px;right:-7px;background:var(--gold);color:#fff;font-size:10px;font-weight:800;border-radius:99px;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid #fff;transition:transform .2s}
+.cart-count.bump{transform:scale(1.5)}
+
+/* Mobile hamburger */
+.mob-menu-btn{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:8px;cursor:pointer}
+.mob-menu-btn span{display:block;width:22px;height:2px;background:var(--dark);border-radius:2px;transition:all .25s}
+.mob-menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-menu-btn.open span:nth-child(2){opacity:0}
+.mob-menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ═══ MOBILE HEADER ═══ */
+@media(max-width:900px){
+  .header-in{grid-template-columns:auto auto 1fr auto auto;gap:0;height:58px;padding:0 14px}
+  .hdr-top,.hdr-addr{display:none}
+  .hdr-r{flex-direction:row;align-items:center;gap:0}
+  .logo img{height:40px}
+  .mob-menu-btn{display:flex;margin-left:4px}
+  /* Desktop search hidden on mobile */
+  .search-form{display:none}
+  /* Show the mobile search bar below */
+  .mob-search-bar{display:flex}
+  /* Account btn: icon only, no text */
+  .btn-acc{padding:0;border:none;background:transparent;border-radius:0;gap:0;margin-right:4px}
+  .btn-acc:hover{background:transparent;border:none}
+  .btn-acc-label{display:none !important}
+  .btn-acc svg{width:22px;height:22px;color:var(--mid)}
+  /* Cart: icon + badge ONLY, no text */
+  .btn-cart{padding:0;background:transparent;box-shadow:none;border-radius:0;gap:0;min-width:36px;display:flex;align-items:center;justify-content:center}
+  .btn-cart:hover{background:transparent;transform:none}
+  .btn-cart-label{display:none}
+  .btn-cart svg{color:var(--dark);width:23px;height:23px}
+  .cart-count{background:var(--red);top:-6px;right:-6px}
+  /* Search icon button */
+  .mob-search-toggle{display:flex}
+}
+@media(max-width:480px){
+  .header-in{padding:0 12px}
+  .hdr-phone{display:none}
+}
+
+/* ═══ MOBILE NAV DRAWER ═══ */
+.mob-nav{
+  display:none;position:fixed;top:58px;left:0;right:0;bottom:0;
+  background:#fff;z-index:250;overflow-y:auto;
+  transform:translateX(-100%);transition:transform .3s cubic-bezier(.32,.72,0,1);
+}
+.mob-nav.open{transform:translateX(0)}
+.mob-nav-inner{padding:12px 0 40px}
+.mob-nav a{display:flex;align-items:center;gap:12px;padding:15px 24px;font-size:15px;font-weight:700;color:var(--dark);border-bottom:1px solid #f5f5f5}
+.mob-nav a:hover{color:var(--red);background:#fef8f8}
+.mob-nav a svg{color:var(--red);flex-shrink:0}
+.mob-nav-sec{padding:14px 24px 6px;font-size:11px;font-weight:800;color:#bbb;letter-spacing:1.2px;text-transform:uppercase}
+.mob-nav-contact{margin:20px 24px 0;background:#f8f9fb;border-radius:14px;padding:16px}
+.mob-nav-contact p{font-size:13px;font-weight:600;color:var(--mid);margin-bottom:8px}
+.mob-nav-contact a{border:none;padding:0;font-size:16px;font-weight:800;color:var(--red);font-family:'Barlow Condensed',sans-serif}
+@media(max-width:900px){.mob-nav{display:block}}
+
+/* ═══ DESKTOP NAVBAR ═══ */
+.navbar{background:var(--red)}
+.navbar-in{max-width:1320px;margin:0 auto;padding:0 20px;display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none}
+.navbar-in::-webkit-scrollbar{display:none}
+.nav-link{display:flex;align-items:center;gap:7px;padding:12px 18px;color:#fff;font-size:13px;font-weight:700;white-space:nowrap;position:relative;border-bottom:3px solid transparent;transition:background .15s}
+.nav-link:hover{background:rgba(0,0,0,.14);border-bottom-color:rgba(255,255,255,.55)}
+.nav-link.has-drop:hover .nav-drop{display:block}
+.nav-drop{display:none;position:absolute;top:calc(100% + 3px);left:0;background:#fff;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.14);border:1px solid var(--border);padding:8px 0;min-width:210px;z-index:400}
+.nav-drop a{display:block;padding:9px 18px;font-size:13px;font-weight:600;color:var(--dark);transition:background .12s}
+.nav-drop a:hover{background:#fef8f8;color:var(--red)}
+@media(max-width:900px){.navbar{display:none}}
+
+/* ═══ VEHICLE SELECTOR ═══ */
+.vselector{
+  background:#fff;
+  border-bottom:3px solid var(--red);
+  box-shadow:0 4px 20px rgba(0,0,0,.07);
+}
+.vs-in{
+  max-width:1320px;margin:0 auto;padding:18px 20px;
+  display:grid;grid-template-columns:auto 1fr 1fr 1fr auto;
+  align-items:center;gap:12px;
+}
+.vs-label{
+  display:flex;align-items:center;gap:8px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:17px;font-weight:800;color:var(--dark);
+  text-transform:uppercase;letter-spacing:.3px;
+  white-space:nowrap;
+}
+.vs-label svg{color:var(--red);flex-shrink:0}
+.vs-select-wrap{position:relative}
+.vs-select-wrap::after{
+  content:'';position:absolute;right:14px;top:50%;
+  transform:translateY(-50%);
+  width:0;height:0;
+  border-left:5px solid transparent;
+  border-right:5px solid transparent;
+  border-top:6px solid var(--mid);
+  pointer-events:none;
+}
+.vs-select{
+  width:100%;appearance:none;
+  background:#f4f5f8;border:1.5px solid var(--border);
+  border-radius:10px;padding:11px 36px 11px 14px;
+  font-size:13.5px;font-weight:600;color:var(--dark);
+  font-family:inherit;cursor:pointer;
+  transition:all .2s;outline:none;
+}
+.vs-select:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 3px rgba(204,17,17,.08)}
+.vs-select:disabled{color:#bbb;cursor:not-allowed;background:#f9f9f9}
+.btn-vs{
+  display:flex;align-items:center;gap:8px;
+  background:var(--red);color:#fff;
+  padding:12px 22px;border-radius:10px;border:none;
+  font-size:14px;font-weight:800;font-family:inherit;
+  transition:all .18s;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(204,17,17,.28);
+}
+.btn-vs:hover{background:var(--red2);transform:translateY(-1px)}
+.vs-reset{
+  background:none;border:none;
+  font-size:12px;font-weight:700;color:#aaa;
+  padding:4px 8px;cursor:pointer;transition:color .15s;
+  text-decoration:underline;
+  grid-column:2/-1;justify-self:end;
+}
+.vs-reset:hover{color:var(--red)}
+.vs-active-banner{
+  display:none;
+  background:linear-gradient(90deg,rgba(204,17,17,.06),rgba(204,17,17,.02));
+  border-top:1px solid rgba(204,17,17,.12);
+  padding:10px 20px;
+}
+.vs-active-banner.show{display:block}
+.vs-active-in{max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mid);font-weight:600}
+.vs-active-in strong{color:var(--red)}
+.vs-chip{background:rgba(204,17,17,.10);color:var(--red);padding:4px 12px;border-radius:99px;font-size:12px;font-weight:800;border:1px solid rgba(204,17,17,.18)}
+@media(max-width:900px){
+  .vs-in{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto auto auto;
+    gap:10px;
+  }
+  .vs-label{grid-column:1/-1;font-size:15px}
+  .btn-vs{grid-column:1/-1}
+  .vs-reset{grid-column:1/-1;justify-self:start}
+}
+@media(max-width:480px){
+  .vs-in{grid-template-columns:1fr}
+  .vs-label{font-size:14px}
+}
+
+/* ═══ HERO VIDEO ═══ */
+.hero{position:relative;overflow:hidden;height:600px;background:#0a0806}
+.hero-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 25%;
+  /* Force hardware acceleration and video rendering on mobile */
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
+  will-change:transform;
+}
+@media(max-width:900px){
+  .hero-video{
+    object-position:55% center;
+  }
+}
+.hero-scrim{position:absolute;inset:0;background:rgba(8,6,4,.28);pointer-events:none}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(105deg,rgba(8,6,4,.90) 0%,rgba(8,6,4,.72) 26%,rgba(8,6,4,.35) 52%,rgba(8,6,4,.05) 70%,transparent 84%);pointer-events:none}
+.hero-bot{position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,rgba(8,6,4,.60),transparent);pointer-events:none}
+.hero-stripe{position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--red),var(--red2),transparent 70%)}
+.hero-in{position:relative;z-index:10;max-width:1320px;margin:0 auto;padding:0 20px 0 28px;height:100%;display:grid;grid-template-columns:500px 1fr 280px;align-items:center}
+.hero-left{padding-bottom:24px}
+.hero-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(204,17,17,.18);color:rgba(255,205,195,1);font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:99px;border:1px solid rgba(204,17,17,.38);margin-bottom:20px}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:72px;font-weight:900;color:#fff;line-height:.95;text-transform:uppercase;margin-bottom:18px;letter-spacing:-2px;text-shadow:0 4px 30px rgba(0,0,0,.5)}
+.hero-title em{display:block;font-size:36px;font-weight:700;color:rgba(255,220,205,.88);font-style:normal;letter-spacing:-.5px;margin-top:6px}
+.hero-bullets{display:flex;flex-direction:column;gap:10px;margin-bottom:34px}
+.hero-bullet{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:rgba(255,255,255,.78)}
+.hero-bullet svg{flex-shrink:0}
+.hero-bullet strong{color:#fff}
+.btn-cta{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--dark);padding:15px 30px;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;border:none;transition:all .22s;box-shadow:0 10px 32px rgba(0,0,0,.30)}
+.btn-cta:hover{background:#f8f0ee;transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.38)}
+.btn-cta svg{color:var(--red);transition:transform .2s}
+.btn-cta:hover svg{transform:translateX(4px)}
+.hero-right{display:flex;justify-content:flex-end;align-items:center}
+.glass-card{background:rgba(255,255,255,.11);backdrop-filter:blur(20px) saturate(150%);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:24px 26px;box-shadow:0 10px 48px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.18);min-width:240px}
+.gc-loc{display:flex;align-items:flex-start;gap:9px;font-size:15px;font-weight:700;color:#fff;line-height:1.5;margin-bottom:14px}
+.gc-phone{display:flex;align-items:center;gap:9px;font-family:'Barlow Condensed',sans-serif;font-size:27px;font-weight:800;color:#fff;letter-spacing:-.5px;margin-bottom:16px}
+.gc-div{height:1px;background:rgba(255,255,255,.14);margin-bottom:14px}
+.gc-hours{font-size:12px;color:rgba(255,255,255,.55);font-weight:600;display:flex;align-items:center;gap:6px}
+@media(max-width:1100px){
+  .hero-in{grid-template-columns:420px 1fr 260px}
+  .hero-title{font-size:60px}
+}
+@media(max-width:900px){
+  .hero{height:520px}
+  .hero-in{grid-template-columns:1fr;align-items:flex-end;padding-bottom:40px}
+  .hero-right{display:none}
+  .hero-grad{background:linear-gradient(to top,rgba(8,6,4,.92) 0%,rgba(8,6,4,.60) 40%,rgba(8,6,4,.20) 80%,transparent 100%)}
+  .hero-title{font-size:52px}
+  .hero-title em{font-size:28px}
+}
+@media(max-width:480px){
+  .hero{height:480px}
+  .hero-title{font-size:44px}
+  .hero-pill{font-size:10px}
+  .hero-bullet{font-size:13px}
+  .btn-cta{font-size:16px;padding:13px 24px}
+  .hero-in{padding:0 16px 36px}
+}
+
+/* ═══ TRUST BAR ═══ */
+.trust{background:#fff;border-bottom:1px solid var(--border)}
+.trust-in{max-width:1320px;margin:0 auto;padding:0 20px;display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none}
+.trust-in::-webkit-scrollbar{display:none}
+.trust-it{flex:1;min-width:160px;display:flex;align-items:center;gap:11px;padding:14px 18px;border-right:1px solid var(--border);transition:background .18s;cursor:default}
+.trust-it:last-child{border-right:none}
+.trust-it:hover{background:#fafbfd}
+.trust-ico{width:38px;height:38px;border-radius:10px;background:rgba(204,17,17,.07);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.trust-ico svg{color:var(--red)}
+.trust-txt strong{display:block;font-size:12.5px;font-weight:700;color:var(--dark)}
+.trust-txt span{font-size:11px;color:#aaa;font-weight:500}
+
+/* ═══ SECTIONS ═══ */
+.section{padding:44px 0}
+.section-in{max-width:1320px;margin:0 auto;padding:0 20px}
+.section-hdr{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:22px;gap:12px}
+.section-hdr h2{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.3px}
+.section-hdr a{font-size:13px;font-weight:700;color:var(--red);display:flex;align-items:center;gap:5px;white-space:nowrap}
+.section-hdr a:hover{text-decoration:underline}
+
+/* ═══ CATEGORIES ═══ */
+.cats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.cat-card{border-radius:14px;overflow:hidden;border:1.5px solid var(--border);background:#fff;transition:all .26s cubic-bezier(.34,1.56,.64,1);display:block}
+.cat-card:hover{border-color:var(--red);box-shadow:0 10px 36px rgba(204,17,17,.15);transform:translateY(-5px)}
+.cat-img{width:100%;height:130px;overflow:hidden;position:relative;background:#f5f5f5}
+.cat-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.cat-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.30),transparent 60%)}
+.cat-card:hover .cat-img img{transform:scale(1.08)}
+.cat-body{padding:12px 13px 14px}
+.cat-lbl{font-size:12.5px;font-weight:800;color:var(--dark);line-height:1.3;transition:color .2s}
+.cat-card:hover .cat-lbl{color:var(--red)}
+.cat-count{font-size:11px;color:#aaa;font-weight:600;margin-top:3px}
+@media(max-width:1100px){.cats-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.cats-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
+@media(max-width:360px){.cats-grid{grid-template-columns:1fr}}
+
+/* ═══ PRODUCTS ═══ */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.prod-card{background:#fff;border-radius:16px;border:1.5px solid var(--border);overflow:hidden;transition:all .24s cubic-bezier(.34,1.56,.64,1);position:relative}
+.prod-card:hover{border-color:var(--red);box-shadow:0 10px 40px rgba(204,17,17,.13);transform:translateY(-5px)}
+.prod-badge{position:absolute;top:11px;left:11px;z-index:2;font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:4px 9px;border-radius:6px}
+.badge-new{background:var(--red);color:#fff}
+.badge-hot{background:var(--gold);color:#fff}
+.badge-sale{background:#111;color:#fff}
+.prod-wish{position:absolute;top:11px;right:11px;z-index:2;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;border:1.5px solid var(--border);cursor:pointer;transition:all .2s}
+.prod-wish:hover{background:#fff8f8;border-color:var(--red)}
+.prod-wish svg{color:#ccc;transition:color .2s}
+.prod-wish:hover svg{color:var(--red)}
+.prod-img{width:100%;height:200px;overflow:hidden;background:#f8f8f8}
+.prod-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.prod-card:hover .prod-img img{transform:scale(1.05)}
+.prod-body{padding:14px}
+.prod-brand{font-size:10px;font-weight:700;color:var(--red);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
+.prod-name{font-size:13.5px;font-weight:700;color:var(--dark);line-height:1.4;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prod-stars{display:flex;align-items:center;gap:4px;margin-bottom:10px}
+.stars{display:flex;gap:2px}
+.star{width:12px;height:12px;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);background:var(--gold)}
+.star.e{background:#e0e0e0}
+.prod-rating{font-size:11px;color:#aaa;font-weight:600}
+.prod-pricing{display:flex;align-items:baseline;gap:7px;margin-bottom:12px;flex-wrap:wrap}
+.prod-price{font-family:'Barlow Condensed',sans-serif;font-size:23px;font-weight:800;color:var(--red);letter-spacing:-.3px}
+.prod-old{font-size:12.5px;color:#bbb;text-decoration:line-through;font-weight:600}
+.prod-save{font-size:11px;font-weight:800;color:var(--green);background:#eaf7ef;padding:2px 7px;border-radius:5px}
+.btn-add{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--dark);color:#fff;padding:11px;border-radius:9px;border:none;font-size:13px;font-weight:700;transition:all .18s;font-family:inherit}
+.btn-add:hover{background:var(--red)}
+.btn-add:active{transform:scale(.98)}
+@media(max-width:1100px){.products-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:768px){.products-grid{grid-template-columns:repeat(2,1fr);gap:12px}}
+@media(max-width:400px){
+  .products-grid{grid-template-columns:1fr;gap:10px}
+  .prod-img{height:180px}
+}
+
+/* ═══ PROMO BANNER ═══ */
+.promo{background:linear-gradient(135deg,var(--dark2),#1e2235);padding:52px 0;position:relative;overflow:hidden}
+.promo::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 80% 50%,rgba(204,17,17,.10),transparent)}
+.promo-in{max-width:1320px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;position:relative;z-index:1}
+.promo-text h2{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:900;color:#fff;text-transform:uppercase;line-height:1;margin-bottom:14px;letter-spacing:-1px}
+.promo-text h2 em{color:var(--red);font-style:normal}
+.promo-text p{font-size:14px;color:rgba(255,255,255,.60);line-height:1.75;margin-bottom:24px}
+.promo-stats{display:flex;gap:28px;flex-wrap:wrap}
+.pstat strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:#fff;letter-spacing:-1px}
+.pstat em{font-style:normal;color:var(--red)}
+.pstat span{font-size:12px;color:rgba(255,255,255,.45);font-weight:600}
+.promo-badges{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pbadge{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:18px;display:flex;align-items:center;gap:12px}
+.pb-ico{width:42px;height:42px;border-radius:10px;background:rgba(204,17,17,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pb-ico svg{color:var(--red)}
+.pb-txt strong{display:block;font-size:13.5px;font-weight:700;color:#fff;margin-bottom:2px}
+.pb-txt span{font-size:11.5px;color:rgba(255,255,255,.40);font-weight:500}
+@media(max-width:900px){
+  .promo-in{grid-template-columns:1fr;gap:32px}
+  .promo-text h2{font-size:38px}
+}
+@media(max-width:480px){
+  .promo-text h2{font-size:32px}
+  .promo-badges{grid-template-columns:1fr}
+}
+
+/* ═══ CART DRAWER ═══ */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.50);z-index:999;opacity:0;pointer-events:none;transition:opacity .3s}
+.cart-overlay.open{opacity:1;pointer-events:all}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:#fff;z-index:1000;transform:translateX(100%);transition:transform .35s cubic-bezier(.32,.72,0,1);display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,.16)}
+.cart-drawer.open{transform:translateX(0)}
+.cart-hdr{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--border);flex-shrink:0}
+.cart-hdr h3{font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.3px}
+.cart-close{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .18s}
+.cart-close:hover{background:#f5f5f5}
+.cart-items{flex:1;overflow-y:auto;padding:18px 22px}
+.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:#bbb;text-align:center;padding:32px}
+.cart-empty svg{opacity:.25}
+.cart-empty p{font-size:15px;font-weight:700;color:#ccc}
+.cart-empty span{font-size:13px;color:#ddd}
+.cart-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #f5f5f5;animation:slideIn .25s ease}
+@keyframes slideIn{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+.ci-img{width:68px;height:68px;border-radius:9px;overflow:hidden;background:#f8f8f8;flex-shrink:0;border:1px solid var(--border)}
+.ci-img img{width:100%;height:100%;object-fit:cover}
+.ci-info{flex:1;min-width:0}
+.ci-brand{font-size:10px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.ci-name{font-size:12.5px;font-weight:700;color:var(--dark);line-height:1.4;margin-bottom:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ci-row{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.ci-qty{display:flex;align-items:center;border:1.5px solid var(--border);border-radius:8px;overflow:hidden}
+.ci-qty button{width:26px;height:26px;border:none;background:#f8f8f8;font-size:15px;color:var(--dark);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s}
+.ci-qty button:hover{background:#eee}
+.ci-qty span{width:28px;text-align:center;font-size:13px;font-weight:700}
+.ci-price{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:800;color:var(--red)}
+.ci-remove{background:none;border:none;cursor:pointer;color:#ddd;transition:color .15s;padding:2px;flex-shrink:0}
+.ci-remove:hover{color:var(--red)}
+.cart-footer{padding:18px 22px;border-top:1px solid var(--border);flex-shrink:0;background:#fafbfc}
+.cart-sub{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;font-size:12.5px;color:var(--mid);font-weight:600}
+.cart-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-top:11px;border-top:1px solid var(--border)}
+.cart-total span{font-size:14px;font-weight:700;color:var(--dark)}
+.cart-total strong{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--red)}
+.btn-checkout{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--red);color:#fff;padding:15px;border-radius:10px;border:none;font-size:16px;font-weight:800;font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;text-transform:uppercase;transition:all .2s;box-shadow:0 6px 20px rgba(204,17,17,.32)}
+.btn-checkout:hover{background:var(--red2);transform:translateY(-2px)}
+.btn-cont{width:100%;display:flex;align-items:center;justify-content:center;gap:7px;background:transparent;color:var(--mid);padding:11px;border-radius:9px;border:1.5px solid var(--border);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .18s;margin-top:9px}
+.btn-cont:hover{border-color:var(--dark);color:var(--dark)}
+
+/* ═══ FOOTER ═══ */
+.footer{background:var(--dark2);padding:52px 0 0}
+.footer-in{max-width:1320px;margin:0 auto;padding:0 20px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px}
+.footer-brand img{height:54px;width:auto;margin-bottom:16px;filter:brightness(0) invert(1);opacity:.85}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.75;margin-bottom:18px;max-width:280px}
+.footer-social{display:flex;gap:10px}
+.social-btn{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center;transition:all .18s;cursor:pointer}
+.social-btn:hover{background:var(--red);border-color:var(--red)}
+.social-btn svg{color:rgba(255,255,255,.6);transition:color .18s}
+.social-btn:hover svg{color:#fff}
+.footer-col h4{font-size:13px;font-weight:800;color:#fff;letter-spacing:.5px;text-transform:uppercase;margin-bottom:16px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.45);font-weight:500;padding:4px 0;transition:color .15s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-legal{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.footer-legal a{font-size:12px;color:rgba(255,255,255,.35);font-weight:600;transition:color .15s}
+.footer-legal a:hover{color:rgba(255,255,255,.70)}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.25);font-weight:500}
+.footer-badges{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.06)}
+.footer-badge{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:9px;padding:8px 14px}
+.footer-badge svg{flex-shrink:0;opacity:.6}
+.footer-badge span{font-size:11px;color:rgba(255,255,255,.45);font-weight:600}
+.anpc-btn{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:9px;padding:8px 14px;transition:all .18s;cursor:pointer;text-decoration:none}
+.anpc-btn:hover{background:rgba(255,255,255,.10)}
+.anpc-btn span{font-size:11.5px;font-weight:700;color:rgba(255,255,255,.55)}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:28px}}
+@media(max-width:600px){
+  .footer-grid{grid-template-columns:1fr;gap:24px}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+}
+
+/* ═══ COOKIE BANNER ═══ */
+.cookie-banner{
+  position:fixed;bottom:0;left:0;right:0;z-index:800;
+  background:#fff;border-top:2px solid var(--border);
+  padding:16px 20px;
+  box-shadow:0 -8px 32px rgba(0,0,0,.10);
+  transform:translateY(100%);
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.cookie-banner.show{transform:translateY(0)}
+.cookie-in{max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.cookie-text{flex:1;font-size:13px;color:var(--mid);line-height:1.6;min-width:200px}
+.cookie-text a{color:var(--red);font-weight:700;text-decoration:underline}
+.cookie-btns{display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap}
+.btn-cookie-accept{background:var(--red);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn-cookie-accept:hover{background:var(--red2)}
+.btn-cookie-decline{background:transparent;color:var(--mid);border:1.5px solid var(--border);padding:9px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-cookie-decline:hover{border-color:#aaa;color:var(--dark)}
+@media(max-width:480px){
+  .cookie-in{flex-direction:column;gap:12px}
+  .cookie-btns{width:100%}
+  .btn-cookie-accept,.btn-cookie-decline{flex:1;text-align:center}
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.hero-left>*{animation:fadeUp .75s cubic-bezier(.22,1,.36,1) both}
+.hero-pill{animation-delay:.05s}
+.hero-title{animation-delay:.15s}
+.hero-bullets{animation-delay:.27s}
+.btn-cta{animation-delay:.38s}
+
+/* ═══ MOBILE SEARCH BAR ═══ */
+.mob-search-bar{
+  display:none;
+  background:#fff;
+  border-bottom:2px solid var(--red);
+  padding:10px 14px 12px;
+  position:sticky;top:58px;z-index:299;
+  box-shadow:0 4px 16px rgba(0,0,0,.10);
+  transform-origin:top;
+  animation:searchSlide .22s cubic-bezier(.22,1,.36,1);
+}
+@keyframes searchSlide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.mob-search-inner{
+  display:flex;align-items:center;
+  background:#f4f5f8;border:1.5px solid transparent;
+  border-radius:12px;overflow:hidden;height:48px;
+  transition:all .2s;
+}
+.mob-search-inner:focus-within{
+  background:#fff;border-color:var(--red);
+  box-shadow:0 0 0 3px rgba(204,17,17,.09);
+}
+.mob-search-inner input{
+  flex:1;border:none;outline:none;padding:0 16px;
+  font-size:16px;font-family:inherit;color:var(--dark);
+  background:transparent;
+}
+.mob-search-inner input::placeholder{color:#bbb;font-size:14px}
+.mob-search-inner button{
+  display:flex;align-items:center;justify-content:center;
+  background:var(--red);border:none;height:100%;
+  width:52px;cursor:pointer;transition:background .15s;flex-shrink:0;
+  border-radius:0 10px 10px 0;
+}
+.mob-search-inner button:hover{background:var(--red2)}
+
+
+/* ═══ MOBILE SEARCH TOGGLE BUTTON ═══ */
+.mob-search-toggle{
+  display:none;
+  align-items:center;justify-content:center;
+  width:38px;height:38px;
+  background:none;border:none;cursor:pointer;
+  margin-right:2px;flex-shrink:0;
+  position:relative;
+}
+.mob-search-toggle svg{color:var(--mid);transition:color .18s}
+.mob-search-toggle.active svg{color:var(--red)}
+.mob-search-toggle.active::after{
+  content:'';position:absolute;bottom:-10px;left:50%;
+  transform:translateX(-50%);
+  width:0;height:0;
+  border-left:6px solid transparent;
+  border-right:6px solid transparent;
+  border-bottom:6px solid var(--red);
+}
+
+</style>
+</head>
+<body>
+
+<!-- ════ CART OVERLAY ════ -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<!-- ════ CART DRAWER ════ -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-hdr">
+    <h3>Coșul meu <span id="cartItemCount" style="font-size:15px;color:var(--red);font-weight:700"></span></h3>
+    <button class="cart-close" onclick="closeCart()">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty">
+      <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <p>Coșul este gol</p>
+      <span>Adaugă produse pentru a începe</span>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-sub"><span>Subtotal</span><span id="cartSubtotal">0 RON</span></div>
+    <div class="cart-sub"><span>Livrare</span><span style="color:var(--green);font-weight:700">GRATUITĂ</span></div>
+    <div class="cart-total"><span>Total</span><strong id="cartTotal">0 RON</strong></div>
+    <button class="btn-checkout" onclick="alert('Redirecționare spre checkout Stripe...')">
+      <svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      FINALIZEAZĂ COMANDA
+    </button>
+    <button class="btn-cont" onclick="closeCart()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Continuă cumpărăturile
+    </button>
+  </div>
+</div>
+
+<!-- ════ MOBILE NAV DRAWER ════ -->
+<div class="mob-nav" id="mobNav">
+  <div class="mob-nav-inner">
+    <div class="mob-nav-sec">Categorii</div>
+    <a href="#categorii" onclick="closeMobNav()">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4"/></svg>
+      Piese Auto
+    </a>
+    <a href="#" onclick="closeMobNav()">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"/></svg>
+      Baterii &amp; Acumulatori
+    </a>
+    <a href="#" onclick="closeMobNav()">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C9 7 6 10 6 14a6 6 0 0012 0c0-4-3-7-6-12z"/></svg>
+      Uleiuri &amp; Lubrifianți
+    </a>
+    <a href="#" onclick="closeMobNav()">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      Filtre Auto
+    </a>
+    <a href="#" onclick="closeMobNav()">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="13" rx="3"/><path d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"/></svg>
+      Prelate Auto
+    </a>
+    <a href="#" onclick="closeMobNav()">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+      Ambreiaje
+    </a>
+    <a href="#" onclick="closeMobNav()">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Detailing &amp; Cosmetică ✨
+    </a>
+    <div class="mob-nav-sec">Cont</div>
+    <a href="#" onclick="closeMobNav()">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Contul meu
+    </a>
+    <a href="#" onclick="closeMobNav()">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      Comenzile mele
+    </a>
+    <div class="mob-nav-contact">
+      <p>Ai nevoie de ajutor?</p>
+      <a href="tel:0731284932">0731 284 932</a>
+    </div>
+  </div>
+</div>
+
+<!-- ════ ANNOUNCEMENT BAR ════ -->
+<div class="ann-bar">
+  <div class="ann-in">
+    <div class="ann-item">
+      <svg width="13" height="13" fill="none" stroke="#e74c3c" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      <strong>Livrare gratuită</strong>&nbsp;la comenzi peste 300 RON
+    </div>
+    <div class="ann-dot"></div>
+    <div class="ann-item">
+      <svg width="13" height="13" fill="#e74c3c" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <strong>Ridicare personală</strong>&nbsp;· Strada Agricultori nr. 2, București
+    </div>
+    <div class="ann-dot"></div>
+    <div class="ann-item">
+      <svg width="13" height="13" fill="#e74c3c" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      <strong>contact@motoras.ro</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ════ HEADER ════ -->
+<header class="header">
+  <div class="header-in">
+    <div class="logo"><a href="#"><img src="assets/logo.png" alt="Motoraș Piese Auto"/></a></div>
+    <div class="search-form">
+      <input type="text" placeholder="Caută după număr piesă, OEM, marcă, model..."/>
+      <button class="search-btn">
+        <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <span class="btn-label">Caută</span>
+      </button>
+    </div>
+    <div class="hdr-r">
+      <div class="hdr-top">
+        <div class="hdr-addr">
+          <svg width="12" height="12" fill="#cc1111" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Strada Agricultori Nr. 2, București
+        </div>
+        <div class="hdr-phone">
+          <svg width="15" height="15" fill="none" stroke="#cc1111" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          0731 284 932
+        </div>
+      </div>
+      <div class="hdr-actions">
+        <button class="mob-search-toggle" id="mobSearchToggle" onclick="toggleMobSearch()" aria-label="Caută">
+          <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <a href="#" class="btn-acc">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="btn-acc-label">Contul meu</span>
+        </a>
+        <button class="btn-cart" onclick="openCart()">
+          <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="btn-cart-label">Coș</span>
+          <span class="cart-count" id="cartBadge">0</span>
+        </button>
+        <button class="mob-menu-btn" id="mobMenuBtn" onclick="toggleMobNav()" aria-label="Meniu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- ════ MOBILE SEARCH BAR (below header, sticky) ════ -->
+<div class="mob-search-bar" id="mobSearchBar" style="display:none">
+  <div class="mob-search-inner">
+    <input type="text" placeholder="Caută piesă, marcă, model OEM..." autocomplete="off" inputmode="search"/>
+    <button aria-label="Caută">
+      <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ════ DESKTOP NAVBAR ════ -->
+<nav class="navbar">
+  <div class="navbar-in">
+    <a href="#categorii" class="nav-link has-drop">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      Piese Auto
+      <div class="nav-drop">
+        <a href="#">Piese motor</a><a href="#">Frâne &amp; Roți</a>
+        <a href="#">Transmisie</a><a href="#">Suspensie</a>
+        <a href="#">Caroserie</a><a href="#">Electrică auto</a>
+      </div>
+    </a>
+    <a href="#" class="nav-link has-drop">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"/></svg>
+      Baterii &amp; Acumulatori
+      <div class="nav-drop">
+        <a href="#">Baterii auto</a><a href="#">Baterii moto</a>
+        <a href="#">Redresoare</a><a href="#">Cabluri pornire</a>
+      </div>
+    </a>
+    <a href="#" class="nav-link has-drop">
+      <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C9 7 6 10 6 14a6 6 0 0012 0c0-4-3-7-6-12z"/></svg>
+      Uleiuri
+      <div class="nav-drop">
+        <a href="#">Ulei motor</a><a href="#">Ulei cutie viteze</a>
+        <a href="#">Ulei hidraulic</a><a href="#">Antigel</a><a href="#">Lichid frână</a>
+      </div>
+    </a>
+    <a href="#" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>Filtre</a>
+    <a href="#" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="13" rx="3"/><path d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"/></svg>Prelate</a>
+    <a href="#" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>Ambreiaje</a>
+    <a href="#" class="nav-link" style="margin-left:auto;background:rgba(255,255,255,.12);border-radius:6px 6px 0 0">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Detailing ✨
+    </a>
+  </div>
+</nav>
+
+<!-- ════ VEHICLE SELECTOR ════ -->
+<div class="vselector">
+  <div class="vs-in">
+    <div class="vs-label">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      Caută după mașina ta
+    </div>
+    <div class="vs-select-wrap">
+      <select class="vs-select" id="vsMarca" onchange="loadModels()">
+        <option value="">— Marcă —</option>
+        <option>Audi</option><option>BMW</option><option>Citroën</option>
+        <option>Dacia</option><option>Fiat</option><option>Ford</option>
+        <option>Honda</option><option>Hyundai</option><option>Kia</option>
+        <option>Mercedes-Benz</option><option>Nissan</option><option>Opel</option>
+        <option>Peugeot</option><option>Renault</option><option>Seat</option>
+        <option>Skoda</option><option>Toyota</option><option>Volkswagen</option>
+        <option>Volvo</option>
+      </select>
+    </div>
+    <div class="vs-select-wrap">
+      <select class="vs-select" id="vsModel" disabled onchange="loadYears()">
+        <option value="">— Model —</option>
+      </select>
+    </div>
+    <div class="vs-select-wrap">
+      <select class="vs-select" id="vsAn" disabled>
+        <option value="">— An —</option>
+      </select>
+    </div>
+    <button class="btn-vs" onclick="searchByVehicle()">
+      <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      Găsește piese
+    </button>
+    <button class="vs-reset" id="vsReset" onclick="resetVehicle()" style="display:none">✕ Resetează</button>
+  </div>
+  <div class="vs-active-banner" id="vsActiveBanner">
+    <div class="vs-active-in">
+      <svg width="16" height="16" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      Afișezi piese compatibile cu:
+      <span class="vs-chip" id="vsChip"></span>
+      <span style="color:#aaa;font-size:12px">· Toate produsele sunt filtrate automat</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════ HERO VIDEO ════ -->
+<section class="hero">
+  <video class="hero-video" src="assets/hero.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture></video>
+  <div class="hero-scrim"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-bot"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-in">
+    <div class="hero-left">
+      <div class="hero-pill">
+        <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Piese Originale &amp; Aftermarket
+      </div>
+      <h1 class="hero-title">MOTORAȘ<em>Piese Auto Online</em></h1>
+      <div class="hero-bullets">
+        <div class="hero-bullet">
+          <svg width="16" height="16" fill="none" stroke="#ff9070" stroke-width="2.5" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <span>Livrare rapidă în <strong>24 de ore</strong> în toată România</span>
+        </div>
+        <div class="hero-bullet">
+          <svg width="16" height="16" fill="none" stroke="#ff9070" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Garanție oficială pe <strong>toate produsele</strong></span>
+        </div>
+        <div class="hero-bullet">
+          <svg width="16" height="16" fill="none" stroke="#ff9070" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          <span>Cele mai <strong>mici prețuri</strong> din piață</span>
+        </div>
+      </div>
+      <a href="#categorii" class="btn-cta">
+        CUMPĂRĂ ACUM
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div></div>
+    <div class="hero-right">
+      <div class="glass-card">
+        <div class="gc-loc">
+          <svg width="17" height="17" fill="#ff7055" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <span>Situat în <strong>București</strong>,<br>Strada Agricultori nr 2</span>
+        </div>
+        <div class="gc-phone">
+          <svg width="19" height="19" fill="none" stroke="#ff7055" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          0731 284 932
+        </div>
+        <div class="gc-div"></div>
+        <div class="gc-hours">
+          <svg width="12" height="12" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Lun–Vin 08–18 · Sâm 09–14
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ TRUST BAR ════ -->
+<div class="trust">
+  <div class="trust-in">
+    <div class="trust-it"><div class="trust-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="trust-txt"><strong>Livrare 24h</strong><span>Toată România</span></div></div>
+    <div class="trust-it"><div class="trust-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="trust-txt"><strong>Garanție Oficială</strong><span>Produse certificate</span></div></div>
+    <div class="trust-it"><div class="trust-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="trust-txt"><strong>Ridicare Gratuită</strong><span>Agricultori nr 2</span></div></div>
+    <div class="trust-it"><div class="trust-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div class="trust-txt"><strong>Suport Tehnic</strong><span>Experți disponibili</span></div></div>
+    <div class="trust-it"><div class="trust-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div><div class="trust-txt"><strong>Retur 30 Zile</strong><span>Fără întrebări</span></div></div>
+  </div>
+</div>
+
+<!-- ════ CATEGORIES ════ -->
+<section class="section" id="categorii">
+  <div class="section-in">
+    <div class="section-hdr">
+      <h2>Categorii Produse</h2>
+      <a href="#">Vezi toate <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="cats-grid">
+      <a href="#" class="cat-card"><div class="cat-img"><img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80&fit=crop" alt="Piese Auto" loading="lazy"/></div><div class="cat-body"><div class="cat-lbl">Piese Auto</div><div class="cat-count">2,400+ produse</div></div></a>
+      <a href="#" class="cat-card"><div class="cat-img"><img src="https://images.unsplash.com/photo-1620714223084-8fcacc2d47e9?w=600&q=80&fit=crop" alt="Baterii" loading="lazy"/></div><div class="cat-body"><div class="cat-lbl">Baterii &amp; Acumulatori</div><div class="cat-count">180+ produse</div></div></a>
+      <a href="#" class="cat-card"><div class="cat-img"><img src="https://images.unsplash.com/photo-1635273051805-e7d69a8e6c4f?w=600&q=80&fit=crop" alt="Uleiuri" loading="lazy"/></div><div class="cat-body"><div class="cat-lbl">Uleiuri &amp; Lubrifianți</div><div class="cat-count">320+ produse</div></div></a>
+      <a href="#" class="cat-card"><div class="cat-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&fit=crop" alt="Filtre" loading="lazy"/></div><div class="cat-body"><div class="cat-lbl">Filtre Auto</div><div class="cat-count">850+ produse</div></div></a>
+      <a href="#" class="cat-card"><div class="cat-img"><img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&q=80&fit=crop" alt="Prelate" loading="lazy"/></div><div class="cat-body"><div class="cat-lbl">Prelate Auto</div><div class="cat-count">95+ produse</div></div></a>
+      <a href="#" class="cat-card"><div class="cat-img"><img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600&q=80&fit=crop" alt="Ambreiaje" loading="lazy"/></div><div class="cat-body"><div class="cat-lbl">Ambreiaje</div><div class="cat-count">440+ produse</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PRODUCTS ════ -->
+<section class="section" style="background:#fff;padding:44px 0" id="produse">
+  <div class="section-in">
+    <div class="section-hdr">
+      <h2>Produse Populare</h2>
+      <a href="#">Vezi toate <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="products-grid" id="productsGrid">
+      <div class="prod-card">
+        <div class="prod-body">
+          <div class="prod-brand">Catalog live</div>
+          <div class="prod-name">Se încarcă produsele din feedul furnizorului...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PROMO ════ -->
+<section class="promo" id="despre">
+  <div class="promo-in">
+    <div class="promo-text">
+      <h2>De ce să alegi<br><em>Motoraș?</em></h2>
+      <p>Peste 5.000 de produse originale și aftermarket la cele mai competitive prețuri din România. Livrăm în 24 de ore oriunde în țară.</p>
+      <div class="promo-stats">
+        <div class="pstat"><strong>5.000<em>+</em></strong><span>Produse</span></div>
+        <div class="pstat"><strong>12.000<em>+</em></strong><span>Clienți</span></div>
+        <div class="pstat"><strong>24<em>h</em></strong><span>Livrare</span></div>
+        <div class="pstat"><strong>4.9<em>★</em></strong><span>Rating</span></div>
+      </div>
+    </div>
+    <div class="promo-badges">
+      <div class="pbadge"><div class="pb-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="pb-txt"><strong>Livrare gratuită</strong><span>Comenzi &gt; 300 RON</span></div></div>
+      <div class="pbadge"><div class="pb-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="pb-txt"><strong>Garanție 2 ani</strong><span>Pe toate produsele</span></div></div>
+      <div class="pbadge"><div class="pb-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div><div class="pb-txt"><strong>Retur 30 zile</strong><span>Fără întrebări</span></div></div>
+      <div class="pbadge"><div class="pb-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div class="pb-txt"><strong>Suport 7/7</strong><span>Chat &amp; Telefon</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer class="footer">
+  <div class="footer-in">
+    <div class="footer-grid">
+
+      <!-- Brand col -->
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Motoraș" style="filter:brightness(0) invert(1);opacity:.8;height:50px"/>
+        <p>Piese auto originale și aftermarket la cele mai bune prețuri. Livrare rapidă în toată România. Ridicare personală din București.</p>
+        <div class="footer-social">
+          <a class="social-btn" href="#" title="Facebook"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a class="social-btn" href="#" title="Instagram"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a class="social-btn" href="#" title="YouTube"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="var(--dark2)"/></svg></a>
+          <a class="social-btn" href="#" title="TikTok"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.78a4.85 4.85 0 01-1.01-.09z"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Info col -->
+      <div class="footer-col">
+        <h4>Informații</h4>
+        <a href="#">Despre noi</a>
+        <a href="#">Contact</a>
+        <a href="#">Program &amp; locație</a>
+        <a href="#">Blog auto</a>
+        <a href="#">Parteneri</a>
+      </div>
+
+      <!-- Cont col -->
+      <div class="footer-col">
+        <h4>Contul meu</h4>
+        <a href="#">Înregistrare</a>
+        <a href="#">Autentificare</a>
+        <a href="#">Comenzile mele</a>
+        <a href="#">Favorite</a>
+        <a href="#">Adrese salvate</a>
+      </div>
+
+      <!-- Legal col -->
+      <div class="footer-col">
+        <h4>Ajutor &amp; Legal</h4>
+        <a href="#">Termeni și condiții</a>
+        <a href="#">Politică de confidențialitate</a>
+        <a href="#">Politică de retur</a>
+        <a href="#">Politică cookies</a>
+        <a href="#">Livrare &amp; plată</a>
+        <a href="#">GDPR – Drepturile tale</a>
+      </div>
+    </div>
+
+    <!-- Trust badges + ANPC -->
+    <div class="footer-badges">
+      <div class="footer-badge">
+        <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        <span>Plată securizată Stripe</span>
+      </div>
+      <div class="footer-badge">
+        <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>SSL / HTTPS Securizat</span>
+      </div>
+      <div class="footer-badge">
+        <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+        <span>Retur 30 zile garantat</span>
+      </div>
+      <a class="anpc-btn" href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener">
+        <svg width="18" height="18" fill="none" stroke="rgba(255,200,50,.7)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        <span>ANPC – Soluționare litigii</span>
+      </a>
+      <a class="anpc-btn" href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">
+        <svg width="18" height="18" fill="none" stroke="rgba(100,160,255,.7)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        <span>SOL – Platforma UE</span>
+      </a>
+      <div class="footer-badge">
+        <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <span>GDPR Compliant</span>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-legal">
+        <a href="#">Termeni și condiții</a>
+        <a href="#">Confidențialitate</a>
+        <a href="#">Cookies</a>
+        <a href="#">Retur</a>
+        <a href="#">Sitemap</a>
+      </div>
+      <div class="footer-copy">© 2025 Motoraș SRL · CUI: RO12345678 · Reg. Com.: J40/1234/2020 · Toate drepturile rezervate</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ════ COOKIE BANNER ════ -->
+<div class="cookie-banner" id="cookieBanner">
+  <div class="cookie-in">
+    <div class="cookie-text">
+      🍪 Folosim cookie-uri pentru a îmbunătăți experiența ta pe site. Prin continuarea navigării, ești de acord cu <a href="#">Politica de Cookies</a> și <a href="#">Politica de Confidențialitate</a> conform GDPR.
+    </div>
+    <div class="cookie-btns">
+      <button class="btn-cookie-decline" onclick="declineCookies()">Doar esențiale</button>
+      <button class="btn-cookie-accept" onclick="acceptCookies()">Accept toate</button>
+    </div>
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script>
+// ═══ VEHICLE SELECTOR DATA ═══
+const MODELS = {
+  'Audi':['A1','A2','A3','A4','A5','A6','A7','A8','Q2','Q3','Q5','Q7','Q8','TT'],
+  'BMW':['Seria 1','Seria 2','Seria 3','Seria 4','Seria 5','Seria 6','Seria 7','X1','X2','X3','X4','X5','X6','X7'],
+  'Citroën':['C1','C2','C3','C4','C5','C5X','Berlingo','Jumper','SpaceTourer'],
+  'Dacia':['Sandero','Logan','Duster','Jogger','Spring','Lodgy','Dokker'],
+  'Fiat':['500','500X','Panda','Tipo','Punto','Ducato','Doblo'],
+  'Ford':['Fiesta','Focus','Mondeo','Puma','Kuga','EcoSport','Ranger','Transit','Mustang'],
+  'Honda':['Civic','Jazz','HR-V','CR-V','Accord','FR-V'],
+  'Hyundai':['i10','i20','i30','Tucson','Santa Fe','Kona','Ioniq'],
+  'Kia':['Picanto','Rio','Ceed','Sportage','Sorento','Stonic','Niro'],
+  'Mercedes-Benz':['Clasa A','Clasa B','Clasa C','Clasa E','Clasa S','GLA','GLB','GLC','GLE','GLS','Sprinter'],
+  'Nissan':['Micra','Juke','Qashqai','X-Trail','Leaf','Note','Navara'],
+  'Opel':['Corsa','Astra','Insignia','Crossland','Grandland','Mokka','Zafira','Vivaro'],
+  'Peugeot':['108','208','308','408','508','2008','3008','5008','Partner','Boxer'],
+  'Renault':['Clio','Megane','Captur','Kadjar','Koleos','Scenic','Trafic','Master','Zoe'],
+  'Seat':['Ibiza','Leon','Arona','Ateca','Tarraco','Alhambra'],
+  'Skoda':['Fabia','Octavia','Superb','Karoq','Kodiaq','Kamiq','Scala'],
+  'Toyota':['Yaris','Corolla','Camry','Aygo','C-HR','RAV4','Land Cruiser','Hilux','Proace'],
+  'Volkswagen':['Polo','Golf','Passat','Tiguan','Touareg','T-Cross','T-Roc','Caddy','Transporter','Crafter','ID.3','ID.4'],
+  'Volvo':['S40','S60','S90','V40','V60','V90','XC40','XC60','XC90'],
+};
+
+function loadModels() {
+  const marca = document.getElementById('vsMarca').value;
+  const modelSel = document.getElementById('vsModel');
+  const anSel = document.getElementById('vsAn');
+  modelSel.innerHTML = '<option value="">— Model —</option>';
+  anSel.innerHTML = '<option value="">— An —</option>';
+  anSel.disabled = true;
+  if (!marca) { modelSel.disabled = true; return; }
+  (MODELS[marca]||[]).forEach(m => {
+    const o = document.createElement('option'); o.value = m; o.textContent = m;
+    modelSel.appendChild(o);
+  });
+  modelSel.disabled = false;
+}
+
+function loadYears() {
+  const model = document.getElementById('vsModel').value;
+  const anSel = document.getElementById('vsAn');
+  anSel.innerHTML = '<option value="">— An —</option>';
+  if (!model) { anSel.disabled = true; return; }
+  const now = new Date().getFullYear();
+  for (let y = now; y >= 1990; y--) {
+    const o = document.createElement('option'); o.value = y; o.textContent = y;
+    anSel.appendChild(o);
+  }
+  anSel.disabled = false;
+}
+
+function searchByVehicle() {
+  const m = document.getElementById('vsMarca').value;
+  const mo = document.getElementById('vsModel').value;
+  const a = document.getElementById('vsAn').value;
+  if (!m) { document.getElementById('vsMarca').focus(); return; }
+  const label = [m, mo, a].filter(Boolean).join(' ');
+  document.getElementById('vsChip').textContent = label;
+  document.getElementById('vsActiveBanner').classList.add('show');
+  document.getElementById('vsReset').style.display = 'block';
+  document.getElementById('produse').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function resetVehicle() {
+  document.getElementById('vsMarca').value = '';
+  document.getElementById('vsModel').innerHTML = '<option value="">— Model —</option>';
+  document.getElementById('vsModel').disabled = true;
+  document.getElementById('vsAn').innerHTML = '<option value="">— An —</option>';
+  document.getElementById('vsAn').disabled = true;
+  document.getElementById('vsActiveBanner').classList.remove('show');
+  document.getElementById('vsReset').style.display = 'none';
+}
+
+// ═══ MOBILE NAV ═══
+function toggleMobNav() {
+  const nav = document.getElementById('mobNav');
+  const btn = document.getElementById('mobMenuBtn');
+  // Close search if open
+  closeMobSearch();
+  nav.classList.toggle('open');
+  btn.classList.toggle('open');
+  document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+}
+function closeMobNav() {
+  document.getElementById('mobNav').classList.remove('open');
+  document.getElementById('mobMenuBtn').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ═══ MOBILE SEARCH TOGGLE ═══
+function toggleMobSearch() {
+  const bar = document.getElementById('mobSearchBar');
+  const toggle = document.getElementById('mobSearchToggle');
+  const isOpen = bar.style.display !== 'none';
+  if (isOpen) {
+    closeMobSearch();
+  } else {
+    // Close nav if open
+    closeMobNav();
+    bar.style.display = 'flex';
+    toggle.classList.add('active');
+    // Auto-focus after animation
+    setTimeout(() => {
+      const inp = bar.querySelector('input');
+      if (inp) inp.focus();
+    }, 80);
+  }
+}
+function closeMobSearch() {
+  const bar = document.getElementById('mobSearchBar');
+  const toggle = document.getElementById('mobSearchToggle');
+  if (bar) bar.style.display = 'none';
+  if (toggle) toggle.classList.remove('active');
+}
+
+// ═══ CART ═══
+let cart = [];
+let homeCatalog = [];
+
+function openCart() {
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function addToCart(name, brand, price, img) {
+  const ex = cart.find(i => i.name === name);
+  if (ex) { ex.qty += 1; }
+  else { cart.push({name, brand, price, img, qty:1, id:Date.now()}); }
+  updateCart();
+  openCart();
+  const badge = document.getElementById('cartBadge');
+  badge.classList.add('bump');
+  setTimeout(() => badge.classList.remove('bump'), 300);
+}
+function removeFromCart(id) { cart = cart.filter(i => i.id !== id); updateCart(); }
+function changeQty(id, d) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += d;
+  if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+  updateCart();
+}
+function updateCart() {
+  const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  const count = cart.reduce((s,i) => s + i.qty, 0);
+  document.getElementById('cartBadge').textContent = count;
+  document.getElementById('cartItemCount').textContent = count > 0 ? '(' + count + ')' : '';
+  const container = document.getElementById('cartItems');
+  const empty = document.getElementById('cartEmpty');
+  const footer = document.getElementById('cartFooter');
+  if (cart.length === 0) {
+    empty.style.display = 'flex'; footer.style.display = 'none';
+    container.innerHTML = ''; container.appendChild(empty); return;
+  }
+  empty.style.display = 'none'; footer.style.display = 'block';
+  container.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="ci-img"><img src="${item.img}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2268%22 height=%2268%22><rect width=%2268%22 height=%2268%22 fill=%22%23f5f5f5%22/></svg>'"/></div>
+      <div class="ci-info">
+        <div class="ci-brand">${item.brand}</div>
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-row">
+          <div class="ci-qty">
+            <button onclick="changeQty(${item.id},-1)">−</button>
+            <span>${item.qty}</span>
+            <button onclick="changeQty(${item.id},1)">+</button>
+          </div>
+          <span class="ci-price">${(item.price*item.qty).toLocaleString('ro-RO')} RON</span>
+          <button class="ci-remove" onclick="removeFromCart(${item.id})">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>`).join('');
+  document.getElementById('cartSubtotal').textContent = total.toLocaleString('ro-RO') + ' RON';
+  document.getElementById('cartTotal').textContent = total.toLocaleString('ro-RO') + ' RON';
+}
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function formatPrice(value) {
+  return `${Number(value || 0).toFixed(2).replace('.00', '')} RON`;
+}
+
+function addToCartById(id) {
+  const product = homeCatalog.find(item => item.id === id);
+  if (!product) return;
+  addToCart(product.name, product.brand, product.price, product.img, product.id);
+}
+
+function renderHomepageProducts(items) {
+  const grid = document.getElementById('productsGrid');
+  if (!grid) return;
+  if (!items.length) {
+    grid.innerHTML = `
+      <div class="prod-card">
+        <div class="prod-body">
+          <div class="prod-brand">Catalog indisponibil</div>
+          <div class="prod-name">Nu am putut încărca produsele din feed în acest moment.</div>
+        </div>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = items.map(p => {
+    const stars = Array.from({length:5}, (_, i) => `<div class="star${i < p.rating ? '' : ' e'}"></div>`).join('');
+    const badge = p.badge === 'hot'
+      ? '<span class="prod-badge badge-hot">Popular</span>'
+      : p.badge === 'new'
+        ? '<span class="prod-badge badge-new">Nou</span>'
+        : p.badge === 'sale' && p.old
+          ? `<span class="prod-badge badge-sale">-${Math.max(1, Math.round((1 - (p.price / p.old)) * 100))}%</span>`
+          : '';
+
+    return `
+      <div class="prod-card">
+        ${badge}
+        <a class="prod-img" href="product.html?id=${encodeURIComponent(p.id)}">
+          <img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" loading="lazy"/>
+        </a>
+        <div class="prod-body">
+          <div class="prod-brand">${escapeHtml(p.brand)}</div>
+          <a class="prod-name" href="product.html?id=${encodeURIComponent(p.id)}">${escapeHtml(p.name)}</a>
+          <div class="prod-stars"><div class="stars">${stars}</div><span class="prod-rating">(${p.reviews})</span></div>
+          <div class="prod-pricing">
+            <span class="prod-price">${formatPrice(p.price)}</span>
+            ${p.old ? `<span class="prod-old">${formatPrice(p.old)}</span>` : ''}
+          </div>
+          <button class="btn-add" onclick="addToCartById('${escapeHtml(p.id)}')">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            Adaugă în coș
+          </button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+async function initHomepageCatalog() {
+  const grid = document.getElementById('productsGrid');
+  if (!grid || !window.MotApi) return;
+  try {
+    await window.MotApi.ready();
+    homeCatalog = await window.MotApi.getCatalogSnapshot();
+    const featured = await window.MotApi.getFeatured(8);
+    renderHomepageProducts(featured.items || []);
+  } catch (error) {
+    renderHomepageProducts([]);
+  }
+}
+
+// ═══ COOKIES ═══
+function acceptCookies() {
+  localStorage.setItem('cookies','accepted');
+  document.getElementById('cookieBanner').classList.remove('show');
+}
+function declineCookies() {
+  localStorage.setItem('cookies','declined');
+  document.getElementById('cookieBanner').classList.remove('show');
+}
+window.addEventListener('load', () => {
+  if (!localStorage.getItem('cookies')) {
+    setTimeout(() => document.getElementById('cookieBanner').classList.add('show'), 1200);
+  }
+});
+
+
+// ═══ VIDEO MOBILE FIX ═══
+// iOS Safari sometimes blocks autoplay even with muted+playsinline
+// Force play on first user interaction and on load
+(function() {
+  const video = document.querySelector('.hero-video');
+  if (!video) return;
+  
+  // Try to play immediately
+  const playVideo = () => {
+    if (video.paused) {
+      video.play().catch(() => {});
+    }
+  };
+  
+  // On load
+  window.addEventListener('load', playVideo);
+  
+  // On first touch/click (iOS needs user gesture for first play)
+  const onFirstInteraction = () => {
+    playVideo();
+    document.removeEventListener('touchstart', onFirstInteraction);
+    document.removeEventListener('click', onFirstInteraction);
+  };
+  document.addEventListener('touchstart', onFirstInteraction, {passive:true});
+  document.addEventListener('click', onFirstInteraction);
+  
+  // Intersection observer - pause when off screen, play when in view
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { video.play().catch(()=>{}); }
+        else { video.pause(); }
+      });
+    }, {threshold: 0.1});
+    obs.observe(video);
+  }
+  
+  // Visibility change (tab switching)
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) playVideo();
+  });
+})();
+
+document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeCart(); closeMobNav(); closeMobSearch(); } });
+document.addEventListener('DOMContentLoaded', () => { initHomepageCatalog(); });
+updateCart();
+</script>
+</body>
+</html>
+
+

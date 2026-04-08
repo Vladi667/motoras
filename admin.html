@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8"/>
+<meta name="description" content="Admin Motoraș – Gestionare comenzi și produse."/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Motoraș Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#cc1111;--red2:#a50d0d;
+  --dark:#0f1116;--dark2:#181b24;--dark3:#1e2235;
+  --mid:#484c58;--muted:#9095a5;
+  --border:#e5e7ec;--bg:#f0f2f7;--white:#fff;
+  --gold:#e8a020;--green:#1a9e4a;--blue:#2563eb;--orange:#ea6c00;
+  --sidebar:240px;
+}
+html,body{height:100%;font-family:'Nunito Sans',sans-serif;font-size:14px;background:var(--bg);color:var(--dark)}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
+img{display:block;max-width:100%}
+
+/* ═══════════════════════════════════
+   LOGIN SCREEN
+═══════════════════════════════════ */
+#loginScreen{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--dark2);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:0;
+}
+.login-card{
+  background:#fff;border-radius:20px;
+  padding:44px 40px 36px;
+  width:100%;max-width:420px;
+  box-shadow:0 24px 80px rgba(0,0,0,.35);
+}
+.login-logo{
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:28px;
+}
+.login-logo img{height:52px;filter:none}
+.login-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:26px;font-weight:800;color:var(--dark);
+  text-align:center;text-transform:uppercase;letter-spacing:.5px;
+  margin-bottom:4px;
+}
+.login-sub{font-size:13px;color:var(--muted);text-align:center;margin-bottom:28px;font-weight:500}
+.login-field{margin-bottom:16px}
+.login-field label{display:block;font-size:12px;font-weight:700;color:var(--mid);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px}
+.login-field input{
+  width:100%;padding:12px 16px;
+  border:1.5px solid var(--border);border-radius:10px;
+  font-size:15px;font-family:inherit;color:var(--dark);
+  outline:none;transition:all .2s;background:#fafbfc;
+}
+.login-field input:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 4px rgba(204,17,17,.08)}
+.login-error{
+  background:#fff5f5;border:1px solid #fccaca;border-radius:8px;
+  padding:10px 14px;font-size:13px;color:var(--red);font-weight:600;
+  margin-bottom:14px;display:none;align-items:center;gap:8px;
+}
+.login-error.show{display:flex}
+.btn-login{
+  width:100%;padding:14px;
+  background:var(--red);color:#fff;border:none;border-radius:10px;
+  font-size:16px;font-weight:800;font-family:'Barlow Condensed',sans-serif;
+  letter-spacing:.5px;text-transform:uppercase;
+  transition:all .2s;box-shadow:0 4px 16px rgba(204,17,17,.30);
+  margin-top:4px;
+}
+.btn-login:hover{background:var(--red2);transform:translateY(-1px)}
+.btn-login:active{transform:none}
+.login-hint{font-size:12px;color:#ccc;text-align:center;margin-top:18px}
+.login-hint code{background:#f5f5f5;padding:2px 8px;border-radius:5px;font-size:11px;color:#888}
+
+/* ═══════════════════════════════════
+   DASHBOARD LAYOUT
+═══════════════════════════════════ */
+#app{display:none;height:100%;min-height:100vh}
+#app.visible{display:flex}
+
+/* SIDEBAR */
+.sidebar{
+  width:var(--sidebar);flex-shrink:0;
+  background:var(--dark2);
+  display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;bottom:0;
+  z-index:200;overflow:hidden;
+  box-shadow:4px 0 24px rgba(0,0,0,.18);
+}
+.sidebar-logo{
+  padding:20px 20px 18px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;gap:10px;
+}
+.sidebar-logo img{height:38px;filter:brightness(0) invert(1);opacity:.85}
+.sidebar-badge{
+  font-size:9px;font-weight:800;
+  background:var(--red);color:#fff;
+  padding:2px 7px;border-radius:4px;
+  letter-spacing:.5px;text-transform:uppercase;
+}
+.sidebar-nav{flex:1;overflow-y:auto;padding:12px 0;scrollbar-width:none}
+.sidebar-nav::-webkit-scrollbar{display:none}
+.nav-section{padding:18px 20px 6px;font-size:10px;font-weight:800;color:rgba(255,255,255,.25);letter-spacing:1.2px;text-transform:uppercase}
+.nav-item{
+  display:flex;align-items:center;gap:11px;
+  padding:10px 20px;margin:1px 8px;
+  border-radius:9px;cursor:pointer;
+  font-size:13.5px;font-weight:600;color:rgba(255,255,255,.55);
+  transition:all .18s;position:relative;
+}
+.nav-item:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.85)}
+.nav-item.active{background:rgba(204,17,17,.20);color:#fff}
+.nav-item.active svg{color:var(--red)}
+.nav-item svg{flex-shrink:0;opacity:.7;transition:opacity .18s}
+.nav-item.active svg,.nav-item:hover svg{opacity:1}
+.nav-badge{
+  margin-left:auto;background:var(--red);color:#fff;
+  font-size:10px;font-weight:800;
+  border-radius:99px;min-width:18px;height:18px;
+  display:flex;align-items:center;justify-content:center;padding:0 5px;
+}
+.nav-badge.gold{background:var(--gold)}
+.sidebar-footer{
+  padding:16px 20px;border-top:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;gap:10px;
+}
+.sidebar-user-avatar{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--red);display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:#fff;flex-shrink:0;
+}
+.sidebar-user-name{font-size:13px;font-weight:700;color:#fff}
+.sidebar-user-role{font-size:11px;color:rgba(255,255,255,.35);font-weight:500}
+.btn-logout{
+  margin-left:auto;background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:7px;padding:6px 8px;
+  color:rgba(255,255,255,.45);transition:all .18s;
+}
+.btn-logout:hover{background:rgba(204,17,17,.25);color:var(--red);border-color:transparent}
+
+/* MAIN CONTENT */
+.main{
+  margin-left:var(--sidebar);
+  flex:1;display:flex;flex-direction:column;
+  min-height:100vh;min-width:0;
+}
+.topbar{
+  background:#fff;border-bottom:1px solid var(--border);
+  padding:0 28px;height:62px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 1px 8px rgba(0,0,0,.05);
+}
+.topbar-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:22px;font-weight:800;color:var(--dark);
+  text-transform:uppercase;letter-spacing:.3px;
+}
+.topbar-right{display:flex;align-items:center;gap:14px}
+.topbar-time{font-size:13px;color:var(--muted);font-weight:600}
+.topbar-notif{
+  position:relative;width:36px;height:36px;border-radius:9px;
+  background:var(--bg);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:all .18s;
+}
+.topbar-notif:hover{background:#fff;border-color:var(--red)}
+.notif-dot{
+  position:absolute;top:7px;right:7px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--red);border:2px solid #fff;
+}
+.content{padding:28px;flex:1}
+
+/* ═══ PANELS ═══ */
+.panel{display:none}
+.panel.active{display:block}
+
+/* ═══ STATS CARDS ═══ */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:28px}
+.stat-card{
+  background:#fff;border-radius:14px;padding:20px 22px;
+  border:1.5px solid var(--border);
+  display:flex;align-items:flex-start;justify-content:space-between;
+  transition:box-shadow .2s;
+}
+.stat-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07)}
+.stat-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.stat-value{font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:800;color:var(--dark);letter-spacing:-.5px;line-height:1}
+.stat-sub{font-size:12px;font-weight:600;margin-top:6px}
+.stat-up{color:var(--green)}
+.stat-down{color:var(--red)}
+.stat-ico{
+  width:46px;height:46px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ico-red{background:rgba(204,17,17,.10)}
+.ico-red svg{color:var(--red)}
+.ico-green{background:rgba(26,158,74,.10)}
+.ico-green svg{color:var(--green)}
+.ico-blue{background:rgba(37,99,235,.10)}
+.ico-blue svg{color:var(--blue)}
+.ico-gold{background:rgba(232,160,32,.10)}
+.ico-gold svg{color:var(--gold)}
+.ico-orange{background:rgba(234,108,0,.10)}
+.ico-orange svg{color:var(--orange)}
+
+/* ═══ TABLES ═══ */
+.card{background:#fff;border-radius:14px;border:1.5px solid var(--border);overflow:hidden;margin-bottom:22px}
+.card-hdr{
+  padding:18px 22px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.3px}
+.card-actions{display:flex;align-items:center;gap:10px}
+.btn-sm{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:8px;font-size:13px;font-weight:700;border:none;
+  transition:all .15s;white-space:nowrap;
+}
+.btn-primary{background:var(--red);color:#fff;box-shadow:0 2px 8px rgba(204,17,17,.25)}
+.btn-primary:hover{background:var(--red2)}
+.btn-outline{background:#fff;color:var(--mid);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--dark);color:var(--dark)}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:#158a3e}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.table-wrap table{min-width:500px}
+table{width:100%;border-collapse:collapse}
+th{padding:11px 16px;text-align:left;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;background:#fafbfc;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:13px 16px;font-size:13.5px;color:var(--dark);border-bottom:1px solid #f5f6fa;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbfc}
+.td-bold{font-weight:700}
+.td-mono{font-family:monospace;font-size:12.5px;color:var(--mid)}
+
+/* Status badges */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:800;letter-spacing:.3px;white-space:nowrap}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.badge-pending{background:#fff7ed;color:#c2600a}.badge-pending::before{background:#ea6c00}
+.badge-processing{background:#eff6ff;color:#1d4ed8}.badge-processing::before{background:#3b82f6}
+.badge-shipped{background:#f0fdf4;color:#166534}.badge-shipped::before{background:var(--green)}
+.badge-delivered{background:#f0fdf4;color:#166534}.badge-delivered::before{background:var(--green);opacity:.5}
+.badge-cancelled{background:#fef2f2;color:var(--red2)}.badge-cancelled::before{background:var(--red)}
+.badge-paid{background:#f0fdf4;color:#166534}.badge-paid::before{background:var(--green)}
+.badge-unpaid{background:#fef2f2;color:var(--red2)}.badge-unpaid::before{background:var(--red)}
+.badge-refunded{background:#faf5ff;color:#7c3aed}.badge-refunded::before{background:#8b5cf6}
+.badge-info{background:#eff6ff;color:#1d4ed8}.badge-info::before{display:none}
+.badge-warn{background:#fff7ed;color:#c2600a}.badge-warn::before{display:none}
+
+/* Search & filter bar */
+.filter-bar{padding:14px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fafbfc}
+.filter-input{
+  display:flex;align-items:center;gap:8px;
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:9px;padding:8px 14px;flex:1;min-width:200px;
+  transition:all .2s;
+}
+.filter-input:focus-within{border-color:var(--red);box-shadow:0 0 0 3px rgba(204,17,17,.07)}
+.filter-input input{border:none;outline:none;font-size:13.5px;font-family:inherit;color:var(--dark);background:transparent;width:100%}
+.filter-input svg{color:var(--muted);flex-shrink:0}
+.filter-select{
+  appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23888' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") right 12px center no-repeat;
+  border:1.5px solid var(--border);border-radius:9px;
+  padding:8px 34px 8px 14px;font-size:13.5px;font-family:inherit;
+  color:var(--dark);cursor:pointer;transition:border-color .2s;outline:none;
+}
+.filter-select:focus{border-color:var(--red)}
+
+/* ═══ KPI ROW ═══ */
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:28px}
+.kpi-card{background:#fff;border-radius:14px;border:1.5px solid var(--border);padding:18px 20px}
+.kpi-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.kpi-chart{height:56px;display:flex;align-items:flex-end;gap:3px}
+.kpi-bar{flex:1;border-radius:4px 4px 0 0;transition:opacity .2s;cursor:default;min-width:6px}
+.kpi-bar:hover{opacity:.75}
+
+/* ═══ ACTIVITY FEED ═══ */
+.activity-list{padding:0 22px}
+.activity-item{display:flex;align-items:flex-start;gap:13px;padding:14px 0;border-bottom:1px solid #f5f6fa}
+.activity-item:last-child{border-bottom:none}
+.act-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.act-text{flex:1;min-width:0}
+.act-text strong{font-weight:700;color:var(--dark)}
+.act-text p{font-size:13px;color:var(--mid);line-height:1.5;margin-top:2px}
+.act-time{font-size:11.5px;color:var(--muted);font-weight:600;white-space:nowrap;margin-top:3px}
+
+/* ═══ FORM ELEMENTS ═══ */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:20px 22px}
+.form-field{display:flex;flex-direction:column;gap:7px}
+.form-field.full{grid-column:1/-1}
+.form-label{font-size:12px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.5px}
+.form-input{
+  padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;
+  font-size:14px;font-family:inherit;color:var(--dark);
+  outline:none;transition:all .2s;background:#fafbfc;
+}
+.form-input:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 3px rgba(204,17,17,.07)}
+.form-select{
+  padding:10px 34px 10px 14px;border:1.5px solid var(--border);border-radius:9px;
+  font-size:14px;font-family:inherit;color:var(--dark);
+  outline:none;transition:all .2s;background:#fafbfc;
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23888' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;
+  cursor:pointer;
+}
+.form-select:focus{border-color:var(--red)}
+textarea.form-input{resize:vertical;min-height:90px}
+.form-footer{padding:16px 22px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;background:#fafbfc}
+
+/* ═══ MODAL ═══ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:900;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:#fff;border-radius:16px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.25);transform:scale(.95);transition:transform .25s}
+.modal-overlay.open .modal{transform:scale(1)}
+.modal-hdr{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--dark);text-transform:uppercase}
+.modal-close{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .18s}
+.modal-close:hover{background:#f5f5f5}
+
+/* ═══ ALERT BOX ═══ */
+.alert{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:10px;margin-bottom:18px;font-size:13.5px;font-weight:600}
+.alert-warn{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
+.alert-info{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
+.alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.alert svg{flex-shrink:0;margin-top:1px}
+
+/* ═══ TWO COL LAYOUT ═══ */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:22px}
+
+/* ═══ EMPTY STATE ═══ */
+.empty-state{padding:52px;text-align:center;color:var(--muted)}
+.empty-state svg{margin:0 auto 14px;opacity:.25}
+.empty-state h3{font-size:16px;font-weight:700;color:var(--mid);margin-bottom:6px}
+.empty-state p{font-size:13px}
+
+/* ═══ AVATAR ═══ */
+.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0}
+
+/* ═══ PROGRESS BAR ═══ */
+.progress{height:6px;background:#f0f1f5;border-radius:99px;overflow:hidden;margin-top:4px}
+.progress-bar{height:100%;border-radius:99px;transition:width .5s ease}
+
+/* ═══ SIDEBAR OVERLAY ═══ */
+.sidebar-overlay{display:none}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1200px){.stats-grid{grid-template-columns:repeat(2,1fr)}.kpi-row{grid-template-columns:1fr}}
+@media(max-width:900px){
+  .sidebar{
+    transform:translateX(-100%);
+    transition:transform .3s cubic-bezier(.32,.72,0,1);
+    z-index:500;
+  }
+  .sidebar.mob-open{transform:translateX(0)}
+  /* Overlay behind sidebar on mobile */
+  .sidebar-overlay{
+    display:block;
+    position:fixed;inset:0;background:rgba(0,0,0,.5);
+    z-index:499;opacity:0;pointer-events:none;transition:opacity .3s;
+  }
+  .sidebar-overlay.show{opacity:1;pointer-events:all}
+  .main{margin-left:0}
+  .two-col,.three-col{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .content{padding:16px}
+  .topbar{padding:0 16px}
+  .topbar-time{display:none}
+  #mobSidebarBtn{display:block !important}
+  td,th{padding:9px 12px;font-size:12.5px}
+  .card-hdr{padding:14px 16px;flex-wrap:wrap;gap:8px}
+  .filter-bar{padding:10px 14px}
+  .form-grid{padding:16px;grid-template-columns:1fr}
+  .form-field.full{grid-column:1}
+  .form-footer{padding:12px 16px}
+}
+@media(max-width:600px){
+  .stats-grid{grid-template-columns:1fr}
+  .card-actions{width:100%;justify-content:flex-end}
+  .stat-value{font-size:28px}
+  .topbar-title{font-size:18px}
+  .kpi-row{gap:12px}
+  .modal{margin:12px;max-width:calc(100vw - 24px)}
+}
+@media(max-width:400px){
+  .content{padding:12px}
+  .topbar{height:54px}
+  .stat-card{padding:14px 16px}
+}
+</style>
+
+<style>
+:root{--red:#c8100e;--red2:#a30d0b;--dark:#0d0f14;--dark2:#13161f;--mid:#505568;--border:#e4e8ef;--bg:#edf0f5;--gold:#e09618;--green:#18955f;}
+body{-webkit-font-smoothing:antialiased}
+.app-sidebar{background:linear-gradient(180deg,var(--dark2),#0f1218) !important}
+.sidebar-logo{border-bottom:1px solid rgba(255,255,255,.06) !important}
+.nav-item:hover,.nav-item.active{background:rgba(255,255,255,.07) !important}
+.nav-item.active{border-left:3px solid var(--red) !important}
+.stat-card{border-radius:16px !important;border:1.5px solid var(--border) !important;box-shadow:0 2px 12px rgba(0,0,0,.05) !important}
+.stat-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.09) !important;transform:translateY(-2px)}
+.panel-header{border-bottom:1px solid var(--border) !important;background:#fafbfc !important}
+table th{background:#f4f6fb !important;font-size:11px !important;letter-spacing:.6px !important}
+.badge{border-radius:6px !important;font-weight:800 !important}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+</style>
+
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     LOGIN SCREEN
+════════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="assets/logo.png" alt="Motoraș" style="height:50px"/>
+    </div>
+    <div class="login-title">Admin Dashboard</div>
+    <div class="login-sub">Acces restricționat — doar personal autorizat</div>
+    <div class="login-error" id="loginError">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Utilizator sau parolă incorectă.
+    </div>
+    <div class="login-field">
+      <label>Utilizator</label>
+      <input type="text" id="loginUser" placeholder="admin" autocomplete="username" autofocus/>
+    </div>
+    <div class="login-field">
+      <label>Parolă</label>
+      <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password"/>
+    </div>
+    <button class="btn-login" onclick="doLogin()">Autentificare</button>
+    <div class="login-hint">Demo: <code>admin</code> / <code>motoras2025</code></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     MAIN APP
+════════════════════════════════════ -->
+<div id="app">
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="assets/logo.png" alt="Motoraș"/>
+      <span class="sidebar-badge">Admin</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Principal</div>
+      <div class="nav-item active" onclick="showPanel('dashboard',this)">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </div>
+      <div class="nav-item" onclick="showPanel('orders',this)">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Comenzi
+        <span class="nav-badge" id="badgeOrders">8</span>
+      </div>
+      <div class="nav-item" onclick="showPanel('customers',this)">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        Clienți
+      </div>
+      <div class="nav-item" onclick="showPanel('products',this)">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+        Produse
+        <span class="nav-badge gold" id="badgeProd">3</span>
+      </div>
+      <div class="nav-section">Operațiuni</div>
+      <div class="nav-item" onclick="showPanel('supplier',this)">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Furnizor / API
+      </div>
+      <div class="nav-item" onclick="showPanel('agents',this)">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        Agenți AI
+      </div>
+      <div class="nav-item" onclick="showPanel('invoices',this)">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Facturi
+      </div>
+      <div class="nav-section">Setări</div>
+      <div class="nav-item" onclick="showPanel('settings',this)">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+        Setări
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user-avatar">A</div>
+      <div>
+        <div class="sidebar-user-name">Administrator</div>
+        <div class="sidebar-user-role">Super Admin</div>
+      </div>
+      <button class="btn-logout" onclick="doLogout()" title="Deconectare">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:14px">
+        <button onclick="document.getElementById('sidebar').classList.toggle('mob-open')" style="display:none;background:none;border:none;padding:4px" id="mobSidebarBtn">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="topbar-title" id="topbarTitle">Dashboard</div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-time" id="topbarClock">--:--</div>
+        <div class="topbar-notif" title="Notificări">
+          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <div class="notif-dot"></div>
+        </div>
+        <div style="width:34px;height:34px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff">A</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ══════════ DASHBOARD ══════════ -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div><div class="stat-label">Comenzi azi</div><div class="stat-value">24</div><div class="stat-sub stat-up">↑ +12% față de ieri</div></div>
+            <div class="stat-ico ico-red"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+          </div>
+          <div class="stat-card">
+            <div><div class="stat-label">Venituri azi</div><div class="stat-value">4.820</div><div class="stat-sub stat-up">↑ +8% față de ieri</div></div>
+            <div class="stat-ico ico-green"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          </div>
+          <div class="stat-card">
+            <div><div class="stat-label">Clienți noi</div><div class="stat-value">7</div><div class="stat-sub stat-up">↑ +3 față de ieri</div></div>
+            <div class="stat-ico ico-blue"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          </div>
+          <div class="stat-card">
+            <div><div class="stat-label">În procesare</div><div class="stat-value">8</div><div class="stat-sub stat-down">⚠ 2 blocate la furnizor</div></div>
+            <div class="stat-ico ico-orange"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          </div>
+        </div>
+
+        <div class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-title">Comenzi / 7 zile <span style="font-weight:500;color:var(--green);font-size:11px">▲ +18%</span></div>
+            <div class="kpi-chart" id="chartOrders"></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Venituri / 7 zile <span style="font-weight:500;color:var(--green);font-size:11px">▲ +22%</span></div>
+            <div class="kpi-chart" id="chartRevenue"></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Conversie coș <span style="font-weight:500;color:var(--muted);font-size:11px">3.8%</span></div>
+            <div class="kpi-chart" id="chartConv"></div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <div class="card-hdr">
+              <div class="card-title">Comenzi recente</div>
+              <button class="btn-sm btn-outline" onclick="showPanel('orders',null)">Vezi toate</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Comandă</th><th>Client</th><th>Total</th><th>Status</th></tr></thead>
+                <tbody id="recentOrdersTable"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><div class="card-title">Activitate recentă</div></div>
+            <div class="activity-list" id="activityFeed"></div>
+          </div>
+        </div>
+
+        <div class="three-col">
+          <div class="card">
+            <div class="card-hdr"><div class="card-title">Status furnizor API</div></div>
+            <div style="padding:18px 22px">
+              <div class="alert alert-success"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Conexiune activă · 42ms latență</div>
+              <div style="font-size:13px;color:var(--mid);font-weight:600;margin-bottom:8px">Comenzi trimise azi</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--dark);margin-bottom:4px">22 <span style="font-size:16px;color:var(--muted);font-weight:600">/ 24</span></div>
+              <div class="progress"><div class="progress-bar" style="width:91%;background:var(--green)"></div></div>
+              <div style="font-size:11px;color:var(--muted);margin-top:6px;font-weight:600">2 în așteptare confirmare</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><div class="card-title">Agenți AI</div></div>
+            <div style="padding:18px 22px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:13px;font-weight:700;color:var(--dark)">Email Agent</div>
+                <span class="badge badge-shipped">Activ</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:13px;font-weight:700;color:var(--dark)">Order Agent</div>
+                <span class="badge badge-shipped">Activ</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:13px;font-weight:700;color:var(--dark)">Invoice Agent</div>
+                <span class="badge badge-shipped">Activ</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:13px;font-weight:700;color:var(--dark)">Status Agent</div>
+                <span class="badge badge-pending">În așteptare</span>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><div class="card-title">Top produse</div></div>
+            <div style="padding:12px 22px;display:flex;flex-direction:column;gap:14px">
+              <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span class="td-bold">Castrol EDGE 5W-30</span><span style="color:var(--mid);font-weight:600">47 vândute</span></div><div class="progress"><div class="progress-bar" style="width:94%;background:var(--red)"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span class="td-bold">Disc Frână TRW</span><span style="color:var(--mid);font-weight:600">38 vândute</span></div><div class="progress"><div class="progress-bar" style="width:76%;background:var(--blue)"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span class="td-bold">Baterie Varta 60Ah</span><span style="color:var(--mid);font-weight:600">31 vândute</span></div><div class="progress"><div class="progress-bar" style="width:62%;background:var(--gold)"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span class="td-bold">Bujii NGK Iridium</span><span style="color:var(--mid);font-weight:600">26 vândute</span></div><div class="progress"><div class="progress-bar" style="width:52%;background:var(--green)"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ COMENZI ══════════ -->
+      <div class="panel" id="panel-orders">
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">Toate Comenzile</div>
+            <div class="card-actions">
+              <button class="btn-sm btn-outline" onclick="exportCSV()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export CSV
+              </button>
+            </div>
+          </div>
+          <div class="filter-bar">
+            <div class="filter-input">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              <input type="text" placeholder="Caută comandă, client, email..." oninput="filterOrders(this.value)"/>
+            </div>
+            <select class="filter-select" onchange="filterOrdersByStatus(this.value)">
+              <option value="">Toate statusurile</option>
+              <option value="pending">În așteptare</option>
+              <option value="processing">În procesare</option>
+              <option value="shipped">Expediat</option>
+              <option value="delivered">Livrat</option>
+              <option value="cancelled">Anulat</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>ID</th><th>Client</th><th>Produse</th><th>Total</th><th>Plată</th><th>Status</th><th>Data</th><th>Acțiuni</th></tr></thead>
+              <tbody id="ordersTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ CLIENȚI ══════════ -->
+      <div class="panel" id="panel-customers">
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">Clienți</div>
+            <div class="card-actions">
+              <button class="btn-sm btn-primary" onclick="openModal('addCustomer')">
+                <svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Client nou
+              </button>
+            </div>
+          </div>
+          <div class="filter-bar">
+            <div class="filter-input">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              <input type="text" placeholder="Caută după nume, email, telefon..."/>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Client</th><th>Email</th><th>Telefon</th><th>Comenzi</th><th>Total cheltuit</th><th>Înregistrat</th><th>Acțiuni</th></tr></thead>
+              <tbody id="customersTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ PRODUSE ══════════ -->
+      <div class="panel" id="panel-products">
+        <div class="alert alert-info" style="margin-bottom:20px">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Produsele vor fi sincronizate automat din API-ul furnizorului după conectare. Poți adăuga și produse manuale.
+        </div>
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">Catalog Produse</div>
+            <div class="card-actions">
+              <button class="btn-sm btn-outline" onclick="syncSupplier()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+                Sincronizează API
+              </button>
+              <button class="btn-sm btn-primary">
+                <svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Produs nou
+              </button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Produs</th><th>SKU</th><th>Categorie</th><th>Preț furnizor</th><th>Preț vânzare</th><th>Marjă</th><th>Stoc</th><th>Status</th></tr></thead>
+              <tbody id="productsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ FURNIZOR / API ══════════ -->
+      <div class="panel" id="panel-supplier">
+        <div class="two-col" style="margin-bottom:22px">
+          <div class="card">
+            <div class="card-hdr"><div class="card-title">Conexiune API Furnizor</div></div>
+            <div class="form-grid">
+              <div class="form-field full">
+                <label class="form-label">URL Endpoint</label>
+                <input class="form-input" type="text" value="https://api.furnizor.ro/v2" placeholder="https://api.furnizor.ro/v2"/>
+              </div>
+              <div class="form-field">
+                <label class="form-label">API Key</label>
+                <input class="form-input" type="password" value="sk_live_••••••••••••••••" placeholder="API Key"/>
+              </div>
+              <div class="form-field">
+                <label class="form-label">API Secret</label>
+                <input class="form-input" type="password" value="sk_secret_••••••••" placeholder="Secret"/>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Timeout (ms)</label>
+                <input class="form-input" type="number" value="5000"/>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Retry automat</label>
+                <select class="form-select"><option>3 încercări</option><option>5 încercări</option><option>Niciuna</option></select>
+              </div>
+            </div>
+            <div class="form-footer">
+              <button class="btn-sm btn-outline" onclick="testApi()">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                Testează conexiunea
+              </button>
+              <button class="btn-sm btn-primary">Salvează setările</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><div class="card-title">Logs API Recente</div></div>
+            <div style="padding:0 22px;max-height:320px;overflow-y:auto">
+              <div id="apiLogs"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hdr"><div class="card-title">Comenzi în așteptare la furnizor</div></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Comandă</th><th>Produs</th><th>Trimis la furnizor</th><th>Răspuns furnizor</th><th>Status</th><th>Acțiuni</th></tr></thead>
+              <tbody id="supplierOrdersTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ AGENȚI AI ══════════ -->
+      <div class="panel" id="panel-agents">
+        <div class="three-col">
+          <div class="card">
+            <div class="card-hdr">
+              <div class="card-title">Email Agent</div>
+              <span class="badge badge-shipped">Activ</span>
+            </div>
+            <div style="padding:18px 22px">
+              <div class="alert alert-success"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>138 emailuri trimise azi</div>
+              <div style="font-size:13px;color:var(--mid);font-weight:600;margin-bottom:6px">Tipuri procesate:</div>
+              <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+                <div style="display:flex;justify-content:space-between"><span>Confirmare comandă</span><span class="td-bold">84</span></div>
+                <div style="display:flex;justify-content:space-between"><span>Notificare livrare</span><span class="td-bold">31</span></div>
+                <div style="display:flex;justify-content:space-between"><span>Suport client</span><span class="td-bold">23</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-hdr">
+              <div class="card-title">Order Agent</div>
+              <span class="badge badge-shipped">Activ</span>
+            </div>
+            <div style="padding:18px 22px">
+              <div class="alert alert-success"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>22 comenzi procesate azi</div>
+              <div style="font-size:13px;color:var(--mid);font-weight:600;margin-bottom:6px">Rată succes:</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;color:var(--green);margin-bottom:4px">91.7%</div>
+              <div class="progress"><div class="progress-bar" style="width:91.7%;background:var(--green)"></div></div>
+              <div style="font-size:11px;color:var(--muted);margin-top:6px;font-weight:600">2 erori — retry automat în curs</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-hdr">
+              <div class="card-title">Invoice Agent</div>
+              <span class="badge badge-shipped">Activ</span>
+            </div>
+            <div style="padding:18px 22px">
+              <div class="alert alert-success"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>22 facturi generate azi</div>
+              <div style="font-size:13px;color:var(--mid);font-weight:600;margin-bottom:6px">Dimensiune medie PDF:</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;color:var(--blue)">84 <span style="font-size:16px;font-weight:600;color:var(--muted)">KB</span></div>
+              <div style="font-size:11px;color:var(--muted);margin-top:8px;font-weight:600">Toate facturile trimise pe email</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hdr"><div class="card-title">Log Agenți — Ultimele acțiuni</div></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Ora</th><th>Agent</th><th>Acțiune</th><th>Comandă</th><th>Rezultat</th><th>Durată</th></tr></thead>
+              <tbody id="agentsLogTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ FACTURI ══════════ -->
+      <div class="panel" id="panel-invoices">
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">Facturi</div>
+            <div class="card-actions">
+              <button class="btn-sm btn-outline">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export
+              </button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Nr. Factură</th><th>Client</th><th>Comandă</th><th>Total</th><th>TVA (19%)</th><th>Status</th><th>Data</th><th>PDF</th></tr></thead>
+              <tbody id="invoicesTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ SETĂRI ══════════ -->
+      <div class="panel" id="panel-settings">
+        <div class="two-col">
+          <div>
+            <div class="card" style="margin-bottom:22px">
+              <div class="card-hdr"><div class="card-title">Setări Generale</div></div>
+              <div class="form-grid">
+                <div class="form-field full"><label class="form-label">Numele magazinului</label><input class="form-input" type="text" value="Motoraș – Piese Auto &amp; Detailing"/></div>
+                <div class="form-field"><label class="form-label">Email contact</label><input class="form-input" type="email" value="contact@motoras.ro"/></div>
+                <div class="form-field"><label class="form-label">Telefon</label><input class="form-input" type="text" value="0731 284 932"/></div>
+                <div class="form-field full"><label class="form-label">Adresă</label><input class="form-input" type="text" value="Strada Agricultori Nr. 2, București"/></div>
+                <div class="form-field"><label class="form-label">CUI</label><input class="form-input" type="text" value="RO12345678"/></div>
+                <div class="form-field"><label class="form-label">Reg. Comerțului</label><input class="form-input" type="text" value="J40/1234/2020"/></div>
+              </div>
+              <div class="form-footer"><button class="btn-sm btn-primary">Salvează</button></div>
+            </div>
+            <div class="card">
+              <div class="card-hdr"><div class="card-title">Stripe Payments</div></div>
+              <div class="form-grid">
+                <div class="form-field full"><label class="form-label">Publishable Key</label><input class="form-input" type="text" value="pk_live_••••••••••••••••"/></div>
+                <div class="form-field full"><label class="form-label">Secret Key</label><input class="form-input" type="password" value="sk_live_••••••••••••••••"/></div>
+                <div class="form-field full"><label class="form-label">Webhook Secret</label><input class="form-input" type="password" value="whsec_••••••••••••••••"/></div>
+              </div>
+              <div class="form-footer"><button class="btn-sm btn-outline">Testează Stripe</button><button class="btn-sm btn-primary">Salvează</button></div>
+            </div>
+          </div>
+          <div>
+            <div class="card" style="margin-bottom:22px">
+              <div class="card-hdr"><div class="card-title">Securitate</div></div>
+              <div class="form-grid">
+                <div class="form-field full"><label class="form-label">Utilizator admin</label><input class="form-input" type="text" value="admin"/></div>
+                <div class="form-field"><label class="form-label">Parolă nouă</label><input class="form-input" type="password" placeholder="Parolă nouă"/></div>
+                <div class="form-field"><label class="form-label">Confirmă parola</label><input class="form-input" type="password" placeholder="Confirmă"/></div>
+                <div class="form-field full">
+                  <label class="form-label">Autentificare 2FA</label>
+                  <select class="form-select"><option>Dezactivat</option><option>Email OTP</option><option>Google Authenticator</option></select>
+                </div>
+              </div>
+              <div class="form-footer"><button class="btn-sm btn-primary">Schimbă parola</button></div>
+            </div>
+            <div class="card">
+              <div class="card-hdr"><div class="card-title">Notificări Email</div></div>
+              <div style="padding:18px 22px;display:flex;flex-direction:column;gap:14px">
+                <div style="display:flex;align-items:center;justify-content:space-between;font-size:13.5px;font-weight:600">
+                  <span>Comandă nouă</span>
+                  <label style="position:relative;display:inline-block;width:40px;height:22px">
+                    <input type="checkbox" checked style="opacity:0;width:0;height:0" onchange="this.parentNode.querySelector('span').style.background=this.checked?'var(--green)':'#ccc'"/>
+                    <span style="position:absolute;inset:0;background:var(--green);border-radius:99px;transition:background .2s;cursor:pointer"></span>
+                    <span style="position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:.2s"></span>
+                  </label>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;font-size:13.5px;font-weight:600"><span>Eroare furnizor API</span><label style="position:relative;display:inline-block;width:40px;height:22px"><input type="checkbox" checked style="opacity:0;width:0;height:0"/><span style="position:absolute;inset:0;background:var(--green);border-radius:99px;cursor:pointer"></span><span style="position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%"></span></label></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;font-size:13.5px;font-weight:600"><span>Stoc scăzut</span><label style="position:relative;display:inline-block;width:40px;height:22px"><input type="checkbox" style="opacity:0;width:0;height:0"/><span style="position:absolute;inset:0;background:#ccc;border-radius:99px;cursor:pointer"></span><span style="position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%"></span></label></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;font-size:13.5px;font-weight:600"><span>Raport zilnic</span><label style="position:relative;display:inline-block;width:40px;height:22px"><input type="checkbox" checked style="opacity:0;width:0;height:0"/><span style="position:absolute;inset:0;background:var(--green);border-radius:99px;cursor:pointer"></span><span style="position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%"></span></label></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-hdr">
+      <div class="modal-title" id="modalTitle">Modal</div>
+      <button class="modal-close" onclick="closeModal()"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// ═══ AUTH ═══
+const CREDENTIALS = {user:'admin', pass:'motoras2025'};
+const SESSION_KEY = 'motoras_admin_session';
+
+function doLogin() {
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value;
+  const err = document.getElementById('loginError');
+  if (u === CREDENTIALS.user && p === CREDENTIALS.pass) {
+    sessionStorage.setItem(SESSION_KEY, btoa(Date.now() + ':' + u));
+    document.getElementById('loginScreen').style.opacity = '0';
+    document.getElementById('loginScreen').style.transition = 'opacity .4s';
+    setTimeout(() => {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('app').classList.add('visible');
+      initDashboard();
+    }, 400);
+    err.classList.remove('show');
+  } else {
+    err.classList.add('show');
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginPass').focus();
+    document.getElementById('loginPass').parentNode.querySelector('input').style.borderColor = 'var(--red)';
+  }
+}
+
+function doLogout() {
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+}
+
+// Enter key login
+['loginUser','loginPass'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+});
+
+// Auto-login if session exists
+if (sessionStorage.getItem(SESSION_KEY)) {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('app').classList.add('visible');
+  initDashboard();
+}
+
+// ═══ NAVIGATION ═══
+function showPanel(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+  else {
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if (n.textContent.toLowerCase().includes(id.substring(0,4))) n.classList.add('active');
+    });
+  }
+  const titles = {dashboard:'Dashboard',orders:'Comenzi',customers:'Clienți',products:'Produse',supplier:'Furnizor / API',agents:'Agenți AI',invoices:'Facturi',settings:'Setări'};
+  document.getElementById('topbarTitle').textContent = titles[id] || id;
+}
+
+// ═══ CLOCK ═══
+function updateClock() {
+  const now = new Date();
+  document.getElementById('topbarClock').textContent =
+    now.toLocaleString('ro-RO', {weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ═══ MOCK DATA ═══
+const DEFAULT_ORDERS = [
+  {id:'#ORD-1042',client:'Ion Popescu',email:'ion@gmail.com',products:'Castrol EDGE 5W-30',total:'189 RON',payment:'paid',status:'delivered',date:'06 Apr 2025'},
+  {id:'#ORD-1041',client:'Maria Ionescu',email:'maria@yahoo.ro',products:'Disc Frână TRW x2',total:'284 RON',payment:'paid',status:'shipped',date:'06 Apr 2025'},
+  {id:'#ORD-1040',client:'Andrei Constantin',email:'andrei@gmail.com',products:'Baterie Varta 60Ah',total:'395 RON',payment:'paid',status:'processing',date:'05 Apr 2025'},
+  {id:'#ORD-1039',client:'Elena Dumitrescu',email:'elena@outlook.com',products:'Set Bujii NGK x4',total:'168 RON',payment:'paid',status:'processing',date:'05 Apr 2025'},
+  {id:'#ORD-1038',client:'Mihai Georgescu',email:'mihai@gmail.com',products:'Filtru Ulei Bosch',total:'38 RON',payment:'paid',status:'shipped',date:'04 Apr 2025'},
+  {id:'#ORD-1037',client:'Ana Popa',email:'ana@yahoo.ro',products:'Prelată Auto L',total:'229 RON',payment:'paid',status:'pending',date:'04 Apr 2025'},
+  {id:'#ORD-1036',client:'Radu Stancu',email:'radu@gmail.com',products:'Set Scule Stanley',total:'489 RON',payment:'unpaid',status:'cancelled',date:'03 Apr 2025'},
+  {id:'#ORD-1035',client:'Cristina Marin',email:'cristina@yahoo.ro',products:'Valeo Ștergătoare',total:'89 RON',payment:'paid',status:'delivered',date:'03 Apr 2025'},
+];
+
+
+
+const LOCAL_ORDER_KEY = 'motoras_orders';
+const DEMO_ORDER_STATUSES = ['pending_payment','processing','shipped','delivered','cancelled'];
+const LAST_ORDER_KEY = 'motoras_last_order';
+let ORDERS = [];
+
+function safeParse(json, fallback) {
+  try { return JSON.parse(json || JSON.stringify(fallback)); } catch { return fallback; }
+}
+
+function formatRON(value) {
+  const n = Number(String(value ?? 0).replace(/[^0-9.,-]/g, '').replace(',', '.')) || 0;
+  return `${n.toLocaleString('ro-RO')} RON`;
+}
+
+function parseRON(value) {
+  if (typeof value === 'number') return value;
+  return Number(String(value ?? 0).replace(/[^0-9.,-]/g, '').replace(',', '.')) || 0;
+}
+
+function formatAdminDate(value) {
+  if (!value) return new Date().toLocaleDateString('ro-RO', { day:'2-digit', month:'short', year:'numeric' });
+  const d = new Date(value);
+  if (!Number.isNaN(d.getTime())) {
+    return d.toLocaleDateString('ro-RO', { day:'2-digit', month:'short', year:'numeric' });
+  }
+  return String(value);
+}
+
+function latestLastOrderMap() {
+  const last = safeParse(localStorage.getItem(LAST_ORDER_KEY), null);
+  if (!last || !last.id) return {};
+  return { [last.id]: last };
+}
+
+function normalizeOrder(raw, lastOrderMap = {}) {
+  const last = raw?.id ? lastOrderMap[raw.id] : null;
+  const customerName = raw.client || raw.customer || raw.name || last?.name || 'Client Motoraș';
+  const email = raw.email || last?.email || 'client@motoras.ro';
+  const status = raw.status || 'pending';
+  const payment = raw.payment || (['processing','shipped','delivered','paid'].includes(status) ? 'paid' : 'unpaid');
+  const totalNumber = parseRON(raw.total ?? last?.total ?? 0);
+  let products = raw.products || '';
+  if ((!products || !String(products).trim()) && Array.isArray(last?.items)) {
+    products = last.items.map(item => `${item.name}${item.qty > 1 ? ` x${item.qty}` : ''}`).join(', ');
+  }
+  if (!products) products = 'Comandă showroom';
+  return {
+    id: raw.id || `#ORD-${Date.now()}`,
+    client: customerName,
+    email,
+    products,
+    total: formatRON(totalNumber),
+    totalValue: totalNumber,
+    payment,
+    status,
+    date: formatAdminDate(raw.date || raw.createdAt || raw.created_at || new Date().toISOString()),
+    rawDate: raw.date || raw.createdAt || raw.created_at || new Date().toISOString()
+  };
+}
+
+function buildOrders() {
+  const lastOrderMap = latestLastOrderMap();
+  const localOrders = safeParse(localStorage.getItem(LOCAL_ORDER_KEY), []);
+  const merged = [...localOrders, ...DEFAULT_ORDERS];
+  const seen = new Set();
+  return merged
+    .map(order => normalizeOrder(order, lastOrderMap))
+    .filter(order => {
+      if (seen.has(order.id)) return false;
+      seen.add(order.id);
+      return true;
+    })
+    .sort((a, b) => parseDateForSort(b.date) - parseDateForSort(a.date));
+}
+
+function parseDateForSort(value) {
+  const parsed = Date.parse(value);
+  if (!Number.isNaN(parsed)) return parsed;
+  const ro = /^(\d{1,2})\s+([A-Za-zĂÂÎȘŞȚŢăâîșşțţ]+)\s+(\d{4})$/.exec(String(value || '').trim());
+  if (ro) {
+    const months = {ian:0,ianuarie:0,feb:1,februarie:1,mar:2,martie:2,apr:3,aprilie:3,mai:4,iun:5,iunie:5,iul:6,iulie:6,aug:7,august:7,sep:8,sept:8,septembrie:8,oct:9,octombrie:9,noi:10,noiembrie:10,dec:11,decembrie:11};
+    const m = months[ro[2].toLowerCase()];
+    if (m !== undefined) return new Date(Number(ro[3]), m, Number(ro[1])).getTime();
+  }
+  return 0;
+}
+const CUSTOMERS = [
+  {name:'Ion Popescu',email:'ion@gmail.com',phone:'0722 111 222',orders:8,total:'2.840 RON',date:'Jan 2024'},
+  {name:'Maria Ionescu',email:'maria@yahoo.ro',phone:'0744 333 444',orders:5,total:'1.420 RON',date:'Mar 2024'},
+  {name:'Andrei Constantin',email:'andrei@gmail.com',phone:'0731 555 666',orders:3,total:'892 RON',date:'Jun 2024'},
+  {name:'Elena Dumitrescu',email:'elena@outlook.com',phone:'0755 777 888',orders:12,total:'4.210 RON',date:'Nov 2023'},
+  {name:'Mihai Georgescu',email:'mihai@gmail.com',phone:'0766 999 000',orders:2,total:'227 RON',date:'Feb 2025'},
+];
+
+
+const PRODUCTS_DATA = (window.MotorasCatalog?.products || []).map(p => ({
+  name: p.name,
+  sku: p.sku || p.id,
+  cat: window.MotorasCatalog.categories[p.cat]?.title || p.cat || '',
+  cost: formatRON(Math.round(Number(p.price || 0) * 0.72)),
+  price: formatRON(p.price || 0),
+  margin: `${Math.max(8, Math.round((1 - 0.72) * 100))}%`,
+  stock: Number(p.stock || 0),
+  status: Number(p.stock || 0) > 0 ? 'active' : 'outofstock'
+}));
+
+const SUPPLIER_ORDERS = [
+  {id:'#ORD-1041',product:'Disc Frână TRW x2',sent:'06 Apr 10:22',response:'ACK-94821',status:'processing'},
+  {id:'#ORD-1040',product:'Baterie Varta 60Ah',sent:'05 Apr 14:11',response:'ACK-94820',status:'shipped'},
+  {id:'#ORD-1039',product:'Set Bujii NGK x4',sent:'05 Apr 14:09',response:'ERR-STOCK',status:'pending'},
+];
+
+const INVOICES_DATA = [
+  {nr:'FACT-2025-1042',client:'Ion Popescu',order:'#ORD-1042',total:'189 RON',tva:'35.91 RON',status:'paid',date:'06 Apr 2025'},
+  {nr:'FACT-2025-1041',client:'Maria Ionescu',order:'#ORD-1041',total:'284 RON',tva:'53.96 RON',status:'paid',date:'06 Apr 2025'},
+  {nr:'FACT-2025-1040',client:'Andrei Constantin',order:'#ORD-1040',total:'395 RON',tva:'75.05 RON',status:'paid',date:'05 Apr 2025'},
+  {nr:'FACT-2025-1039',client:'Elena Dumitrescu',order:'#ORD-1039',total:'168 RON',tva:'31.92 RON',status:'paid',date:'05 Apr 2025'},
+];
+
+const AGENT_LOGS = [
+  {time:'14:32:08',agent:'Order Agent',action:'Trimis comandă la furnizor',order:'#ORD-1041',result:'success',duration:'342ms'},
+  {time:'14:32:06',agent:'Invoice Agent',action:'Generat PDF factură',order:'#ORD-1041',result:'success',duration:'218ms'},
+  {time:'14:32:05',agent:'Email Agent',action:'Confirmare comandă trimisă',order:'#ORD-1041',result:'success',duration:'156ms'},
+  {time:'14:31:44',agent:'Order Agent',action:'Retry comandă eșuată',order:'#ORD-1039',result:'error',duration:'5001ms'},
+  {time:'14:15:22',agent:'Status Agent',action:'Actualizat status la Shipped',order:'#ORD-1038',result:'success',duration:'89ms'},
+  {time:'13:58:11',agent:'Email Agent',action:'Email livrare trimis',order:'#ORD-1038',result:'success',duration:'203ms'},
+];
+
+const STATUS_BADGES = {
+  pending:'<span class="badge badge-pending">În așteptare</span>',
+  processing:'<span class="badge badge-processing">În procesare</span>',
+  shipped:'<span class="badge badge-shipped">Expediat</span>',
+  delivered:'<span class="badge badge-delivered">Livrat</span>',
+  cancelled:'<span class="badge badge-cancelled">Anulat</span>',
+  paid:'<span class="badge badge-paid">Plătit</span>',
+  unpaid:'<span class="badge badge-unpaid">Neplătit</span>',
+  active:'<span class="badge badge-shipped">Activ</span>',
+  outofstock:'<span class="badge badge-cancelled">Epuizat</span>',
+};
+
+const AVATAR_COLORS = ['#cc1111','#2563eb','#1a9e4a','#e8a020','#7c3aed','#ea6c00'];
+function avatarColor(name) { return AVATAR_COLORS[name.charCodeAt(0)%AVATAR_COLORS.length]; }
+function initials(name) { return name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase(); }
+
+// ═══ INIT ═══
+function initDashboard() {
+  // Seed fake orders if none exist (for demo/testing)
+  if(window.MotApi){
+    const existing = JSON.parse(localStorage.getItem('motoras_orders')||'[]');
+    if(existing.length < 3) window.MotApi.seedOrders(8);
+  }
+  refreshAdminData();
+  renderCustomersTable();
+  renderProductsTable();
+  renderSupplierOrders();
+  renderAgentLogs();
+  renderInvoices();
+  renderApiLogs();
+  injectOrderTools();
+}
+
+
+
+function refreshAdminData() {
+  ORDERS = buildOrders();
+  renderDashboardStats();
+  renderRecentOrders();
+  renderActivityFeed();
+  renderCharts();
+  renderOrdersTable(ORDERS);
+  updateOrderBadge();
+}
+
+
+function renderDashboardStats() {
+  const statCards = document.querySelectorAll('#panel-dashboard .stat-card');
+  const today = new Date().toLocaleDateString('ro-RO');
+  const todayOrders = ORDERS.filter(o => {
+    const ts = parseDateForSort(o.rawDate || o.date);
+    if (!ts) return false;
+    return new Date(ts).toLocaleDateString('ro-RO') === today;
+  });
+  const todayRevenue = todayOrders.reduce((sum, o) => sum + parseRON(o.totalValue ?? o.total), 0);
+  const uniqueCustomers = new Set(ORDERS.map(o => `${o.client}|${o.email}`));
+  const processingCount = ORDERS.filter(o => ['pending','processing','pending_payment'].includes(o.status)).length;
+  const values = [
+    {value: String(todayOrders.length), sub: `Total local: ${ORDERS.length} total`},
+    {value: Number(todayRevenue).toLocaleString('ro-RO'), sub: `Total: ${formatRON(ORDERS.reduce((s,o)=>s+parseRON(o.totalValue ?? o.total),0))}`},
+    {value: String(uniqueCustomers.size), sub: 'Clienți unici în panou'},
+    {value: String(processingCount), sub: processingCount ? 'Necesită urmărire' : 'Nicio comandă blocată'}
+  ];
+  statCards.forEach((card, idx) => {
+    const valueEl = card.querySelector('.stat-value');
+    const subEl = card.querySelector('.stat-sub');
+    if (valueEl && values[idx]) valueEl.textContent = values[idx].value;
+    if (subEl && values[idx]) subEl.textContent = values[idx].sub;
+  });
+}
+
+
+function updateOrderBadge() {
+  const badge = document.getElementById('badgeOrders');
+  if (badge) badge.textContent = String(ORDERS.length);
+}
+
+
+
+function injectOrderTools() {
+  const actions = document.querySelector('#panel-orders .card-actions');
+  if (!actions || actions.dataset.enhanced === '1') return;
+  const btnSeed = document.createElement('button');
+  btnSeed.className = 'btn-sm btn-primary';
+  btnSeed.type = 'button';
+  btnSeed.textContent = 'Generează comenzi locale';
+  btnSeed.onclick = seedDemoOrders;
+  const btnClear = document.createElement('button');
+  btnClear.className = 'btn-sm btn-outline';
+  btnClear.type = 'button';
+  btnClear.textContent = 'Șterge locale';
+  btnClear.onclick = clearLocalOrders;
+  actions.prepend(btnClear);
+  actions.prepend(btnSeed);
+  actions.dataset.enhanced = '1';
+}
+
+function seedDemoOrders() {
+  const existing = safeParse(localStorage.getItem(LOCAL_ORDER_KEY), []);
+  const samples = [
+    {id:'MTR-2001', customer:'Andrei Popescu', status:'pending_payment', total:219, date:new Date().toISOString(), email:'andrei@example.com', products:'Filtru Ulei Bosch P7161'},
+    {id:'MTR-2002', customer:'Bianca Ionescu', status:'processing', total:489, date:new Date(Date.now()-86400000).toISOString(), email:'bianca@example.com', products:'Set Scule Stanley 94 Piese'},
+    {id:'MTR-2003', customer:'Service Auto Nord', status:'shipped', total:834, date:new Date(Date.now()-2*86400000).toISOString(), email:'service@autonord.ro', products:'Disc Frână TRW x2, Ulei Castrol EDGE 5W-30'}
+  ];
+  const byId = new Map(existing.map(order => [order.id, order]));
+  samples.forEach(order => byId.set(order.id, order));
+  localStorage.setItem(LOCAL_ORDER_KEY, JSON.stringify(Array.from(byId.values()).slice(0,50)));
+  refreshAdminData();
+}
+
+function clearLocalOrders() {
+  localStorage.removeItem(LOCAL_ORDER_KEY);
+  refreshAdminData();
+}
+
+// ═══ RECENT ORDERS (dashboard) ═══
+function renderRecentOrders() {
+  const tb = document.getElementById('recentOrdersTable');
+  tb.innerHTML = ORDERS.slice(0,5).map(o => `
+    <tr>
+      <td class="td-mono">${o.id}</td>
+      <td class="td-bold">${o.client}</td>
+      <td class="td-bold" style="color:var(--red)">${o.total}</td>
+      <td>${STATUS_BADGES[o.status]||o.status}</td>
+    </tr>`).join('');
+}
+
+// ═══ ACTIVITY FEED ═══
+function renderActivityFeed() {
+  const activities = [
+    {ico:'ico-green',color:'var(--green)',icon:'check',text:'<strong>Comandă #ORD-1042</strong> livrată cu succes',time:'acum 5 min'},
+    {ico:'ico-blue',color:'var(--blue)',icon:'user',text:'<strong>Maria Ionescu</strong> s-a înregistrat',time:'acum 12 min'},
+    {ico:'ico-red',color:'var(--red)',icon:'cart',text:'<strong>Comandă #ORD-1041</strong> plătită — 284 RON',time:'acum 28 min'},
+    {ico:'ico-orange',color:'var(--orange)',icon:'alert',text:'<strong>Eroare furnizor</strong> — #ORD-1039 ERR-STOCK',time:'acum 1h'},
+    {ico:'ico-gold',color:'var(--gold)',icon:'invoice',text:'<strong>3 facturi</strong> generate automat',time:'acum 2h'},
+  ];
+  const icons = {
+    check:'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',
+    user:'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    cart:'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>',
+    alert:'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+    invoice:'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+  };
+  document.getElementById('activityFeed').innerHTML = activities.map(a => `
+    <div class="activity-item">
+      <div class="act-ico ${a.ico}" style="color:${a.color}">${icons[a.icon]}</div>
+      <div class="act-text"><p>${a.text}</p></div>
+      <div class="act-time">${a.time}</div>
+    </div>`).join('');
+}
+
+// ═══ ORDERS TABLE ═══
+function renderOrdersTable(orders) {
+  document.getElementById('ordersTable').innerHTML = orders.map(o => `
+    <tr>
+      <td class="td-mono">${o.id}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:9px">
+          <div class="avatar" style="background:${avatarColor(o.client)};width:28px;height:28px;font-size:11px">${initials(o.client)}</div>
+          <div><div class="td-bold" style="font-size:13px">${o.client}</div><div style="font-size:11px;color:var(--muted)">${o.email}</div></div>
+        </div>
+      </td>
+      <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px">${o.products}</td>
+      <td class="td-bold" style="color:var(--red)">${o.total}</td>
+      <td>${STATUS_BADGES[o.payment]||o.payment}</td>
+      <td>${STATUS_BADGES[o.status]||o.status}</td>
+      <td style="font-size:12.5px;color:var(--muted)">${o.date}</td>
+      <td>
+        <div style="display:flex;gap:6px">
+          <button class="btn-sm btn-outline" style="padding:5px 10px;font-size:12px" onclick="viewOrder('${o.id}')">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Detalii
+          </button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function filterOrders(q) {
+  const filtered = ORDERS.filter(o =>
+    o.id.toLowerCase().includes(q.toLowerCase()) ||
+    o.client.toLowerCase().includes(q.toLowerCase()) ||
+    o.email.toLowerCase().includes(q.toLowerCase())
+  );
+  renderOrdersTable(filtered);
+}
+
+function filterOrdersByStatus(s) {
+  const filtered = s ? ORDERS.filter(o => o.status === s) : ORDERS;
+  renderOrdersTable(filtered);
+}
+
+function viewOrder(id) {
+  const o = ORDERS.find(x => x.id === id);
+  if (!o) return;
+  document.getElementById('modalTitle').textContent = 'Comandă ' + o.id;
+  document.getElementById('modalBody').innerHTML = `
+    <div style="padding:22px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+        <div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:5px">Client</div><div style="font-weight:700">${o.client}</div><div style="font-size:12px;color:var(--muted)">${o.email}</div></div>
+        <div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:5px">Total</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--red)">${o.total}</div></div>
+        <div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:5px">Status</div>${STATUS_BADGES[o.status]}</div>
+        <div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:5px">Plată</div>${STATUS_BADGES[o.payment]}</div>
+        <div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:5px">Produse</div><div style="font-size:13px">${o.products}</div></div>
+        <div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:5px">Data</div><div style="font-size:13px">${o.date}</div></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;border-top:1px solid var(--border);padding-top:16px">
+        <select id="statusSelect_${o.id}" style="padding:7px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;outline:none;cursor:pointer">
+          <option value="pending" ${o.status==='pending'?'selected':''}>În așteptare</option>
+          <option value="processing" ${o.status==='processing'?'selected':''}>În procesare</option>
+          <option value="shipped" ${o.status==='shipped'?'selected':''}>Expediat</option>
+          <option value="delivered" ${o.status==='delivered'?'selected':''}>Livrat</option>
+          <option value="cancelled" ${o.status==='cancelled'?'selected':''}>Anulat</option>
+        </select>
+        <button class="btn-sm btn-outline" onclick="closeModal()">Închide</button>
+        <button class="btn-sm btn-primary" onclick="saveStatus('${o.id}')">Salvează status</button>
+      </div>
+    </div>`;
+  openModal();
+}
+
+// ═══ CUSTOMERS ═══
+function renderCustomersTable() {
+  document.getElementById('customersTable').innerHTML = CUSTOMERS.map(c => `
+    <tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:9px">
+          <div class="avatar" style="background:${avatarColor(c.name)}">${initials(c.name)}</div>
+          <span class="td-bold">${c.name}</span>
+        </div>
+      </td>
+      <td style="font-size:13px;color:var(--mid)">${c.email}</td>
+      <td style="font-size:13px">${c.phone}</td>
+      <td class="td-bold" style="text-align:center">${c.orders}</td>
+      <td class="td-bold" style="color:var(--red)">${c.total}</td>
+      <td style="font-size:12px;color:var(--muted)">${c.date}</td>
+      <td>
+        <button class="btn-sm btn-outline" style="padding:5px 10px;font-size:12px">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Profil
+        </button>
+      </td>
+    </tr>`).join('');
+}
+
+// ═══ PRODUCTS ═══
+function renderProductsTable() {
+  document.getElementById('productsTable').innerHTML = PRODUCTS_DATA.map(p => `
+    <tr>
+      <td class="td-bold">${p.name}</td>
+      <td class="td-mono">${p.sku}</td>
+      <td><span class="badge badge-info">${p.cat}</span></td>
+      <td style="color:var(--mid)">${p.cost}</td>
+      <td class="td-bold" style="color:var(--red)">${p.price}</td>
+      <td style="color:var(--green);font-weight:700">${p.margin}</td>
+      <td>
+        <span style="font-weight:700;color:${p.stock===0?'var(--red)':p.stock<10?'var(--orange)':'var(--dark)'}">${p.stock}</span>
+        ${p.stock===0?'<span class="badge badge-cancelled" style="margin-left:4px">Epuizat</span>':''}
+      </td>
+      <td>${STATUS_BADGES[p.status]}</td>
+    </tr>`).join('');
+}
+
+// ═══ SUPPLIER ═══
+function renderSupplierOrders() {
+  document.getElementById('supplierOrdersTable').innerHTML = SUPPLIER_ORDERS.map(o => `
+    <tr>
+      <td class="td-mono">${o.id}</td>
+      <td class="td-bold">${o.product}</td>
+      <td style="font-size:12px;color:var(--muted)">${o.sent}</td>
+      <td class="td-mono" style="font-size:12px">${o.response}</td>
+      <td>${STATUS_BADGES[o.status]}</td>
+      <td>
+        <button class="btn-sm btn-outline" style="padding:5px 10px;font-size:12px">Retry</button>
+      </td>
+    </tr>`).join('');
+}
+
+// ═══ API LOGS ═══
+function renderApiLogs() {
+  const logs = [
+    {time:'14:32:08',method:'POST',endpoint:'/orders/create',status:201,ms:342,color:'var(--green)'},
+    {time:'14:32:06',method:'GET',endpoint:'/stock/check',status:200,ms:98,color:'var(--green)'},
+    {time:'14:31:44',method:'GET',endpoint:'/orders/1038/status',status:200,ms:156,color:'var(--green)'},
+    {time:'14:31:09',method:'POST',endpoint:'/orders/create',status:422,ms:5001,color:'var(--red)'},
+    {time:'14:15:22',method:'GET',endpoint:'/orders/1039/status',status:200,ms:112,color:'var(--green)'},
+  ];
+  document.getElementById('apiLogs').innerHTML = logs.map(l => `
+    <div style="padding:10px 0;border-bottom:1px solid #f5f6fa;display:flex;align-items:center;gap:10px;font-size:12.5px">
+      <span style="color:var(--muted);font-weight:600;white-space:nowrap">${l.time}</span>
+      <span style="background:${l.color};color:#fff;padding:2px 7px;border-radius:5px;font-size:10px;font-weight:800">${l.method}</span>
+      <span style="flex:1;font-family:monospace;color:var(--mid);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l.endpoint}</span>
+      <span style="color:${l.color};font-weight:700">${l.status}</span>
+      <span style="color:var(--muted)">${l.ms}ms</span>
+    </div>`).join('');
+}
+
+// ═══ AGENT LOGS ═══
+function renderAgentLogs() {
+  document.getElementById('agentsLogTable').innerHTML = AGENT_LOGS.map(l => `
+    <tr>
+      <td class="td-mono" style="font-size:12px">${l.time}</td>
+      <td><span class="badge badge-info">${l.agent}</span></td>
+      <td style="font-size:13px">${l.action}</td>
+      <td class="td-mono">${l.order}</td>
+      <td>${l.result==='success'?'<span class="badge badge-shipped">Succes</span>':'<span class="badge badge-cancelled">Eroare</span>'}</td>
+      <td style="font-size:12px;color:${parseInt(l.duration)>1000?'var(--orange)':'var(--muted)'};font-weight:600">${l.duration}</td>
+    </tr>`).join('');
+}
+
+// ═══ INVOICES ═══
+function renderInvoices() {
+  document.getElementById('invoicesTable').innerHTML = INVOICES_DATA.map(i => `
+    <tr>
+      <td class="td-mono">${i.nr}</td>
+      <td class="td-bold">${i.client}</td>
+      <td class="td-mono">${i.order}</td>
+      <td class="td-bold" style="color:var(--red)">${i.total}</td>
+      <td style="color:var(--muted)">${i.tva}</td>
+      <td>${STATUS_BADGES[i.status]}</td>
+      <td style="font-size:12px;color:var(--muted)">${i.date}</td>
+      <td>
+        <button class="btn-sm btn-outline" style="padding:5px 10px;font-size:12px">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          PDF
+        </button>
+      </td>
+    </tr>`).join('');
+}
+
+// ═══ MODAL ═══
+function openModal(type) {
+  if (type === 'addCustomer') {
+    document.getElementById('modalTitle').textContent = 'Client nou';
+    document.getElementById('modalBody').innerHTML = `
+      <div class="form-grid">
+        <div class="form-field"><label class="form-label">Prenume</label><input class="form-input" type="text" placeholder="Ion"/></div>
+        <div class="form-field"><label class="form-label">Nume</label><input class="form-input" type="text" placeholder="Popescu"/></div>
+        <div class="form-field"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="nume@domeniu.ro"/></div>
+        <div class="form-field"><label class="form-label">Telefon</label><input class="form-input" type="text" placeholder="07xx xxx xxx"/></div>
+      </div>
+      <div class="form-footer"><button class="btn-sm btn-outline" onclick="closeModal()">Anulează</button><button class="btn-sm btn-primary">Salvează</button></div>`;
+  }
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+
+// ═══ ACTIONS ═══
+function testApi() {
+  alert('✅ Conexiunea cu furnizorul este activă! Latență: 42ms');
+}
+function syncSupplier() {
+  const btn = event.target.closest('button');
+  btn.disabled = true;
+  btn.textContent = 'Se sincronizează...';
+  setTimeout(() => { btn.disabled = false; btn.innerHTML = '↻ Sincronizează API'; alert('✅ Sincronizare completă! 5.248 produse actualizate.'); }, 2000);
+}
+function exportCSV() {
+  const rows = [['ID','Client','Email','Total','Status','Data'],...ORDERS.map(o=>[o.id,o.client,o.email,o.total,o.status,o.date])];
+  const csv = rows.map(r=>r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv],{type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='comenzi-motoras.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Mobile sidebar toggle
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('mob-open');
+  document.getElementById('sidebarOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('mob-open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+if (window.innerWidth <= 900) {
+  document.getElementById('mobSidebarBtn').style.display = 'block';
+  document.getElementById('mobSidebarBtn').onclick = function() {
+    if (document.getElementById('sidebar').classList.contains('mob-open')) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  };
+}
+
+// Close sidebar when nav item clicked on mobile
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    if (window.innerWidth <= 900) closeSidebar();
+  });
+});
+
+// Close modal on Escape
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+window.seedDemoOrders = seedDemoOrders;
+window.clearLocalOrders = clearLocalOrders;
+
+
+// ═══ STATUS UPDATE ═══
+async function saveStatus(orderId) {
+  const sel = document.getElementById('statusSelect_' + orderId);
+  if (!sel) return;
+  const newStatus = sel.value;
+  if (window.MotApi) {
+    const result = await window.MotApi.updateOrderStatus(orderId, newStatus);
+    if (result.ok) {
+      closeModal();
+      refreshAdminData();
+      showAdminToast('Status actualizat: ' + newStatus);
+    } else {
+      alert('Eroare: ' + (result.error || 'Status invalid'));
+    }
+  } else {
+    // Fallback: direct localStorage
+    const orders = JSON.parse(localStorage.getItem('motoras_orders') || '[]');
+    const idx = orders.findIndex(o => o.id === orderId);
+    if (idx >= 0) { orders[idx].status = newStatus; localStorage.setItem('motoras_orders', JSON.stringify(orders)); }
+    closeModal();
+    refreshAdminData();
+  }
+}
+
+function showAdminToast(msg) {
+  const t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;bottom:20px;right:20px;background:var(--green,#17925c);color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.15)';
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
+}
+
+</script>
+
+
+<script>
+STATUS_BADGES.pending_payment = '<span class="badge badge-pending">Plată în așteptare</span>';
+
+function getLast7Buckets() {
+  const buckets = Array.from({length:7}, (_,i) => {
+    const d = new Date();
+    d.setHours(0,0,0,0);
+    d.setDate(d.getDate() - (6 - i));
+    return { date: d, key: d.toISOString().slice(0,10), orders: 0, revenue: 0, conv: 0 };
+  });
+  ORDERS.forEach(o => {
+    const ts = parseDateForSort(o.date);
+    if (!ts) return;
+    const d = new Date(ts); d.setHours(0,0,0,0);
+    const key = d.toISOString().slice(0,10);
+    const bucket = buckets.find(b => b.key === key);
+    if (!bucket) return;
+    bucket.orders += 1;
+    bucket.revenue += parseRON(o.totalValue ?? o.total);
+  });
+  const maxOrders = Math.max(1, ...buckets.map(b => b.orders));
+  buckets.forEach(b => b.conv = Math.min(100, 20 + Math.round((b.orders / maxOrders) * 60)));
+  return buckets;
+}
+
+
+function renderCharts() {
+  const fallbackOrders = [4, 5, 3, 6, 4, 7, 5];
+  const fallbackRevenue = [520, 740, 410, 980, 660, 1210, 840];
+  const fallbackConv = [2.2, 2.8, 2.4, 3.1, 2.9, 3.4, 3.8];
+  const days = [...Array(7)].map((_, i) => {
+    const d = new Date(); d.setDate(d.getDate() - (6 - i));
+    const key = d.toLocaleDateString('ro-RO');
+    return { key, orders: 0, revenue: 0 };
+  });
+  ORDERS.forEach(order => {
+    const ts = parseDateForSort(order.rawDate || order.date);
+    if (!ts) return;
+    const key = new Date(ts).toLocaleDateString('ro-RO');
+    const slot = days.find(d => d.key === key);
+    if (!slot) return;
+    slot.orders += 1;
+    slot.revenue += parseRON(order.totalValue ?? order.total);
+  });
+  const hasReal = days.some(d => d.orders > 0 || d.revenue > 0);
+  renderBarChart('chartOrders', hasReal ? days.map(d => d.orders) : fallbackOrders, 'var(--red)');
+  renderBarChart('chartRevenue', hasReal ? days.map(d => d.revenue) : fallbackRevenue, 'var(--green)');
+  renderBarChart('chartConv', fallbackConv, 'var(--blue)');
+}
+
+
+function renderBarChart(id, data, color) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const clean = (data || []).map(v => Number(v || 0));
+  const max = Math.max(1, ...clean);
+  const days = ['L','M','M','J','V','S','D'];
+  el.innerHTML = clean.map((v,i) => {
+    const h = Math.max(12, Math.round((v / max) * 100));
+    return `<div class="kpi-bar" style="height:${h}%;background:${color};opacity:${i===clean.length-1?'1':'0.55'}" title="${days[i]}: ${v}"></div>`;
+  }).join('');
+}
+
+function renderActivityFeed() {
+  const activities = ORDERS.slice(0,5).map((o, idx) => {
+    const icon = o.status === 'cancelled' ? 'alert' : (o.status === 'delivered' ? 'check' : (o.status === 'shipped' ? 'truck' : 'cart'));
+    const color = o.status === 'cancelled' ? 'var(--orange)' : (o.status === 'delivered' ? 'var(--green)' : (o.status === 'shipped' ? 'var(--blue)' : 'var(--red)'));
+    return { ico: o.status === 'cancelled' ? 'ico-orange' : (o.status === 'delivered' ? 'ico-green' : (o.status === 'shipped' ? 'ico-blue' : 'ico-red')), color, icon, text: `<strong>${o.id}</strong> · ${o.client} · ${o.total}`, time: idx === 0 ? 'actualizat acum' : o.date };
+  });
+  const icons = {
+    check:'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',
+    cart:'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>',
+    alert:'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+    truck:'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>'
+  };
+  const feed = document.getElementById('activityFeed');
+  if (!feed) return;
+  feed.innerHTML = activities.map(a => `
+    <div class="activity-item">
+      <div class="act-ico ${a.ico}" style="color:${a.color}">${icons[a.icon] || icons.cart}</div>
+      <div class="act-text"><p>${a.text}</p></div>
+      <div class="act-time">${a.time}</div>
+    </div>`).join('');
+}
+
+function filterOrdersByStatus(status) {
+  const filtered = status ? ORDERS.filter(o => status === 'pending' ? ['pending','pending_payment'].includes(o.status) : o.status === status) : ORDERS;
+  renderOrdersTable(filtered);
+}
+
+function viewOrder(id) {
+  const o = ORDERS.find(x => x.id === id);
+  if (!o) return;
+  document.getElementById('modalTitle').textContent = 'Comandă ' + o.id;
+  document.getElementById('modalBody').innerHTML = `
+    <div style="padding:22px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+        <div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:5px">Client</div><div style="font-weight:700">${o.client}</div><div style="font-size:12px;color:var(--muted)">${o.email}</div></div>
+        <div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:5px">Total</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--red)">${o.total}</div></div>
+        <div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:5px">Status comandă</div><select id="orderStatusSelect" class="form-select"><option value="pending">În așteptare</option><option value="pending_payment">Plată în așteptare</option><option value="processing">În procesare</option><option value="shipped">Expediat</option><option value="delivered">Livrat</option><option value="cancelled">Anulat</option></select></div>
+        <div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:5px">Plată</div><select id="orderPaymentSelect" class="form-select"><option value="unpaid">Neplătit</option><option value="paid">Plătit</option></select></div>
+        <div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:5px">Data</div><div style="font-weight:700">${o.date}</div></div>
+        <div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:5px">Produse</div><div style="font-weight:700">${o.products}</div></div>
+      </div>
+      <div class="alert alert-info"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>Flux local: comanda este salvată în browser pentru verificarea experienței client și a operațiunilor din admin.</div>
+      <div style="display:flex;gap:10px;justify-content:flex-end"><button class="btn-sm btn-outline" onclick="closeModal()">Închide</button><button class="btn-sm btn-primary" onclick="saveOrderInline('${o.id}')">Salvează status</button></div>
+    </div>`;
+  document.getElementById('orderStatusSelect').value = o.status;
+  document.getElementById('orderPaymentSelect').value = o.payment;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function saveOrderInline(id) {
+  const status = document.getElementById('orderStatusSelect').value;
+  const payment = document.getElementById('orderPaymentSelect').value;
+  const localOrders = safeParse(localStorage.getItem(LOCAL_ORDER_KEY), []);
+  const idx = localOrders.findIndex(x => x.id === id);
+  if (idx >= 0) {
+    localOrders[idx].status = status;
+    localOrders[idx].payment = payment;
+  } else {
+    const found = ORDERS.find(x => x.id === id);
+    if (found) localOrders.unshift({ id: found.id, client: found.client, email: found.email, products: found.products, total: found.totalValue || parseRON(found.total), status, payment, date: found.rawDate || found.date });
+  }
+  localStorage.setItem(LOCAL_ORDER_KEY, JSON.stringify(localOrders));
+  closeModal();
+  refreshAdminData();
+}
+</script>
+
+
+<script src="api.js"></script>
+</body>
+</html>
