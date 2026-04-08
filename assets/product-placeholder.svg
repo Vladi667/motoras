@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-labelledby="title desc">
+  <title id="title">Imagine produs indisponibila</title>
+  <desc id="desc">Placeholder pentru produsele fara imagine din feed.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f4f5f8"/>
+      <stop offset="100%" stop-color="#e3e6ed"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg)"/>
+  <rect x="100" y="100" width="600" height="600" rx="36" fill="#ffffff" stroke="#d8dde8" stroke-width="10"/>
+  <g fill="none" stroke="#cc1111" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M250 510l95-95 70 70 135-150"/>
+    <rect x="230" y="240" width="340" height="250" rx="26"/>
+    <circle cx="330" cy="330" r="34"/>
+  </g>
+  <text x="400" y="600" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="#303543">
+    Imagine indisponibila
+  </text>
+  <text x="400" y="650" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" fill="#6b7280">
+    Produs importat din feedul furnizorului
+  </text>
+</svg>
