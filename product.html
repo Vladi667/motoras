@@ -6,7 +6,18 @@
 <link rel='icon' type='image/png' href='assets/favicon.png?v=20260409-4'/>
 <link rel='shortcut icon' href='assets/favicon.png?v=20260409-4'/>
 <link rel='apple-touch-icon' href='assets/favicon.png?v=20260409-4'/>
-<meta name="description" content="Detalii produs | Motora&#537;. Piese auto originale È™i aftermarket cu livrare rapidÄƒ."/>
+<meta name="description" content="Detalii produs | Motora&#537;. Piese auto originale &#537;i aftermarket cu livrare rapid&#259;."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://motoras.ro/product.html"/>
+<meta property="og:type" content="product"/>
+<meta property="og:site_name" content="Motora&#537;"/>
+<meta property="og:title" content="Produs | Motora&#537;"/>
+<meta property="og:description" content="Piese auto originale &#537;i aftermarket cu livrare rapid&#259; &#238;n toat&#259; Rom&#226;nia. Garan&#539;ie 2 ani."/>
+<meta property="og:url" content="https://motoras.ro/product.html"/>
+<meta property="og:image" content="https://motoras.ro/assets/og-default.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Produs | Motora&#537;"/>
+<meta name="twitter:description" content="Piese auto originale &#537;i aftermarket cu livrare rapid&#259; &#238;n toat&#259; Rom&#226;nia."/>
 
 <script>(function(){try{if(sessionStorage.getItem('motoras_page_loader_nav'))document.documentElement.classList.add('page-loader-boot');}catch(e){}})();</script>
 <link rel="stylesheet" href="page-loader.css?v=20260413-4"/>
@@ -2149,8 +2160,51 @@ async function initProductPage() {
     bcSubSep.style.display = '';
   }
   document.getElementById('bcProd').textContent = prod.name.substring(0, 45) + (prod.name.length > 45 ? '...' : '');
-  document.title = prod.name + ' - MotoraÈ™';
+  document.title = prod.name + ' - Motora\u0219';
   updateProductRatingMeta({ rating: prod.rating, reviews: prod.reviews });
+
+  // JSON-LD Product schema
+  (function() {
+    var existing = document.getElementById('jsonld-product');
+    if (existing) existing.remove();
+    var availability = prod.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock';
+    var schema = {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: prod.name,
+      description: prod.desc || prod.name,
+      sku: prod.sku || prod.id,
+      brand: prod.brand ? { '@type': 'Brand', name: prod.brand } : undefined,
+      image: prod.img ? [prod.img] : ['https://motoras.ro/assets/product-placeholder.svg'],
+      offers: {
+        '@type': 'Offer',
+        url: 'https://motoras.ro/product.html?id=' + encodeURIComponent(prod.id || prod.sku),
+        priceCurrency: 'RON',
+        price: prod.price ? prod.price.toFixed(2) : '0.00',
+        availability: availability,
+        seller: { '@type': 'Organization', name: 'Motora\u0219' }
+      }
+    };
+    if (prod.rating && prod.reviews > 0) {
+      schema.aggregateRating = { '@type': 'AggregateRating', ratingValue: prod.rating, reviewCount: prod.reviews };
+    }
+    // remove undefined keys
+    var clean = JSON.parse(JSON.stringify(schema));
+    var el = document.createElement('script');
+    el.type = 'application/ld+json';
+    el.id = 'jsonld-product';
+    el.textContent = JSON.stringify(clean);
+    document.head.appendChild(el);
+
+    // update OG tags dynamically
+    var setMeta = function(sel, val) { var m = document.querySelector(sel); if (m) m.setAttribute('content', val); };
+    setMeta('meta[property="og:title"]', prod.name + ' | Motora\u0219');
+    setMeta('meta[property="og:description"]', prod.desc || prod.name);
+    setMeta('meta[property="og:image"]', prod.img || 'https://motoras.ro/assets/og-default.png');
+    setMeta('meta[name="description"]', (prod.desc || prod.name).substring(0, 155));
+    var canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.href = 'https://motoras.ro/product.html?id=' + encodeURIComponent(prod.id || prod.sku);
+  })();
 
   if (prod.old) {
     document.getElementById('prodOld').textContent = formatCatalogPrice(prod.old);
