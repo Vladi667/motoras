@@ -1,0 +1,5 @@
+/* Motoras shared stylesheet placeholder.
+   Both account.html and checkout.html load this file.
+   All critical styles are currently inline in each page.
+   This file prevents 404 errors and is the target for
+   future shared-style extraction. */

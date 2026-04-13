@@ -1,0 +1,10 @@
+.vercel/
+_fix.js
+.codex-*.html
+deploy-package/
+.DS_Store
+Thumbs.db
+.chrome-headless/
+.chrome-headless-fix/
+.chrome-headless-test/
+.claude/

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 380" role="img" aria-labelledby="loaderTitle loaderDesc">
+  <title id="loaderTitle">Motoraș loader car</title>
+  <desc id="loaderDesc">Stylized Motoraș red cabriolet used for page loading transitions.</desc>
+  <defs>
+    <style>
+      .car-fill { fill: #df2a18; }
+      .car-stroke { fill: none; stroke: #df2a18; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+  <g transform="translate(12 8)">
+    <path class="car-fill" d="M143 288c0-65 51-113 117-113h267c82 0 146 15 190 46 40 29 76 82 76 121 0 27-22 42-61 42H103c-38 0-63-16-63-42 0-15 5-33 15-54 18-40 49-70 88-88z"/>
+    <path class="car-fill" d="M413 168c20-34 49-57 82-66 31-8 61 1 80 24 14 18 24 44 19 64l-181-1z"/>
+    <path class="car-fill" d="M348 133c-18-34-55-51-95-45-20 3-42 13-55 27 30-4 57 1 78 17 18 14 37 30 57 31-9-8-16-18-22-30-5 1-8 1-11 0 9-1 16-1 25 0 7 12 15 23 23 30-1-12-6-22-13-30-5-1-10-2-16-3 8-1 16-1 24 0z"/>
+    <path class="car-fill" d="M393 175c-16 15-31 40-40 78-7 31-19 45-32 45-16 0-29-18-38-54-8-31-7-62 5-92 13-31 37-52 66-57 21-4 40 3 53 20-18 14-32 34-42 60-2 7-4 14-6 21 11-5 22-12 34-21z"/>
+    <path class="car-stroke" stroke-width="13" d="M141 289c22-48 69-79 127-79h262c111 0 190 31 233 90"/>
+    <path class="car-stroke" stroke-width="13" d="M232 328c112-2 233-5 364-4 67 0 123 3 171 8"/>
+    <path class="car-stroke" stroke-width="12" d="M564 201l70 74"/>
+    <path class="car-stroke" stroke-width="11" d="M597 201c26 0 48 9 61 25"/>
+    <ellipse class="car-fill" cx="621" cy="281" rx="24" ry="37"/>
+    <ellipse class="car-fill" cx="781" cy="283" rx="22" ry="35"/>
+    <ellipse fill="#fff" cx="621" cy="281" rx="14" ry="25"/>
+    <ellipse fill="#fff" cx="781" cy="283" rx="13" ry="23"/>
+    <g transform="translate(110 336)">
+      <ellipse class="car-fill" cx="0" cy="0" rx="57" ry="57"/>
+      <ellipse fill="#fff" cx="0" cy="0" rx="38" ry="38"/>
+      <ellipse class="car-fill" cx="0" cy="0" rx="18" ry="18"/>
+    </g>
+    <g transform="translate(527 336)">
+      <ellipse class="car-fill" cx="0" cy="0" rx="57" ry="57"/>
+      <ellipse fill="#fff" cx="0" cy="0" rx="38" ry="38"/>
+      <ellipse class="car-fill" cx="0" cy="0" rx="18" ry="18"/>
+    </g>
+    <path class="car-fill" d="M93 414c46 9 106 13 176 13 202 0 395-18 540-18 28 0 49 4 63 12-20 16-59 24-117 24H203c-64 0-116-11-153-31 13 0 27 0 43 0z"/>
+  </g>
+</svg>

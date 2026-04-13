@@ -1,0 +1,185 @@
+:root {
+  --page-loader-fade: 220ms;
+  --page-loader-min: 760ms;
+  --page-loader-exit: 900ms;
+  --page-loader-backdrop-top: rgba(248, 249, 251, 0.92);
+  --page-loader-backdrop-bottom: rgba(236, 239, 244, 0.9);
+  --page-loader-surface-glow: rgba(255, 255, 255, 0.76);
+  --page-loader-road: rgba(20, 25, 34, 0.16);
+  --page-loader-road-soft: rgba(20, 25, 34, 0.07);
+  --page-loader-car: #d92a1f;
+  --page-loader-car-highlight: rgba(255, 255, 255, 0.94);
+  --page-loader-car-shadow: rgba(20, 25, 34, 0.18);
+  --page-loader-size: min(28vw, 320px);
+}
+
+html.page-loader-boot body {
+  opacity: 0;
+}
+
+body.page-loader-lock {
+  overflow: hidden;
+}
+
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 20%, var(--page-loader-surface-glow), transparent 34%),
+    linear-gradient(180deg, var(--page-loader-backdrop-top), var(--page-loader-backdrop-bottom));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--page-loader-fade) ease, visibility var(--page-loader-fade) ease;
+  will-change: opacity;
+}
+
+.page-loader.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.page-loader.is-fading {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-loader__stage {
+  position: relative;
+  width: min(100vw, 1120px);
+  height: min(56vw, 500px);
+  min-height: 320px;
+  display: grid;
+  place-items: center;
+}
+
+.page-loader__ambient {
+  position: absolute;
+  inset: 8% 12%;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 55%, rgba(255, 255, 255, 0.78), transparent 42%),
+    radial-gradient(circle at 50% 100%, rgba(20, 25, 34, 0.05), transparent 60%);
+  filter: blur(20px);
+  will-change: opacity;
+}
+
+.page-loader__road {
+  position: absolute;
+  left: 50%;
+  bottom: 23%;
+  width: min(60vw, 680px);
+  height: 48px;
+  transform: translate3d(-50%, 0, 0);
+  will-change: opacity;
+}
+
+.page-loader__road-line {
+  position: absolute;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  will-change: opacity;
+}
+
+.page-loader__road-line {
+  bottom: 10px;
+  width: 100%;
+  height: 3px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 12% 56%, rgba(20, 25, 34, 0.12) 0 1.4px, transparent 1.4px 100%),
+    radial-gradient(circle at 31% 42%, rgba(20, 25, 34, 0.08) 0 1.2px, transparent 1.2px 100%),
+    radial-gradient(circle at 53% 60%, rgba(20, 25, 34, 0.10) 0 1.3px, transparent 1.3px 100%),
+    radial-gradient(circle at 74% 44%, rgba(20, 25, 34, 0.08) 0 1.2px, transparent 1.2px 100%),
+    radial-gradient(circle at 90% 57%, rgba(20, 25, 34, 0.11) 0 1.4px, transparent 1.4px 100%),
+    linear-gradient(90deg, var(--page-loader-road-soft), var(--page-loader-road), var(--page-loader-road-soft));
+  opacity: 0.55;
+}
+
+.page-loader__motion {
+  position: absolute;
+  left: 50%;
+  bottom: 27%;
+  width: var(--page-loader-size);
+  min-width: 220px;
+  max-width: 320px;
+  transform: translate3d(-50%, 0, 0);
+  will-change: transform, opacity;
+}
+
+.page-loader__car {
+  position: relative;
+  width: 100%;
+  transform-origin: 50% 76%;
+  will-change: transform;
+  filter: drop-shadow(0 22px 32px rgba(20, 25, 34, 0.14));
+}
+
+.page-loader__car-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.page-loader__car-body {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.page-loader__wheel-rim {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.page-loader__shadow {
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  width: 52%;
+  height: 14px;
+  transform: translate3d(-50%, 0, 0);
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--page-loader-car-shadow) 0%, rgba(20, 25, 34, 0.08) 42%, rgba(20, 25, 34, 0) 78%);
+  filter: blur(4px);
+  opacity: 0.86;
+  will-change: transform, opacity;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --page-loader-size: min(48vw, 240px);
+  }
+
+  .page-loader__stage {
+    height: min(84vw, 440px);
+    min-height: 280px;
+  }
+
+  .page-loader__motion {
+    bottom: 29%;
+    min-width: 180px;
+  }
+
+  .page-loader__road {
+    bottom: 25%;
+    width: min(76vw, 420px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-loader,
+  .page-loader * {
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+  }
+}

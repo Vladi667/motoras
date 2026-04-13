@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /catalog.json
+Disallow: /catalog-lite.json
+Disallow: /supplier-feed.xml
+Disallow: /supplier-feed-globiz.xml
+Disallow: /deploy-package/
+Disallow: /_fix.js
+Allow: /
+
+Sitemap: https://motoras.ro/sitemap.xml
