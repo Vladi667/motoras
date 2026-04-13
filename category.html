@@ -1364,24 +1364,24 @@ body { -webkit-font-smoothing:antialiased; font-family:'Nunito Sans',sans-serif;
 <!-- CART OVERLAY -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cartDrawer">
-  <div class="cart-hdr"><h3>CoÈ™ul meu <span id="cartItemCount" style="font-size:15px;color:var(--red);font-weight:700"></span></h3><button class="cart-close" onclick="closeCart()"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
-  <div class="cart-items" id="cartItems"><div class="cart-empty" id="cartEmpty"><svg width="52" height="52" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><p>CoÈ™ul este gol</p><span>AdaugÄƒ produse pentru a Ã®ncepe</span></div></div>
+  <div class="cart-hdr"><h3>Coșul meu <span id="cartItemCount" style="font-size:15px;color:var(--red);font-weight:700"></span></h3><button class="cart-close" onclick="closeCart()"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+  <div class="cart-items" id="cartItems"><div class="cart-empty" id="cartEmpty"><svg width="52" height="52" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><p>Coșul este gol</p><span>Adaugă produse pentru a începe</span></div></div>
   <div class="cart-footer" id="cartFooter" style="display:none">
     <div class="cart-sub-row"><span>Subtotal</span><span id="cartSubtotal">0 RON</span></div>
-    <div class="cart-sub-row"><span>Livrare</span><span style="color:var(--green);font-weight:700">GRATUITÄ‚</span></div>
+    <div class="cart-sub-row"><span>Livrare</span><span style="color:var(--green);font-weight:700">GRATUITĂ</span></div>
     <div class="cart-total-row"><span>Total</span><strong id="cartTotal">0 RON</strong></div>
-    <button class="btn-checkout" onclick="goCheckout()"><svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>FINALIZEAZÄ‚ COMANDA</button>
-    <button class="btn-cont" onclick="closeCart()">&#8592; ContinuÄƒ cumpÄƒrÄƒturile</button>
+    <button class="btn-checkout" onclick="goCheckout()"><svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>FINALIZEAZĂ COMANDA</button>
+    <button class="btn-cont" onclick="closeCart()">&#8592; Continuă cumpărăturile</button>
   </div>
 </div>
 <div class="cart-overlay" id="favoritesOverlay" onclick="window.MotorasFavorites.closeFavorites()"></div>
 <div class="cart-drawer fav-drawer" id="favoritesDrawer">
   <div class="cart-hdr"><h3>Favorite <span id="favoritesItemCount" style="font-size:15px;color:var(--red);font-weight:700"></span></h3><button class="cart-close" type="button" onclick="window.MotorasFavorites.closeFavorites()"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
-  <div class="cart-items" id="favoritesItems"><div class="cart-empty" id="favoritesEmpty"><svg width="52" height="52" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 21s-7.2-4.35-9.54-8.03C.67 10.17 1.2 6.52 4.45 4.9c2.03-1.01 4.44-.55 5.97 1.13L12 7.67l1.58-1.64c1.53-1.68 3.94-2.14 5.97-1.13 3.25 1.62 3.78 5.27 1.99 8.07C19.2 16.65 12 21 12 21z"/></svg><p>Nu ai produse favorite</p><span>SalveazÄƒ produse pentru a le regÄƒsi rapid</span></div></div>
+  <div class="cart-items" id="favoritesItems"><div class="cart-empty" id="favoritesEmpty"><svg width="52" height="52" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 21s-7.2-4.35-9.54-8.03C.67 10.17 1.2 6.52 4.45 4.9c2.03-1.01 4.44-.55 5.97 1.13L12 7.67l1.58-1.64c1.53-1.68 3.94-2.14 5.97-1.13 3.25 1.62 3.78 5.27 1.99 8.07C19.2 16.65 12 21 12 21z"/></svg><p>Nu ai produse favorite</p><span>Salvează produse pentru a le regăsi rapid</span></div></div>
   <div class="cart-footer" id="favoritesFooter" style="display:none">
-    <div class="cart-sub-row"><span>Favorite salvate</span><span>Le poÈ›i trimite rapid Ã®n coÈ™</span></div>
-    <button class="btn-checkout" type="button" onclick="window.MotorasFavorites.closeFavorites();openCart()"><svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-7.2-4.35-9.54-8.03C.67 10.17 1.2 6.52 4.45 4.9c2.03-1.01 4.44-.55 5.97 1.13L12 7.67l1.58-1.64c1.53-1.68 3.94-2.14 5.97-1.13 3.25 1.62 3.78 5.27 1.99 8.07C19.2 16.65 12 21 12 21z"/></svg>VEZI FAVORITELE ÃŽN COÈ˜</button>
-    <button class="btn-cont" type="button" onclick="window.MotorasFavorites.closeFavorites()">ÃŽnapoi la cumpÄƒrÄƒturi</button>
+    <div class="cart-sub-row"><span>Favorite salvate</span><span>Le poți trimite rapid în coș</span></div>
+    <button class="btn-checkout" type="button" onclick="window.MotorasFavorites.closeFavorites();openCart()"><svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-7.2-4.35-9.54-8.03C.67 10.17 1.2 6.52 4.45 4.9c2.03-1.01 4.44-.55 5.97 1.13L12 7.67l1.58-1.64c1.53-1.68 3.94-2.14 5.97-1.13 3.25 1.62 3.78 5.27 1.99 8.07C19.2 16.65 12 21 12 21z"/></svg>VEZI FAVORITELE ÎN COȘ</button>
+    <button class="btn-cont" type="button" onclick="window.MotorasFavorites.closeFavorites()">Înapoi la cumpărături</button>
   </div>
 </div>
 <!-- MOB NAV -->
@@ -1401,71 +1401,71 @@ body { -webkit-font-smoothing:antialiased; font-family:'Nunito Sans',sans-serif;
 </div>
 <!-- ANN BAR -->
 <div class="ann-bar"><div class="ann-in">
-  <div class="ann-item"><svg width="13" height="13" fill="none" stroke="#e74c3c" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><strong>Livrare gratuitÄƒ</strong>&nbsp;la comenzi peste 500 RON</div>
+  <div class="ann-item"><svg width="13" height="13" fill="none" stroke="#e74c3c" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><strong>Livrare gratuită</strong>&nbsp;la comenzi peste 500 RON</div>
   <div class="ann-dot"></div>
-  <div class="ann-item"><svg width="13" height="13" fill="#e74c3c" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><strong>Ridicare personalÄƒ</strong>&nbsp;â€¢ Str. Agricultori nr. 2, BucureÈ™ti</div>
+  <div class="ann-item"><svg width="13" height="13" fill="#e74c3c" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><strong>Ridicare personală</strong>&nbsp;• Str. Agricultori nr. 2, București</div>
   <div class="ann-dot"></div>
   <div class="ann-item"><svg width="13" height="13" fill="#e74c3c" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><strong>contact@motoras.ro</strong></div>
 </div></div>
 <!-- HEADER -->
 <header class="header"><div class="header-in">
-  <a href="index.html" class="logo"><img src="assets/logo.png?v=20260409-3" alt="MotoraÈ™"/></a>
+  <a href="index.html" class="logo"><img src="assets/logo.png?v=20260409-3" alt="Motoraș"/></a>
   <div class="search-form">
-    <input type="text" id="desktopSearchInput" placeholder="CautÄƒ dupÄƒ numÄƒr piesÄƒ, OEM, marcÄƒ, model..." onkeydown="if(event.key==='Enter'){(window.MotApiSearch?.go(this.value)) || (window.location='search.html?q='+encodeURIComponent(this.value));}"/>
-    <button class="search-btn" onclick="(window.MotApiSearch?.go(document.getElementById('desktopSearchInput').value)) || (window.location='search.html?q='+encodeURIComponent(document.getElementById('desktopSearchInput').value))"><svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><span class="btn-label">CautÄƒ</span></button>
+    <input type="text" id="desktopSearchInput" placeholder="Caută după număr piesă, OEM, marcă, model..." onkeydown="if(event.key==='Enter'){(window.MotApiSearch?.go(this.value)) || (window.location='search.html?q='+encodeURIComponent(this.value));}"/>
+    <button class="search-btn" onclick="(window.MotApiSearch?.go(document.getElementById('desktopSearchInput').value)) || (window.location='search.html?q='+encodeURIComponent(document.getElementById('desktopSearchInput').value))"><svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><span class="btn-label">Caută</span></button>
   </div>
   <div class="hdr-r">
     <div class="hdr-top">
-      <div class="hdr-addr"><svg width="12" height="12" fill="#cc1111" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Strada Agricultori Nr. 2, BucureÈ™ti</div>
+      <div class="hdr-addr"><svg width="12" height="12" fill="#cc1111" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Strada Agricultori Nr. 2, București</div>
       <div class="hdr-phone"><svg width="15" height="15" fill="none" stroke="#cc1111" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>0731 284 932</div>
     </div>
     <div class="hdr-actions">
       <button class="mob-search-toggle" id="mobSearchToggle" onclick="toggleMobSearch()"><svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
       <a href="account.html" class="btn-acc"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="btn-acc-label">Contul meu</span></a>
       <button class="btn-fav" type="button" data-favorites-open aria-label="Favorite"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-7.2-4.35-9.54-8.03C.67 10.17 1.2 6.52 4.45 4.9c2.03-1.01 4.44-.55 5.97 1.13L12 7.67l1.58-1.64c1.53-1.68 3.94-2.14 5.97-1.13 3.25 1.62 3.78 5.27 1.99 8.07C19.2 16.65 12 21 12 21z"/></svg><span class="btn-fav-label">Favorite</span><span class="fav-count" id="favBadge">0</span></button>
-      <button class="btn-cart" onclick="openCart()"><svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="btn-cart-label">CoÈ™</span><span class="cart-count" id="cartBadge">0</span></button>
+      <button class="btn-cart" onclick="openCart()"><svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="btn-cart-label">Coș</span><span class="cart-count" id="cartBadge">0</span></button>
       <button class="mob-menu-btn" id="mobMenuBtn" onclick="toggleMobNav()"><span></span><span></span><span></span></button>
     </div>
   </div>
 </div></header>
 <div class="mob-search-bar" id="mobSearchBar" style="display:none">
   <div class="mob-search-inner">
-    <input type="text" id="mobileSearchInput" placeholder="CautÄƒ piesa, marca, model OEM..." onkeydown="if(event.key==='Enter'){(window.MotApiSearch?.go(this.value)) || (window.location='search.html?q='+encodeURIComponent(this.value));}"/>
+    <input type="text" id="mobileSearchInput" placeholder="Caută piesa, marca, model OEM..." onkeydown="if(event.key==='Enter'){(window.MotApiSearch?.go(this.value)) || (window.location='search.html?q='+encodeURIComponent(this.value));}"/>
     <button onclick="(window.MotApiSearch?.go(document.getElementById('mobileSearchInput').value)) || (window.location='search.html?q='+encodeURIComponent(document.getElementById('mobileSearchInput').value))"><svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
   </div>
 </div>
 <nav class="navbar"><div class="navbar-in"><a href="category.html?cat=piese" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx='12' cy='12' r='3'/><path d='M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4'/></svg>Piese Auto</a><a href="category.html?cat=accesorii" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d='M7 7h10v10H7z'/><path d='M3 10h4M17 10h4M10 3v4M10 17v4'/></svg>Accesorii</a><a href="category.html?cat=detailing" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>Detailing</a><a href="category.html?cat=baterii" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x='2' y='7' width='20' height='11' rx='2'/><path d='M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2'/></svg>Baterii &amp; Acumulatori</a><a href="category.html?cat=filtre" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points='22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3'/></svg>Filtre</a><a href="category.html?cat=prelate" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x='2' y='7' width='20' height='13' rx='3'/><path d='M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2'/></svg>Prelate</a></div></nav>
 
-<div class="breadcrumb"><div class="bc-in"><a href="index.html">AcasÄƒ</a><span class="bc-sep">â€º</span><span class="bc-current" id="bcCurrent">Piese Auto</span></div></div>
+<div class="breadcrumb"><div class="bc-in"><a href="index.html">Acasă</a><span class="bc-sep">›</span><span class="bc-current" id="bcCurrent">Piese Auto</span></div></div>
 <div class="pw">
   <aside class="sf" id="sidebarFilters">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--dark);text-transform:uppercase">Filtre</div>
-      <button onclick="clearFilters()" style="font-size:12px;font-weight:700;color:var(--red);background:none;border:none;cursor:pointer;text-decoration:underline">ReseteazÄƒ</button>
+      <button onclick="clearFilters()" style="font-size:12px;font-weight:700;color:var(--red);background:none;border:none;cursor:pointer;text-decoration:underline">Resetează</button>
     </div>
     <div style="margin-bottom:20px">
       <div style="font-size:12px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Marca</div>
       <div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="ATE" id="bATE" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bATE" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">ATE</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Bosch" id="bBosch" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bBosch" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Bosch</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="CarPassion" id="bCarPassion" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bCarPassion" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">CarPassion</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="CarPro" id="bCarPro" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bCarPro" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">CarPro</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Castrol" id="bCastrol" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bCastrol" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Castrol</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Continental" id="bContinental" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bContinental" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Continental</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="DriveMax" id="bDriveMax" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bDriveMax" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">DriveMax</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Elf" id="bElf" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bElf" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Elf</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Exide" id="bExide" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bExide" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Exide</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Gates" id="bGates" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bGates" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Gates</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="LUK" id="bLUK" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bLUK" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">LUK</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Liqui Moly" id="bLiquiMoly" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bLiquiMoly" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Liqui Moly</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Mahle" id="bMahle" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bMahle" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Mahle</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Mann" id="bMann" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bMann" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Mann</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Meyle" id="bMeyle" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bMeyle" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Meyle</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Mobil" id="bMobil" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bMobil" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Mobil</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Motul" id="bMotul" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bMotul" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Motul</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="NGK" id="bNGK" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bNGK" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">NGK</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Osram" id="bOsram" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bOsram" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Osram</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Philips" id="bPhilips" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bPhilips" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Philips</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Purflux" id="bPurflux" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bPurflux" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Purflux</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Sachs" id="bSachs" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bSachs" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Sachs</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Shell" id="bShell" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bShell" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Shell</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Stanley" id="bStanley" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bStanley" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Stanley</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="TRW" id="bTRW" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bTRW" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">TRW</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Textar" id="bTextar" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bTextar" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Textar</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Total" id="bTotal" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bTotal" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Total</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Valeo" id="bValeo" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bValeo" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Valeo</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Varta" id="bVarta" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bVarta" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Varta</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Xiaomi" id="bXiaomi" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bXiaomi" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Xiaomi</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Yuasa" id="bYuasa" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bYuasa" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Yuasa</label></div>
     </div>
     <div style="margin-bottom:20px">
-      <div style="font-size:12px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">PreÈ› (RON)</div>
+      <div style="font-size:12px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Preț (RON)</div>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
         <input type="number" id="pMin" placeholder="Min" value="0" class="pi" style="max-width:80px"/>
         <span style="color:#ccc">-</span>
         <input type="number" id="pMax" placeholder="Max" value="9999" class="pi" style="max-width:80px"/>
       </div>
-      <button onclick="applyFilters()" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">AplicÄƒ filtrul</button>
+      <button onclick="applyFilters()" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Aplică filtrul</button>
     </div>
     <div>
       <div style="font-size:12px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Disponibilitate</div>
-      <div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" id="inStock" style="accent-color:var(--red);width:15px;height:15px" onchange="applyFilters()"/><label for="inStock" style="font-size:13.5px;color:var(--mid);cursor:pointer">ÃŽn stoc</label></div>
+      <div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" id="inStock" style="accent-color:var(--red);width:15px;height:15px" onchange="applyFilters()"/><label for="inStock" style="font-size:13.5px;color:var(--mid);cursor:pointer">În stoc</label></div>
       <div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" id="onSale" style="accent-color:var(--red);width:15px;height:15px" onchange="applyFilters()"/><label for="onSale" style="font-size:13.5px;color:var(--mid);cursor:pointer">La reducere</label></div>
     </div>
   </aside>
   <div>
     <div style="background:linear-gradient(135deg,var(--dark2),#1e2235);border-radius:16px;padding:26px 32px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden">
       <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 100% at 80% 50%,rgba(204,17,17,.12),transparent)"></div>
-            <div style="position:relative"><div style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:-.5px" id="catBannerTitle">Piese Auto</div><div style="font-size:13px;color:rgba(255,255,255,.5);margin-top:4px" id="catBannerDesc">Piese originale È™i aftermarket</div></div>
+            <div style="position:relative"><div style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:-.5px" id="catBannerTitle">Piese Auto</div><div style="font-size:13px;color:rgba(255,255,255,.5);margin-top:4px" id="catBannerDesc">Piese originale și aftermarket</div></div>
       <img id="catBannerImg" src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=900&q=80&fit=crop" style="height:100px;object-fit:contain;position:relative;filter:drop-shadow(0 8px 24px rgba(0,0,0,.3))" loading="lazy"/>
     </div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px">
@@ -1476,8 +1476,8 @@ body { -webkit-font-smoothing:antialiased; font-family:'Nunito Sans',sans-serif;
       </div>
       <select id="sortSelect" class="sort-sel" onchange="applyFilters()">
         <option value="popular">Cele mai populare</option>
-<option value="price_asc">PreÈ›: mic - mare</option>
-<option value="price_desc">PreÈ›: mare - mic</option>
+<option value="price_asc">Preț: mic - mare</option>
+<option value="price_desc">Preț: mare - mic</option>
         <option value="rating">Rating</option>
       </select>
     </div>
@@ -1491,20 +1491,20 @@ body { -webkit-font-smoothing:antialiased; font-family:'Nunito Sans',sans-serif;
 </div>
 <footer class="footer"><div class="footer-in">
   <div class="footer-grid">
-        <div class="footer-brand"><img src="assets/logo.png?v=20260409-3" alt="MotoraÈ™" style="height:46px;opacity:.95;margin-bottom:14px"/><p>Piese auto originale È™i aftermarket la cele mai bune preÈ›uri. Livrare rapidÄƒ Ã®n toatÄƒ RomÃ¢nia.</p></div>
+        <div class="footer-brand"><img src="assets/logo.png?v=20260409-3" alt="Motoraș" style="height:46px;opacity:.95;margin-bottom:14px"/><p>Piese auto originale și aftermarket la cele mai bune prețuri. Livrare rapidă în toată România.</p></div>
     <div class="footer-col"><h4>Categorii</h4><a href="category.html?cat=piese">Piese Auto</a><a href="category.html?cat=accesorii">Accesorii</a><a href="category.html?cat=detailing">Detailing</a><a href="category.html?cat=baterii">Baterii</a><a href="category.html?cat=filtre">Filtre</a><a href="category.html?cat=prelate">Prelate</a></div>
     <div class="footer-col"><h4>Cont</h4><a href="account.html">Contul meu</a><a href="account.html">Comenzile mele</a><a href="account.html">Facturi</a></div>
-    <div class="footer-col"><h4>Legal</h4><a href="termeni.html">Termeni È™i condiÈ›ii</a><a href="confidentialitate.html">ConfidenÈ›ialitate</a><a href="retururi.html">Retur 30 zile</a><a href="https://anpc.ro" target="_blank">ANPC</a><a href="https://ec.europa.eu/consumers/odr" target="_blank">SOL UE</a></div>
+    <div class="footer-col"><h4>Legal</h4><a href="termeni.html">Termeni și condiții</a><a href="confidentialitate.html">Confidențialitate</a><a href="retururi.html">Retur 30 zile</a><a href="https://anpc.ro" target="_blank">ANPC</a><a href="https://ec.europa.eu/consumers/odr" target="_blank">SOL UE</a></div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-legal"><a href="termeni.html">Termeni</a><a href="confidentialitate.html">ConfidenÈ›ialitate</a><a href="cookies.html">Cookies</a><a href="retururi.html">Retur</a></div>
-    <div class="footer-copy">(c) 2026 MotoraÈ™ SRL | CUI: RO52459678 | Reg. Com.: J2025067651008</div>
+    <div class="footer-legal"><a href="termeni.html">Termeni</a><a href="confidentialitate.html">Confidențialitate</a><a href="cookies.html">Cookies</a><a href="retururi.html">Retur</a></div>
+    <div class="footer-copy">(c) 2026 Motoraș SRL | CUI: RO52459678 | Reg. Com.: J2025067651008</div>
   </div>
 </div></footer>
 <div class="cookie-banner" id="cookieBanner">
   <div class="cookie-in">
-    <div class="cookie-text">Folosim cookie-uri pentru a Ã®mbunÄƒtÄƒÈ›i experienÈ›a ta. Prin continuarea navigÄƒrii eÈ™ti de acord cu <a href="cookies.html">Politica de Cookies</a> È™i <a href="confidentialitate.html">Politica de ConfidenÈ›ialitate</a> conform GDPR.</div>
-    <div class="cookie-btns"><button class="btn-cookie-decline" onclick="declineCookies()">Doar esenÈ›iale</button><button class="btn-cookie-accept" onclick="acceptCookies()">Accept toate</button></div>
+    <div class="cookie-text">Folosim cookie-uri pentru a îmbunătăți experiența ta. Prin continuarea navigării ești de acord cu <a href="cookies.html">Politica de Cookies</a> și <a href="confidentialitate.html">Politica de Confidențialitate</a> conform GDPR.</div>
+    <div class="cookie-btns"><button class="btn-cookie-decline" onclick="declineCookies()">Doar esențiale</button><button class="btn-cookie-accept" onclick="acceptCookies()">Accept toate</button></div>
   </div>
 </div>
 <script src="cart.js?v=20260409-7"></script>
@@ -1809,7 +1809,7 @@ async function loadCategoryCatalog() {
   CATALOG = ALL_PRODS;
   return ALL_PRODS;
 }
-const CAT_META = {"piese": {"title": "Piese Auto", "desc": "Componente tehnice È™i piese auto pentru Ã®ntreÈ›inere realÄƒ", "img": "assets/category-piese.svg"}, "accesorii": {"title": "Accesorii Auto", "desc": "Becuri, adaptoare È™i accesorii utile separate clar de zona de piese", "img": "https://crm.carguard.ro/media/articole/carguard-bec-xenon-h1-6k.png"}, "detailing": {"title": "Detailing", "desc": "Cosmetica auto, accesorii premium È™i soluÈ›ii de Ã®ntreÈ›inere", "img": "https://www.carhub.ro/media/catalog/product/m/p/mpon_auto_cu_sio2_meguiar_s_hybrid_ceramic_wash_and_wax_1_423864033a496b04a.png"}, "baterii": {"title": "Baterii &amp; Acumulatori", "desc": "Baterii auto È™i moto de calitate pentru orice vehicul", "img": "https://crm.carguard.ro/media/articole/modul-pentru-baterii-huawei-luna20002.png"}, "uleiuri": {"title": "Uleiuri &amp; LubrifianÈ›i", "desc": "Uleiuri motor, antigel, aditivi È™i lichide tehnice", "img": "https://images.unsplash.com/photo-1635348729202-4274b80b4b50?w=900&q=80&fit=crop"}, "filtre": {"title": "Filtre Auto", "desc": "Filtre ulei, aer, combustibil È™i habitaclu pentru orice model", "img": "https://www.carhub.ro/media/catalog/product/m/a/masca-filtru-carbon-colad-carhub.png"}, "prelate": {"title": "Prelate Auto", "desc": "Prelate impermeabile de exterior pentru protecÈ›ie completÄƒ", "img": "https://www.carhub.ro/media/catalog/product/r/t/rtible_and_cabriolet_wheatherproof_meguiar_s_336ml_carhub_1842640333b182130.png"}, "ambreiaje": {"title": "Ambreiaje", "desc": "Kituri È™i discuri ambreiaj pentru toate modelele", "img": "assets/category-piese.svg"}};
+const CAT_META = {"piese": {"title": "Piese Auto", "desc": "Componente tehnice și piese auto pentru întreținere reală", "img": "assets/category-piese.svg"}, "accesorii": {"title": "Accesorii Auto", "desc": "Becuri, adaptoare și accesorii utile separate clar de zona de piese", "img": "https://crm.carguard.ro/media/articole/carguard-bec-xenon-h1-6k.png"}, "detailing": {"title": "Detailing", "desc": "Cosmetică auto, accesorii premium și soluții de întreținere", "img": "https://www.carhub.ro/media/catalog/product/m/p/mpon_auto_cu_sio2_meguiar_s_hybrid_ceramic_wash_and_wax_1_423864033a496b04a.png"}, "baterii": {"title": "Baterii &amp; Acumulatori", "desc": "Baterii auto și moto de calitate pentru orice vehicul", "img": "https://crm.carguard.ro/media/articole/modul-pentru-baterii-huawei-luna20002.png"}, "uleiuri": {"title": "Uleiuri &amp; Lubrifianți", "desc": "Uleiuri motor, antigel, aditivi și lichide tehnice", "img": "https://images.unsplash.com/photo-1635348729202-4274b80b4b50?w=900&q=80&fit=crop"}, "filtre": {"title": "Filtre Auto", "desc": "Filtre ulei, aer, combustibil și habitaclu pentru orice model", "img": "https://www.carhub.ro/media/catalog/product/m/a/masca-filtru-carbon-colad-carhub.png"}, "prelate": {"title": "Prelate Auto", "desc": "Prelate impermeabile de exterior pentru protecție completă", "img": "https://www.carhub.ro/media/catalog/product/r/t/rtible_and_cabriolet_wheatherproof_meguiar_s_336ml_carhub_1842640333b182130.png"}, "ambreiaje": {"title": "Ambreiaje", "desc": "Kituri și discuri ambreiaj pentru toate modelele", "img": "assets/category-piese.svg"}};
 let currentPage = 1;
 const PAGE_SIZE = 12;
 
@@ -1927,7 +1927,7 @@ function renderProducts(page) {
   const grid = document.getElementById('prodsGrid');
   if(!grid) return;
   if(slice.length === 0) {
-    grid.innerHTML = '<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--mid);font-size:15px;font-weight:600;background:#fff;border-radius:12px;border:1.5px dashed var(--border)">Niciun produs gÄƒsit cu filtrele selectate.<br><button onclick="clearFilters()" style="margin-top:12px;padding:8px 20px;background:var(--red);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-family:inherit">ReseteazÄƒ filtrele</button></div>';
+    grid.innerHTML = '<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--mid);font-size:15px;font-weight:600;background:#fff;border-radius:12px;border:1.5px dashed var(--border)">Niciun produs găsit cu filtrele selectate.<br><button onclick="clearFilters()" style="margin-top:12px;padding:8px 20px;background:var(--red);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-family:inherit">Resetează filtrele</button></div>';
     document.getElementById('pgn')?.replaceChildren(); return;
   }
   grid.innerHTML = slice.map(p => cardHtmlEnhanced(p)).join('');
@@ -1949,8 +1949,8 @@ function cardHtml(p) {
   const bdg = p.badge==='hot' ? '<span class="prod-badge badge-hot">&#128293; Popular</span>'
             : p.badge==='new' ? '<span class="prod-badge badge-new">Nou</span>'
             : p.badge==='sale' && p.old ? `<span class="prod-badge badge-sale">-${Math.round((1-p.price/p.old)*100)}%</span>` : '';
-  const stk = p.stock > 10 ? '<span class="prod-stk ok">&#10003; ÃŽn stoc</span>'
-            : p.stock > 0  ? `<span class="prod-stk low">&#9888; Doar ${p.stock} rÄƒmase</span>`
+  const stk = p.stock > 10 ? '<span class="prod-stk ok">&#10003; În stoc</span>'
+            : p.stock > 0  ? `<span class="prod-stk low">&#9888; Doar ${p.stock} rămase</span>`
             : '<span class="prod-stk out">&#10007; Epuizat</span>';
   const encodedId = encodeURIComponent(String(p.id));
   return `<div class="prod-card" data-product-id="${encodedId}" style="animation:fadeUp .3s ease both;animation-delay:calc(var(--i,0)*.05s)">
@@ -1965,7 +1965,7 @@ function cardHtml(p) {
       ${stk}
       <button class="btn-add" type="button" data-product-action="add" data-product-id="${encodedId}">
         <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        AdaugÄƒ Ã®n coÈ™
+        Adaugă în coș
       </button>
     </div>
   </div>`;
@@ -1994,12 +1994,12 @@ function renderPagination(total) {
     pushPage(pages);
   }
 
-  let html = `<button class="pb nav${currentPage === 1 ? ' is-disabled' : ''}" ${currentPage === 1 ? 'type="button" disabled' : `type="button" onclick="goToPage(${currentPage-1})"`} aria-label="Pagina anterioarÄƒ">&#8592;</button>`;
+  let html = `<button class="pb nav${currentPage === 1 ? ' is-disabled' : ''}" ${currentPage === 1 ? 'type="button" disabled' : `type="button" onclick="goToPage(${currentPage-1})"`} aria-label="Pagina anterioară">&#8592;</button>`;
   html += tokens.map(token => {
     if(token.type === 'gap') return '<span class="pb-gap">...</span>';
     return `<button class="pb${token.value===currentPage?' act':''}" type="button" onclick="goToPage(${token.value})" aria-label="Pagina ${token.value}">${token.value}</button>`;
   }).join('');
-  html += `<button class="pb nav${currentPage === pages ? ' is-disabled' : ''}" ${currentPage === pages ? 'type="button" disabled' : `type="button" onclick="goToPage(${currentPage+1})"`} aria-label="Pagina urmÄƒtoare">&#8594;</button>`;
+  html += `<button class="pb nav${currentPage === pages ? ' is-disabled' : ''}" ${currentPage === pages ? 'type="button" disabled' : `type="button" onclick="goToPage(${currentPage+1})"`} aria-label="Pagina următoare">&#8594;</button>`;
   pgn.innerHTML = html;
 }
 
@@ -2018,8 +2018,8 @@ function cardHtmlEnhanced(p) {
   const bdg  = p.badge==='hot' ? '<span class="prod-badge badge-hot">&#128293; Popular</span>'
              : p.badge==='new' ? '<span class="prod-badge badge-new">Nou</span>'
              : p.badge==='sale'&&p.old ? `<span class="prod-badge badge-sale">-${Math.round((1-p.price/p.old)*100)}%</span>` : '';
-  const stk  = p.stock>10 ? '<span class="prod-stk ok">&#10003; ÃŽn stoc</span>'
-             : p.stock>0  ? `<span class="prod-stk low">&#9888; Doar ${p.stock} rÄƒmase</span>`
+  const stk  = p.stock>10 ? '<span class="prod-stk ok">&#10003; În stoc</span>'
+             : p.stock>0  ? `<span class="prod-stk low">&#9888; Doar ${p.stock} rămase</span>`
              : '<span class="prod-stk out">&#10007; Epuizat</span>';
   return `<div class="prod-card" data-product-id="${encodedId}" style="animation:fadeUp .3s ease both;animation-delay:calc(var(--i,0)*.05s)">
     ${bdg}
@@ -2027,10 +2027,10 @@ function cardHtmlEnhanced(p) {
     <a href="product.html?id=${encodedId}" class="prod-img">
       <img src="${p.img}" alt="${p.name}" loading="lazy"/>
       <div class="prod-img-overlay">
-        <button class="btn-quick-add" type="button" data-product-action="quick-add" data-product-id="${encodedId}" data-label="AdaugÄƒ" aria-label="AdaugÄƒ rapid Ã®n coÈ™">
+        <button class="btn-quick-add" type="button" data-product-action="quick-add" data-product-id="${encodedId}" data-label="Adaugă" aria-label="Adaugă rapid în coș">
           <svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         </button>
-        <button class="btn-quick-view" type="button" data-product-action="quick-view" data-product-id="${encodedId}" data-label="Detalii" aria-label="Detalii rapide" title="Vizualizare rapidÄƒ"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        <button class="btn-quick-view" type="button" data-product-action="quick-view" data-product-id="${encodedId}" data-label="Detalii" aria-label="Detalii rapide" title="Vizualizare rapidă"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
       </div>
     </a>
     <div class="prod-body">
@@ -2041,7 +2041,7 @@ function cardHtmlEnhanced(p) {
       ${stk}
       <button class="btn-add" type="button" data-product-action="add" data-product-id="${encodedId}">
         <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        AdaugÄƒ Ã®n coÈ™
+        Adaugă în coș
       </button>
     </div>
   </div>`;
@@ -2064,7 +2064,7 @@ function showToast(name, price, img, type='cart') {
   t.innerHTML = `
     <img class="toast-img" src="${img}" alt="${name}" onerror="this.style.display='none'"/>
     <div class="toast-text">
-      <div class="toast-title">${type==='cart' ? '&#10003; AdÄƒugat Ã®n coÈ™' : '&#10084; AdÄƒugat la favorite'}</div>
+      <div class="toast-title">${type==='cart' ? '&#10003; Adăugat în coș' : '&#10084; Adăugat la favorite'}</div>
       <div class="toast-sub">${name.length > 38 ? name.substring(0,38)+'...' : name}</div>
     </div>
     <div class="toast-price">${price} RON</div>
@@ -2107,13 +2107,13 @@ function openQuickView(productId) {
   } else { qvOld.style.display='none'; qvSave.style.display='none'; }
   document.getElementById('qvDesc').textContent = p.desc || '';
   const stk = document.getElementById('qvStock');
-  if(p.stock > 10) { stk.textContent = 'âœ“ ÃŽn stoc'; stk.style.color='var(--green)'; }
-  else if(p.stock > 0) { stk.textContent = 'Doar ' + p.stock + ' rÄƒmase'; stk.style.color='var(--gold)'; }
+  if(p.stock > 10) { stk.textContent = 'âœ“ În stoc'; stk.style.color='var(--green)'; }
+  else if(p.stock > 0) { stk.textContent = 'Doar ' + p.stock + ' rămase'; stk.style.color='var(--gold)'; }
   else { stk.textContent = 'Epuizat'; stk.style.color='var(--red)'; }
   // Stars
   const starsEl = document.getElementById('qvStars');
   starsEl.innerHTML = p.reviews > 0 ? Array.from({length:5},(_,i)=>`<div class="star${i<Math.round(p.rating || 0)?'':' e'}"></div>`).join('') : '';
-  document.getElementById('qvReviews').textContent = p.reviews > 0 ? '(' + p.reviews + ')' : 'FÄƒrÄƒ recenzii';
+  document.getElementById('qvReviews').textContent = p.reviews > 0 ? '(' + p.reviews + ')' : 'Fără recenzii';
   document.getElementById('qvAddBtn').onclick = () => { addToCart(p.name,p.brand,p.price,p.img,p.id); closeQuickView(); };
   document.getElementById('qvDetailBtn').href = 'product.html?id=' + p.id;
   modal.classList.add('open');
@@ -2201,7 +2201,7 @@ function formatCatalogPrice(value) {
 
 function renderCatalogRating(product) {
   if (!product || Number(product.reviews || 0) <= 0) {
-    return '<div class="prod-stars"><span class="prod-rating">FÄƒrÄƒ recenzii</span></div>';
+    return '<div class="prod-stars"><span class="prod-rating">Fără recenzii</span></div>';
   }
   const stars = Array.from({length:5},(_,i)=>`<div class="star${i < Math.round(product.rating || 0) ? '' : ' e'}"></div>`).join('');
   return `<div class="prod-stars"><div class="stars">${stars}</div><span class="prod-rating">(${product.reviews})</span></div>`;
@@ -2219,20 +2219,20 @@ cardHtmlEnhanced = function (p) {
         ? `<span class="prod-badge badge-sale">-${Math.round((1 - p.price / p.old) * 100)}%</span>`
         : '';
   const stock = p.stock > 10
-    ? '<span class="prod-stk ok">ÃŽn stoc</span>'
+    ? '<span class="prod-stk ok">În stoc</span>'
     : p.stock > 0
-      ? `<span class="prod-stk low">Doar ${p.stock} rÄƒmase</span>`
-      : '<span class="prod-stk out">La comandÄƒ</span>';
+      ? `<span class="prod-stk low">Doar ${p.stock} rămase</span>`
+      : '<span class="prod-stk out">La comandă</span>';
   return `<div class="prod-card" data-product-id="${encodedId}" style="animation:fadeUp .3s ease both;animation-delay:calc(var(--i,0)*.05s)">
     ${badge}
     <button class="prod-wish" type="button" data-product-id="${encodedId}" aria-label="Favorite" aria-pressed="false"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
     <a href="product.html?id=${encodedId}" class="prod-img">
       <img src="${p.img}" alt="${p.name}" loading="lazy"/>
       <div class="prod-img-overlay">
-        <button class="btn-quick-add" type="button" data-product-action="quick-add" data-product-id="${encodedId}" data-label="AdaugÄƒ" aria-label="AdaugÄƒ rapid Ã®n coÈ™">
+        <button class="btn-quick-add" type="button" data-product-action="quick-add" data-product-id="${encodedId}" data-label="Adaugă" aria-label="Adaugă rapid în coș">
           <svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         </button>
-        <button class="btn-quick-view" type="button" data-product-action="quick-view" data-product-id="${encodedId}" data-label="Detalii" aria-label="Detalii rapide" title="Vizualizare rapidÄƒ"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        <button class="btn-quick-view" type="button" data-product-action="quick-view" data-product-id="${encodedId}" data-label="Detalii" aria-label="Detalii rapide" title="Vizualizare rapidă"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
       </div>
     </a>
     <div class="prod-body">
@@ -2241,7 +2241,7 @@ cardHtmlEnhanced = function (p) {
       ${renderCatalogRating(p)}
       <div class="prod-pricing"><span class="prod-price">${formatCatalogPrice(p.price)}</span>${old}${save}</div>
       ${stock}
-      <button class="btn-add" type="button" data-product-action="add" data-product-id="${encodedId}">AdaugÄƒ Ã®n coÈ™</button>
+      <button class="btn-add" type="button" data-product-action="add" data-product-id="${encodedId}">Adaugă în coș</button>
     </div>
   </div>`;
 };
@@ -2273,7 +2273,7 @@ cardHtmlEnhanced = function (p) {
       <div id="qvDesc" style="font-size:13.5px;color:var(--mid);line-height:1.7;margin-bottom:20px;flex:1;overflow:hidden;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical"></div>
       <button id="qvAddBtn" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--red);color:#fff;padding:14px;border-radius:10px;border:none;font-size:15px;font-weight:800;font-family:'Barlow Condensed',sans-serif;letter-spacing:.4px;text-transform:uppercase;cursor:pointer;transition:background .18s;box-shadow:0 4px 16px rgba(204,17,17,.28);margin-bottom:10px" onmouseover="this.style.background='var(--red2)'" onmouseout="this.style.background='var(--red)'">
         <svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        AdaugÄƒ Ã®n coÈ™
+        Adaugă în coș
       </button>
       <a id="qvDetailBtn" href="product.html" style="width:100%;display:flex;align-items:center;justify-content:center;gap:7px;background:transparent;color:var(--mid);padding:11px;border-radius:9px;border:1.5px solid var(--border);font-size:13px;font-weight:700;transition:all .18s;text-decoration:none" onmouseover="this.style.borderColor='var(--dark)';this.style.color='var(--dark)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--mid)'">
         Vezi detalii complete
@@ -2287,7 +2287,7 @@ cardHtmlEnhanced = function (p) {
   <div class="scb-count"></div>
   <button class="btn-checkout" onclick="goCheckout()" style="opacity:.5">
     <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-    FinalizeazÄƒ comanda
+    Finalizează comanda
   </button>
 </div>
 

@@ -826,7 +826,7 @@ button{font-family:inherit;cursor:pointer}
 <!-- ==== CART DRAWER ==== -->
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-hdr">
-<h3>CoÈ™ul meu <span id="cartItemCount" style="font-size:15px;color:var(--red);font-weight:700"></span></h3>
+<h3>Coșul meu <span id="cartItemCount" style="font-size:15px;color:var(--red);font-weight:700"></span></h3>
     <button class="cart-close" onclick="closeCart()">
       <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
@@ -834,21 +834,21 @@ button{font-family:inherit;cursor:pointer}
   <div class="cart-items" id="cartItems">
     <div class="cart-empty" id="cartEmpty">
       <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-<p>CoÈ™ul este gol</p>
-<span>AdaugÄƒ produse pentru a Ã®ncepe</span>
+<p>Coșul este gol</p>
+<span>Adaugă produse pentru a începe</span>
     </div>
   </div>
   <div class="cart-footer" id="cartFooter" style="display:none">
     <div class="cart-sub"><span>Subtotal</span><span id="cartSubtotal">0 RON</span></div>
-<div class="cart-sub"><span>Livrare</span><span style="color:var(--green);font-weight:700">GRATUITÄ‚</span></div>
+<div class="cart-sub"><span>Livrare</span><span style="color:var(--green);font-weight:700">GRATUITĂ</span></div>
     <div class="cart-total"><span>Total</span><strong id="cartTotal">0 RON</strong></div>
     <button class="btn-checkout" onclick="goCheckout()">
       <svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-FINALIZEAZÄ‚ COMANDA
+FINALIZEAZĂ COMANDA
     </button>
     <button class="btn-cont" onclick="closeCart()">
       <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      ContinuÄƒ cumpÄƒrÄƒturile
+      Continuă cumpărăturile
     </button>
   </div>
 </div>
@@ -866,18 +866,18 @@ FINALIZEAZÄ‚ COMANDA
     <div class="cart-empty" id="favoritesEmpty">
       <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 21s-7.2-4.35-9.54-8.03C.67 10.17 1.2 6.52 4.45 4.9c2.03-1.01 4.44-.55 5.97 1.13L12 7.67l1.58-1.64c1.53-1.68 3.94-2.14 5.97-1.13 3.25 1.62 3.78 5.27 1.99 8.07C19.2 16.65 12 21 12 21z"/></svg>
       <p>Nu ai produse favorite</p>
-      <span>SalveazÄƒ produse pentru a le regÄƒsi rapid</span>
+      <span>Salvează produse pentru a le regăsi rapid</span>
     </div>
   </div>
   <div class="cart-footer" id="favoritesFooter" style="display:none">
-    <div class="cart-sub"><span>Favorite salvate</span><span>Le poÈ›i trimite rapid Ã®n coÈ™</span></div>
+    <div class="cart-sub"><span>Favorite salvate</span><span>Le poți trimite rapid în coș</span></div>
     <button class="btn-checkout" type="button" onclick="window.MotorasFavorites.closeFavorites();openCart()">
       <svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-7.2-4.35-9.54-8.03C.67 10.17 1.2 6.52 4.45 4.9c2.03-1.01 4.44-.55 5.97 1.13L12 7.67l1.58-1.64c1.53-1.68 3.94-2.14 5.97-1.13 3.25 1.62 3.78 5.27 1.99 8.07C19.2 16.65 12 21 12 21z"/></svg>
-      VEZI FAVORITELE ÃŽN COÈ˜
+      VEZI FAVORITELE ÎN COȘ
     </button>
     <button class="btn-cont" type="button" onclick="window.MotorasFavorites.closeFavorites()">
       <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      ContinuÄƒ cumpÄƒrÄƒturile
+      Continuă cumpărăturile
     </button>
   </div>
 </div>
@@ -929,12 +929,12 @@ FINALIZEAZÄ‚ COMANDA
   <div class="ann-in">
     <div class="ann-item">
       <svg width="13" height="13" fill="none" stroke="#e74c3c" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-      <strong>Livrare gratuitÄƒ</strong>&nbsp;la comenzi peste 500 RON
+      <strong>Livrare gratuită</strong>&nbsp;la comenzi peste 500 RON
     </div>
     <div class="ann-dot"></div>
     <div class="ann-item">
       <svg width="13" height="13" fill="#e74c3c" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-<strong>Ridicare personalÄƒ</strong>&nbsp; | Strada Agricultori nr. 2, BucureÈ™ti
+<strong>Ridicare personală</strong>&nbsp; | Strada Agricultori nr. 2, București
     </div>
     <div class="ann-dot"></div>
     <div class="ann-item">
@@ -947,19 +947,19 @@ FINALIZEAZÄ‚ COMANDA
 <!-- ==== HEADER ==== -->
 <header class="header">
   <div class="header-in">
-    <div class="logo"><a href="index.html"><img src="assets/logo.png?v=20260409-3" alt="MotoraÈ™ Piese Auto"/></a></div>
+    <div class="logo"><a href="index.html"><img src="assets/logo.png?v=20260409-3" alt="Motoraș Piese Auto"/></a></div>
     <div class="search-form">
-<input type="text" placeholder="CautÄƒ dupÄƒ numÄƒr piesÄƒ, OEM, marcÄƒ, model..."/>
+<input type="text" placeholder="Caută după număr piesă, OEM, marcă, model..."/>
       <button class="search-btn">
         <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-<span class="btn-label">CautÄƒ</span>
+<span class="btn-label">Caută</span>
       </button>
     </div>
     <div class="hdr-r">
       <div class="hdr-top">
         <div class="hdr-addr">
           <svg width="12" height="12" fill="#cc1111" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-Strada Agricultori Nr. 2, BucureÈ™ti
+Strada Agricultori Nr. 2, București
         </div>
         <div class="hdr-phone">
           <span class="wa-icon" aria-hidden="true">
@@ -973,7 +973,7 @@ Strada Agricultori Nr. 2, BucureÈ™ti
         </div>
       </div>
       <div class="hdr-actions">
-<button class="mob-search-toggle" id="mobSearchToggle" onclick="toggleMobSearch()" aria-label="CautÄƒ">
+<button class="mob-search-toggle" id="mobSearchToggle" onclick="toggleMobSearch()" aria-label="Caută">
           <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         </button>
         <a href="account.html" class="btn-acc">
@@ -987,7 +987,7 @@ Strada Agricultori Nr. 2, BucureÈ™ti
         </button>
         <button class="btn-cart" onclick="openCart()">
           <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-          <span class="btn-cart-label">CoÈ™</span>
+          <span class="btn-cart-label">Coș</span>
           <span class="cart-count" id="cartBadge">0</span>
         </button>
         <button class="mob-menu-btn" id="mobMenuBtn" onclick="toggleMobNav()" aria-label="Meniu">
@@ -1002,8 +1002,8 @@ Strada Agricultori Nr. 2, BucureÈ™ti
 <!-- ==== MOBILE SEARCH BAR (below header, sticky) ==== -->
 <div class="mob-search-bar" id="mobSearchBar" style="display:none">
   <div class="mob-search-inner">
-<input type="text" placeholder="CautÄƒ piesa, marca, model OEM..." autocomplete="off" inputmode="search"/>
-<button aria-label="CautÄƒ">
+<input type="text" placeholder="Caută piesa, marca, model OEM..." autocomplete="off" inputmode="search"/>
+<button aria-label="Caută">
       <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
     </button>
   </div>
@@ -1038,7 +1038,7 @@ Strada Agricultori Nr. 2, BucureÈ™ti
   <div class="vs-in">
     <div class="vs-label">
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-CautÄƒ dupÄƒ maÈ™ina ta
+Caută după mașina ta
     </div>
     <div class="vs-select-wrap">
       <select class="vs-select" id="vsMarca" onchange="loadModels()">
@@ -1064,14 +1064,14 @@ CautÄƒ dupÄƒ maÈ™ina ta
     </div>
     <button class="btn-vs" onclick="searchByVehicle()">
       <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      GÄƒseÈ™te piese
+      Găsește piese
     </button>
-<button class="vs-reset" id="vsReset" onclick="resetVehicle()" style="display:none">ReseteazÄƒ</button>
+<button class="vs-reset" id="vsReset" onclick="resetVehicle()" style="display:none">Resetează</button>
   </div>
   <div class="vs-active-banner" id="vsActiveBanner">
     <div class="vs-active-in">
       <svg width="16" height="16" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-      AfiÈ™ezi piese compatibile cu:
+      Afișezi piese compatibile cu:
       <span class="vs-chip" id="vsChip"></span>
 <span style="color:#aaa;font-size:12px">Toate produsele sunt filtrate automat</span>
     </div>
@@ -1091,11 +1091,11 @@ CautÄƒ dupÄƒ maÈ™ina ta
         <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
         Piese Originale &amp; Aftermarket
       </div>
-      <h1 class="hero-title">MOTORAÈ˜<em>Piese Auto Online</em></h1>
+      <h1 class="hero-title">MOTORAȘ<em>Piese Auto Online</em></h1>
       <div class="hero-bullets">
         <div class="hero-bullet">
           <svg width="16" height="16" fill="none" stroke="#ff9070" stroke-width="2.5" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-          <span>Livrare rapidÄƒ Ã®n <strong>24 de ore</strong> Ã®n toatÄƒ RomÃ¢nia</span>
+          <span>Livrare rapidă în <strong>24 de ore</strong> în toată România</span>
         </div>
         <div class="hero-bullet">
           <svg width="16" height="16" fill="none" stroke="#ff9070" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1103,7 +1103,7 @@ CautÄƒ dupÄƒ maÈ™ina ta
         </div>
         <div class="hero-bullet">
           <svg width="16" height="16" fill="none" stroke="#ff9070" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-<span>Cele mai <strong>mici preÈ›uri</strong> din piaÈ›a</span>
+<span>Cele mai <strong>mici prețuri</strong> din piața</span>
         </div>
       </div>
       <a href="#categorii" class="btn-cta">
@@ -1116,7 +1116,7 @@ CautÄƒ dupÄƒ maÈ™ina ta
       <div class="glass-card">
         <div class="gc-loc">
           <svg width="17" height="17" fill="#ff7055" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            <span>Situat Ã®n BucureÈ™ti,<br>Strada Agricultori nr. 2</span>
+            <span>Situat în București,<br>Strada Agricultori nr. 2</span>
         </div>
         <div class="gc-phone">
           <span class="wa-icon" aria-hidden="true">
@@ -1141,10 +1141,10 @@ CautÄƒ dupÄƒ maÈ™ina ta
 <!-- ==== TRUST BAR ==== -->
 <div class="trust">
   <div class="trust-in">
-    <div class="trust-it"><div class="trust-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="trust-txt"><strong>Livrare 24h</strong><span>ToatÄƒ RomÃ¢nia</span></div></div>
+    <div class="trust-it"><div class="trust-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="trust-txt"><strong>Livrare 24h</strong><span>Toată România</span></div></div>
 <div class="trust-it"><div class="trust-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="trust-txt"><strong>Furnizori verifica&#539;i</strong><span>Produse selectate</span></div></div>
     <div class="trust-it"><div class="trust-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="trust-txt"><strong>Ridicare gratuita</strong><span>Agricultori nr. 2</span></div></div>
-    <div class="trust-it"><div class="trust-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div class="trust-txt"><strong>Suport Tehnic</strong><span>ExperÈ›i disponibili</span></div></div>
+    <div class="trust-it"><div class="trust-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div class="trust-txt"><strong>Suport Tehnic</strong><span>Experți disponibili</span></div></div>
             <div class="trust-it"><div class="trust-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div><div class="trust-txt"><strong>Retur 30 Zile</strong><span>Proces simplificat</span></div></div>
   </div>
 </div>
@@ -1159,7 +1159,7 @@ CautÄƒ dupÄƒ maÈ™ina ta
     <div class="cats-grid" id="homeCategoryCards">
       <div class="cat-card">
         <div class="cat-img"><img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80&fit=crop" alt="Categorii produse" loading="lazy"/></div>
-        <div class="cat-body"><div class="cat-lbl">Se Ã®ncarcÄƒ categoriile</div><div class="cat-count">ActualizÄƒm imaginile È™i stocurile</div></div>
+        <div class="cat-body"><div class="cat-lbl">Se încarcă categoriile</div><div class="cat-count">Actualizăm imaginile și stocurile</div></div>
       </div>
     </div>
   </div>
@@ -1175,8 +1175,8 @@ CautÄƒ dupÄƒ maÈ™ina ta
     <div class="home-collection-nav" id="homeCategoryTabs"></div>
     <div class="home-collection-note">
       <div class="home-collection-copy">
-        <strong>SelecÈ›ie pe categorii, nu doar produse populare.</strong>
-        ComutÄƒ rapid Ã®ntre familiile de produse È™i previzualizeazÄƒ fiecare articol fÄƒrÄƒ sÄƒ pÄƒrÄƒseÈ™ti pagina.
+        <strong>Selecție pe categorii, nu doar produse populare.</strong>
+        Comută rapid între familiile de produse și previzualizează fiecare articol fără să părăsești pagina.
       </div>
       <a class="home-collection-link" id="homeCategoryLink" href="category.html?cat=piese">Deschide categoria</a>
     </div>
@@ -1184,7 +1184,7 @@ CautÄƒ dupÄƒ maÈ™ina ta
       <div class="prod-card">
         <div class="prod-body">
           <div class="prod-brand">Catalog live</div>
-          <div class="prod-name">Se Ã®ncarcÄƒ produsele din feedul furnizorului...</div>
+          <div class="prod-name">Se încarcă produsele din feedul furnizorului...</div>
         </div>
       </div>
     </div>
@@ -1195,17 +1195,17 @@ CautÄƒ dupÄƒ maÈ™ina ta
 <section class="promo" id="despre">
   <div class="promo-in">
     <div class="promo-text">
-<h2>De ce sÄƒ alegi<br><em>MotoraÈ™</em></h2>
-<p>Catalog live cu produse originale È™i aftermarket la preÈ›uri competitive, actualizat direct din feedul furnizorului. LivrÄƒm rapid oriunde Ã®n RomÃ¢nia.</p>
+<h2>De ce să alegi<br><em>Motoraș</em></h2>
+<p>Catalog live cu produse originale și aftermarket la prețuri competitive, actualizat direct din feedul furnizorului. Livrăm rapid oriunde în România.</p>
       <div class="promo-stats">
         <div class="pstat"><strong id="promoProducts">—</strong><span>Produse live</span></div>
-        <div class="pstat"><strong id="promoCustomers">—</strong><span>ClienÈ›i activi</span></div>
+        <div class="pstat"><strong id="promoCustomers">—</strong><span>Clienți activi</span></div>
         <div class="pstat"><strong id="promoDelivery">24h</strong><span>Livrare</span></div>
         <div class="pstat"><strong id="promoRating">—</strong><span>Rating mediu</span></div>
       </div>
     </div>
     <div class="promo-badges">
-      <div class="pbadge"><div class="pb-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="pb-txt"><strong>Livrare gratuitÄƒ</strong><span>Comenzi &gt; 500 RON</span></div></div>
+      <div class="pbadge"><div class="pb-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="pb-txt"><strong>Livrare gratuită</strong><span>Comenzi &gt; 500 RON</span></div></div>
 <div class="pbadge"><div class="pb-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="pb-txt"><strong>Furnizori verifica&#539;i</strong><span>Selec&#539;ie controlat&#259;</span></div></div>
             <div class="pbadge"><div class="pb-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div><div class="pb-txt"><strong>Retur 30 zile</strong><span>Proces simplificat</span></div></div>
       <div class="pbadge"><div class="pb-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div class="pb-txt"><strong>Suport 7/7</strong><span>Chat &amp; Telefon</span></div></div>
@@ -1224,15 +1224,15 @@ CautÄƒ dupÄƒ maÈ™ina ta
             Ridicare din magazin
           </div>
           <h2>Treci rapid pe la noi</h2>
-          <p>Am adÄƒugat harta direct pe pagina principalÄƒ, ca sÄƒ poÈ›i ajunge imediat la magazin fÄƒrÄƒ sÄƒ mai cauÈ›i pagina de contact.</p>
+          <p>Am adăugat harta direct pe pagina principală, ca să poți ajunge imediat la magazin fără să mai cauți pagina de contact.</p>
           <div class="home-map-meta">
             <div class="home-map-meta-item">
               <div class="home-map-meta-icon">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-6-5.33-6-11a6 6 0 1112 0c0 5.67-6 11-6 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
               </div>
               <div class="home-map-meta-text">
-                <strong>AdresÄƒ magazin</strong>
-                <span>Strada Agricultori 2, Sector 2, BucureÈ™ti</span>
+                <strong>Adresă magazin</strong>
+                <span>Strada Agricultori 2, Sector 2, București</span>
               </div>
             </div>
             <div class="home-map-meta-item">
@@ -1248,7 +1248,7 @@ CautÄƒ dupÄƒ maÈ™ina ta
         </div>
         <div class="home-map-actions">
           <a class="home-map-btn home-map-btn-primary" href="https://www.google.com/maps/search/?api=1&query=Strada+Agricultori+2%2C+Sector+2%2C+Bucuresti" target="_blank" rel="noopener">
-            Deschide Ã®n Google Maps
+            Deschide în Google Maps
           </a>
           <a class="home-map-btn home-map-btn-secondary" href="contact.html">Vezi pagina contact</a>
         </div>
@@ -1259,8 +1259,8 @@ CautÄƒ dupÄƒ maÈ™ina ta
           src="https://www.google.com/maps?q=Strada+Agricultori+2%2C+Sector+2%2C+Bucuresti&z=16&output=embed"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          title="Google Maps - MotoraÈ™"
-          aria-label="Harta magazinului MotoraÈ™">
+          title="Google Maps - Motoraș"
+          aria-label="Harta magazinului Motoraș">
         </iframe>
         <div class="home-map-glass">
           <div class="home-map-glass-main">
@@ -1268,7 +1268,7 @@ CautÄƒ dupÄƒ maÈ™ina ta
               <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-6-5.33-6-11a6 6 0 1112 0c0 5.67-6 11-6 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
             </div>
             <div class="home-map-glass-text">
-              <strong>MotoraÈ™ BucureÈ™ti</strong>
+              <strong>Motoraș București</strong>
               <span>Sector 2 Â· Strada Agricultori 2</span>
             </div>
           </div>
@@ -1289,8 +1289,8 @@ CautÄƒ dupÄƒ maÈ™ina ta
 
       <!-- Brand col -->
       <div class="footer-brand">
-        <img src="assets/logo.png?v=20260409-3" alt="MotoraÈ™" style="opacity:.95;height:50px"/>
-          <p>Piese auto originale È™i aftermarket la cele mai bune preÈ›uri. Livrare rapidÄƒ Ã®n toatÄƒ RomÃ¢nia. Ridicare personalÄƒ din BucureÈ™ti.</p>
+        <img src="assets/logo.png?v=20260409-3" alt="Motoraș" style="opacity:.95;height:50px"/>
+          <p>Piese auto originale și aftermarket la cele mai bune prețuri. Livrare rapidă în toată România. Ridicare personală din București.</p>
         <div class="footer-social">
           <a class="social-btn" href="#" title="Facebook"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
           <a class="social-btn" href="#" title="Instagram"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
@@ -1301,7 +1301,7 @@ CautÄƒ dupÄƒ maÈ™ina ta
 
       <!-- Info col -->
       <div class="footer-col">
-        <h4>InformaÈ›ii</h4>
+        <h4>Informații</h4>
         <a href="#">Despre noi</a>
         <a href="#">Contact</a>
         <a href="#">Program &amp; locatie</a>
@@ -1322,7 +1322,7 @@ CautÄƒ dupÄƒ maÈ™ina ta
       <!-- Legal col -->
       <div class="footer-col">
         <h4>Ajutor &amp; Legal</h4>
-        <a href="#">Termeni È™i condiÈ›ii</a>
+        <a href="#">Termeni și condiții</a>
 <a href="confidentialitate.html">Politica de Confidențialitate</a>
         <a href="#">Politica de retur</a>
 <a href="#">Politica de cookies</a>
@@ -1335,7 +1335,7 @@ CautÄƒ dupÄƒ maÈ™ina ta
     <div class="footer-badges">
       <div class="footer-badge">
         <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-        <span>PlatÄƒ securizatÄƒ Stripe</span>
+        <span>Plată securizată Stripe</span>
       </div>
       <div class="footer-badge">
         <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1361,13 +1361,13 @@ CautÄƒ dupÄƒ maÈ™ina ta
 
     <div class="footer-bottom">
       <div class="footer-legal">
-        <a href="#">Termeni È™i condiÈ›ii</a>
-        <a href="#">ConfidenÈ›ialitate</a>
+        <a href="#">Termeni și condiții</a>
+        <a href="#">Confidențialitate</a>
         <a href="#">Cookies</a>
         <a href="#">Retur</a>
         <a href="sitemap.xml">Sitemap</a>
       </div>
-      <div class="footer-copy">&copy; 2026 MotoraÈ™ SRL | CUI: RO52459678 | Reg. Com.: J2025067651008 | Toate drepturile rezervate</div>
+      <div class="footer-copy">&copy; 2026 Motoraș SRL | CUI: RO52459678 | Reg. Com.: J2025067651008 | Toate drepturile rezervate</div>
     </div>
   </div>
 </footer>
@@ -1394,7 +1394,7 @@ CautÄƒ dupÄƒ maÈ™ina ta
       </div>
       <div class="home-quick-copy" id="homeQuickDescription"></div>
       <div class="home-quick-cta">
-<button class="home-quick-primary" id="homeQuickAdd" type="button">AdaugÄƒ Ã®n coÈ™</button>
+<button class="home-quick-primary" id="homeQuickAdd" type="button">Adaugă în coș</button>
         <a class="home-quick-secondary" id="homeQuickLink" href="product.html">Vezi detalii</a>
       </div>
     </div>
@@ -1405,10 +1405,10 @@ CautÄƒ dupÄƒ maÈ™ina ta
 <div class="cookie-banner" id="cookieBanner">
   <div class="cookie-in">
     <div class="cookie-text">
-Folosim cookie-uri pentru a Ã®mbunÄƒtÄƒÈ›i experienÈ›a ta pe site. Prin continuarea navigÄƒrii, eÈ™ti de acord cu <a href="cookies.html">Politica de Cookies</a> È™i <a href="confidentialitate.html">Politica de Confidențialitate</a> conform GDPR.
+Folosim cookie-uri pentru a îmbunătăți experiența ta pe site. Prin continuarea navigării, ești de acord cu <a href="cookies.html">Politica de Cookies</a> și <a href="confidentialitate.html">Politica de Confidențialitate</a> conform GDPR.
     </div>
     <div class="cookie-btns">
-<button class="btn-cookie-decline" onclick="declineCookies()">Doar esenÈ›iale</button>
+<button class="btn-cookie-decline" onclick="declineCookies()">Doar esențiale</button>
       <button class="btn-cookie-accept" onclick="acceptCookies()">Accept toate</button>
     </div>
   </div>
@@ -1614,13 +1614,13 @@ let homeCatalog = [];
 let homeActiveCategory = 'all';
 let homepageCatalogStarted = false;
 const HOME_CATEGORY_META = {
-  all: { label: 'Toate', href: 'category.html?cat=piese', blurb: 'SelecÈ›ie editorialÄƒ din tot catalogul.' },
-  piese: { label: 'Piese Auto', href: 'category.html?cat=piese', blurb: 'SelecÈ›ie curatÄƒ de componente auto È™i piese tehnice pentru Ã®ntreÈ›inere realÄƒ.', image: 'assets/category-piese.svg' },
-  accesorii: { label: 'Accesorii', href: 'category.html?cat=accesorii', blurb: 'Iluminare, adaptoare È™i accesorii utile separate de zona de piese.', image: 'https://crm.carguard.ro/media/articole/carguard-bec-xenon-h1-6k.png' },
-  detailing: { label: 'Detailing', href: 'category.html?cat=detailing', blurb: 'ÃŽngrijire premium cu produse curate È™i bine prezentate.', image: 'https://www.carhub.ro/media/catalog/product/f/i/file_4_-photoroom.png' },
-  baterii: { label: 'Baterii', href: 'category.html?cat=baterii', blurb: 'Acumulatori È™i soluÈ›ii de alimentare cu imagine clarÄƒ.', image: 'https://crm.carguard.ro/media/articole/modul-pentru-baterii-huawei-luna20002.png' },
-  filtre: { label: 'Filtre', href: 'category.html?cat=filtre', blurb: 'SelecÈ›ie clarÄƒ de filtre È™i consumabile de flux.', image: 'https://www.carhub.ro/media/catalog/product/m/a/masca-filtru-carbon-colad-carhub.png' },
-  prelate: { label: 'Prelate', href: 'category.html?cat=prelate', blurb: 'ProtecÈ›ie discretÄƒ pentru exterior È™i textile auto.', image: 'https://www.carhub.ro/media/catalog/product/r/t/rtible_and_cabriolet_wheatherproof_meguiar_s_336ml_carhub_1842640333b182130.png' },
+  all: { label: 'Toate', href: 'category.html?cat=piese', blurb: 'Selecție editorială din tot catalogul.' },
+  piese: { label: 'Piese Auto', href: 'category.html?cat=piese', blurb: 'Selecție curată de componente auto și piese tehnice pentru întreținere reală.', image: 'assets/category-piese.svg' },
+  accesorii: { label: 'Accesorii', href: 'category.html?cat=accesorii', blurb: 'Iluminare, adaptoare și accesorii utile separate de zona de piese.', image: 'https://crm.carguard.ro/media/articole/carguard-bec-xenon-h1-6k.png' },
+  detailing: { label: 'Detailing', href: 'category.html?cat=detailing', blurb: 'Îngrijire premium cu produse curate și bine prezentate.', image: 'https://www.carhub.ro/media/catalog/product/f/i/file_4_-photoroom.png' },
+  baterii: { label: 'Baterii', href: 'category.html?cat=baterii', blurb: 'Acumulatori și soluții de alimentare cu imagine clară.', image: 'https://crm.carguard.ro/media/articole/modul-pentru-baterii-huawei-luna20002.png' },
+  filtre: { label: 'Filtre', href: 'category.html?cat=filtre', blurb: 'Selecție clară de filtre și consumabile de flux.', image: 'https://www.carhub.ro/media/catalog/product/m/a/masca-filtru-carbon-colad-carhub.png' },
+  prelate: { label: 'Prelate', href: 'category.html?cat=prelate', blurb: 'Protecție discretă pentru exterior și textile auto.', image: 'https://www.carhub.ro/media/catalog/product/r/t/rtible_and_cabriolet_wheatherproof_meguiar_s_336ml_carhub_1842640333b182130.png' },
 };
 
 function escapeHtml(value) {
@@ -1663,7 +1663,7 @@ function renderHomeCategoryCards() {
         <div class="cat-visual">
           <div class="cat-img"><img src="${escapeHtml(HOME_CATEGORY_META.piese.image)}" alt="Categorii produse" loading="lazy"/></div>
         </div>
-        <div class="cat-body"><div class="cat-lbl">Categoriile nu sunt disponibile</div><div class="cat-desc">VerificÄƒm feedul furnizorului È™i pregÄƒtim selecÈ›ia.</div><div class="cat-meta"><div class="cat-count">Se actualizeazÄƒ</div></div></div>
+        <div class="cat-body"><div class="cat-lbl">Categoriile nu sunt disponibile</div><div class="cat-desc">Verificăm feedul furnizorului și pregătim selecția.</div><div class="cat-meta"><div class="cat-count">Se actualizează</div></div></div>
       </div>`;
     return;
   }
@@ -1701,7 +1701,7 @@ function getHomeProductById(id) {
 
 function renderCatalogRating(product) {
   if (!product || Number(product.reviews || 0) <= 0) {
-    return '<div class="prod-stars"><span class="prod-rating">FÄƒrÄƒ recenzii</span></div>';
+    return '<div class="prod-stars"><span class="prod-rating">Fără recenzii</span></div>';
   }
   const stars = Array.from({length:5}, (_, i) => `<div class="star${i < Math.round(product.rating || 0) ? '' : ' e'}"></div>`).join('');
   return `<div class="prod-stars"><div class="stars">${stars}</div><span class="prod-rating">(${product.reviews})</span></div>`;
@@ -1778,7 +1778,7 @@ function openHomeQuickView(id) {
   document.getElementById('homeQuickTitle').textContent = product.name;
   document.getElementById('homeQuickPrice').textContent = formatPrice(product.price);
   document.getElementById('homeQuickDescription').textContent = product.desc || product.name;
-  document.getElementById('homeQuickReviews').textContent = product.reviews > 0 ? `(${product.reviews} review-uri)` : 'FÄƒrÄƒ recenzii';
+  document.getElementById('homeQuickReviews').textContent = product.reviews > 0 ? `(${product.reviews} review-uri)` : 'Fără recenzii';
   document.getElementById('homeQuickStars').innerHTML = product.reviews > 0
     ? Array.from({ length: 5 }, (_, index) => `<div class="star${index < Math.round(product.rating || 0) ? '' : ' e'}"></div>`).join('')
     : '';
@@ -1791,7 +1791,7 @@ function openHomeQuickView(id) {
     old.style.display = 'none';
   }
   stock.className = `home-quick-stock${product.stock > 0 ? '' : ' out'}`;
-  stock.textContent = product.stock > 0 ? (product.stock > 5 ? 'ÃŽn stoc' : `Doar ${product.stock} rÄƒmase`) : 'La comandÄƒ';
+  stock.textContent = product.stock > 0 ? (product.stock > 5 ? 'În stoc' : `Doar ${product.stock} rămase`) : 'La comandă';
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -1811,7 +1811,7 @@ function renderHomepageProducts(items) {
       <div class="prod-card">
         <div class="prod-body">
           <div class="prod-brand">Catalog indisponibil</div>
-          <div class="prod-name">Nu am putut Ã®ncÄƒrca produsele din feed Ã®n acest moment.</div>
+          <div class="prod-name">Nu am putut încărca produsele din feed în acest moment.</div>
         </div>
       </div>`;
     return;
@@ -1835,7 +1835,7 @@ function renderHomepageProducts(items) {
         <a class="prod-img" href="product.html?id=${encodeURIComponent(p.id)}">
           <img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" loading="lazy"/>
           <div class="prod-actions">
-            <button class="btn-quick-add" type="button" data-label="AdaugÄƒ" aria-label="AdaugÄƒ rapid Ã®n coÈ™" onclick="event.preventDefault();event.stopPropagation();addToCartById('${escapeHtml(p.id)}')">
+            <button class="btn-quick-add" type="button" data-label="Adaugă" aria-label="Adaugă rapid în coș" onclick="event.preventDefault();event.stopPropagation();addToCartById('${escapeHtml(p.id)}')">
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
             </button>
             <button class="btn-quick-view" type="button" data-label="Detalii rapide" aria-label="Detalii rapide" onclick="event.preventDefault();event.stopPropagation();openHomeQuickView('${escapeHtml(p.id)}')">
@@ -1853,7 +1853,7 @@ function renderHomepageProducts(items) {
           </div>
           <button class="btn-add" onclick="addToCartById('${escapeHtml(p.id)}')">
             <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-            AdaugÄƒ Ã®n coÈ™
+            Adaugă în coș
           </button>
         </div>
       </div>`;

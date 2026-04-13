@@ -68,48 +68,48 @@ a{text-decoration:none;color:inherit}
 <script src="text-normalize.js?v=20260412-6" defer></script>
 </head>
 <body>
-<header class="co-header"><a href="index.html"><img src="assets/logo.png?v=20260409-3" alt="MotoraÈ™"/></a></header>
+<header class="co-header"><a href="index.html"><img src="assets/logo.png?v=20260409-3" alt="Motoraș"/></a></header>
 <div class="conf-wrap">
   <div class="conf-card">
     <div class="conf-top">
       <div class="conf-check"><svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <div class="conf-title">ComandÄƒ confirmatÄƒ</div>
-      <div class="conf-sub">Fluxul de comandÄƒ a fost Ã®nregistrat cu succes.<br>PoÈ›i folosi aceastÄƒ paginÄƒ pentru a verifica metoda de platÄƒ È™i starea comenzii.</div>
+      <div class="conf-title">Comandă confirmată</div>
+      <div class="conf-sub">Fluxul de comandă a fost înregistrat cu succes.<br>Poți folosi această pagină pentru a verifica metoda de plată și starea comenzii.</div>
     </div>
     <div class="conf-body">
       <div class="conf-grid">
-        <div class="conf-row"><span class="conf-key">Nr. comandÄƒ</span><span class="conf-val order-id" id="confOrderId">#ORD-000000</span></div>
+        <div class="conf-row"><span class="conf-key">Nr. comandă</span><span class="conf-val order-id" id="confOrderId">#ORD-000000</span></div>
         <div class="conf-row"><span class="conf-key">Email confirmare</span><span class="conf-val" id="confEmail">-</span></div>
-        <div class="conf-row"><span class="conf-key">Total comandÄƒ</span><span class="conf-val" id="confTotal" style="color:var(--red);font-family:'Barlow Condensed',sans-serif;font-size:22px">-</span></div>
-        <div class="conf-row"><span class="conf-key">Livrare estimatÄƒ</span><span class="conf-val" id="confDelivery">24-48h lucrÄƒtoare</span></div>
-        <div class="conf-row"><span class="conf-key">MetodÄƒ platÄƒ</span><span class="conf-val" id="confPaymentMethod">-</span></div>
-        <div class="conf-row"><span class="conf-key">Status platÄƒ</span><span class="conf-val" id="confPaymentStatus">-</span></div>
-        <div class="conf-row full"><span class="conf-key">ReferinÈ›Äƒ platÄƒ</span><span class="conf-val" id="confPaymentReference">-</span></div>
+        <div class="conf-row"><span class="conf-key">Total comandă</span><span class="conf-val" id="confTotal" style="color:var(--red);font-family:'Barlow Condensed',sans-serif;font-size:22px">-</span></div>
+        <div class="conf-row"><span class="conf-key">Livrare estimată</span><span class="conf-val" id="confDelivery">24-48h lucrătoare</span></div>
+        <div class="conf-row"><span class="conf-key">Metodă plată</span><span class="conf-val" id="confPaymentMethod">-</span></div>
+        <div class="conf-row"><span class="conf-key">Status plată</span><span class="conf-val" id="confPaymentStatus">-</span></div>
+        <div class="conf-row full"><span class="conf-key">Referință plată</span><span class="conf-val" id="confPaymentReference">-</span></div>
       </div>
     </div>
-    <div id="confNotice" class="conf-notice">Se Ã®ncarcÄƒ detaliile comenzii...</div>
+    <div id="confNotice" class="conf-notice">Se încarcă detaliile comenzii...</div>
     <div style="padding:0 28px">
       <div style="font-size:12.5px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.4px;margin-bottom:16px">Statusul comenzii</div>
       <div class="steps-track">
-        <div class="track-step"><div class="track-dot"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="track-label">PlasatÄƒ</div></div>
+        <div class="track-step"><div class="track-dot"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="track-label">Plasată</div></div>
         <div class="track-line"></div>
         <div class="track-step"><div class="track-dot"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4"/></svg></div><div class="track-label">Procesare</div></div>
         <div class="track-line"></div>
-        <div class="track-step"><div class="track-dot"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="track-label">ExpediatÄƒ</div></div>
+        <div class="track-step"><div class="track-dot"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="track-label">Expediată</div></div>
         <div class="track-line"></div>
-        <div class="track-step"><div class="track-dot"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><div class="track-label">LivratÄƒ</div></div>
+        <div class="track-step"><div class="track-dot"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><div class="track-label">Livrată</div></div>
       </div>
     </div>
     <div style="padding:20px 28px 12px"><div style="font-size:12.5px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">Produsele tale</div></div>
-    <div class="conf-items" id="confItems"><div class="conf-empty">Se Ã®ncarcÄƒ produsele din comandÄƒ...</div></div>
+    <div class="conf-items" id="confItems"><div class="conf-empty">Se încarcă produsele din comandă...</div></div>
     <div class="conf-btns">
       <a href="account.html" class="btn-track">
         <svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-        Vezi comanda Ã®n cont
+        Vezi comanda în cont
       </a>
       <a href="index.html" class="btn-continue">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-        ContinuÄƒ cumpÄƒrÄƒturile
+        Continuă cumpărăturile
       </a>
     </div>
   </div>
@@ -120,12 +120,12 @@ a{text-decoration:none;color:inherit}
   const orderId = new URLSearchParams(window.location.search).get('order') || '';
   const statusIndex = { pending: 0, pending_payment: 0, processing: 1, shipped: 2, delivered: 3, cancelled: 0 };
   const statusLabels = {
-    pending: 'ÃŽn aÈ™teptare',
-    pending_payment: 'Plata Ã®n aÈ™teptare',
-    processing: 'ÃŽn procesare',
-    shipped: 'ExpediatÄƒ',
-    delivered: 'LivratÄƒ',
-    cancelled: 'AnulatÄƒ'
+    pending: 'În așteptare',
+    pending_payment: 'Plata în așteptare',
+    processing: 'În procesare',
+    shipped: 'Expediată',
+    delivered: 'Livrată',
+    cancelled: 'Anulată'
   };
   const paymentLabels = {
     card: 'Carte online',
@@ -133,9 +133,9 @@ a{text-decoration:none;color:inherit}
     ramburs: 'Ramburs la livrare'
   };
   const paymentStatusLabels = {
-    paid: { text: 'Plata confirmatÄƒ', tone: 'ok' },
-    unpaid: { text: 'Plata Ã®n aÈ™teptare', tone: 'pending' },
-    refunded: { text: 'Plata rambursatÄƒ', tone: 'info' }
+    paid: { text: 'Plata confirmată', tone: 'ok' },
+    unpaid: { text: 'Plata în așteptare', tone: 'pending' },
+    refunded: { text: 'Plata rambursată', tone: 'info' }
   };
 
   function formatMoney(value) {
@@ -165,12 +165,12 @@ a{text-decoration:none;color:inherit}
     const notice = document.getElementById('confNotice');
     const baseMessage = order.paymentMessage || (
       order.paymentMethod === 'op'
-        ? 'AÈ™teptÄƒm confirmarea transferului bancar. DupÄƒ Ã®nregistrarea plÄƒÈ›ii, comanda poate fi mutatÄƒ Ã®n procesare din dashboard.'
+        ? 'Așteptăm confirmarea transferului bancar. După înregistrarea plății, comanda poate fi mutată în procesare din dashboard.'
         : order.paymentMethod === 'ramburs'
-          ? 'Plata se face la livrare. Echipa poate urmÄƒri separat starea comenzii È™i a plÄƒÈ›ii din dashboard.'
-          : 'Plata cu cardul a fost Ã®nregistratÄƒ prin Stripe È™i trimisÄƒ mai departe Ã®n fluxul operaÈ›ional.'
+          ? 'Plata se face la livrare. Echipa poate urmări separat starea comenzii și a plății din dashboard.'
+          : 'Plata cu cardul a fost înregistrată prin Stripe și trimisă mai departe în fluxul operațional.'
     );
-    notice.innerHTML = `<strong style="display:block;color:var(--dark);margin-bottom:6px">${statusLabels[order.status] || 'ComandÄƒ Ã®nregistratÄƒ'}</strong>${baseMessage}`;
+    notice.innerHTML = `<strong style="display:block;color:var(--dark);margin-bottom:6px">${statusLabels[order.status] || 'Comandă înregistrată'}</strong>${baseMessage}`;
     notice.style.background = order.payment === 'paid' ? '#eef7f1' : order.status === 'pending_payment' ? '#fff7ed' : '#fafbfc';
     notice.style.borderColor = order.payment === 'paid' ? '#bbf7d0' : order.status === 'pending_payment' ? '#fed7aa' : 'var(--border)';
   }
@@ -178,7 +178,7 @@ a{text-decoration:none;color:inherit}
   function renderItems(items) {
     const host = document.getElementById('confItems');
     if (!Array.isArray(items) || !items.length) {
-      host.innerHTML = '<div class="conf-empty">Nu existÄƒ produse salvate pentru aceastÄƒ comandÄƒ.</div>';
+      host.innerHTML = '<div class="conf-empty">Nu există produse salvate pentru această comandă.</div>';
       return;
     }
     host.innerHTML = items.map(item => `
@@ -203,7 +203,7 @@ a{text-decoration:none;color:inherit}
   }
 
   if (!order) {
-    document.getElementById('confNotice').textContent = 'Comanda a fost plasatÄƒ, dar detaliile nu mai sunt disponibile Ã®n browser.';
+    document.getElementById('confNotice').textContent = 'Comanda a fost plasată, dar detaliile nu mai sunt disponibile în browser.';
     document.getElementById('confEmail').textContent = '-';
     document.getElementById('confTotal').textContent = '0 RON';
     document.getElementById('confPaymentMethod').textContent = '-';
@@ -216,9 +216,9 @@ a{text-decoration:none;color:inherit}
   document.getElementById('confOrderId').textContent = '#' + (order.id || orderId || '-');
   document.getElementById('confEmail').textContent = order.email || '-';
   document.getElementById('confTotal').textContent = formatMoney(order.total || 0);
-  document.getElementById('confDelivery').textContent = order.shipping === 'express' ? 'Azi / aceeaÈ™i zi' : order.shipping === 'pickup' ? 'Ridicare din showroom' : '24-48h lucrÄƒtoare';
-  document.getElementById('confPaymentMethod').textContent = order.paymentLabel || paymentLabels[order.paymentMethod] || 'PlatÄƒ online';
-  document.getElementById('confPaymentReference').textContent = order.paymentReference || 'Se genereazÄƒ la plasare';
+  document.getElementById('confDelivery').textContent = order.shipping === 'express' ? 'Azi / aceeași zi' : order.shipping === 'pickup' ? 'Ridicare din showroom' : '24-48h lucrătoare';
+  document.getElementById('confPaymentMethod').textContent = order.paymentLabel || paymentLabels[order.paymentMethod] || 'Plată online';
+  document.getElementById('confPaymentReference').textContent = order.paymentReference || 'Se generează la plasare';
   renderPaymentStatus(order.paymentStatus || order.payment || 'unpaid');
   renderNotice(order);
   renderItems(order.items || []);
