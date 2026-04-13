@@ -866,8 +866,8 @@ table th{background:#f4f6fb !important;font-size:11px !important;letter-spacing:
                 <div class="form-field"><label class="form-label">Email contact</label><input class="form-input" type="email" value="contact@motoras.ro"/></div>
                 <div class="form-field"><label class="form-label">Telefon</label><input class="form-input" type="text" value="0731 284 932"/></div>
                 <div class="form-field full"><label class="form-label">Adresa</label><input class="form-input" type="text" value="Strada Agricultori Nr. 2, Bucure?ti"/></div>
-                <div class="form-field"><label class="form-label">CUI</label><input class="form-input" type="text" value="RO12345678"/></div>
-                <div class="form-field"><label class="form-label">Reg. Comertului</label><input class="form-input" type="text" value="J40/1234/2020"/></div>
+                <div class="form-field"><label class="form-label">CUI</label><input class="form-input" type="text" value="RO52459678"/></div>
+                <div class="form-field"><label class="form-label">Reg. Comertului</label><input class="form-input" type="text" value="J2025067651008"/></div>
               </div>
               <div class="form-footer"><button class="btn-sm btn-primary">Salveaza</button></div>
             </div>
@@ -1172,11 +1172,6 @@ function initials(name) { return name.split(' ').map(n=>n[0]).join('').substring
 
 // â•â•â• INIT â•â•â•
 function initDashboard() {
-  // Seed fake orders if none exist (for demo/testing)
-  if(window.MotApi){
-    const existing = JSON.parse(localStorage.getItem('motoras_orders')||'[]');
-    if(existing.length < 3) window.MotApi.seedOrders(8);
-  }
   refreshAdminData();
   renderCustomersTable();
   renderProductsTable();
