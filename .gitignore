@@ -8,3 +8,4 @@ Thumbs.db
 .chrome-headless-fix/
 .chrome-headless-test/
 .claude/
+.vercel
