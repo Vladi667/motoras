@@ -22,6 +22,7 @@ const _feedSources = [
 ];
 const _fallbackImage = 'assets/product-placeholder.svg';
 const _serverOrdersEndpoint = '/api/orders';
+const _serverProductsEndpoint = '/api/products';
 
 const _readOrders = () => JSON.parse(localStorage.getItem(_ordersKey) || '[]');
 const _writeOrders = orders => localStorage.setItem(_ordersKey, JSON.stringify(orders));
@@ -35,6 +36,22 @@ const _orderStatusValues = ['pending', 'pending_payment', 'processing', 'shipped
 
 let _catalog = [];
 let _catalogPromise = null;
+
+function _buildQueryString(params = {}) {
+  const entries = Object.entries(params).filter(([, v]) => v !== undefined && v !== null && v !== '');
+  if (!entries.length) return '';
+  return entries.map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&');
+}
+
+async function _requestJson(path) {
+  try {
+    const response = await fetch(path, { cache: 'default' });
+    if (!response.ok) return null;
+    return await response.json();
+  } catch (_) {
+    return null;
+  }
+}
 
 async function _requestServer(path, options = {}) {
   try {
@@ -1072,129 +1089,87 @@ window.addEventListener('pageshow', () => _bindSearchUi(document));
 
 window.MotApi = {
   async ready() {
-    const items = await _ensureCatalog();
-    return { ok: true, total: items.length };
+    const data = await _requestJson(`${_serverProductsEndpoint}?view=summary`);
+    if (data && data.ok) return { ok: true, total: data.summary ? data.summary.total : 0 };
+    return { ok: false, total: 0 };
   },
 
   async getCatalogSnapshot() {
-    const items = await _ensureCatalog();
-    return items.map(item => ({ ..._applyRatingSummary(item) }));
+    let page = 1;
+    const all = [];
+    while (true) {
+      const data = await _requestJson(`${_serverProductsEndpoint}?limit=500&page=${page}`);
+      if (!data || !data.ok || !data.items || !data.items.length) break;
+      all.push(...data.items);
+      if (page >= data.pages) break;
+      page += 1;
+    }
+    return all;
   },
 
   async getProducts(params = {}) {
     await _delay();
-    let sourceItems = await _ensureCatalog();
-
-    if (params.cat) sourceItems = sourceItems.filter(item => item.cat === params.cat);
-    if (params.subcat) sourceItems = sourceItems.filter(item => item.subcat === params.subcat);
-    if (params.brand) sourceItems = sourceItems.filter(item => item.brand === params.brand);
-
-    let rankedEntries = sourceItems.map(item => ({ item, score: 0 }));
-    if (params.q) {
-      rankedEntries = sourceItems
-        .map(item => ({ item, score: _scoreProductSearch(item, params.q) }))
-        .filter(entry => entry.score > 0)
-        .sort((left, right) =>
-          right.score - left.score ||
-          Number(right.item.stock || 0) - Number(left.item.stock || 0) ||
-          Number(right.item.reviews || 0) - Number(left.item.reviews || 0) ||
-          String(left.item.name || '').localeCompare(String(right.item.name || ''), 'ro')
-        );
-
-      const topScore = rankedEntries[0]?.score || 0;
-      if (topScore >= 1200) {
-        rankedEntries = rankedEntries.filter(entry => entry.score >= Math.max(380, Math.round(topScore * 0.42)));
-      } else if (topScore >= 700) {
-        rankedEntries = rankedEntries.filter(entry => entry.score >= Math.max(220, Math.round(topScore * 0.32)));
-      }
-    }
-
-    let items = rankedEntries.map(entry => ({
-      ..._applyRatingSummary(entry.item),
-      _searchScore: entry.score,
-    }));
-
-    if (params.sort === 'price_asc') items.sort((a, b) => a.price - b.price || b._searchScore - a._searchScore);
-    if (params.sort === 'price_desc') items.sort((a, b) => b.price - a.price || b._searchScore - a._searchScore);
-    if (params.sort === 'rating') items.sort((a, b) => (b.rating || 0) - (a.rating || 0) || b._searchScore - a._searchScore);
-
-    const page = Math.max(1, parseInt(params.page || 1, 10));
-    const limit = Math.max(1, parseInt(params.limit || 12, 10));
-    const total = items.length;
-    const start = (page - 1) * limit;
-
-    return {
-      ok: true,
-      total,
-      page,
-      pages: Math.max(1, Math.ceil(total / limit)),
-      items: items.slice(start, start + limit).map(({ _searchScore, ...item }) => item),
-    };
+    const qs = _buildQueryString(params);
+    const data = await _requestJson(`${_serverProductsEndpoint}${qs ? '?' + qs : ''}`);
+    if (data && data.ok) return data;
+    return { ok: false, total: 0, page: 1, pages: 1, items: [] };
   },
 
   async getSubcategories(cat) {
     await _delay(10);
-    const items = (await _ensureCatalog()).filter(item => !cat || item.cat === cat);
-    const counts = new Map();
-    items.forEach((item) => {
-      const key = item.subcat || _resolveSubcategory(item);
-      const label = item.subcatLabel || _subcategoryLabel(item.cat, key);
-      if (!counts.has(key)) counts.set(key, { key, label, count: 0 });
-      counts.get(key).count += 1;
-    });
-    return {
-      ok: true,
-      items: Array.from(counts.values()).sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, 'ro')),
-    };
+    const qs = cat ? `?view=categories&cat=${encodeURIComponent(cat)}` : '?view=categories';
+    const data = await _requestJson(`${_serverProductsEndpoint}${qs}`);
+    if (data && data.ok) {
+      const items = (data.items || []).map(entry => ({
+        key: entry.key,
+        label: _subcategoryLabel(cat, entry.key) || entry.label || entry.key,
+        count: entry.count,
+      }));
+      return { ok: true, items };
+    }
+    return { ok: true, items: [] };
   },
 
   async getProduct(id) {
     await _delay(20);
-    const product = (await _ensureCatalog()).find(item => item.id === id);
-    if (!product) return { ok: false, error: 'Produsul nu a fost găsit.' };
-    return { ok: true, product: { ..._applyRatingSummary(product) } };
+    const data = await _requestJson(`${_serverProductsEndpoint}?${_buildQueryString({ id })}`);
+    if (data && data.ok && data.item) {
+      const product = _applyRatingSummary(_normalizeCatalogItem(data.item) || data.item);
+      return { ok: true, product };
+    }
+    return { ok: false, error: 'Produsul nu a fost găsit.' };
   },
 
   async getFeatured(limit = 8) {
     await _delay(20);
-    const items = (await _ensureCatalog())
-      .map(item => ({ ..._applyRatingSummary(item) }))
-      .filter(item => item.stock > 0)
-      .sort((a, b) => {
-        const scoreA = (a.badge ? 10 : 0) + a.reviews;
-        const scoreB = (b.badge ? 10 : 0) + b.reviews;
-        return scoreB - scoreA;
-      })
-      .slice(0, limit);
-
-    return { ok: true, items };
+    const data = await _requestJson(`${_serverProductsEndpoint}?view=featured&limit=${limit}`);
+    if (data && data.ok) {
+      const items = (data.items || []).map(item => _applyRatingSummary(_normalizeCatalogItem(item) || item));
+      return { ok: true, items };
+    }
+    return { ok: true, items: [] };
   },
 
   async getProductReviews(id) {
     await _delay(20);
-    const product = (await _ensureCatalog()).find(item => item.id === id);
-    if (!product) return { ok: false, error: 'Produsul nu a fost găsit.' };
-    const hydrated = _applyRatingSummary(product);
+    const reviews = _getStoredReviews(id);
+    const baseRating = 0;
+    const baseReviews = 0;
+    const userTotal = reviews.reduce((sum, r) => sum + r.rating, 0);
+    const totalReviews = baseReviews + reviews.length;
+    const average = totalReviews ? ((baseRating * baseReviews + userTotal) / totalReviews) : 0;
     return {
       ok: true,
-      summary: {
-        rating: hydrated.rating,
-        reviews: hydrated.reviews,
-        baseReviews: hydrated.baseReviews,
-      },
-      items: hydrated.reviewEntries.map(review => ({ ...review })),
+      summary: { rating: Math.round(average * 10) / 10, reviews: totalReviews, baseReviews },
+      items: reviews,
     };
   },
 
   async addProductReview(id, payload = {}) {
     await _delay(80);
-    const product = (await _ensureCatalog()).find(item => item.id === id);
-    if (!product) return { ok: false, error: 'Produsul nu a fost găsit.' };
-
     const rating = Math.min(5, Math.max(1, _safeInt(payload.rating, 0)));
     if (!rating) return { ok: false, error: 'Ratingul este obligatoriu.' };
-
-  const name = String(payload.name || 'Client Motoraș').trim().slice(0, 40) || 'Client Motoraș';
+    const name = String(payload.name || 'Client Motoraș').trim().slice(0, 40) || 'Client Motoraș';
     const comment = String(payload.comment || '').trim().slice(0, 600);
     const store = _readRatings();
     const key = String(id);
@@ -1208,18 +1183,13 @@ window.MotApi = {
     }));
     store[key] = list.slice(0, 40);
     _writeRatings(store);
-    _refreshCatalogRatings(id);
-
-    const hydrated = _applyRatingSummary(product);
+    const reviews = _getStoredReviews(id);
+    const userTotal = reviews.reduce((sum, r) => sum + r.rating, 0);
+    const average = reviews.length ? userTotal / reviews.length : 0;
     return {
       ok: true,
-      product: { ...hydrated },
-      summary: {
-        rating: hydrated.rating,
-        reviews: hydrated.reviews,
-        baseReviews: hydrated.baseReviews,
-      },
-      items: hydrated.reviewEntries.map(review => ({ ...review })),
+      summary: { rating: Math.round(average * 10) / 10, reviews: reviews.length, baseReviews: 0 },
+      items: reviews,
     };
   },
 
@@ -1403,7 +1373,8 @@ window.MotApi = {
   },
 
   async seedOrders(n = 5) {
-    const catalog = await _ensureCatalog();
+    const remoteData = await _requestJson(`${_serverProductsEndpoint}?limit=20`);
+    const catalog = remoteData && remoteData.items ? remoteData.items : await _ensureCatalog();
     const names = ['Ion Popescu', 'Maria Ionescu', 'Andrei Constantin', 'Elena Dumitrescu', 'Radu Popa'];
     const statuses = ['pending', 'processing', 'shipped', 'delivered', 'delivered'];
     const counties = ['București', 'Cluj', 'Timiș', 'Iași', 'Brașov'];
@@ -1443,7 +1414,8 @@ window.MotApi = {
   },
 };
 
-window.MotApi.ready()
+window.MotApi.ping()
   .then(result => console.log('[MotApi]', result))
-  .catch(error => console.error('[MotApi] feed error', error));
+  .catch(() => {});
+
 

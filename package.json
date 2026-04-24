@@ -1,0 +1,10 @@
+{
+  "name": "motoras-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node scripts/gateway-smoke.js",
+    "test:gateway": "node scripts/gateway-smoke.js",
+    "perf:audit": "node scripts/perf-audit.js"
+  }
+}
