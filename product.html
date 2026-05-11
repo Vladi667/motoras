@@ -2626,7 +2626,7 @@ function addProductToCart(){const qty=parseInt(document.getElementById('pageQty'
 function buyNow(){addProductToCart();if(window.MotorasPageLoader?.navigate){window.MotorasPageLoader.navigate('checkout.html');return;}window.location.href='checkout.html';}
 
 
-}; if (document.readyState === 'loading') { (__run)();; } else { __run(); } })();
+}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 
 <!-- TOAST CONTAINER -->
@@ -2847,7 +2847,7 @@ function buyNow(){addProductToCart();if(window.MotorasPageLoader?.navigate){wind
  })();;
 })();
 
-}; if (document.readyState === 'loading') { (__run)();; } else { __run(); } })();
+}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 
 <!-- ===== WHATSAPP FLOATING BUTTON ===== -->

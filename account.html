@@ -662,7 +662,7 @@ if (hash && document.getElementById('panel-'+hash) && savedSession && savedSessi
 
 });
 
-}; if (document.readyState === 'loading') { (__run)();; } else { __run(); } })();
+}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 <script src="api.js?v=20260512-phase4" defer></script>
 
