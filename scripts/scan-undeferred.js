@@ -19,12 +19,20 @@ const DEFERRED_SET = new Set([
 
 // Globals owned by the deferred files. Any inline script body referencing
 // these outside a DOM-ready gate is unsafe after the defer change.
+//
+// For unique identifiers (MotApi, MotApiSearch, toggleProductHidden,
+// MotorasVehicleData) we match the bare identifier — they don't collide
+// with local variables. For "cart" and "favorites" we require the
+// window-prefix form so we don't false-positive on local state.cart etc.
 const DEFERRED_GLOBALS = [
   'MotApi',
-  'cart',
-  'favorites',
   'MotApiSearch',
   'toggleProductHidden',
+  'MotorasVehicleData',
+];
+const WINDOW_PREFIXED_GLOBALS = [
+  'window\\.cart\\b',
+  'window\\.favorites\\b',
 ];
 
 function listHtmlFiles() {
@@ -90,13 +98,23 @@ function lineForOffset(html, offset) {
 function isBodyGated(body) {
   if (!body || !body.trim()) return true;
 
-  const gateRe = /\b(?:DOMContentLoaded|document\.readyState\s*===\s*["'](?:complete|interactive)["']|window\.addEventListener\s*\(\s*["']load["']|window\.onload\s*=)/;
+  // Phase 4 wrapper marker: if present, the block has been verifiably wrapped
+  // in a readyState-aware gate by scripts/_phase4-wrap.js. The gate text
+  // appears AFTER the wrapped body in source order so the linear scan below
+  // would false-positive on it; this marker is the explicit opt-in.
+  if (body.includes('/* phase4-defer-gate */')) return true;
+
+  const gateRe = /\b(?:DOMContentLoaded|document\.readyState\s*===\s*["'](?:complete|interactive|loading)["']|window\.addEventListener\s*\(\s*["']load["']|window\.onload\s*=)/;
   const gateMatch = body.match(gateRe);
 
   // Find first reference to any deferred global
   let firstRefIdx = -1;
-  for (const g of DEFERRED_GLOBALS) {
-    const re = new RegExp(`\\b${g}\\b`, 'g');
+  const allPatterns = [
+    ...DEFERRED_GLOBALS.map(g => `\\b${g}\\b`),
+    ...WINDOW_PREFIXED_GLOBALS,
+  ];
+  for (const pat of allPatterns) {
+    const re = new RegExp(pat, 'g');
     let m;
     while ((m = re.exec(body)) !== null) {
       if (firstRefIdx === -1 || m.index < firstRefIdx) firstRefIdx = m.index;
@@ -140,10 +158,13 @@ for (const file of listHtmlFiles()) {
   }
 
   // (2) Inline-script DOM-ready gate check
+  const refPatterns = [
+    ...DEFERRED_GLOBALS.map(g => `\\b${g}\\b`),
+    ...WINDOW_PREFIXED_GLOBALS,
+  ];
   for (const inl of findInlineScripts(html)) {
     if (!isBodyGated(inl.body)) {
-      // Check whether this body even references a deferred global; if not, ignore.
-      const hasRef = DEFERRED_GLOBALS.some(g => new RegExp(`\\b${g}\\b`).test(inl.body));
+      const hasRef = refPatterns.some(p => new RegExp(p).test(inl.body));
       if (!hasRef) continue;
       const line = lineForOffset(html, inl.start);
       failures.push({

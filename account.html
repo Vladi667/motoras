@@ -355,6 +355,10 @@ body { -webkit-font-smoothing:antialiased; }
 </div>
 
 <script>
+/* phase4-defer-gate */
+(function () { var __run = function () {
+
+
 window.MotorasStore.updateBadges();
 
 const USER_KEY = 'motoras_user_v2';
@@ -634,7 +638,6 @@ function showPanel(id, el) {
  msg.style.cssText = 'display:none;font-size:13px;font-weight:600;margin-bottom:10px;padding:8px 12px;border-radius:6px;background:rgba(204,17,17,.08)';
  container.insertBefore(msg, container.firstChild);
  }
-});
 
 window.downloadPdf = downloadPdf;
 
@@ -656,8 +659,12 @@ if (hash && document.getElementById('panel-'+hash) && savedSession && savedSessi
  var navItem = document.querySelector('[onclick*="'+hash+'"]');
  if (navItem) showPanel(hash, navItem);
 }
+
+});
+
+}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
-<script src="api.js?v=20260512-phase3"></script>
+<script src="api.js?v=20260512-phase4" defer></script>
 
 <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
 <style>
