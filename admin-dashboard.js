@@ -1171,7 +1171,7 @@
  const tbody = qs('#browseTableBody');
  const info = qs('#browsePaginationInfo');
  if (info) info.textContent = 'Se incarca…';
- if (tbody) tbody.innerHTML = `<tr><td colspan="7" style="padding:32px;text-align:center;color:var(--muted)">
+ if (tbody) tbody.innerHTML = `<tr><td colspan="8" style="padding:32px;text-align:center;color:var(--muted)">
  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="animation:spin 1s linear infinite;display:inline-block"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
  Se incarca produsele…
  </td></tr>`;
@@ -1181,7 +1181,7 @@
  const tbody = qs('#browseTableBody');
  const info = qs('#browsePaginationInfo');
  if (info) info.textContent = '';
- if (tbody) tbody.innerHTML = `<tr><td colspan="7" style="padding:28px;text-align:center;color:var(--red);font-weight:600">${escapeHtml(msg)}</td></tr>`;
+ if (tbody) tbody.innerHTML = `<tr><td colspan="8" style="padding:28px;text-align:center;color:var(--red);font-weight:600">${escapeHtml(msg)}</td></tr>`;
  }
 
  function renderBrowseTable(data, key) {
@@ -1212,7 +1212,7 @@
  }
 
  if (!items.length) {
- tbody.innerHTML = `<tr><td colspan="7" style="padding:28px;text-align:center;color:var(--muted);font-weight:600">Niciun produs gasit pentru filtrul selectat.</td></tr>`;
+ tbody.innerHTML = `<tr><td colspan="8" style="padding:28px;text-align:center;color:var(--muted);font-weight:600">Niciun produs gasit pentru filtrul selectat.</td></tr>`;
  return;
  }
 
@@ -1224,6 +1224,11 @@
  : toNumber(item.stock) <= 3
  ? '<span class="badge badge-pending" style="font-size:11px">Stoc scazut</span>'
  : '<span class="badge badge-shipped" style="font-size:11px">In stoc</span>';
+ const source = escapeHtml(state.browse.key || item.source || '');
+ const productId = escapeHtml(item.id || item.sku || '');
+ const hideButton = productId
+ ? `<button class="btn-sm btn-outline" style="font-size:11px;padding:4px 8px" onclick="toggleProductHidden('${source}','${productId}',true)" title="Ascunde acest produs de pe site">Ascunde</button>`
+ : '';
  return `<tr>
  <td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${escapeHtml(item.name || '')}">
  <span style="font-weight:700;font-size:13px;color:var(--dark)">${escapeHtml(item.name || 'Produs')}</span>
@@ -1234,6 +1239,7 @@
  <td style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;color:var(--green)">${clientPrice > 0 ? formatRON(clientPrice) : '—'}</td>
  <td style="font-size:12px;color:var(--muted);font-weight:700">${margin > 0 ? '+' + margin + '%' : '—'}</td>
  <td>${stockBadge}</td>
+ <td>${hideButton}</td>
  </tr>`;
  }).join('');
  }
@@ -1252,6 +1258,25 @@
  if (!key) return;
  const newPage = Math.max(1, state.browse.page + delta);
  browseSupplierLoad(key, newPage);
+ }
+
+ async function toggleProductHidden(source, id, hidden) {
+ if (!source || !id) return;
+ try {
+ const method = hidden === false ? 'DELETE' : 'POST';
+ const body = hidden === false ? { source, id } : { source, id, hidden: true };
+ const result = await requestJson('/api/admin/product-overrides', { method, body });
+ if (!result?.ok) {
+ showAdminToast(result?.error || 'Nu am putut salva regula produsului.', 'error');
+ return;
+ }
+ showAdminToast(hidden === false ? 'Produs reactivat pe website.' : 'Produs ascuns de pe website.');
+ if (state.browse && state.browse.key) {
+ browseSupplierLoad(state.browse.key, state.browse.page || 1);
+ }
+ } catch (error) {
+ showAdminToast(error?.message || 'Eroare la salvarea regulii produsului.', 'error');
+ }
  }
 
  function updateBadges() {
@@ -1744,6 +1769,7 @@
  window.closeBrowseModal = closeBrowseModal;
  window.browseSearch = browseSearch;
  window.browsePage = browsePage;
+ window.toggleProductHidden = toggleProductHidden;
  window.syncSupplierApi = syncSupplierApi;
 
  document.addEventListener('DOMContentLoaded', bootstrap, { once: true });

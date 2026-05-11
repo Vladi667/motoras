@@ -8,7 +8,9 @@ const {
  requireAdmin,
  timingSafeEquals,
 } = require('../../lib/api/admin-auth');
-const { readCatalog, buildSummary, summarizeBy, LOW_STOCK_THRESHOLD } = require('../../lib/api/products');
+const { readPublicCatalog, buildSummary } = require('../../lib/api/catalog/gateway');
+const { normalizeSourceKey } = require('../../lib/api/catalog/types');
+const LOW_STOCK_THRESHOLD = 3;
 
 // Set TVA_ENABLED = true once the company is registered as TVA payer (platitor TVA)
 const TVA_ENABLED = false;
@@ -258,7 +260,7 @@ async function handleDashboard(req, res) {
  return json(res, 401, { ok: false, error: 'Admin authentication required.' });
  }
 
- const catalog = readCatalog();
+ const catalog = await readPublicCatalog();
  const catalogSummary = buildSummary(catalog);
  const ordersResult = await listOrdersSafe();
  const orders = ordersResult.items;
@@ -271,11 +273,11 @@ async function handleDashboard(req, res) {
  const customers = buildCustomers(orders);
  const topOrderedProducts = buildTopOrderedProducts(orders, catalog);
  const lowStockProducts = catalog
- .filter(item => item.lowStock || !item.inStock)
- .sort((left, right) => left.stock - right.stock || left.name.localeCompare(right.name, 'ro'))
+ .filter(item => Number(item.stock) <= LOW_STOCK_THRESHOLD)
+ .sort((left, right) => Number(left.stock || 0) - Number(right.stock || 0) || String(left.name || '').localeCompare(String(right.name || ''), 'ro'))
  .slice(0, 20);
- const sourceGroups = summarizeBy(catalog, item => item.sourceKey, item => item.source);
- const categoryGroups = summarizeBy(catalog, item => item.categoryKey, item => item.category);
+ const sourceGroups = catalogSummary.sources;
+ const categoryGroups = catalogSummary.categories;
 
  return json(res, 200, {
  ok: true,
