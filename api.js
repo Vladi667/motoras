@@ -1366,71 +1366,59 @@ window.MotApi = {
  },
 
  async ready() {
+ const remote = await _requestJson(`${_serverProductsEndpoint}?view=summary`);
+ if (remote.ok && remote.data?.summary) return { ok: true, total: Number(remote.data.summary.total || 0) };
  const items = await _ensureCatalog();
  return { ok: true, total: items.length };
  },
 
+ // Legacy/admin path. Pages and pages of /api/products until exhausted.
+ // The storefront does not call this anymore.
  async getCatalogSnapshot() {
+ const all = [];
+ let page = 1;
+ const limit = 500;
+ const maxPages = 60;
+ while (page <= maxPages) {
+ const remote = await _requestJson(`${_serverProductsEndpoint}?${_buildQueryString({ page, limit })}`);
+ if (!remote.ok || !Array.isArray(remote.data?.items)) break;
+ all.push(...remote.data.items);
+ const pages = Number(remote.data.pages || 1);
+ if (page >= pages || !remote.data.items.length) break;
+ page += 1;
+ }
+ if (all.length) return all.map(item => ({ ..._applyRatingSummary(item) }));
  const items = await _ensureCatalog();
  return items.map(item => ({ ..._applyRatingSummary(item) }));
  },
 
  async getProducts(params = {}) {
- await _delay();
- let sourceItems = await _ensureCatalog();
-
- if (params.cat) sourceItems = sourceItems.filter(item => item.cat === params.cat);
- if (params.subcat) sourceItems = sourceItems.filter(item => item.subcat === params.subcat);
- if (params.brand) sourceItems = sourceItems.filter(item => item.brand === params.brand);
-
- let rankedEntries = sourceItems.map(item => ({ item, score: 0 }));
- if (params.q) {
- rankedEntries = sourceItems
- .map(item => ({ item, score: _scoreProductSearch(item, params.q) }))
- .filter(entry => entry.score > 0)
- .sort((left, right) =>
- right.score - left.score ||
- Number(right.item.stock || 0) - Number(left.item.stock || 0) ||
- Number(right.item.reviews || 0) - Number(left.item.reviews || 0) ||
- String(left.item.name || '').localeCompare(String(right.item.name || ''), 'ro')
- );
-
- const topScore = rankedEntries[0]?.score || 0;
- if (topScore >= 1200) {
- rankedEntries = rankedEntries.filter(entry => entry.score >= Math.max(380, Math.round(topScore * 0.42)));
- } else if (topScore >= 700) {
- rankedEntries = rankedEntries.filter(entry => entry.score >= Math.max(220, Math.round(topScore * 0.32)));
- }
- }
-
- let items = rankedEntries.map(entry => ({
- ..._applyRatingSummary(entry.item),
- _searchScore: entry.score,
- }));
-
- if (params.sort === 'price_asc') items.sort((a, b) => a.price - b.price || b._searchScore - a._searchScore);
- if (params.sort === 'price_desc') items.sort((a, b) => b.price - a.price || b._searchScore - a._searchScore);
- if (params.sort === 'rating') items.sort((a, b) => (b.rating || 0) - (a.rating || 0) || b._searchScore - a._searchScore);
-
- const page = Math.max(1, parseInt(params.page || 1, 10));
- const limit = Math.max(1, parseInt(params.limit || 12, 10));
- const total = items.length;
- const start = (page - 1) * limit;
-
+ const remote = await _requestJson(`${_serverProductsEndpoint}?${_buildQueryString(params)}`);
+ if (remote.ok && remote.data?.ok) {
  return {
  ok: true,
- total,
- page,
- pages: Math.max(1, Math.ceil(total / limit)),
- items: items.slice(start, start + limit).map(({ _searchScore, ...item }) => item),
+ total: Number(remote.data.total || 0),
+ page: Number(remote.data.page || 1),
+ pages: Number(remote.data.pages || 1),
+ items: (remote.data.items || []).map(item => _applyRatingSummary(item)),
  };
+ }
+ return { ok: false, error: remote.data?.error || 'Catalogul nu este disponibil momentan.', total: 0, page: 1, pages: 1, items: [] };
  },
 
  async getSubcategories(cat) {
- await _delay(10);
- const items = (await _ensureCatalog()).filter(item => !cat || item.cat === cat);
+ const remote = await _requestJson(`${_serverProductsEndpoint}?${_buildQueryString({ cat, view: 'summary' })}`);
+ if (remote.ok && remote.data?.summary?.categories) {
+ // The summary returns categories at the cat granularity; subcategory
+ // grouping is computed from the items page-by-page when needed.
+ }
+ // Fall through: ask gateway for a wide product page and group by subcat client-side.
+ const page = await _requestJson(`${_serverProductsEndpoint}?${_buildQueryString({ cat, limit: 500 })}`);
+ if (!page.ok || !Array.isArray(page.data?.items)) {
+ return { ok: false, items: [] };
+ }
  const counts = new Map();
- items.forEach((item) => {
+ page.data.items.forEach((item) => {
  const key = item.subcat || _resolveSubcategory(item);
  const label = item.subcatLabel || _subcategoryLabel(item.cat, key);
  if (!counts.has(key)) counts.set(key, { key, label, count: 0 });
@@ -1494,32 +1482,29 @@ window.MotApi = {
  },
 
  async getProduct(id) {
- await _delay(20);
- const product = (await _ensureCatalog()).find(item => item.id === id || item.sku === id);
- if (!product) return { ok: false, error: 'Produsul nu a fost gÄƒsit.' };
- return { ok: true, product: { ..._applyRatingSummary(product) } };
+ const productId = String(id || '').trim();
+ if (!productId) return { ok: false, error: 'Identificator produs lipsÄƒ.' };
+ const remote = await _requestJson(`${_serverProductsEndpoint}?${_buildQueryString({ id: productId })}`);
+ if (remote.ok && remote.data?.ok && remote.data.item) {
+ return { ok: true, product: _applyRatingSummary(remote.data.item) };
+ }
+ if (remote.data?.error) return { ok: false, error: remote.data.error };
+ return { ok: false, error: 'Produsul nu a fost gÄƒsit.' };
  },
 
  async getFeatured(limit = 8) {
- await _delay(20);
- const items = (await _ensureCatalog())
- .map(item => ({ ..._applyRatingSummary(item) }))
- .filter(item => item.stock > 0)
- .sort((a, b) => {
- const scoreA = (a.badge ? 10 : 0) + a.reviews;
- const scoreB = (b.badge ? 10 : 0) + b.reviews;
- return scoreB - scoreA;
- })
- .slice(0, limit);
-
- return { ok: true, items };
+ const safeLimit = Math.max(4, Math.min(48, Number(limit) || 8));
+ const remote = await _requestJson(`${_serverProductsEndpoint}?${_buildQueryString({ view: 'featured', limit: safeLimit })}`);
+ if (remote.ok && remote.data?.ok && Array.isArray(remote.data.items)) {
+ return { ok: true, items: remote.data.items.map(item => _applyRatingSummary(item)) };
+ }
+ return { ok: false, items: [] };
  },
 
  async getProductReviews(id) {
- await _delay(20);
- const product = (await _ensureCatalog()).find(item => item.id === id || item.sku === id);
- if (!product) return { ok: false, error: 'Produsul nu a fost gÄƒsit.' };
- const hydrated = _applyRatingSummary(product);
+ const detail = await window.MotApi.getProduct(id);
+ if (!detail.ok || !detail.product) return { ok: false, error: detail.error || 'Produsul nu a fost gÄƒsit.' };
+ const hydrated = detail.product;
  return {
  ok: true,
  summary: {
@@ -1527,14 +1512,14 @@ window.MotApi = {
  reviews: hydrated.reviews,
  baseReviews: hydrated.baseReviews,
  },
- items: hydrated.reviewEntries.map(review => ({ ...review })),
+ items: (hydrated.reviewEntries || []).map(review => ({ ...review })),
  };
  },
 
  async addProductReview(id, payload = {}) {
- await _delay(80);
- const product = (await _ensureCatalog()).find(item => item.id === id || item.sku === id);
- if (!product) return { ok: false, error: 'Produsul nu a fost gÄƒsit.' };
+ const detail = await window.MotApi.getProduct(id);
+ if (!detail.ok || !detail.product) return { ok: false, error: detail.error || 'Produsul nu a fost gÄƒsit.' };
+ const product = detail.product;
 
  const rating = Math.min(5, Math.max(1, _safeInt(payload.rating, 0)));
  if (!rating) return { ok: false, error: 'Ratingul este obligatoriu.' };
