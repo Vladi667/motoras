@@ -2293,16 +2293,16 @@ document.addEventListener('click', e => {
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeQuickView(); });
 
 // === INIT ===
-document.addEventListener('DOMContentLoaded', () => {
+(() => {
  updateStickyBar();
  // Update sticky bar when storage changes (other tabs)
  window.addEventListener('storage', updateStickyBar);
-});
+})();;
 
-document.addEventListener('DOMContentLoaded', async () => {
+(async () => {
  await loadCategoryCatalog();
  initCategory();
-});
+})();;
 
 function formatCatalogPrice(value) {
  return `${Number(value || 0).toFixed(2).replace('.00', '')} RON`;
@@ -2356,7 +2356,7 @@ cardHtmlEnhanced = function (p) {
 };
 
 
-}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
+}; if (document.readyState === 'loading') { (__run)();; } else { __run(); } })();
 </script>
 
 <!-- TOAST CONTAINER -->

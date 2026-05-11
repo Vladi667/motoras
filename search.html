@@ -1840,7 +1840,7 @@ async function runSearchPage() {
 }
 
 window.__motorasSearchHandled = true;
-document.addEventListener('DOMContentLoaded', runSearchPage);
+(runSearchPage)();;
 
 function renderCatalogRating(product) {
  if (!product || Number(product.reviews || 0) <= 0) {
@@ -2023,13 +2023,13 @@ document.addEventListener('click', e => {
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeQuickView(); });
 
 // === INIT ===
-document.addEventListener('DOMContentLoaded', () => {
+(() => {
  updateStickyBar();
  // Update sticky bar when storage changes (other tabs)
  window.addEventListener('storage', updateStickyBar);
-});
+})();;
 
-document.addEventListener('DOMContentLoaded', async () => { if (window.__motorasSearchHandled) return;
+(async () => { if (window.__motorasSearchHandled) return;
  await loadSearchCatalog();
  const q=new URLSearchParams(location.search).get('q')||'';
  const inp=document.getElementById('searchInput');
@@ -2057,7 +2057,7 @@ document.addEventListener('DOMContentLoaded', async () => { if (window.__motoras
  const stk=p.stock>10?'<span class="prod-stk ok">✓ În stoc</span>':p.stock>0?`<span class="prod-stk low">⚠ Doar ${p.stock}</span>`:'<span class="prod-stk out">Epuizat</span>';
  return cardHtmlEnhanced(p)}).join('');
  window.MotorasFavorites?.syncButtons(grid);
-});
+})();;
 
 function formatCatalogPrice(value) {
  return `${Number(value || 0).toFixed(2).replace('.00', '')} RON`;
@@ -2104,7 +2104,7 @@ cardHtmlEnhanced = function (p) {
 };
 
 
-}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
+}; if (document.readyState === 'loading') { (__run)();; } else { __run(); } })();
 </script>
 
 <!-- TOAST CONTAINER -->

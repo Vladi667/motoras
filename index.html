@@ -2346,13 +2346,13 @@ window.addEventListener('storage', (event) => {
  }
 });
 if (document.readyState === 'loading') {
- document.addEventListener('DOMContentLoaded', startHomepageCatalog, { once: true });
+ (startHomepageCatalog, { once: true })();;
 } else {
  startHomepageCatalog();
 }
 updateCart();
 
-}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
+}; if (document.readyState === 'loading') { (__run)();; } else { __run(); } })();
 </script>
 <script>
 /* phase4-defer-gate */
@@ -2423,17 +2423,17 @@ updateCart();
  } catch (_) {}
  }
 
- document.addEventListener('DOMContentLoaded', function () {
+ (function () {
  applyHomepageMediaHints(document);
  emitHomepageCommercialSchema();
  var grid = document.getElementById('productsGrid');
  if (grid && typeof MutationObserver !== 'undefined') {
  new MutationObserver(function () { applyHomepageMediaHints(grid); }).observe(grid, { childList: true, subtree: true });
  }
- });
+ })();;
 })();
 
-}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
+}; if (document.readyState === 'loading') { (__run)();; } else { __run(); } })();
 </script>
 <script>
 (function () {

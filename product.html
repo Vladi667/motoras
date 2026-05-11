@@ -2607,7 +2607,7 @@ document.addEventListener('click', e => {
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeQuickView(); });
 
 // === INIT ===
-document.addEventListener('DOMContentLoaded', () => {
+(() => {
  updateStickyBar();
  setSelectedReviewRating(5);
  document.querySelectorAll('[data-review-star]').forEach((button) => {
@@ -2617,7 +2617,7 @@ document.addEventListener('DOMContentLoaded', () => {
  // Update sticky bar when storage changes (other tabs)
  window.addEventListener('storage', updateStickyBar);
  initProductPage();
-});
+})();;
 
 function setImg(el,src){document.getElementById('mainImg').src=src||'assets/product-placeholder.svg';document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
 function showTab(id,btn){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tp-'+id).classList.add('active');btn.classList.add('active');}
@@ -2626,7 +2626,7 @@ function addProductToCart(){const qty=parseInt(document.getElementById('pageQty'
 function buyNow(){addProductToCart();if(window.MotorasPageLoader?.navigate){window.MotorasPageLoader.navigate('checkout.html');return;}window.location.href='checkout.html';}
 
 
-}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
+}; if (document.readyState === 'loading') { (__run)();; } else { __run(); } })();
 </script>
 
 <!-- TOAST CONTAINER -->
@@ -2827,7 +2827,7 @@ function buyNow(){addProductToCart();if(window.MotorasPageLoader?.navigate){wind
  upsertJsonLd('jsonld-product', payload);
  }
 
- document.addEventListener('DOMContentLoaded', function () {
+ (function () {
  setProductMediaHints();
  setTimeout(emitAdvancedProductSchema, 900);
  setTimeout(emitAdvancedProductSchema, 1800);
@@ -2844,10 +2844,10 @@ function buyNow(){addProductToCart();if(window.MotorasPageLoader?.navigate){wind
  setTimeout(emitAdvancedProductSchema, 1200);
  });
  }
- });
+ })();;
 })();
 
-}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
+}; if (document.readyState === 'loading') { (__run)();; } else { __run(); } })();
 </script>
 
 <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
