@@ -10,21 +10,8 @@ const _ordersKey = 'motoras_orders';
 const _cartKey = 'motoras_cart';
 const _lastOrder = 'motoras_last_order';
 const _ratingsKey = 'motoras_product_ratings_v1';
-const _microCatalogCandidates = ['catalog-micro.json?v=20260418-micro-1', 'catalog-micro.json', './catalog-micro.json', '/catalog-micro.json'];
-const _liteCatalogCandidates = ['catalog-lite.json?v=20260416-clean-1', 'catalog-lite.json', './catalog-lite.json', '/catalog-lite.json'];
-const _fullCatalogCandidates = ['catalog.json?v=20260416-clean-1', 'catalog.json', './catalog.json', '/catalog.json'];
-// Version tag for localStorage cache invalidation
-const _CATALOG_CACHE_VERSION = '20260418-micro-1';
-const _CATALOG_CACHE_KEY = 'motoras_catalog_cache_v1';
-const _CATALOG_CACHE_TTL = 24 * 60 * 60 * 1000; // 24h
-const _feedSources = [
- { path: 'supplier-feed.xml', type: 'carhub' },
- { path: 'supplier-feed-globiz.xml', type: 'globiz' },
- { path: './supplier-feed.xml', type: 'carhub' },
- { path: './supplier-feed-globiz.xml', type: 'globiz' },
- { path: '/supplier-feed.xml', type: 'carhub' },
- { path: '/supplier-feed-globiz.xml', type: 'globiz' },
-];
+// Phase 3 (Task 2): the 3-tier catalog candidate lists and supplier-feed
+// fallback paths were removed. All product data now comes from /api/products.
 const _fallbackImage = 'assets/product-placeholder.svg';
 const _serverOrdersEndpoint = '/api/orders';
 const _serverBravusEndpoint = '/api/bravus';
@@ -214,47 +201,10 @@ function _mergeOrders(remote = [], local = []) {
  return _sortOrders(Array.from(merged.values()));
 }
 
-function _needsFullCatalog() {
- const path = String(location?.pathname || '').toLowerCase();
- return path.endsWith('/product.html') || path.endsWith('product.html');
-}
-
-function _getCatalogCandidates() {
- // Product detail â†’ full catalog (needs desc, specs, compat, images[])
- // Everything else â†’ tiny micro catalog (cards only); fall back to lite then full
- if (_needsFullCatalog()) return _fullCatalogCandidates;
- return [..._microCatalogCandidates, ..._liteCatalogCandidates, ..._fullCatalogCandidates];
-}
-
-// â”€â”€ localStorage catalog cache (instant re-loads across page navigation) â”€â”€
-function _readCatalogCache() {
- try {
- const raw = localStorage.getItem(_CATALOG_CACHE_KEY);
- if (!raw) return null;
- const { v, t, kind, data } = JSON.parse(raw);
- if (v !== _CATALOG_CACHE_VERSION) return null;
- if (Date.now() - (t || 0) > _CATALOG_CACHE_TTL) return null;
- if (!Array.isArray(data)) return null;
- // Product page needs full catalog only "” ignore micro cache there
- if (_needsFullCatalog() && kind !== 'full') return null;
- return data;
- } catch (_) {
- return null;
- }
-}
-function _writeCatalogCache(data, kind) {
- try {
- const payload = JSON.stringify({
- v: _CATALOG_CACHE_VERSION,
- t: Date.now(),
- kind: kind || 'micro',
- data,
- });
- localStorage.setItem(_CATALOG_CACHE_KEY, payload);
- } catch (_) {
- // localStorage full or disabled "” ignore silently
- }
-}
+// Phase 3 (Task 2): removed _needsFullCatalog, _getCatalogCandidates,
+// _readCatalogCache, _writeCatalogCache. All product data now comes from
+// /api/products (server-side cached at the edge for view=categories/summary/
+// brands/sources; uncached for price-bearing responses).
 
 function _paymentMethodLabel(method) {
  return {
@@ -264,6 +214,10 @@ function _paymentMethodLabel(method) {
  }[method] || 'Plata';
 }
 
+// Phase 3 (Task 2): _categoryLabel kept as a tiny lookup for the few display
+// paths that still hydrate items locally (admin panel, _applyRatingSummary).
+// The server-side classifier in lib/api/catalog/classify.js holds the same
+// table; this is purely a display-fallback safety surface.
 function _categoryLabel(value) {
  return {
  piese: 'Piese Auto',
@@ -278,103 +232,23 @@ function _categoryLabel(value) {
  }[value] || 'Accesorii Auto';
 }
 
-const _subcategoryConfig = {
- piese: [
- { key: 'franare', label: 'Frânare', pattern: /\b(fran[ae]|disc(?:uri)? frana|placut(?:a|e) frana|placute frana|saboti|tambur|etrier|pompa frana|furtun frana)\b/ },
- { key: 'suspensie-directie', label: 'Suspensie & Direcție', pattern: /\b(amortizor|arc suspensie|bieleta|bara stabilizatoare|bucsa|pivot|cap de bara|caseta directie|planetara|rulment|butuc)\b/ },
- { key: 'distributie-transmisie', label: 'Distribuție & Transmisie', pattern: /\b(kit distributie|curea distributie|curea accesorii|rola intinzatoare|ambreiaj|kit ambreiaj|disc ambreiaj|volanta|flywheel)\b/ },
- { key: 'motor-admisie', label: 'Motor & Admisie', pattern: /\b(pompa apa|termostat|injector|bobina inductie|bujie|sonda lambda|debitmetru|supapa egr|turbo|turbina|pompa combustibil|garnitura|chiulasa|piston|segmenti|arbore cotit|arbore cu came)\b/ },
- { key: 'racire-climatizare', label: 'Răcire & Climatizare', pattern: /\b(radiator|intercooler|condensator ac|compresor ac|vas expansiune|climatizare|aer conditionat)\b/ },
- { key: 'electrica-senzori', label: 'Electrică & Senzori', pattern: /\b(alternator|electromotor|demaror|senzor abs|senzor|modul)\b/ },
- { key: 'evacuare', label: 'Evacuare', pattern: /\b(catalizator|filtru particule|toba esapament|esapament)\b/ },
- ],
- accesorii: [
- { key: 'iluminare-auto', label: 'Iluminare Auto', pattern: /\b(bec(?:uri)?|xenon|led\b|halogen|angel eyes|canbus|drl\b|adaptor xenon|proiector led|bara led)\b/ },
- { key: 'multimedia-gsm', label: 'Multimedia & GSM', pattern: /\b(suport auto magnetic|suport magnetic pentru telefon|telefon|phone holder|modulator fm|fm transmitter|radio auto|navigatie|2din|1din|difuzor|woofer|subwoofer|camera marsarier|camera auto)\b/ },
- { key: 'siguranta-electrica', label: 'Siguranță & Electric', pattern: /\b(senzori parcare|parking sensor|alarma auto|incarcator auto|usb pt\.? bricheta|bricheta|invertor|cablu pornire|claxon)\b/ },
- { key: 'chei-exterior', label: 'Chei & Exterior', pattern: /\b(carcasa cheie|cheie auto|telecomanda auto|oglinda|ornament)\b/ },
- { key: 'organizare-confort', label: 'Organizare & Confort', pattern: /\b(parasolar|organizator|husa scaun|suport pahare|confort|portbagaj)\b/ },
- { key: 'stergatoare-parbriz', label: 'Ștergătoare Parbriz' },
- { key: 'accesorii-exterior', label: 'Accesorii Exterior' },
- { key: 'siguranta-rutiera', label: 'Siguranță Rutieră' },
- { key: 'instrumente-bord', label: 'Instrumente & Bord' },
- { key: 'volane-interior', label: 'Volane & Interior' },
- { key: 'odorizante', label: 'Odorizante Auto' },
- { key: 'remorcare-tractare', label: 'Remorcare & Tractare' },
- { key: 'sisteme-gpl', label: 'Sisteme GPL/LPG' },
- { key: 'unelte-scule', label: 'Unelte & Scule' },
- ],
- detailing: [
- { key: 'spalare-exterior', label: 'Spălare Exterior', pattern: /\b(sampon|snow foam|foam|spuma activa|prewash|wash and wax|waterless wash|car wash|wash mitt)\b/ },
- { key: 'jante-anvelope', label: 'Jante & Anvelope', pattern: /\b(jante|anvelope|cauciucuri|tire|wheel cleaner|wheel|iron remover|deironizer)\b/ },
- { key: 'decontaminare-polish', label: 'Decontaminare & Polish', pattern: /\b(clay|decontaminare|polish|compound|cutting pad|finishing pad|abraziv|slefuire|masina de polisat|masina polish|polisher|orbitala|rotativa)\b/ },
- { key: 'protectie-exterior', label: 'Protecție Exterior', pattern: /\b(wax|ceara|sealant|coating|ceramic|graphene|protectie vopsea|hidrofob|glass sealant|trim dressing|plastice exterioare|ppf\b|folie auto)\b/ },
- { key: 'interior-piele-textil', label: 'Interior, Piele & Textil', pattern: /\b(interior|tapiterie|piele|leather|textil|glass cleaner|curatare geamuri|odorizant|air freshener|vinyl|vinil|cheder)\b/ },
- { key: 'accesorii-detailing', label: 'Accesorii Detailing', pattern: /\b(microfibra|microfiber|laveta|prosop|perie|pensula|burete|aplicator|pad\b|pulverizator|atomizor|manusa spalare)\b/ },
- { key: 'echipamente-detailing', label: 'Echipamente Detailing', pattern: /\b(lampa|lanterna|worklight|scangrip|extractor|aspirator|injector-extractor|suflanta|air mover|compresor|pistol de vopsit|pistol pneumatic)\b/ },
- ],
- baterii: [
- { key: 'acumulatori-auto', label: 'Acumulatori Auto', pattern: /\b(acumulator auto|baterie auto|baterii auto|start stop|agm|efb)\b/ },
- { key: 'acumulatori-moto', label: 'Acumulatori Moto', pattern: /\b(acumulator moto|baterie moto|yuasa)\b/ },
- { key: 'redresoare-boostere', label: 'Redresoare & Boostere', pattern: /\b(redresor|incarcator acumulator|booster pornire|jump starter|starter pack)\b/ },
- { key: 'accesorii-baterii', label: 'Accesorii Baterii', pattern: /\b(borne baterie|tester(?: pentru)? baterie|tester baterie|cleme baterie)\b/ },
- ],
- uleiuri: [
- { key: 'ulei-motor', label: 'Ulei Motor', pattern: /\b(ulei motor|engine oil|motor oil|5w[- ]?30|5w[- ]?40|0w[- ]?20|0w[- ]?30|0w[- ]?40|10w[- ]?40|10w[- ]?60|15w[- ]?40|20w[- ]?50)\b/ },
- { key: 'ulei-transmisie', label: 'Ulei Transmisie', pattern: /\b(gear oil|transmission oil|ulei transmisie|ulei cutie|atf|dexron|dexos|75w[- ]?80|75w[- ]?90|80w[- ]?90|85w[- ]?140)\b/ },
- { key: 'lichide-tehnice', label: 'Lichide Tehnice', pattern: /\b(antigel|coolant|lichid frana|brake fluid|dot ?3|dot ?4|dot ?5|adblue|lichid parbriz)\b/ },
- { key: 'aditivi-tratamente', label: 'Aditivi & Tratamente', pattern: /\b(aditiv combustibil|aditiv ulei|aditiv|tratament motor|tratament)\b/ },
- { key: 'lubrifianti-spray', label: 'Lubrifianți & Spray-uri', pattern: /\b(vaselina|grease|lubrifiant|spray tehnic|spray-uri tehnice)\b/ },
- ],
- filtre: [
- { key: 'filtre-aer', label: 'Filtre Aer', pattern: /\b(filtru de aer|filtru aer|air filter)\b/ },
- { key: 'filtre-ulei', label: 'Filtre Ulei', pattern: /\b(filtru ulei|oil filter)\b/ },
- { key: 'filtre-combustibil', label: 'Filtre Combustibil', pattern: /\b(filtru combustibil|filtru benzina|filtru motorina|fuel filter)\b/ },
- { key: 'filtre-habitaclu', label: 'Filtre Habitaclu', pattern: /\b(filtru polen|filtru habitaclu|filtru cabina|cabin filter)\b/ },
- { key: 'alte-filtre', label: 'Alte Filtre', pattern: /\b(cartus filtrant|microfiltru|filtru de rezerva)\b/ },
- ],
- prelate: [
- { key: 'prelate-auto', label: 'Prelate Auto', pattern: /\b(prelata|prelate|car cover|outdoor cover|indoor cover|cover auto|husa auto|huse auto|husa protectie|huse protectie|husa exterior|huse exterior)\b/ },
- { key: 'huse-interior', label: 'Huse Interior', pattern: /\b(husa scaun|seat cover|husa volan)\b/ },
- { key: 'protectii-roti', label: 'Protecții Roți', pattern: /\b(husa roata|protectie roata|wheel cover)\b/ },
- ],
- ambreiaje: [
- { key: 'kit-ambreiaj', label: 'Kit Ambreiaj', pattern: /\b(kit ambreiaj|ambreiaj|ambreiaje|disc ambreiaj|placa presiune)\b/ },
- { key: 'volanta', label: 'Volantă', pattern: /\b(volanta|flywheel|dual mass flywheel)\b/ },
- { key: 'hidraulica-ambreiaj', label: 'Hidraulică Ambreiaj', pattern: /\b(rulment de presiune|rulment presiune|cilindru ambreiaj|pompa ambreiaj)\b/ },
- ],
-};
-
-function _subcategoryLabel(category, value) {
- const items = _subcategoryConfig[category] || [];
- return items.find(item => item.key === value)?.label || 'Selecție';
-}
-
+// Phase 3 (Task 2): _subcategoryConfig (66 lines of regex), _resolveCategory
+// (90 lines of scoring), _scoreMatches, _resolveSubcategory, _subcategoryLabel
+// were removed. Classification happens server-side in
+// lib/api/catalog/classify.js; the gateway returns each item with cat,
+// subcat, and subcatLabel populated. These stubs keep the safety surface so
+// any internal caller gets a benign default instead of ReferenceError.
+function _subcategoryLabel() { return 'Selecție'; }
 function _resolveSubcategory(item = {}) {
- // For Casa Bateriilor items, always baterii-auto
- if (item.source === 'casabateriilor') return 'baterii-auto';
-
- const category = item.cat || _resolveCategory(item);
- const rules = _subcategoryConfig[category] || [];
- const text = _stripDiacritics([
- item.name,
- item.desc,
- item.description,
- item.compat,
- item.brand,
- item.oem,
- item.sku,
- item.feedCategory,
- item.categoryPath,
- _flattenSpecText(item.specs),
- ].join(' ').toLowerCase());
-
- for (const rule of rules) {
- if (rule.pattern?.test(text)) return rule.key;
- }
-
- return rules[0]?.key || 'general';
+ if (item && typeof item.subcat === 'string' && item.subcat) return item.subcat;
+ return 'general';
 }
+function _resolveCategory(item = {}) {
+ if (item && typeof item.cat === 'string' && item.cat) return item.cat;
+ return 'accesorii';
+}
+function _normalizeCatalogItem(item) { return item || null; }
+// Phase 3 (Task 2): regex classifier table and resolver functions removed.
 
 function _normalizePaymentStatus(value, fallback = 'unpaid') {
  return _paymentStatusValues.includes(value) ? value : fallback;
@@ -436,9 +310,6 @@ function _hash(value) {
  return Math.abs(acc);
 }
 
-function _inferCategory(name, description) {
- return _resolveCategory({ name, desc: description });
-}
 
 function _stripDiacritics(value) {
  return String(value || '')
@@ -683,102 +554,7 @@ function _bindSearchUi(root = document) {
  }
 }
 
-function _scoreMatches(text, rules = []) {
- return rules.reduce((score, rule) => score + (rule.pattern.test(text) ? rule.weight : 0), 0);
-}
 
-function _resolveCategory(item = {}) {
- // For Casa Bateriilor items, always baterii
- if (item.source === 'casabateriilor') return 'baterii';
-
- const feedCategoryText = _stripDiacritics([
- item.feedCategory,
- item.categoryPath,
- item.specs?.CategorieFeed,
- item.specs?.CaleCategorie,
- ].join(' ').toLowerCase());
- const text = _stripDiacritics([
- item.name,
- item.desc,
- item.description,
- item.compat,
- item.brand,
- item.oem,
- item.sku,
- feedCategoryText,
- ].join(' ').toLowerCase());
- const compact = text.replace(/\s+/g, ' ').trim();
- const hasDetailingBrandContext = /\b(meguiar'?s|koch chemie|gtechniq|adbl|sonax|rupes|flexipads|bigboi|colad|scangrip|zvizzer|menzerna|work stuff|colourlock|kenotek|3d\b|4cr\b|benbow)\b/.test(compact);
- const hasToolContext = /\b(masina de polisat|masina polish|polisher|orbitala|rotativa|slefuit|slefuire|lampa|lanterna|worklight|scangrip|rupes|flex\b|bigfoot|nano ibrid|ibrid|sunmatch)\b/.test(compact);
- const hasDetailingLiquidContext = /\b(sampon|snow foam|foam|detailer|qd\b|ceara|wax|polish|compound|dressing|degresant|cleaner|curatitor|curatăre|glass|interior|jante|anvelope|tapiterie|decontaminare|clay|sealant|coating|ceramic|spray wax|wash and wax|waterless wash|bug ?& ?tar|apc\b)\b/.test(compact);
- const hasMechanicalContext = /\b(disc(?:uri)? frana|placut(?:a|e) frana|placute frana|saboti|tambur|etrier|pompa frana|furtun frana|amortizor|arc suspensie|bieleta|bara stabilizatoare|bucsa|pivot|cap de bara|caseta directie|planetara|rulment|butuc|kit distributie|curea distributie|curea accesorii|rola intinzatoare|pompa apa|termostat|radiator|intercooler|condensator ac|compresor ac|alternator|electromotor|demaror|injector|bobina inductie|bujie|sonda lambda|debitmetru|supapa egr|turbo|turbina|pompa combustibil|rezervor|vas expansiune|garnitura|chiulasa|piston|segmenti|arbore cotit|arbore cu came|catalizator|filtru particule|toba esapament|senzor abs)\b/.test(compact);
- const hasAccessoryContext = /\b(bec(?:uri)?|xenon|led\b|halogen|angel eyes|canbus|drl\b|adaptoare pentru becuri|adaptor xenon|proiector led|bara led|off road|suport auto magnetic|suport magnetic pentru telefon|telefon|phone holder|carcasa cheie|cheie auto|telecomanda auto|modulator fm|fm transmitter|radio auto|navigatie|2din|1din|difuzor|woofer|subwoofer|camera marsarier|camera auto|parking sensor|senzori parcare|alarma auto|incarcator auto|usb pt\.? bricheta|bricheta|invertor|cablu pornire|claxon)\b/.test(compact);
-
- const hasDedicatedCoverContext = /\b(prelata dedicata|prelate dedicate|huse prelate|huse exterior dedicate|husa dedicata|huse dedicate|cover dedicat)\b/.test(compact);
-
- if (hasDedicatedCoverContext || String(item.source || '').toLowerCase() === 'bravus') {
- return 'huse-prelate';
- }
-
- const scores = {
- detailing: _scoreMatches(compact, [
- { pattern: /\b(detailing|detailer|quick detailer|qd\b|sampon|snow foam|foam|ceara|wax|polish|compound|cutting pad|finishing pad|sealant|coating|ceramic|graphene|degresant|decontaminare|clay|microfibra|microfiber|laveta|prosop|manusa spalare|wash mitt|car wash|wash\b|waterless|perie|pensula|burete|aplicator|pad\b|dressing|interior|tapiterie|jante|anvelope|glass cleaner|wheel cleaner|bug ?& ?tar|all purpose cleaner|apc\b|wash and wax|protectie piele|leather|vinil|vinyl|conditioner|odor|air freshener|soft top|fabric cleaner|ppf\b|folie auto|halo\b|masina de polisat|masina polish|polisher|orbitala|rotativa|slefuire|abraziv|lance de spumare|spuma activa|pahar vopsea|banda mascare|cana gradata|atomizor|pulverizator|kit bag|geanta detailing|laveta aplicare|husa polish|bonet[aă] polish|pistol pneumatic|pistol de curatăre|pistol de vopsit|injector-extractor|extractor|aspirator|suflanta|air mover|doctor\b|professor\b|work stuff|meguiar|koch chemie|gtechniq|adbl|sonax|rupes|flexipads|bigboi|colad|scangrip|zvizzer|menzerna|ik foam|kenotek|vacmaster|paul'?s)\b/, weight: 8 },
- { pattern: /\b(solutie|spray|cleaner|curatitor|curatăre|hidratare|protectie|coat|clear coat|filler|piele|uscare)\b/, weight: 1 },
- ]),
- baterii: _scoreMatches(compact, [
- { pattern: /\b(acumulator auto|acumulator moto|baterie auto|baterie moto|baterii auto|redresor|incarcator acumulator|booster pornire|jump starter|starter pack|borne baterie|tester(?: pentru)? baterie|tester baterie|alternator|start stop|varta|yuasa|exide)\b/, weight: 10 },
- { pattern: /\b(agm|efb)\b/, weight: 6 },
- { pattern: /\bacumulator\b/, weight: hasToolContext ? -6 : 4 },
- { pattern: /\bbaterie\b/, weight: hasToolContext ? -6 : 4 },
- { pattern: /\b(invertor|inverter)\b/, weight: -6 },
- ]),
- uleiuri: _scoreMatches(compact, [
- { pattern: /\b(ulei motor|engine oil|motor oil|gear oil|transmission oil|ulei transmisie|ulei cutie|ulei servo|ulei hidraulic|ulei compresor|antigel|coolant|lichid frana|brake fluid|vaselina|grease|adblue|aditiv combustibil|aditiv ulei|atf|dexron|dexos|dot ?3|dot ?4|dot ?5|5w[- ]?30|5w[- ]?40|0w[- ]?20|0w[- ]?30|0w[- ]?40|10w[- ]?40|10w[- ]?60|15w[- ]?40|20w[- ]?50|75w[- ]?80|75w[- ]?90|80w[- ]?90|85w[- ]?140)\b/, weight: 11 },
- { pattern: /\b(lubrifiant|lubrifianti)\b/, weight: hasDetailingLiquidContext ? -3 : 5 },
- { pattern: /\b(aditiv)\b/, weight: hasDetailingLiquidContext ? -4 : 5 },
- { pattern: /\b(solutie|spray)\b/, weight: hasDetailingLiquidContext ? -2 : 0 },
- ]),
- filtre: _scoreMatches(compact, [
- { pattern: /\b(filtru de aer|filtru aer|filtru ulei|filtru polen|filtru habitaclu|filtru combustibil|filtru benzina|filtru motorina|filtru cabina|air filter|oil filter|fuel filter|cabin filter|filtru de rezerva|cartus filtrant|post activated carbon filter|sediment filter|membrana osmoza|microfiltru)\b/, weight: 12 },
- { pattern: /\b(filtru|filtre)\b/, weight: 4 },
- { pattern: /\b(sita|masca|vopsea|paint strainer)\b/, weight: -8 },
- ]),
- prelate: _scoreMatches(compact, [
- { pattern: /\b(prelata|prelate|husa auto|huse auto|husa protectie|huse protectie|husa exterior|huse exterior|car cover|outdoor cover|indoor cover|cover auto|husa roata|protectie roata|wheel cover|husa volan|hus[ea] universale pentru scaune|seat cover)\b/, weight: 12 },
- { pattern: /\b(soft top|impermeabilizare|husa polish|boneta polish|geanta|bag\b|ppf\b|folie auto|halo\b|banda mascare|hartie pentru mascare|suport magnetic|adaptor)\b/, weight: -10 },
- ]),
- ambreiaje: _scoreMatches(compact, [
- { pattern: /\b(ambreiaj|ambreiaje|kit ambreiaj|disc ambreiaj|placa presiune|rulment de presiune|rulment presiune|volanta|volant[aă]|flywheel|dual mass flywheel)\b/, weight: 14 },
- { pattern: /\b(brake cleaner|curatitor frane)\b/, weight: -8 },
- ]),
- accesorii: _scoreMatches(compact, [
- { pattern: /\b(bec(?:uri)?|xenon|led\b|halogen|angel eyes|canbus|drl\b|adaptoare pentru becuri|adaptor xenon|proiector led|bara led|off road|suport auto magnetic|suport magnetic pentru telefon|telefon|phone holder|carcasa cheie|cheie auto|telecomanda auto|modulator fm|fm transmitter|radio auto|navigatie|2din|1din|difuzor|woofer|subwoofer|camera marsarier|camera auto|parking sensor|senzori parcare|alarma auto|incarcator auto|usb pt\.? bricheta|bricheta|invertor|cablu pornire|claxon)\b/, weight: 12 },
- { pattern: /\b(adaptor|adapter)\b/, weight: (hasToolContext || hasDetailingBrandContext) ? -4 : 3 },
- { pattern: /\b(lampa led|spot led)\b/, weight: hasDetailingBrandContext ? -3 : 5 },
- { pattern: /\b(accesorii auto|electronica auto|electrice auto)\b/, weight: 6 },
- { pattern: /\b(microfibra|microfiber|laveta|prosop|perie|pensula|burete|pad\b|sampon|wax|polish|compound|ceara|detailing|spuma activa|lance de spumare)\b/, weight: -8 },
- ]),
- piese: _scoreMatches(compact, [
- { pattern: /\b(disc(?:uri)? frana|placut(?:a|e) frana|placute frana|saboti|tambur|etrier|pompa frana|furtun frana|amortizor|arc suspensie|bieleta|bara stabilizatoare|bucsa|pivot|cap de bara|caseta directie|planetara|rulment|butuc|kit distributie|curea distributie|curea accesorii|rola intinzatoare|pompa apa|termostat|radiator|intercooler|condensator ac|compresor ac|alternator|electromotor|demaror|injector|bobina inductie|bujie|sonda lambda|debitmetru|supapa egr|turbo|turbina|pompa combustibil|rezervor|vas expansiune|garnitura|chiulasa|piston|segmenti|arbore cotit|arbore cu came|catalizator|filtru particule|toba esapament|senzor abs)\b/, weight: 12 },
- { pattern: /\b(piese auto|aftermarket|kit reparatie|ansamblu|oe\b|oem\b)\b/, weight: 3 },
- { pattern: /\b(bec(?:uri)?|xenon|led\b|adaptor xenon|suport magnetic|telefon|navigatie|radio auto|camera auto|carcasa cheie|telecomanda auto|microfibra|microfiber|laveta|prosop|perie|pensula|burete|detailing|sampon|wax|polish|compound|ceara|prelata|husa auto)\b/, weight: -10 },
- ]),
- };
-
- if (scores.ambreiaje >= 14) return 'ambreiaje';
- if (scores.filtre >= 10) return 'filtre';
- if (scores.prelate >= 10) return 'prelate';
- if (scores.baterii >= 8) return 'baterii';
- if (scores.accesorii >= 12 && !hasMechanicalContext && scores.detailing < 12) return 'accesorii';
- if (scores.uleiuri >= 10 && scores.detailing < 8) return 'uleiuri';
- if (hasDetailingBrandContext && !hasAccessoryContext && !hasMechanicalContext) return 'detailing';
- if (scores.detailing >= 8) return 'detailing';
- if (scores.piese >= 8 || hasMechanicalContext) return 'piese';
- if (scores.accesorii >= 8 || hasAccessoryContext) return 'accesorii';
- if (scores.uleiuri >= 8) return 'uleiuri';
- if (scores.detailing >= 5 || hasDetailingLiquidContext || (hasToolContext && hasDetailingBrandContext)) return 'detailing';
- return 'accesorii';
-}
 
 function _inferBrand(name) {
  const cleaned = name.replace(/\s+/g, ' ').trim();
@@ -844,85 +620,6 @@ function _normalizeSpecs(specs = {}) {
  }, {});
 }
 
-function _normalizeCatalogItem(item) {
- if (!item) return null;
-
- const normalized = { ...item };
- const fallbackId = item.id || item.sku || item.code || '';
-
- normalized.id = _normalizeText(item.id || fallbackId);
- normalized.sku = _normalizeText(item.sku || normalized.id || fallbackId);
- normalized.name = _normalizeText(item.name || normalized.sku || 'Produs');
- normalized.brand = _normalizeText(item.brand || _inferBrand(normalized.name));
- normalized.desc = _normalizeText(item.desc || item.description || normalized.name);
- normalized.eta = _normalizeText(item.eta || '');
- normalized.oem = _normalizeText(item.oem || normalized.sku);
- normalized.compat = _normalizeText(item.compat || '');
- normalized.cat = _normalizeText(_resolveCategory({
- ...item,
- name: normalized.name,
- desc: normalized.desc,
- brand: normalized.brand,
- sku: normalized.sku,
- oem: normalized.oem,
- compat: normalized.compat,
- }));
- const isHusePrelateCategory = normalized.cat === 'huse-prelate';
- const brandKey = isHusePrelateCategory
- ? _stripDiacritics(normalized.brand || 'General')
- .toLowerCase()
- .replace(/[^a-z0-9]+/g, ' ')
- .trim()
- .replace(/\s+/g, '-')
- : '';
- const forcedSubcat = isHusePrelateCategory ? brandKey : '';
- const forcedSubcatLabel = isHusePrelateCategory ? (normalized.brand || 'General') : '';
-
- normalized.subcat = forcedSubcat || _normalizeText(_resolveSubcategory({
- ...item,
- cat: normalized.cat,
- name: normalized.name,
- desc: normalized.desc,
- brand: normalized.brand,
- sku: normalized.sku,
- oem: normalized.oem,
- compat: normalized.compat,
- }));
- normalized.subcatLabel = forcedSubcatLabel || _subcategoryLabel(normalized.cat, normalized.subcat);
- normalized.badge = item.badge || null;
- normalized.price = Math.round(_safeFloat(item.price) * 100) / 100;
- normalized.old = item.old ? Math.round(_safeFloat(item.old) * 100) / 100 : null;
- normalized.stock = Math.max(0, _safeInt(item.stock, 0));
- normalized.rating = Number(item.rating || 0);
- normalized.reviews = Math.max(0, _safeInt(item.reviews, 0));
- normalized.baseRating = Number(item.baseRating || normalized.rating || 0);
- normalized.baseReviews = Math.max(0, _safeInt(item.baseReviews ?? normalized.reviews, 0));
- normalized.source = _normalizeText(item.source || 'catalog');
- normalized.vehicle = item.vehicle || null;
- normalized.specs = _normalizeSpecs(item.specs || _buildSpecs({ sku: normalized.sku, stock: normalized.stock }, normalized.cat));
- normalized.specs.Categorie = _categoryLabel(normalized.cat);
- normalized.specs.Subcategorie = normalized.subcatLabel;
- normalized.specs.SKU = normalized.sku;
- normalized.specs.Stoc = String(normalized.stock);
- normalized.specs.Disponibilitate = normalized.stock > 0 ? 'În stoc' : 'La comandă';
- normalized.images = _normalizeImageList([
- ...(Array.isArray(item.images) ? item.images : []),
- item.img || '',
- ]);
- normalized.img = normalized.images[0];
-
- if (!normalized.eta) {
- normalized.eta = normalized.stock > 0
- ? (normalized.stock > 5 ? 'Livrare 24-48h' : 'Stoc limitat, livrare rapidă')
- : 'Disponibil la comandă';
- }
-
- if (!normalized.compat) {
- normalized.compat = 'Compatibilitate la cerere după cod produs.';
- }
-
- return normalized.id ? normalized : null;
-}
 
 function _normalizeStockLabel(value) {
  return String(value || '').trim().toLowerCase();
@@ -1138,110 +835,8 @@ function _scoreCatalogItem(item) {
  ].reduce((sum, value) => sum + value, 0);
 }
 
-function _mergeCatalogItems(lists) {
- const map = new Map();
 
- lists.flat().forEach((item) => {
- if (!item || !item.id) return;
- const key = String(item.id).trim();
- const candidate = _normalizeCatalogItem(item);
- if (!candidate?.id) return;
- const current = map.get(key);
 
- if (!current) {
- map.set(key, candidate);
- return;
- }
-
- const currentScore = _scoreCatalogItem(current);
- const candidateScore = _scoreCatalogItem(candidate);
- const next = candidateScore >= currentScore ? { ...current, ...candidate } : { ...candidate, ...current };
-
- next.stock = Math.max(Number(current.stock || 0), Number(candidate.stock || 0));
- next.old = current.old || candidate.old || null;
- next.images = _normalizeImageList([
- ...(Array.isArray(current.images) ? current.images : [current.img]),
- ...(Array.isArray(candidate.images) ? candidate.images : [candidate.img]),
- ]);
- next.img = next.images[0];
- next.desc = _normalizeText(next.desc || current.desc || candidate.desc || next.name || '');
- next.baseRating = Math.max(Number(current.baseRating || current.rating || 0), Number(candidate.baseRating || candidate.rating || 0));
- next.baseReviews = Math.max(Number(current.baseReviews || current.reviews || 0), Number(candidate.baseReviews || candidate.reviews || 0));
- next.source = _normalizeText(current.source || candidate.source || 'catalog');
- next.brand = _normalizeText(next.brand || current.brand || candidate.brand || '');
- next.cat = _normalizeText(next.cat || current.cat || candidate.cat || 'piese');
- next.eta = _normalizeText(next.eta || current.eta || candidate.eta || '');
- next.oem = _normalizeText(next.oem || current.oem || candidate.oem || next.sku || '');
- next.compat = _normalizeText(next.compat || current.compat || candidate.compat || '');
- next.sku = _normalizeText(next.sku || current.sku || candidate.sku || next.id);
- next.specs = _normalizeSpecs(next.specs || current.specs || candidate.specs || {});
-
- map.set(key, next);
- });
-
- return Array.from(map.values()).map(_applyRatingSummary);
-}
-
-async function _fetchFeedCatalogs() {
- const catalogs = [];
- let lastError = null;
-
- for (const source of _feedSources) {
- try {
- const response = await fetch(source.path, { cache: 'default' });
- if (!response.ok) {
- throw new Error(`Feed unavailable at ${source.path} (${response.status})`);
- }
-
- const xmlText = await response.text();
- const xml = new DOMParser().parseFromString(xmlText, 'application/xml');
- const parserError = xml.querySelector('parsererror');
- if (parserError) {
- throw new Error(`Feed XML is invalid at ${source.path}`);
- }
-
- const items = source.type === 'globiz'
- ? Array.from(xml.querySelectorAll('articole > articol')).map(_mapGlobizProduct)
- : Array.from(xml.querySelectorAll('products > product')).map(_mapProduct);
-
- if (items.length) catalogs.push(items);
- } catch (error) {
- lastError = error;
- }
- }
-
- if (!catalogs.length && lastError) throw lastError;
- return catalogs;
-}
-
-async function _fetchCatalogJson() {
- // 1. Try localStorage cache first "” instant, zero network
- const cached = _readCatalogCache();
- if (cached) return cached;
-
- // 2. Network fetch (micro first, with fallbacks)
- let lastError = null;
- const candidates = _getCatalogCandidates();
- for (let i = 0; i < candidates.length; i++) {
- const path = candidates[i];
- try {
- const response = await fetch(path, { cache: 'default' });
- if (!response.ok) {
- throw new Error(`Catalog unavailable at ${path} (${response.status})`);
- }
- const data = await response.json();
- // Tag cache by source kind
- const kind = path.includes('catalog-micro') ? 'micro'
- : path.includes('catalog-lite') ? 'lite'
- : 'full';
- _writeCatalogCache(data, kind);
- return data;
- } catch (error) {
- lastError = error;
- }
- }
- throw lastError || new Error('Catalog snapshot could not be loaded.');
-}
 
 function _normalizeCasaBateriilorItems(items = []) {
  const seen = new Set();
@@ -1294,54 +889,10 @@ async function _fetchCasaBateriilorItems() {
  }
 }
 
-async function _ensureCatalog() {
- if (_catalog.length) return _catalog;
- if (_catalogPromise) return _catalogPromise;
-
- _catalogPromise = (async () => {
- // Fetch margins + Casa Bateriilor in parallel
- const [margins, casaBateriilorItems] = await Promise.all([
- _fetchMargins(),
- _fetchCasaBateriilorItems(),
- ]);
-
- let jsonCatalog = [];
- try {
- jsonCatalog = await _fetchCatalogJson();
- if (Array.isArray(jsonCatalog) && jsonCatalog.length) {
- const base = jsonCatalog
- .map(_normalizeCatalogItem)
- .filter(Boolean)
- .map(_applyRatingSummary);
- const all = _mergeCatalogItems([base, casaBateriilorItems]);
- _catalog = all
- .filter(p => margins[p.source]?.enabled !== false)
- .map(p => _applyMargin(p, margins));
- return _catalog;
- }
- } catch (jsonError) {
- console.warn('[MotApi] catalog snapshot fallback', jsonError);
- }
-
- const feedCatalogs = await _fetchFeedCatalogs();
-
- if (!jsonCatalog.length && !feedCatalogs.length && !casaBateriilorItems.length) {
- throw new Error('Supplier feeds could not be loaded.');
- }
-
- const all = _mergeCatalogItems([jsonCatalog, ...feedCatalogs, casaBateriilorItems]);
- _catalog = all
- .filter(p => margins[p.source]?.enabled !== false)
- .map(p => _applyMargin(p, margins));
- return _catalog;
- })();
-
- try {
- return await _catalogPromise;
- } finally {
- _catalogPromise = null;
- }
-}
+// Phase 3 (Task 2): _ensureCatalog kept as safety stub. Any forgotten caller
+// gets [] rather than ReferenceError. Site behaves like empty-state, which is
+// the same UX a 404 on catalog files would have produced.
+async function _ensureCatalog() { return []; }
 
 window.MotApiSearch = {
  go: _goToSearch,
