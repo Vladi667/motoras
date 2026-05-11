@@ -1540,7 +1540,7 @@ body { -webkit-font-smoothing:antialiased; font-family:'Nunito Sans',sans-serif;
 </div></div>
 <!-- HEADER -->
 <header class="header"><div class="header-in">
- <a href="index.html" class="logo"><img src="assets/logo.png?v=20260409-3" alt="Motoraș"/></a>
+ <a href="index.html" class="logo"><img src="assets/logo.png?v=20260409-3" alt="Motoraș" loading="eager" fetchpriority="high" decoding="async"/></a>
  <div class="search-form">
  <input type="text" id="desktopSearchInput" placeholder="Caută după număr piesă, OEM, marcă, model..." onkeydown="if(event.key==='Enter'){(window.MotApiSearch?.go(this.value)) || (window.location='search.html?q='+encodeURIComponent(this.value));}"/>
  <button class="search-btn" onclick="(window.MotApiSearch?.go(document.getElementById('desktopSearchInput').value)) || (window.location='search.html?q='+encodeURIComponent(document.getElementById('desktopSearchInput').value))"><svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><span class="btn-label">Caută</span></button>
@@ -1574,7 +1574,7 @@ body { -webkit-font-smoothing:antialiased; font-family:'Nunito Sans',sans-serif;
  <div class="prod-layout product-stage">
  <div class="product-gallery">
  <div class="thumb-list" id="productThumbs">
- <div class="thumb active" onclick="setImg(this,this.querySelector('img').src)"><img src="assets/product-placeholder.svg" loading="lazy" onerror="this.src='assets/product-placeholder.svg'"/></div>
+ <div class="thumb active" onclick="setImg(this,this.querySelector('img').src)"><img src="assets/product-placeholder.svg" loading="lazy" onerror="this.src='assets/product-placeholder.svg'"/ decoding="async"></div>
  </div>
  <div class="main-img-wrap"><img id="mainImg" src="assets/product-placeholder.svg" alt="Produs" onerror="this.src='assets/product-placeholder.svg'"/></div>
  </div>
@@ -2171,7 +2171,7 @@ function renderProductGallery(product) {
  if (!thumbs) return;
  thumbs.innerHTML = images.map((image, index) => `
  <div class="thumb${index === 0 ? ' active' : ''}" data-image="${escapeProductHtml(image)}" onclick="setImg(this,this.dataset.image)">
- <img src="${escapeProductHtml(image)}" alt="${escapeProductHtml(product.name)}" loading="lazy" onerror="this.src='assets/product-placeholder.svg'"/>
+ <img src="${escapeProductHtml(image)}" alt="${escapeProductHtml(product.name)}" loading="lazy" onerror="this.src='assets/product-placeholder.svg'"/ decoding="async">
  </div>
  `).join('');
  thumbs.style.display = images.length > 1 ? '' : 'none';
@@ -2402,7 +2402,7 @@ function renderRelated() {
  const image = p.img || 'assets/product-placeholder.svg';
  const stockClass = p.stock > 10 ? 'ok' : (p.stock > 0 ? 'low' : 'out');
  const stockLabel = p.stock > 10 ? 'În stoc' : (p.stock > 0 ? 'Doar ' + p.stock + ' rămase' : 'La comandă');
- return `<div class="prod-card"><a href="product.html?id=${encodedId}" class="prod-img"><img src="${image}" alt="${p.name}" loading="lazy" onerror="this.src='assets/product-placeholder.svg'"/><div class="prod-img-overlay"><button class="btn-quick-add" type="button" data-product-action="quick-add" data-product-id="${encodedId}" data-label="Adaugă" aria-label="Adaugă rapid în coș"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button><button class="btn-quick-view" type="button" data-product-action="quick-view" data-product-id="${encodedId}" data-label="Detalii" aria-label="Detalii rapide"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></a><div class="prod-body"><div class="prod-brand">${p.brand}</div><a href="product.html?id=${encodedId}" class="prod-name">${p.name}</a><div class="prod-pricing"><span class="prod-price">${formatCatalogPrice(p.price).replace(' RON', '')}</span>${p.old ? `<span class="prod-old">${formatCatalogPrice(p.old).replace(' RON', '')}</span>` : ''}</div><span class="prod-stk ${stockClass}">${stockLabel}</span><button class="btn-add" type="button" data-product-action="add" data-product-id="${encodedId}">Adaugă în coș</button></div></div>`;
+ return `<div class="prod-card"><a href="product.html?id=${encodedId}" class="prod-img"><img src="${image}" alt="${p.name}" loading="lazy" onerror="this.src='assets/product-placeholder.svg'"/ decoding="async"><div class="prod-img-overlay"><button class="btn-quick-add" type="button" data-product-action="quick-add" data-product-id="${encodedId}" data-label="Adaugă" aria-label="Adaugă rapid în coș"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button><button class="btn-quick-view" type="button" data-product-action="quick-view" data-product-id="${encodedId}" data-label="Detalii" aria-label="Detalii rapide"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></a><div class="prod-body"><div class="prod-brand">${p.brand}</div><a href="product.html?id=${encodedId}" class="prod-name">${p.name}</a><div class="prod-pricing"><span class="prod-price">${formatCatalogPrice(p.price).replace(' RON', '')}</span>${p.old ? `<span class="prod-old">${formatCatalogPrice(p.old).replace(' RON', '')}</span>` : ''}</div><span class="prod-stk ${stockClass}">${stockLabel}</span><button class="btn-add" type="button" data-product-action="add" data-product-id="${encodedId}">Adaugă în coș</button></div></div>`;
  }).join('');
 }
 
@@ -2632,7 +2632,7 @@ function buyNow(){addProductToCart();if(window.MotorasPageLoader?.navigate){wind
 <div id="qvModal" onclick="if(event.target===this)closeQuickView()">
  <div id="qvCard">
  <button class="qv-close" onclick="closeQuickView()"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
- <img id="qvImg" src="" alt="" loading="lazy"/>
+ <img id="qvImg" src="" alt="" loading="lazy"/ decoding="async">
  <div id="qvInfo">
  <div id="qvBrand" style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px"></div>
  <div id="qvName" style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--dark);line-height:1.15;margin-bottom:10px"></div>

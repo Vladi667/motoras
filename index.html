@@ -1271,7 +1271,7 @@ Luni-Joi 10:00-18:00 | Vineri 09:00-16:30
  </div>
  <div class="cats-grid" id="homeCategoryCards">
  <div class="cat-card">
- <div class="cat-img"><img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80&fit=crop" alt="Categorii produse" loading="lazy"/></div>
+ <div class="cat-img"><img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80&fit=crop" alt="Categorii produse" loading="lazy"/ decoding="async"></div>
  <div class="cat-body"><div class="cat-lbl">Se încarcă categoriile</div><div class="cat-count">Actualizăm imaginile și stocurile</div></div>
  </div>
  </div>
@@ -1579,7 +1579,7 @@ Luni-Joi 10:00-18:00 | Vineri 09:00-16:30
  <button class="home-quick-close" type="button" onclick="closeHomeQuickView()">
  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
  </button>
- <img id="homeQuickImage" src="" alt="" loading="lazy"/>
+ <img id="homeQuickImage" src="" alt="" loading="lazy"/ decoding="async">
  </div>
  <div class="home-quick-info">
  <div class="home-quick-brand" id="homeQuickBrand"></div>
@@ -1912,7 +1912,7 @@ function renderHomeCategoryCards() {
  container.innerHTML = `
  <div class="cat-card" data-cat="piese">
  <div class="cat-visual">
- <div class="cat-img"><img src="${escapeHtml(HOME_CATEGORY_META.piese.image)}" alt="Categorii produse" loading="lazy"/></div>
+ <div class="cat-img"><img src="${escapeHtml(HOME_CATEGORY_META.piese.image)}" alt="Categorii produse" loading="lazy"/ decoding="async"></div>
  </div>
  <div class="cat-body"><div class="cat-lbl">Categoriile nu sunt disponibile</div><div class="cat-desc">Verificăm feedul furnizorului și pregătim selecția.</div><div class="cat-meta"><div class="cat-count">Se actualizează</div></div></div>
  </div>`;
@@ -1926,7 +1926,7 @@ function renderHomeCategoryCards() {
  return `
  <a href="${meta.href}" class="cat-card" data-cat="${key}">
  <div class="cat-visual">
- <div class="cat-img"><img src="${escapeHtml(image)}" alt="${escapeHtml(meta.label)}" loading="lazy" onerror="this.onerror=null;this.src='${escapeHtml(meta.image || 'assets/product-placeholder.svg')}'"/></div>
+ <div class="cat-img"><img src="${escapeHtml(image)}" alt="${escapeHtml(meta.label)}" loading="lazy" onerror="this.onerror=null;this.src='${escapeHtml(meta.image || 'assets/product-placeholder.svg')}'"/ decoding="async"></div>
  </div>
  <div class="cat-body">
  <div class="cat-lbl">${escapeHtml(meta.label)}</div>
@@ -2159,7 +2159,7 @@ function renderHomepageProducts(items) {
  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
  </button>
  <a class="prod-img" href="product.html?id=${encodeURIComponent(p.id)}">
- <img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" loading="lazy"/>
+ <img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" loading="lazy"/ decoding="async">
  <div class="prod-actions">
  <button class="btn-quick-add" type="button" data-label="Adaugă" aria-label="Adaugă rapid în coș" onclick="event.preventDefault();event.stopPropagation();addToCartById('${escapeJsString(p.id)}')">
  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
