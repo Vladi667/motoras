@@ -7,4 +7,25 @@ Thumbs.db
 .chrome-headless/
 .chrome-headless-fix/
 .chrome-headless-test/
+.chrome-test-search/
 .claude/
+.env*.local
+
+# Build / dependency artifacts
+node_modules/
+package-lock.json.bak
+output/
+
+# Codex / Playwright / Chrome instrumentation noise
+.codex-*
+codex-last.txt
+.playwright-cli/
+inject_*.txt
+
+# Unrelated content / personal folders accidentally on disk
+Becca (friedmann_)/
+
+# Local edit / backup artifacts
+*.bak
+*.orig
+*.rej
