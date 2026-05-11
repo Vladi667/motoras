@@ -9,7 +9,7 @@ const {
  stripeRequest,
 } = require('../lib/api/stripe');
 const { requireAdmin } = require('../lib/api/admin-auth');
-const { readCatalog } = require('../lib/api/products');
+const { getProduct } = require('../lib/api/catalog/gateway');
 const { sendTrackingEmail, sendConfirmationEmail, sendSupplierOrderEmail } = require('../lib/api/email');
 const { generateInvoicePdf, buildInvoiceNumber } = require('../lib/api/invoice');
 const crypto = require('crypto');
@@ -132,17 +132,15 @@ module.exports = async function handler(req, res) {
  return;
  }
 
- // Enrich each item with supplier source from catalog
+ // Enrich each item with supplier source via per-item gateway lookup.
  try {
- const catalog = readCatalog();
- const byKey = new Map();
- catalog.forEach(p => {
- if (p.id) byKey.set(String(p.id), p.source || '');
- if (p.sku) byKey.set(String(p.sku), p.source || '');
- });
- order.items = order.items.map(item => ({
- ...item,
- source: byKey.get(String(item.id || '')) || byKey.get(String(item.sku || '')) || '',
+ order.items = await Promise.all(order.items.map(async (item) => {
+ try {
+ const lookup = await getProduct({ id: item.id || item.sku });
+ return { ...item, source: lookup?.item?.source || '' };
+ } catch (_) {
+ return { ...item, source: '' };
+ }
  }));
  } catch (_) {}
  // Also expose supplier workflow metadata

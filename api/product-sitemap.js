@@ -1,4 +1,4 @@
-const { readCatalog } = require('../lib/api/products');
+const { readPublicCatalog } = require('../lib/api/catalog/gateway');
 
 function xmlEscape(value = '') {
  return String(value)
@@ -20,7 +20,7 @@ module.exports = async function handler(req, res) {
 
  try {
  const today = new Date().toISOString().split('T')[0];
- const items = readCatalog()
+ const items = (await readPublicCatalog())
  .filter(item => item && item.id && item.name)
  .slice(0, 45000);
 
