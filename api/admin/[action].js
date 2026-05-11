@@ -14,10 +14,15 @@ const { readCatalog, buildSummary, summarizeBy, LOW_STOCK_THRESHOLD } = require(
 const TVA_ENABLED = false;
 const TVA_RATE = 0.19;
 
-const { readMargins: _readMarginsShared, DEFAULTS, SUPPLIERS } = require('../../lib/api/margins');
-const KV_URL = process.env.UPSTASH_REDIS_REST_KV_REST_API_URL;
-const KV_TOKEN = process.env.UPSTASH_REDIS_REST_KV_REST_API_TOKEN;
-const MARGINS_KEY = 'motoras:supplier_margins';
+const {
+ DEFAULT_MARGINS: DEFAULTS,
+ SUPPLIERS,
+ deleteProductOverride,
+ readMargins,
+ readProductOverrides,
+ writeMargins,
+ writeProductOverride,
+} = require('../../lib/api/catalog/admin-config');
 
 async function listOrdersSafe() {
  try {
@@ -204,52 +209,7 @@ function buildInvoices(orders) {
  }));
 }
 
-async function kvExec(command) {
- if (!KV_URL || !KV_TOKEN) return null;
- try {
- const res = await fetch(KV_URL, {
- method: 'POST',
- headers: { Authorization: `Bearer ${KV_TOKEN}`, 'Content-Type': 'application/json' },
- body: JSON.stringify(command),
- });
- return res.json();
- } catch (_) {
- return null;
- }
-}
-
-async function kvGet(key) {
- const data = await kvExec(['GET', key]);
- const raw = data?.result;
- if (!raw) return null;
- try {
- return JSON.parse(raw);
- } catch (_) {
- return raw;
- }
-}
-
-async function kvSet(key, value) {
- const data = await kvExec(['SET', key, JSON.stringify(value)]);
- return data?.result === 'OK';
-}
-
-async function readMargins() {
- const stored = await kvGet(MARGINS_KEY);
- if (stored && typeof stored === 'object') {
- const merged = { ...DEFAULTS };
- SUPPLIERS.forEach((key) => {
- if (stored[key]) {
- merged[key] = {
- enabled: Boolean(stored[key].enabled),
- margin: Math.max(0, Math.min(500, Number(stored[key].margin) || DEFAULTS[key].margin)),
- };
- }
- });
- return merged;
- }
- return { ...DEFAULTS };
-}
+// KV plumbing and margin reads now live in lib/api/catalog/admin-config.js.
 
 async function handleAuth(req, res) {
  if (req.method !== 'POST') {
@@ -398,22 +358,40 @@ async function handleMargins(req, res) {
 
  const body = await readJson(req);
  const input = body.margins || body;
- const valid = {};
- SUPPLIERS.forEach((key) => {
- if (input[key] !== undefined) {
- valid[key] = {
- enabled: Boolean(input[key].enabled),
- margin: Math.max(0, Math.min(500, Number(input[key].margin) || 0)),
- };
- }
- });
-
- const merged = { ...(await readMargins()), ...valid };
- const saved = await kvSet(MARGINS_KEY, merged);
- return json(res, 200, { ok: true, margins: merged, persisted: saved });
+ const { margins, persisted } = await writeMargins(input);
+ return json(res, 200, { ok: true, margins, persisted });
  }
 
  res.setHeader('Allow', 'GET, POST');
+ return json(res, 405, { ok: false, error: 'Method not allowed.' });
+}
+
+async function handleProductOverrides(req, res) {
+ if (!requireAdmin(req)) {
+ return json(res, 401, { ok: false, error: 'Admin authentication required.' });
+ }
+
+ if (req.method === 'GET') {
+ const overrides = await readProductOverrides();
+ return json(res, 200, { ok: true, overrides });
+ }
+
+ const body = await readJson(req);
+ const source = String(body.source || '').trim();
+ const id = String(body.id || body.sku || '').trim();
+ if (!source || !id) return json(res, 400, { ok: false, error: 'Missing source or id.' });
+
+ if (req.method === 'DELETE') {
+ const result = await deleteProductOverride(source, id);
+ return json(res, 200, { ok: true, ...result });
+ }
+
+ if (req.method === 'POST' || req.method === 'PATCH') {
+ const result = await writeProductOverride(source, id, body.override || body);
+ return json(res, 200, { ok: true, ...result });
+ }
+
+ res.setHeader('Allow', 'GET,POST,PATCH,DELETE');
  return json(res, 405, { ok: false, error: 'Method not allowed.' });
 }
 
@@ -424,6 +402,7 @@ module.exports = async function handler(req, res) {
  if (action === 'auth') return handleAuth(req, res);
  if (action === 'dashboard') return handleDashboard(req, res);
  if (action === 'margins') return handleMargins(req, res);
+ if (action === 'product-overrides') return handleProductOverrides(req, res);
 
  res.setHeader('Allow', 'GET, POST');
  return json(res, 404, { ok: false, error: 'Admin endpoint not found.' });
