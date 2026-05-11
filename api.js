@@ -32,7 +32,7 @@ const _serverCasaBateriilorEndpoint = '/api/casabateriilor';
 const _serverMarginsEndpoint = '/api/admin/margins';
 const _serverProductsEndpoint = '/api/products';
 
-// Margins cache â€” refresh every 5 minutes
+// Margins cache "” refresh every 5 minutes
 let _marginsCache = null;
 let _marginsCacheAt = 0;
 const _MARGINS_TTL = 5 * 60 * 1000;
@@ -50,7 +50,7 @@ async function _fetchMargins() {
  return _marginsCache;
  }
  } catch (_) {}
- // Fallback defaults â€” all enabled, 0 markup
+ // Fallback defaults "” all enabled, 0 markup
  return { bravus: { enabled: true, margin: 0 }, carhub: { enabled: true, margin: 0 }, globiz: { enabled: true, margin: 0 }, casabateriilor: { enabled: true, margin: 0 } };
 }
 
@@ -235,7 +235,7 @@ function _readCatalogCache() {
  if (v !== _CATALOG_CACHE_VERSION) return null;
  if (Date.now() - (t || 0) > _CATALOG_CACHE_TTL) return null;
  if (!Array.isArray(data)) return null;
- // Product page needs full catalog only â€” ignore micro cache there
+ // Product page needs full catalog only "” ignore micro cache there
  if (_needsFullCatalog() && kind !== 'full') return null;
  return data;
  } catch (_) {
@@ -252,7 +252,7 @@ function _writeCatalogCache(data, kind) {
  });
  localStorage.setItem(_CATALOG_CACHE_KEY, payload);
  } catch (_) {
- // localStorage full or disabled â€” ignore silently
+ // localStorage full or disabled "” ignore silently
  }
 }
 
@@ -280,23 +280,23 @@ function _categoryLabel(value) {
 
 const _subcategoryConfig = {
  piese: [
- { key: 'franare', label: 'FrÃ¢nare', pattern: /\b(fran[ae]|disc(?:uri)? frana|placut(?:a|e) frana|placute frana|saboti|tambur|etrier|pompa frana|furtun frana)\b/ },
- { key: 'suspensie-directie', label: 'Suspensie & DirecÈ›ie', pattern: /\b(amortizor|arc suspensie|bieleta|bara stabilizatoare|bucsa|pivot|cap de bara|caseta directie|planetara|rulment|butuc)\b/ },
- { key: 'distributie-transmisie', label: 'DistribuÈ›ie & Transmisie', pattern: /\b(kit distributie|curea distributie|curea accesorii|rola intinzatoare|ambreiaj|kit ambreiaj|disc ambreiaj|volanta|flywheel)\b/ },
+ { key: 'franare', label: 'Frânare', pattern: /\b(fran[ae]|disc(?:uri)? frana|placut(?:a|e) frana|placute frana|saboti|tambur|etrier|pompa frana|furtun frana)\b/ },
+ { key: 'suspensie-directie', label: 'Suspensie & Direcție', pattern: /\b(amortizor|arc suspensie|bieleta|bara stabilizatoare|bucsa|pivot|cap de bara|caseta directie|planetara|rulment|butuc)\b/ },
+ { key: 'distributie-transmisie', label: 'Distribuție & Transmisie', pattern: /\b(kit distributie|curea distributie|curea accesorii|rola intinzatoare|ambreiaj|kit ambreiaj|disc ambreiaj|volanta|flywheel)\b/ },
  { key: 'motor-admisie', label: 'Motor & Admisie', pattern: /\b(pompa apa|termostat|injector|bobina inductie|bujie|sonda lambda|debitmetru|supapa egr|turbo|turbina|pompa combustibil|garnitura|chiulasa|piston|segmenti|arbore cotit|arbore cu came)\b/ },
- { key: 'racire-climatizare', label: 'RÄƒcire & Climatizare', pattern: /\b(radiator|intercooler|condensator ac|compresor ac|vas expansiune|climatizare|aer conditionat)\b/ },
- { key: 'electrica-senzori', label: 'ElectricÄƒ & Senzori', pattern: /\b(alternator|electromotor|demaror|senzor abs|senzor|modul)\b/ },
+ { key: 'racire-climatizare', label: 'Răcire & Climatizare', pattern: /\b(radiator|intercooler|condensator ac|compresor ac|vas expansiune|climatizare|aer conditionat)\b/ },
+ { key: 'electrica-senzori', label: 'Electrică & Senzori', pattern: /\b(alternator|electromotor|demaror|senzor abs|senzor|modul)\b/ },
  { key: 'evacuare', label: 'Evacuare', pattern: /\b(catalizator|filtru particule|toba esapament|esapament)\b/ },
  ],
  accesorii: [
  { key: 'iluminare-auto', label: 'Iluminare Auto', pattern: /\b(bec(?:uri)?|xenon|led\b|halogen|angel eyes|canbus|drl\b|adaptor xenon|proiector led|bara led)\b/ },
  { key: 'multimedia-gsm', label: 'Multimedia & GSM', pattern: /\b(suport auto magnetic|suport magnetic pentru telefon|telefon|phone holder|modulator fm|fm transmitter|radio auto|navigatie|2din|1din|difuzor|woofer|subwoofer|camera marsarier|camera auto)\b/ },
- { key: 'siguranta-electrica', label: 'SiguranÈ›Äƒ & Electric', pattern: /\b(senzori parcare|parking sensor|alarma auto|incarcator auto|usb pt\.? bricheta|bricheta|invertor|cablu pornire|claxon)\b/ },
+ { key: 'siguranta-electrica', label: 'Siguranță & Electric', pattern: /\b(senzori parcare|parking sensor|alarma auto|incarcator auto|usb pt\.? bricheta|bricheta|invertor|cablu pornire|claxon)\b/ },
  { key: 'chei-exterior', label: 'Chei & Exterior', pattern: /\b(carcasa cheie|cheie auto|telecomanda auto|oglinda|ornament)\b/ },
  { key: 'organizare-confort', label: 'Organizare & Confort', pattern: /\b(parasolar|organizator|husa scaun|suport pahare|confort|portbagaj)\b/ },
- { key: 'stergatoare-parbriz', label: 'È˜tergÄƒtoare Parbriz' },
+ { key: 'stergatoare-parbriz', label: 'Ștergătoare Parbriz' },
  { key: 'accesorii-exterior', label: 'Accesorii Exterior' },
- { key: 'siguranta-rutiera', label: 'SiguranÈ›Äƒ RutierÄƒ' },
+ { key: 'siguranta-rutiera', label: 'Siguranță Rutieră' },
  { key: 'instrumente-bord', label: 'Instrumente & Bord' },
  { key: 'volane-interior', label: 'Volane & Interior' },
  { key: 'odorizante', label: 'Odorizante Auto' },
@@ -305,10 +305,10 @@ const _subcategoryConfig = {
  { key: 'unelte-scule', label: 'Unelte & Scule' },
  ],
  detailing: [
- { key: 'spalare-exterior', label: 'SpÄƒlare Exterior', pattern: /\b(sampon|snow foam|foam|spuma activa|prewash|wash and wax|waterless wash|car wash|wash mitt)\b/ },
+ { key: 'spalare-exterior', label: 'Spălare Exterior', pattern: /\b(sampon|snow foam|foam|spuma activa|prewash|wash and wax|waterless wash|car wash|wash mitt)\b/ },
  { key: 'jante-anvelope', label: 'Jante & Anvelope', pattern: /\b(jante|anvelope|cauciucuri|tire|wheel cleaner|wheel|iron remover|deironizer)\b/ },
  { key: 'decontaminare-polish', label: 'Decontaminare & Polish', pattern: /\b(clay|decontaminare|polish|compound|cutting pad|finishing pad|abraziv|slefuire|masina de polisat|masina polish|polisher|orbitala|rotativa)\b/ },
- { key: 'protectie-exterior', label: 'ProtecÈ›ie Exterior', pattern: /\b(wax|ceara|sealant|coating|ceramic|graphene|protectie vopsea|hidrofob|glass sealant|trim dressing|plastice exterioare|ppf\b|folie auto)\b/ },
+ { key: 'protectie-exterior', label: 'Protecție Exterior', pattern: /\b(wax|ceara|sealant|coating|ceramic|graphene|protectie vopsea|hidrofob|glass sealant|trim dressing|plastice exterioare|ppf\b|folie auto)\b/ },
  { key: 'interior-piele-textil', label: 'Interior, Piele & Textil', pattern: /\b(interior|tapiterie|piele|leather|textil|glass cleaner|curatare geamuri|odorizant|air freshener|vinyl|vinil|cheder)\b/ },
  { key: 'accesorii-detailing', label: 'Accesorii Detailing', pattern: /\b(microfibra|microfiber|laveta|prosop|perie|pensula|burete|aplicator|pad\b|pulverizator|atomizor|manusa spalare)\b/ },
  { key: 'echipamente-detailing', label: 'Echipamente Detailing', pattern: /\b(lampa|lanterna|worklight|scangrip|extractor|aspirator|injector-extractor|suflanta|air mover|compresor|pistol de vopsit|pistol pneumatic)\b/ },
@@ -324,7 +324,7 @@ const _subcategoryConfig = {
  { key: 'ulei-transmisie', label: 'Ulei Transmisie', pattern: /\b(gear oil|transmission oil|ulei transmisie|ulei cutie|atf|dexron|dexos|75w[- ]?80|75w[- ]?90|80w[- ]?90|85w[- ]?140)\b/ },
  { key: 'lichide-tehnice', label: 'Lichide Tehnice', pattern: /\b(antigel|coolant|lichid frana|brake fluid|dot ?3|dot ?4|dot ?5|adblue|lichid parbriz)\b/ },
  { key: 'aditivi-tratamente', label: 'Aditivi & Tratamente', pattern: /\b(aditiv combustibil|aditiv ulei|aditiv|tratament motor|tratament)\b/ },
- { key: 'lubrifianti-spray', label: 'LubrifianÈ›i & Spray-uri', pattern: /\b(vaselina|grease|lubrifiant|spray tehnic|spray-uri tehnice)\b/ },
+ { key: 'lubrifianti-spray', label: 'Lubrifianți & Spray-uri', pattern: /\b(vaselina|grease|lubrifiant|spray tehnic|spray-uri tehnice)\b/ },
  ],
  filtre: [
  { key: 'filtre-aer', label: 'Filtre Aer', pattern: /\b(filtru de aer|filtru aer|air filter)\b/ },
@@ -336,18 +336,18 @@ const _subcategoryConfig = {
  prelate: [
  { key: 'prelate-auto', label: 'Prelate Auto', pattern: /\b(prelata|prelate|car cover|outdoor cover|indoor cover|cover auto|husa auto|huse auto|husa protectie|huse protectie|husa exterior|huse exterior)\b/ },
  { key: 'huse-interior', label: 'Huse Interior', pattern: /\b(husa scaun|seat cover|husa volan)\b/ },
- { key: 'protectii-roti', label: 'ProtecÈ›ii RoÈ›i', pattern: /\b(husa roata|protectie roata|wheel cover)\b/ },
+ { key: 'protectii-roti', label: 'Protecții Roți', pattern: /\b(husa roata|protectie roata|wheel cover)\b/ },
  ],
  ambreiaje: [
  { key: 'kit-ambreiaj', label: 'Kit Ambreiaj', pattern: /\b(kit ambreiaj|ambreiaj|ambreiaje|disc ambreiaj|placa presiune)\b/ },
- { key: 'volanta', label: 'VolantÄƒ', pattern: /\b(volanta|flywheel|dual mass flywheel)\b/ },
- { key: 'hidraulica-ambreiaj', label: 'HidraulicÄƒ Ambreiaj', pattern: /\b(rulment de presiune|rulment presiune|cilindru ambreiaj|pompa ambreiaj)\b/ },
+ { key: 'volanta', label: 'Volantă', pattern: /\b(volanta|flywheel|dual mass flywheel)\b/ },
+ { key: 'hidraulica-ambreiaj', label: 'Hidraulică Ambreiaj', pattern: /\b(rulment de presiune|rulment presiune|cilindru ambreiaj|pompa ambreiaj)\b/ },
  ],
 };
 
 function _subcategoryLabel(category, value) {
  const items = _subcategoryConfig[category] || [];
- return items.find(item => item.key === value)?.label || 'SelecÈ›ie';
+ return items.find(item => item.key === value)?.label || 'Selecție';
 }
 
 function _resolveSubcategory(item = {}) {
@@ -710,7 +710,7 @@ function _resolveCategory(item = {}) {
  const compact = text.replace(/\s+/g, ' ').trim();
  const hasDetailingBrandContext = /\b(meguiar'?s|koch chemie|gtechniq|adbl|sonax|rupes|flexipads|bigboi|colad|scangrip|zvizzer|menzerna|work stuff|colourlock|kenotek|3d\b|4cr\b|benbow)\b/.test(compact);
  const hasToolContext = /\b(masina de polisat|masina polish|polisher|orbitala|rotativa|slefuit|slefuire|lampa|lanterna|worklight|scangrip|rupes|flex\b|bigfoot|nano ibrid|ibrid|sunmatch)\b/.test(compact);
- const hasDetailingLiquidContext = /\b(sampon|snow foam|foam|detailer|qd\b|ceara|wax|polish|compound|dressing|degresant|cleaner|curatitor|curatÄƒre|glass|interior|jante|anvelope|tapiterie|decontaminare|clay|sealant|coating|ceramic|spray wax|wash and wax|waterless wash|bug ?& ?tar|apc\b)\b/.test(compact);
+ const hasDetailingLiquidContext = /\b(sampon|snow foam|foam|detailer|qd\b|ceara|wax|polish|compound|dressing|degresant|cleaner|curatitor|curatăre|glass|interior|jante|anvelope|tapiterie|decontaminare|clay|sealant|coating|ceramic|spray wax|wash and wax|waterless wash|bug ?& ?tar|apc\b)\b/.test(compact);
  const hasMechanicalContext = /\b(disc(?:uri)? frana|placut(?:a|e) frana|placute frana|saboti|tambur|etrier|pompa frana|furtun frana|amortizor|arc suspensie|bieleta|bara stabilizatoare|bucsa|pivot|cap de bara|caseta directie|planetara|rulment|butuc|kit distributie|curea distributie|curea accesorii|rola intinzatoare|pompa apa|termostat|radiator|intercooler|condensator ac|compresor ac|alternator|electromotor|demaror|injector|bobina inductie|bujie|sonda lambda|debitmetru|supapa egr|turbo|turbina|pompa combustibil|rezervor|vas expansiune|garnitura|chiulasa|piston|segmenti|arbore cotit|arbore cu came|catalizator|filtru particule|toba esapament|senzor abs)\b/.test(compact);
  const hasAccessoryContext = /\b(bec(?:uri)?|xenon|led\b|halogen|angel eyes|canbus|drl\b|adaptoare pentru becuri|adaptor xenon|proiector led|bara led|off road|suport auto magnetic|suport magnetic pentru telefon|telefon|phone holder|carcasa cheie|cheie auto|telecomanda auto|modulator fm|fm transmitter|radio auto|navigatie|2din|1din|difuzor|woofer|subwoofer|camera marsarier|camera auto|parking sensor|senzori parcare|alarma auto|incarcator auto|usb pt\.? bricheta|bricheta|invertor|cablu pornire|claxon)\b/.test(compact);
 
@@ -722,8 +722,8 @@ function _resolveCategory(item = {}) {
 
  const scores = {
  detailing: _scoreMatches(compact, [
- { pattern: /\b(detailing|detailer|quick detailer|qd\b|sampon|snow foam|foam|ceara|wax|polish|compound|cutting pad|finishing pad|sealant|coating|ceramic|graphene|degresant|decontaminare|clay|microfibra|microfiber|laveta|prosop|manusa spalare|wash mitt|car wash|wash\b|waterless|perie|pensula|burete|aplicator|pad\b|dressing|interior|tapiterie|jante|anvelope|glass cleaner|wheel cleaner|bug ?& ?tar|all purpose cleaner|apc\b|wash and wax|protectie piele|leather|vinil|vinyl|conditioner|odor|air freshener|soft top|fabric cleaner|ppf\b|folie auto|halo\b|masina de polisat|masina polish|polisher|orbitala|rotativa|slefuire|abraziv|lance de spumare|spuma activa|pahar vopsea|banda mascare|cana gradata|atomizor|pulverizator|kit bag|geanta detailing|laveta aplicare|husa polish|bonet[aÄƒ] polish|pistol pneumatic|pistol de curatÄƒre|pistol de vopsit|injector-extractor|extractor|aspirator|suflanta|air mover|doctor\b|professor\b|work stuff|meguiar|koch chemie|gtechniq|adbl|sonax|rupes|flexipads|bigboi|colad|scangrip|zvizzer|menzerna|ik foam|kenotek|vacmaster|paul'?s)\b/, weight: 8 },
- { pattern: /\b(solutie|spray|cleaner|curatitor|curatÄƒre|hidratare|protectie|coat|clear coat|filler|piele|uscare)\b/, weight: 1 },
+ { pattern: /\b(detailing|detailer|quick detailer|qd\b|sampon|snow foam|foam|ceara|wax|polish|compound|cutting pad|finishing pad|sealant|coating|ceramic|graphene|degresant|decontaminare|clay|microfibra|microfiber|laveta|prosop|manusa spalare|wash mitt|car wash|wash\b|waterless|perie|pensula|burete|aplicator|pad\b|dressing|interior|tapiterie|jante|anvelope|glass cleaner|wheel cleaner|bug ?& ?tar|all purpose cleaner|apc\b|wash and wax|protectie piele|leather|vinil|vinyl|conditioner|odor|air freshener|soft top|fabric cleaner|ppf\b|folie auto|halo\b|masina de polisat|masina polish|polisher|orbitala|rotativa|slefuire|abraziv|lance de spumare|spuma activa|pahar vopsea|banda mascare|cana gradata|atomizor|pulverizator|kit bag|geanta detailing|laveta aplicare|husa polish|bonet[aă] polish|pistol pneumatic|pistol de curatăre|pistol de vopsit|injector-extractor|extractor|aspirator|suflanta|air mover|doctor\b|professor\b|work stuff|meguiar|koch chemie|gtechniq|adbl|sonax|rupes|flexipads|bigboi|colad|scangrip|zvizzer|menzerna|ik foam|kenotek|vacmaster|paul'?s)\b/, weight: 8 },
+ { pattern: /\b(solutie|spray|cleaner|curatitor|curatăre|hidratare|protectie|coat|clear coat|filler|piele|uscare)\b/, weight: 1 },
  ]),
  baterii: _scoreMatches(compact, [
  { pattern: /\b(acumulator auto|acumulator moto|baterie auto|baterie moto|baterii auto|redresor|incarcator acumulator|booster pornire|jump starter|starter pack|borne baterie|tester(?: pentru)? baterie|tester baterie|alternator|start stop|varta|yuasa|exide)\b/, weight: 10 },
@@ -748,7 +748,7 @@ function _resolveCategory(item = {}) {
  { pattern: /\b(soft top|impermeabilizare|husa polish|boneta polish|geanta|bag\b|ppf\b|folie auto|halo\b|banda mascare|hartie pentru mascare|suport magnetic|adaptor)\b/, weight: -10 },
  ]),
  ambreiaje: _scoreMatches(compact, [
- { pattern: /\b(ambreiaj|ambreiaje|kit ambreiaj|disc ambreiaj|placa presiune|rulment de presiune|rulment presiune|volanta|volant[aÄƒ]|flywheel|dual mass flywheel)\b/, weight: 14 },
+ { pattern: /\b(ambreiaj|ambreiaje|kit ambreiaj|disc ambreiaj|placa presiune|rulment de presiune|rulment presiune|volanta|volant[aă]|flywheel|dual mass flywheel)\b/, weight: 14 },
  { pattern: /\b(brake cleaner|curatitor frane)\b/, weight: -8 },
  ]),
  accesorii: _scoreMatches(compact, [
@@ -803,7 +803,7 @@ function _buildSpecs(product, category) {
  Categorie: category,
  SKU: product.sku || '-',
  Stoc: String(product.stock),
- Disponibilitate: product.stock > 0 ? 'ÃŽn stoc' : 'La comandÄƒ',
+ Disponibilitate: product.stock > 0 ? 'În stoc' : 'La comandă',
  };
 }
 
@@ -904,7 +904,7 @@ function _normalizeCatalogItem(item) {
  normalized.specs.Subcategorie = normalized.subcatLabel;
  normalized.specs.SKU = normalized.sku;
  normalized.specs.Stoc = String(normalized.stock);
- normalized.specs.Disponibilitate = normalized.stock > 0 ? 'ÃŽn stoc' : 'La comandÄƒ';
+ normalized.specs.Disponibilitate = normalized.stock > 0 ? 'În stoc' : 'La comandă';
  normalized.images = _normalizeImageList([
  ...(Array.isArray(item.images) ? item.images : []),
  item.img || '',
@@ -913,12 +913,12 @@ function _normalizeCatalogItem(item) {
 
  if (!normalized.eta) {
  normalized.eta = normalized.stock > 0
- ? (normalized.stock > 5 ? 'Livrare 24-48h' : 'Stoc limitat, livrare rapidÄƒ')
- : 'Disponibil la comandÄƒ';
+ ? (normalized.stock > 5 ? 'Livrare 24-48h' : 'Stoc limitat, livrare rapidă')
+ : 'Disponibil la comandă';
  }
 
  if (!normalized.compat) {
- normalized.compat = 'Compatibilitate la cerere dupÄƒ cod produs.';
+ normalized.compat = 'Compatibilitate la cerere după cod produs.';
  }
 
  return normalized.id ? normalized : null;
@@ -952,7 +952,7 @@ function _clampRating(value, allowZero = false) {
 
 function _normalizeReview(review, index = 0) {
  const rating = _clampRating(_safeInt(review?.rating, 5));
- const name = String(review?.name || 'Client MotoraÈ™').trim().slice(0, 40) || 'Client MotoraÈ™';
+ const name = String(review?.name || 'Client Motoraș').trim().slice(0, 40) || 'Client Motoraș';
  const comment = String(review?.comment || '').trim().slice(0, 600);
  const createdAt = review?.createdAt || new Date(Date.now() - (index * 86400000)).toISOString();
 
@@ -1056,7 +1056,7 @@ function _mapProduct(node, index) {
  sku,
  stock,
  desc: description || shortDescription || name,
- eta: stock > 0 ? (stock > 5 ? 'Livrare 24-48h' : 'Stoc limitat, livrare rapidÄƒ') : 'Disponibil la comandÄƒ',
+ eta: stock > 0 ? (stock > 5 ? 'Livrare 24-48h' : 'Stoc limitat, livrare rapidă') : 'Disponibil la comandă',
  oem: sku,
  compat: shortDescription || 'Compatibilitate la cerere dupa cod produs.',
  specs: _buildSpecs({ sku, stock }, cat),
@@ -1112,7 +1112,7 @@ function _mapGlobizProduct(node, index) {
  sku: code,
  stock,
  desc: description || `${name} ${category}`.trim(),
- eta: stock > 2 ? 'Livrare 24-48h' : (stock > 0 ? 'Stoc limitat, livrare rapidÄƒ' : 'Disponibil la comandÄƒ'),
+ eta: stock > 2 ? 'Livrare 24-48h' : (stock > 0 ? 'Stoc limitat, livrare rapidă' : 'Disponibil la comandă'),
  oem: _decodeHtml(node.cod_bare?.textContent || node.cod_bare || code),
  compat: categoryPath || category || 'Compatibilitate la cerere dupa cod produs.',
  specs: {
@@ -1215,7 +1215,7 @@ async function _fetchFeedCatalogs() {
 }
 
 async function _fetchCatalogJson() {
- // 1. Try localStorage cache first â€” instant, zero network
+ // 1. Try localStorage cache first "” instant, zero network
  const cached = _readCatalogCache();
  if (cached) return cached;
 
@@ -1357,7 +1357,7 @@ if (document.readyState === 'loading') {
 window.addEventListener('pageshow', () => _bindSearchUi(document));
 
 window.MotApi = {
- // Bust the catalog cache â€” call this after saving margin/toggle changes
+ // Bust the catalog cache "” call this after saving margin/toggle changes
  invalidateCatalog() {
  _catalog = [];
  _catalogPromise = null;
@@ -1483,13 +1483,13 @@ window.MotApi = {
 
  async getProduct(id) {
  const productId = String(id || '').trim();
- if (!productId) return { ok: false, error: 'Identificator produs lipsÄƒ.' };
+ if (!productId) return { ok: false, error: 'Identificator produs lipsă.' };
  const remote = await _requestJson(`${_serverProductsEndpoint}?${_buildQueryString({ id: productId })}`);
  if (remote.ok && remote.data?.ok && remote.data.item) {
  return { ok: true, product: _applyRatingSummary(remote.data.item) };
  }
  if (remote.data?.error) return { ok: false, error: remote.data.error };
- return { ok: false, error: 'Produsul nu a fost gÄƒsit.' };
+ return { ok: false, error: 'Produsul nu a fost găsit.' };
  },
 
  async getFeatured(limit = 8) {
@@ -1503,7 +1503,7 @@ window.MotApi = {
 
  async getProductReviews(id) {
  const detail = await window.MotApi.getProduct(id);
- if (!detail.ok || !detail.product) return { ok: false, error: detail.error || 'Produsul nu a fost gÄƒsit.' };
+ if (!detail.ok || !detail.product) return { ok: false, error: detail.error || 'Produsul nu a fost găsit.' };
  const hydrated = detail.product;
  return {
  ok: true,
@@ -1518,13 +1518,13 @@ window.MotApi = {
 
  async addProductReview(id, payload = {}) {
  const detail = await window.MotApi.getProduct(id);
- if (!detail.ok || !detail.product) return { ok: false, error: detail.error || 'Produsul nu a fost gÄƒsit.' };
+ if (!detail.ok || !detail.product) return { ok: false, error: detail.error || 'Produsul nu a fost găsit.' };
  const product = detail.product;
 
  const rating = Math.min(5, Math.max(1, _safeInt(payload.rating, 0)));
  if (!rating) return { ok: false, error: 'Ratingul este obligatoriu.' };
 
- const name = String(payload.name || 'Client MotoraÈ™').trim().slice(0, 40) || 'Client MotoraÈ™';
+ const name = String(payload.name || 'Client Motoraș').trim().slice(0, 40) || 'Client Motoraș';
  const comment = String(payload.comment || '').trim().slice(0, 600);
  const store = _readRatings();
  const key = String(id);
@@ -1572,7 +1572,7 @@ window.MotApi = {
  _storeLastOrder(remote.data.order);
  return { ok: true, order: remote.data.order };
  }
- return { ok: false, error: remote.data?.error || 'Plata Stripe nu a putut fi finalizatÄƒ.' };
+ return { ok: false, error: remote.data?.error || 'Plata Stripe nu a putut fi finalizată.' };
  }
 
  const paymentStatusDefault = paymentMethod === 'card' ? 'paid' : 'unpaid';
@@ -1658,7 +1658,7 @@ window.MotApi = {
  if (remote.ok && remote.data?.order) return { ok: true, order: remote.data.order };
  const order = JSON.parse(localStorage.getItem(_lastOrder) || 'null');
  if (order?.id === id) return { ok: true, order };
- if (!order) return { ok: false, error: 'Comanda nu a fost gÄƒsitÄƒ.' };
+ if (!order) return { ok: false, error: 'Comanda nu a fost găsită.' };
  return { ok: true, order };
  },
 
@@ -1676,7 +1676,7 @@ window.MotApi = {
 
  const orders = _readOrders();
  const index = orders.findIndex(order => order.id === id);
- if (index < 0) return { ok: false, error: 'Comanda nu existÄƒ.' };
+ if (index < 0) return { ok: false, error: 'Comanda nu există.' };
 
  orders[index].status = status;
  orders[index].updatedAt = _now();
@@ -1700,13 +1700,13 @@ window.MotApi = {
 
  const orders = _readOrders();
  const index = orders.findIndex(order => order.id === id);
- if (index < 0) return { ok: false, error: 'Comanda nu existÄƒ.' };
+ if (index < 0) return { ok: false, error: 'Comanda nu există.' };
 
  if (patch.status && !_orderStatusValues.includes(patch.status)) {
  return { ok: false, error: 'Status invalid.' };
  }
  if (patch.payment && !_paymentStatusValues.includes(patch.payment)) {
- return { ok: false, error: 'Status platÄƒ invalid.' };
+ return { ok: false, error: 'Status plată invalid.' };
  }
 
  const current = orders[index];
@@ -1736,7 +1736,7 @@ window.MotApi = {
  const catalog = await _ensureCatalog();
  const names = ['Ion Popescu', 'Maria Ionescu', 'Andrei Constantin', 'Elena Dumitrescu', 'Radu Popa'];
  const statuses = ['pending', 'processing', 'shipped', 'delivered', 'delivered'];
- const counties = ['BucureÈ™ti', 'Cluj', 'TimiÈ™', 'IaÈ™i', 'BraÈ™ov'];
+ const counties = ['București', 'Cluj', 'Timiș', 'Iași', 'Brașov'];
  const orders = _readOrders();
 
  for (let i = 0; i < n; i += 1) {
@@ -1776,7 +1776,7 @@ window.MotApi = {
 window.MotApi.getProduct = async function getProductRemoteFirst(id) {
  await _delay(20);
  const productId = String(id || '').trim();
- if (!productId) return { ok: false, error: 'Produsul nu a fost gÄƒsit.' };
+ if (!productId) return { ok: false, error: 'Produsul nu a fost găsit.' };
 
  const remote = await _requestJson(`${_serverProductsEndpoint}?${_buildQueryString({ id: productId })}`);
  if (remote.ok && remote.data?.item) {
@@ -1785,7 +1785,7 @@ window.MotApi.getProduct = async function getProductRemoteFirst(id) {
  }
 
  const product = (await _ensureCatalog()).find(item => item.id === productId || item.sku === productId);
- if (!product) return { ok: false, error: 'Produsul nu a fost gÄƒsit.' };
+ if (!product) return { ok: false, error: 'Produsul nu a fost găsit.' };
  return { ok: true, product: { ..._applyRatingSummary(product) } };
 };
 
@@ -1821,7 +1821,7 @@ window.MotApi.getRelatedProducts = async function getRelatedProductsRemoteFirst(
 window.MotApi.getProductReviews = async function getProductReviewsRemoteFirst(id) {
  await _delay(20);
  const response = await window.MotApi.getProduct(id);
- if (!response?.ok || !response.product) return { ok: false, error: 'Produsul nu a fost gÄƒsit.' };
+ if (!response?.ok || !response.product) return { ok: false, error: 'Produsul nu a fost găsit.' };
  const hydrated = response.product;
  return {
  ok: true,
@@ -1838,12 +1838,12 @@ window.MotApi.addProductReview = async function addProductReviewRemoteFirst(id, 
  await _delay(80);
  const response = await window.MotApi.getProduct(id);
  const product = response?.product;
- if (!response?.ok || !product) return { ok: false, error: 'Produsul nu a fost gÄƒsit.' };
+ if (!response?.ok || !product) return { ok: false, error: 'Produsul nu a fost găsit.' };
 
  const rating = Math.min(5, Math.max(1, _safeInt(payload.rating, 0)));
  if (!rating) return { ok: false, error: 'Ratingul este obligatoriu.' };
 
- const name = String(payload.name || 'Client MotoraÈ™').trim().slice(0, 40) || 'Client MotoraÈ™';
+ const name = String(payload.name || 'Client Motoraș').trim().slice(0, 40) || 'Client Motoraș';
  const comment = String(payload.comment || '').trim().slice(0, 600);
  const store = _readRatings();
  const key = String(id);
@@ -2057,7 +2057,7 @@ const _prefetchedProductIds = new Set();
 
 async function _fetchProductRemoteFirstCached(id, options = {}) {
  const productId = String(id || '').trim();
- if (!productId) return { ok: false, error: 'Produsul nu a fost gÄƒsit.' };
+ if (!productId) return { ok: false, error: 'Produsul nu a fost găsit.' };
 
  if (_productPrefetchCache.has(productId)) {
  return _productPrefetchCache.get(productId);
@@ -2073,7 +2073,7 @@ async function _fetchProductRemoteFirstCached(id, options = {}) {
  }
 
  const product = (await _ensureCatalog()).find(item => item.id === productId || item.sku === productId);
- if (!product) return { ok: false, error: 'Produsul nu a fost gÄƒsit.' };
+ if (!product) return { ok: false, error: 'Produsul nu a fost găsit.' };
  return { ok: true, product: { ..._applyRatingSummary(product) } };
  })();
 
