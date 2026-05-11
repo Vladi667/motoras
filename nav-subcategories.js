@@ -14,9 +14,6 @@
  baterii: {
  title: 'Baterii \u0219i Acumulatori',
  },
- uleiuri: {
- title: 'Uleiuri',
- },
  filtre: {
  title: 'Filtre',
  },
