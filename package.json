@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "node scripts/gateway-smoke.js",
+    "test": "node scripts/gateway-smoke.js && node scripts/scan-mojibake.js",
     "test:gateway": "node scripts/gateway-smoke.js",
-    "perf:audit": "node scripts/perf-audit.js"
+    "test:text": "node scripts/scan-mojibake.js",
+    "perf:audit": "node scripts/perf-audit.js",
+    "clean:text": "node scripts/clean-catalog-text.js"
   },
   "dependencies": {
     "nodemailer": "^6.9.15",
