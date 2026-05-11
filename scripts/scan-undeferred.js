@@ -167,6 +167,13 @@ for (const file of listHtmlFiles()) {
     // document.addEventListener('DOMContentLoaded', ...) is allowed — the
     // outer wrap fires AT DOMContentLoaded time, so the inner listener
     // attaches to an event that already fired and never runs.
+    //
+    // ALSO check that the OUTER gate has not been mangled. The correct
+    // form is `if (document.readyState === 'loading') { document.add
+    // EventListener('DOMContentLoaded', __run); } else { __run(); }`.
+    // A previous fix script accidentally unwrapped the outer gate to
+    // `(__run)()` which made __run run synchronously during parse,
+    // before deferred scripts loaded. This check catches that regression.
     if (inl.body.includes('/* phase4-defer-gate */')) {
       const wrapStart = inl.body.indexOf('var __run = function () {');
       const wrapEnd = inl.body.indexOf('}; if (document.readyState');
@@ -182,6 +189,18 @@ for (const file of listHtmlFiles()) {
             preview: `${innerListeners.length} trapped listener(s) — replace with direct invocation`,
           });
         }
+      }
+      // Outer gate integrity check
+      const correctGate = inl.body.includes("if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); }");
+      const mangled = inl.body.includes('(__run)();;') || /if \(document\.readyState === 'loading'\) \{ \(?__run\)?\(\);/.test(inl.body);
+      if (!correctGate || mangled) {
+        const line = lineForOffset(html, inl.start);
+        failures.push({
+          file,
+          kind: 'phase4-defer-gate outer gate is missing or mangled — __run will not wait for DOMContentLoaded',
+          line,
+          preview: 'expected: if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", __run); } else { __run(); }',
+        });
       }
     }
 
