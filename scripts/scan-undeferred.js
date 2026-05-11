@@ -163,6 +163,28 @@ for (const file of listHtmlFiles()) {
     ...WINDOW_PREFIXED_GLOBALS,
   ];
   for (const inl of findInlineScripts(html)) {
+    // (2a) Trapped-listener check: inside a phase4-defer-gate wrap, no inner
+    // document.addEventListener('DOMContentLoaded', ...) is allowed — the
+    // outer wrap fires AT DOMContentLoaded time, so the inner listener
+    // attaches to an event that already fired and never runs.
+    if (inl.body.includes('/* phase4-defer-gate */')) {
+      const wrapStart = inl.body.indexOf('var __run = function () {');
+      const wrapEnd = inl.body.indexOf('}; if (document.readyState');
+      if (wrapStart !== -1 && wrapEnd !== -1) {
+        const wrapInner = inl.body.slice(wrapStart, wrapEnd);
+        const innerListeners = wrapInner.match(/document\.addEventListener\s*\(\s*['"]DOMContentLoaded['"]/g);
+        if (innerListeners && innerListeners.length) {
+          const line = lineForOffset(html, inl.start);
+          failures.push({
+            file,
+            kind: 'phase4-defer-gate block has nested document.addEventListener("DOMContentLoaded", ...) that will never fire',
+            line,
+            preview: `${innerListeners.length} trapped listener(s) — replace with direct invocation`,
+          });
+        }
+      }
+    }
+
     if (!isBodyGated(inl.body)) {
       const hasRef = refPatterns.some(p => new RegExp(p).test(inl.body));
       if (!hasRef) continue;
