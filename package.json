@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "node scripts/gateway-smoke.js && node scripts/scan-mojibake.js",
+    "test": "node scripts/gateway-smoke.js && node scripts/scan-mojibake.js && node scripts/scan-undeferred.js",
     "test:gateway": "node scripts/gateway-smoke.js",
     "test:text": "node scripts/scan-mojibake.js",
+    "test:defer": "node scripts/scan-undeferred.js",
     "perf:audit": "node scripts/perf-audit.js",
     "clean:text": "node scripts/clean-catalog-text.js"
   },
