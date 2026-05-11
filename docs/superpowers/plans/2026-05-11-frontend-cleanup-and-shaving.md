@@ -12,6 +12,8 @@
 
 ## Success Criteria
 
+- `catalog.json`, `catalog-lite.json`, `catalog-micro.json` contain zero smart apostrophes (`’` → `'`), zero smart quotes (`“`/`”` → `"`), no double-encoded sequences, and no UTF-8 BOM at file start. Romanian diacritics (`ă â î ș ț`) remain UTF-8 native.
+- The gateway's `lib/api/catalog/types.js::normalizeProduct` defensively replaces the same characters at read time so future supplier writes can't regress the data.
 - Browser no longer downloads `text-normalize.js`, `text-fix.js`, or `_mojibake_fix.js` on any page.
 - `api.js` no longer contains `_ensureCatalog`, `_fetchCatalogJson`, `_fetchFeedCatalogs`, `_microCatalogCandidates`, `_liteCatalogCandidates`, `_fullCatalogCandidates`, or the localStorage catalog cache helpers.
 - `api.js` ships under 60 KB raw (currently 85 KB).
@@ -75,6 +77,121 @@
   ```bash
   git add _audit/perf-baseline.md
   git commit -m "chore: capture Phase 2 perf baseline"
+  ```
+
+---
+
+## Task A: Normalize Smart Quotes And Strip BOM From Catalog Files
+
+**Files:**
+- Modify: `lib/api/catalog/types.js` (defensive in-memory normalization)
+- Modify: `catalog.json`, `catalog-lite.json`, `catalog-micro.json` (one-shot data clean)
+- Create: `scripts/clean-catalog-text.js` (idempotent rewriter)
+
+**Pre-flight finding (2026-05-11 scan):**
+- catalog.json (8.5 MB, 3567 products): 51 `’`, 21 `“`, 67 `”`, 1 `â€³`, BOM, 0 HTML entities, 0 Ã/Ä/È mojibake.
+- catalog-micro.json: 4 `’`, 10 `“`, 14 `”`, BOM.
+- catalog-lite.json: same shape, similar small counts.
+- Romanian diacritics are correctly UTF-8 encoded everywhere — 41 k+ `ă`, 17 k+ `ț`, etc. Nothing to do for them.
+
+- [ ] **Step 1: Extend `normalizeText` in `lib/api/catalog/types.js`**
+
+  Add a small defensive replace chain so future supplier data is auto-fixed:
+
+  ```js
+  function normalizeText(value) {
+    let s = String(value == null ? '' : value);
+    if (s.charCodeAt(0) === 0xFEFF) s = s.slice(1);
+    s = s
+      .replace(/[‘’‚‛]/g, "'")  // ‘ ’ ‚ ‛ → '
+      .replace(/[“”„‟]/g, '"')  // “ ” „ ‟ → "
+      .replace(/′/g, "'")                       // ′ prime → '
+      .replace(/″/g, '"')                       // ″ double prime → "
+      .replace(/â€³/g, '"')                          // double-encoded ″
+      .replace(/â€™/g, "'")                          // double-encoded ’
+      .replace(/ /g, ' ');                      // NBSP → space
+    return s.trim();
+  }
+  ```
+
+  This runs in every gateway response so even if a supplier sneaks a `’` back in tomorrow, the browser still sees `'`.
+
+- [ ] **Step 2: Create `scripts/clean-catalog-text.js`**
+
+  ```js
+  const fs = require('fs');
+
+  const REPLACEMENTS = [
+    [/[‘’‚‛]/g, "'"],
+    [/[“”„‟]/g, '"'],
+    [/′/g, "'"],
+    [/″/g, '"'],
+    [/â€³/g, '"'],
+    [/â€™/g, "'"],
+    [/ /g, ' '],
+  ];
+
+  function cleanString(s) {
+    if (typeof s !== 'string') return s;
+    let out = s;
+    for (const [re, rep] of REPLACEMENTS) out = out.replace(re, rep);
+    return out;
+  }
+
+  function cleanValue(v) {
+    if (typeof v === 'string') return cleanString(v);
+    if (Array.isArray(v)) return v.map(cleanValue);
+    if (v && typeof v === 'object') {
+      const o = {};
+      for (const k of Object.keys(v)) o[k] = cleanValue(v[k]);
+      return o;
+    }
+    return v;
+  }
+
+  const files = ['catalog.json', 'catalog-lite.json', 'catalog-micro.json'];
+  for (const file of files) {
+    let raw = fs.readFileSync(file, 'utf8');
+    if (raw.charCodeAt(0) === 0xFEFF) raw = raw.slice(1);
+    const data = JSON.parse(raw);
+    const cleaned = cleanValue(data);
+    fs.writeFileSync(file, JSON.stringify(cleaned, null, 0) + '\n', { encoding: 'utf8' });
+    console.log(`${file}: ${Array.isArray(cleaned) ? cleaned.length : '?'} entries cleaned, BOM stripped`);
+  }
+  ```
+
+  Idempotent: re-running produces no further changes.
+
+- [ ] **Step 3: Run the cleaner**
+
+  ```bash
+  node scripts/clean-catalog-text.js
+  ```
+
+  Expected output: three "entries cleaned, BOM stripped" lines.
+
+- [ ] **Step 4: Verify with the scan script**
+
+  ```bash
+  node _audit/deep-scan.js
+  ```
+
+  Expected: all four artifact counts drop to 0; BOM no longer reported at file start.
+
+- [ ] **Step 5: Run smoke + audit**
+
+  ```bash
+  npm test
+  npm run perf:audit
+  ```
+
+  Both must pass.
+
+- [ ] **Step 6: Commit**
+
+  ```bash
+  git add lib/api/catalog/types.js scripts/clean-catalog-text.js catalog.json catalog-lite.json catalog-micro.json
+  git commit -m "fix: normalize smart quotes/apostrophes and strip BOM from catalog files"
   ```
 
 ---
@@ -281,14 +398,14 @@
 
 **Pre-flight:** Functions read `catalog.json`, `supplier-feed.xml`, `supplier-feed-globiz.xml`, `api/casabateriilor/prices.generated.json` via `fs.readFileSync`. These MUST stay in the function bundle. We are only blocking the public HTTP path, not removing the files from deploy.
 
-- [ ] **Step 1: Identify external consumers of the public catalog files**
+- [ ] **Step 1: External-consumer verification (already done 2026-05-11)**
 
-  Ask the user before this step:
-  - Does Google Merchant fetch any of these URLs?
-  - Does any supplier integration / partner fetch them?
-  - Are they used for anything outside the browser?
+  Findings:
+  - `robots.txt` on production already disallows `/catalog.json`, `/catalog-lite.json`, `/supplier-feed.xml`, `/supplier-feed-globiz.xml`. Search engines have not been crawling these.
+  - No internal code path fetches them externally — only function bundles read them locally via `fs.readFileSync`.
+  - `/catalog-micro.json` is the one file NOT listed in `robots.txt` (oversight). Add it.
 
-  If yes for any of the above, leave that specific file public (e.g. `catalog.json` may need to stay for Merchant). Block only the unused tiers (likely `catalog-lite.json` and `catalog-micro.json`).
+  Action: block all five static paths publicly. Append `Disallow: /catalog-micro.json` to `robots.txt` for completeness even though the 404 makes it moot.
 
 - [ ] **Step 2: Add a public-path block via `vercel.json` headers + 404 route**
 
@@ -434,4 +551,4 @@ These are real wins but belong in Phase 3 (not here):
 - Placeholder scan: every task has concrete commands and grep checks.
 - Risk: Task 2's deletion of mojibake fixers depends on `_audit/perf-baseline.md` confirming the server data is clean. Task 3's deletion of `_ensureCatalog` depends on 48 h of green `/api/products` traffic. Both gates are explicit, not optional.
 - Rollback: every task ends in one commit, revertible via `git revert <sha>` + `vercel deploy --prod`.
-- Open question for the user: which of `catalog.json`, `catalog-lite.json`, `catalog-micro.json`, `supplier-feed.xml`, `supplier-feed-globiz.xml` are consumed by external partners (Google Merchant, supplier aggregators)? Task 4 needs that answer before blocking the public path.
+- External consumer question resolved: production `robots.txt` already disallows the catalog files (audit done 2026-05-11). No external fetcher relies on them. Task 4 can block all five static paths safely.
