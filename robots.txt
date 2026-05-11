@@ -4,6 +4,7 @@ Disallow: /supplier.html
 Disallow: /api/
 Disallow: /catalog.json
 Disallow: /catalog-lite.json
+Disallow: /catalog-micro.json
 Disallow: /supplier-feed.xml
 Disallow: /supplier-feed-globiz.xml
 Disallow: /deploy-package/
