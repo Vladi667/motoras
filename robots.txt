@@ -1,5 +1,6 @@
 User-agent: *
 Disallow: /admin.html
+Disallow: /supplier.html
 Disallow: /api/
 Disallow: /catalog.json
 Disallow: /catalog-lite.json
@@ -9,4 +10,5 @@ Disallow: /deploy-package/
 Disallow: /_fix.js
 Allow: /
 
-Sitemap: https://motoras.ro/sitemap.xml
+Sitemap: https://www.pieseautomotoras.ro/sitemap.xml
+Sitemap: https://www.pieseautomotoras.ro/product-sitemap.xml

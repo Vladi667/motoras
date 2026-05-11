@@ -1,0 +1,12 @@
+{
+  "name": "motoras",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "nodemailer": "^6.9.15",
+    "pdfkit": "^0.15.1"
+  },
+  "devDependencies": {
+    "dotenv": "^17.4.2"
+  }
+}

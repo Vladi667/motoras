@@ -7,10 +7,10 @@
 <link rel='shortcut icon' href='assets/favicon.png?v=20260409-4'/>
 <link rel='apple-touch-icon' href='assets/favicon.png?v=20260409-4'/>
 <meta name="description" content="Pagina nu a fost găsită – Motoraș."/>
-<script>(function(){try{if(sessionStorage.getItem('motoras_page_loader_nav'))document.documentElement.classList.add('page-loader-boot');}catch(e){}})();</script>
+<script src="page-loader-boot.js" defer></script>
 <link rel="stylesheet" href="page-loader.css?v=20260413-4"/>
 <script src="page-loader.js?v=20260413-4" defer></script>
-<title>404 – Pagina nu a fost g&#259;sit&#259; – Motora&#537;</title>
+<title>404 – Pagina nu a fost găsită – Motoraș</title>
 <meta name="robots" content="noindex, follow"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,45 +18,45 @@
 <style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}:root{--red:#cc1111;--dark:#0f1116}body{font-family:'Nunito Sans',sans-serif;background:var(--dark);color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}a{text-decoration:none}
 /* ── Info pages design upgrade ── */
 :root {
-  --red:#c8100e;--red2:#a30d0b;--dark:#0d0f14;--dark2:#13161f;
-  --mid:#505568;--muted:#8892a0;--border:#e4e8ef;--bg:#edf0f5;
-  --gold:#e09618;--green:#18955f;
-  --shadow:0 4px 20px rgba(0,0,0,.07);
+ --red:#c8100e;--red2:#a30d0b;--dark:#0d0f14;--dark2:#13161f;
+ --mid:#505568;--muted:#8892a0;--border:#e4e8ef;--bg:#edf0f5;
+ --gold:#e09618;--green:#18955f;
+ --shadow:0 4px 20px rgba(0,0,0,.07);
 }
 body { -webkit-font-smoothing:antialiased; }
 .header { box-shadow:0 1px 0 var(--border),0 4px 24px rgba(0,0,0,.05); }
 .btn-cart-mini {
-  background:var(--red);border-radius:9px;padding:8px 18px;
-  font-size:13px;font-weight:800;
-  box-shadow:0 4px 14px rgba(200,16,14,.28);
-  transition:all .18s;
+ background:var(--red);border-radius:9px;padding:8px 18px;
+ font-size:13px;font-weight:800;
+ box-shadow:0 4px 14px rgba(200,16,14,.28);
+ transition:all .18s;
 }
 .btn-cart-mini:hover { background:var(--red2);transform:translateY(-1px); }
 .page-banner {
-  background:linear-gradient(135deg,var(--dark2) 0%,#151929 55%,var(--dark3,#1a1e2a) 100%);
-  border-radius:20px;padding:44px 48px;
+ background:linear-gradient(135deg,var(--dark2) 0%,#151929 55%,var(--dark3,#1a1e2a) 100%);
+ border-radius:20px;padding:44px 48px;
 }
 .page-banner h1 { font-size:44px;letter-spacing:-.8px; }
 .content-card {
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  border:1.5px solid var(--border);
+ border-radius:18px;
+ box-shadow:var(--shadow);
+ border:1.5px solid var(--border);
 }
 .content-card h2 {
-  font-size:20px;letter-spacing:.2px;
-  gap:10px;padding-bottom:14px;
+ font-size:20px;letter-spacing:.2px;
+ gap:10px;padding-bottom:14px;
 }
 .content-card p { font-size:14px;line-height:1.85;color:var(--mid); }
 .content-card ul li { font-size:14px;line-height:1.75; }
 .info-chip {
-  border-radius:14px;border:1.5px solid var(--border);
-  transition:all .2s;
+ border-radius:14px;border:1.5px solid var(--border);
+ transition:all .2s;
 }
 .info-chip:hover { box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px); }
 .info-chip-ico {
-  width:42px;height:42px;border-radius:11px;
-  background:linear-gradient(135deg,rgba(200,16,14,.09),rgba(200,16,14,.04));
-  border:1px solid rgba(200,16,14,.10);
+ width:42px;height:42px;border-radius:11px;
+ background:linear-gradient(135deg,rgba(200,16,14,.09),rgba(200,16,14,.04));
+ border:1px solid rgba(200,16,14,.10);
 }
 .info-chip strong { font-size:13.5px;font-weight:800;color:var(--dark); }
 .info-chip span { font-size:13px;color:var(--muted); }
@@ -89,6 +89,11 @@ body { -webkit-font-smoothing:antialiased; }
 
 </style>
 <script src="text-normalize.js?v=20260412-6" defer></script>
+<!-- MOTORAS ELEVATE -->
+<link rel="stylesheet" href="/elevate.css"/>
+<link rel="stylesheet" href="/loader-boost.css"/>
+<script defer src="/elevate.js"></script>
+
 </head>
 <body>
 <img src="assets/logo.png?v=20260409-3" style="height:56px;margin-bottom:32px;opacity:.95"/>
@@ -96,14 +101,28 @@ body { -webkit-font-smoothing:antialiased; }
 <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Pagina nu a fost găsită</div>
 <div style="font-size:15px;color:rgba(255,255,255,.5);max-width:380px;line-height:1.75;margin-bottom:36px">Ne pare rău, pagina pe care o cauți nu există sau a fost mutată.</div>
 <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;padding:14px 28px;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:.5px">← Înapoi acasă</a>
-  <a href="search.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);color:#fff;padding:14px 28px;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;border:1px solid rgba(255,255,255,.15)">🔍 Caută produse</a>
+ <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;padding:14px 28px;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:.5px">← Înapoi acasă</a>
+ <a href="search.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);color:#fff;padding:14px 28px;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;border:1px solid rgba(255,255,255,.15)">🔍 Caută produse</a>
 </div>
+
+<!-- ===== WHATSAPP FLOATING BUTTON ===== -->
+<style>
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;align-items:center;gap:10px;flex-direction:row-reverse}
+.wa-btn{width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.45);cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;flex-shrink:0}
+.wa-btn:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(37,211,102,.6)}
+.wa-btn svg{width:30px;height:30px;fill:#fff}
+.wa-tooltip{background:#fff;color:#1a1a1a;font-size:13px;font-weight:600;padding:7px 14px;border-radius:20px;box-shadow:0 2px 12px rgba(0,0,0,.15);white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none}
+.wa-float:hover .wa-tooltip{opacity:1;transform:translateX(0)}
+@keyframes wa-pulse{0%,100%{box-shadow:0 4px 16px rgba(37,211,102,.45)}50%{box-shadow:0 4px 28px rgba(37,211,102,.75)}}
+.wa-btn{animation:wa-pulse 2.5s ease-in-out infinite}
+.wa-btn:hover{animation:none}
+</style>
+<div class="wa-float">
+ <a class="wa-btn" href="https://wa.me/40731284932?text=Bun%C4%83%20ziua%2C%20am%20o%20%C3%AEntrebare%20despre%20un%20produs." target="_blank" rel="noopener" aria-label="Chat pe WhatsApp">
+ <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+ </a>
+ <span class="wa-tooltip">Chat pe WhatsApp</span>
+</div>
+<!-- ===== END WHATSAPP ===== -->
 </body></html>
-
-
-
-
-
-
 

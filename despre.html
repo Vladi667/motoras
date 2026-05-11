@@ -7,18 +7,23 @@
 <link rel='shortcut icon' href='assets/favicon.png?v=20260409-4'/>
 <link rel='apple-touch-icon' href='assets/favicon.png?v=20260409-4'/>
 <meta name="description" content="Despre Motoraș – Magazin online piese auto din București."/>
-<script>(function(){try{if(sessionStorage.getItem('motoras_page_loader_nav'))document.documentElement.classList.add('page-loader-boot');}catch(e){}})();</script>
+<script src="page-loader-boot.js" defer></script>
 <link rel="stylesheet" href="page-loader.css?v=20260413-4"/>
 <script src="page-loader.js?v=20260413-4" defer></script>
-<title>Despre Motora&#537; – Piese auto Bucure&#537;ti</title>
+<title>Despre Motoraș – Piese auto București</title>
 <meta name="robots" content="index, follow"/>
-<link rel="canonical" href="https://motoras.ro/despre.html"/>
+<link rel="canonical" href="https://www.pieseautomotoras.ro/despre.html"/>
 <meta property="og:type" content="website"/>
-<meta property="og:site_name" content="Motora&#537;"/>
-<meta property="og:title" content="Despre Motora&#537; – Piese auto Bucure&#537;ti"/>
-<meta property="og:description" content="Magazin online piese auto din Bucure&#537;ti. Produse originale &#537;i aftermarket, livrare rapid&#259;."/>
-<meta property="og:url" content="https://motoras.ro/despre.html"/>
-<meta property="og:image" content="https://motoras.ro/assets/og-default.png"/>
+<meta property="og:site_name" content="Motoraș"/>
+<meta property="og:title" content="Despre Motoraș – Piese auto București"/>
+<meta property="og:description" content="Magazin online piese auto din București. Produse originale și aftermarket, livrare rapidă."/>
+<meta property="og:url" content="https://www.pieseautomotoras.ro/despre.html"/>
+<meta property="og:image" content="https://www.pieseautomotoras.ro/assets/og-default.png"/>
+<meta property="og:locale" content="ro_RO"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Despre Motoraș – Piese auto București"/>
+<meta name="twitter:description" content="Magazin online piese auto din București. Produse originale și aftermarket, livrare rapidă."/>
+<meta name="twitter:image" content="https://www.pieseautomotoras.ro/assets/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -128,45 +133,45 @@ button{font-family:inherit;cursor:pointer}
 
 /* ── Info pages design upgrade ── */
 :root {
-  --red:#c8100e;--red2:#a30d0b;--dark:#0d0f14;--dark2:#13161f;
-  --mid:#505568;--muted:#8892a0;--border:#e4e8ef;--bg:#edf0f5;
-  --gold:#e09618;--green:#18955f;
-  --shadow:0 4px 20px rgba(0,0,0,.07);
+ --red:#c8100e;--red2:#a30d0b;--dark:#0d0f14;--dark2:#13161f;
+ --mid:#505568;--muted:#8892a0;--border:#e4e8ef;--bg:#edf0f5;
+ --gold:#e09618;--green:#18955f;
+ --shadow:0 4px 20px rgba(0,0,0,.07);
 }
 body { -webkit-font-smoothing:antialiased; }
 .header { box-shadow:0 1px 0 var(--border),0 4px 24px rgba(0,0,0,.05); }
 .btn-cart-mini {
-  background:var(--red);border-radius:9px;padding:8px 18px;
-  font-size:13px;font-weight:800;
-  box-shadow:0 4px 14px rgba(200,16,14,.28);
-  transition:all .18s;
+ background:var(--red);border-radius:9px;padding:8px 18px;
+ font-size:13px;font-weight:800;
+ box-shadow:0 4px 14px rgba(200,16,14,.28);
+ transition:all .18s;
 }
 .btn-cart-mini:hover { background:var(--red2);transform:translateY(-1px); }
 .page-banner {
-  background:linear-gradient(135deg,var(--dark2) 0%,#151929 55%,var(--dark3,#1a1e2a) 100%);
-  border-radius:20px;padding:44px 48px;
+ background:linear-gradient(135deg,var(--dark2) 0%,#151929 55%,var(--dark3,#1a1e2a) 100%);
+ border-radius:20px;padding:44px 48px;
 }
 .page-banner h1 { font-size:44px;letter-spacing:-.8px; }
 .content-card {
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  border:1.5px solid var(--border);
+ border-radius:18px;
+ box-shadow:var(--shadow);
+ border:1.5px solid var(--border);
 }
 .content-card h2 {
-  font-size:20px;letter-spacing:.2px;
-  gap:10px;padding-bottom:14px;
+ font-size:20px;letter-spacing:.2px;
+ gap:10px;padding-bottom:14px;
 }
 .content-card p { font-size:14px;line-height:1.85;color:var(--mid); }
 .content-card ul li { font-size:14px;line-height:1.75; }
 .info-chip {
-  border-radius:14px;border:1.5px solid var(--border);
-  transition:all .2s;
+ border-radius:14px;border:1.5px solid var(--border);
+ transition:all .2s;
 }
 .info-chip:hover { box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px); }
 .info-chip-ico {
-  width:42px;height:42px;border-radius:11px;
-  background:linear-gradient(135deg,rgba(200,16,14,.09),rgba(200,16,14,.04));
-  border:1px solid rgba(200,16,14,.10);
+ width:42px;height:42px;border-radius:11px;
+ background:linear-gradient(135deg,rgba(200,16,14,.09),rgba(200,16,14,.04));
+ border:1px solid rgba(200,16,14,.10);
 }
 .info-chip strong { font-size:13.5px;font-weight:800;color:var(--dark); }
 .info-chip span { font-size:13px;color:var(--muted); }
@@ -199,86 +204,102 @@ body { -webkit-font-smoothing:antialiased; }
 
 </style>
 <script src="text-normalize.js?v=20260412-6" defer></script>
+<!-- MOTORAS ELEVATE -->
+<link rel="stylesheet" href="/elevate.css"/>
+<link rel="stylesheet" href="/loader-boost.css"/>
+<script defer src="/elevate.js"></script>
+
 </head>
 <body>
 <header class="header"><div class="header-in">
-  <a href="index.html"><img src="assets/logo.png?v=20260409-3" alt="Motoraș" class="logo-img"/></a>
-  <nav class="hdr-nav">
-    <a href="index.html">Acasa</a>
-    <a href="category.html?cat=piese">Piese</a>
-    <a href="category.html?cat=uleiuri">Uleiuri</a>
-    <a href="category.html?cat=filtre">Filtre</a>
-    <a href="category.html?cat=baterii">Baterii</a>
-    <a href="contact.html" class="">Contact</a>
-  </nav>
-  <div class="hdr-actions">
-    <a href="account.html" style="font-size:13px;font-weight:700;color:var(--mid);padding:8px 12px;border-radius:8px;transition:color .15s" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--mid)'">Contul meu</a>
-    <button class="btn-cart-mini" onclick="window.location.href='index.html'">
-      <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-      Cos <span class="cart-dot" id="cartDot">0</span>
-    </button>
-  </div>
+ <a href="index.html"><img src="assets/logo.png?v=20260409-3" alt="Motoraș" class="logo-img"/></a>
+ <nav class="hdr-nav">
+  <a href="index.html">Acasă</a>
+ <a href="category.html?cat=piese">Piese</a>
+ <a href="category.html?cat=uleiuri">Uleiuri</a>
+ <a href="category.html?cat=filtre">Filtre</a>
+ <a href="category.html?cat=baterii">Baterii</a>
+ <a href="category.html?cat=prelate">Prelate</a>
+ <a href="category.html?cat=huse-prelate">Huse Exterior</a>
+ <a href="contact.html" class="">Contact</a>
+ </nav>
+ <div class="hdr-actions">
+ <a href="account.html" style="font-size:13px;font-weight:700;color:var(--mid);padding:8px 12px;border-radius:8px;transition:color .15s" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--mid)'">Contul meu</a>
+ <button class="btn-cart-mini" onclick="window.location.href='index.html'">
+ <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+ Cos <span class="cart-dot" id="cartDot">0</span>
+ </button>
+ </div>
 </div></header>
-<div class="bc"><div class="bc-in"><a href="index.html">Acasa</a><span class="bc-sep">&#8250;</span><span style="color:var(--dark)">Despre noi</span></div></div>
+<div class="bc"><div class="bc-in"><a href="index.html">Acasă</a><span class="bc-sep">›</span><span style="color:var(--dark)">Despre noi</span></div></div>
 <div class="page-outer">
-  <div class="page-banner">
-    <div class="page-banner-kicker">ðŸª Despre noi</div>
-    <h1>Despre Motora?</h1>
-    <p>Magazin online de piese auto din București. Produse originale si aftermarket, livrare rapida in toata Romania.</p>
-  </div>
-  
+ <div class="page-banner">
+ <div class="page-banner-kicker"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Despre noi</div>
+ <h1>Despre Motoraș</h1>
+ <p>Magazin online de piese auto din București. Produse originale și aftermarket, livrare rapidă în toată România.</p>
+ </div>
+
 <div class="info-grid">
-  <div class="about-stat" style="background:#fff;border:1.5px solid var(--border);border-radius:14px"><strong>5.000+</strong><span>Produse disponibile</span></div>
-  <div class="about-stat" style="background:#fff;border:1.5px solid var(--border);border-radius:14px"><strong>12.000+</strong><span>Clienti multumiti</span></div>
-  <div class="about-stat" style="background:#fff;border:1.5px solid var(--border);border-radius:14px"><strong>24h</strong><span>Livrare rapida</span></div>
-  <div class="about-stat" style="background:#fff;border:1.5px solid var(--border);border-radius:14px"><strong>4.9★</strong><span>Rating mediu</span></div>
+ <div class="about-stat" style="background:#fff;border:1.5px solid var(--border);border-radius:14px"><strong>3.000+</strong><span>Produse disponibile</span></div>
+ <div class="about-stat" style="background:#fff;border:1.5px solid var(--border);border-radius:14px"><strong>5</strong><span>Furnizori verificați</span></div>
+ <div class="about-stat" style="background:#fff;border:1.5px solid var(--border);border-radius:14px"><strong>24-48h</strong><span>Livrare națională</span></div>
+ <div class="about-stat" style="background:#fff;border:1.5px solid var(--border);border-radius:14px"><strong>100+</strong><span>Mărci disponibile</span></div>
 </div>
 <div class="two-col-layout">
-  <div>
-    <div class="content-card">
-      <h2><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Ce este Motora?</h2>
-      <p></span>Motoraș este un magazin online din București dedicat pieselor auto originale si aftermarket, accesoriilor si consumabilelor pentru intretinerea masinii. Ne concentram pe selectie clara, compatibilitate usor de urmarit si suport rapid inainte de comanda.</p>
-      <p>Lucr?m cu furnizori verificati si marci de incredere — Bosch, Castrol, TRW, Varta, NGK, Valeo si multe altele — pentru a garanta calitatea fiec?rui produs livrat.</p>
-    </div>
-    <div class="content-card">
-      <h2><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Cum functionam</h2>
-      <div class="timeline">
-        <div class="tl-item"><div class="tl-dot"><svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><div class="tl-body"><h4>Selec?ie produse</h4><p>Catalogul este construit cu aten?ie — fiecare produs are compatibilitate verificat?, specifica?ii complete si imagini reale.</p></div></div>
-        <div class="tl-item"><div class="tl-dot"><svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg></div><div class="tl-body"><h4>Comenzi rapide</h4><p>Procesam comenzile in aceeasi zi, lucram cu curieri de incredere si trimitem AWB-ul imediat dupa expediere.</p></div></div>
-        <div class="tl-item"><div class="tl-dot"><svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div class="tl-body"><h4>Suport post-vânzare</h4><p>Nu disp?rem dup? comand?. Garan?ii, retururi si Întrebări tehnice — suntem disponibili prin email si telefon.</p></div></div>
-      </div>
-    </div>
-    <div class="content-card">
-      <h2><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Ce spun clientii</h2>
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <div style="background:#fafbfc;border-radius:12px;padding:16px 18px;border:1px solid var(--border)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:32px;height:32px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800">I</div><div><div style="font-size:13.5px;font-weight:700">Ion Popescu</div><div style="display:flex;gap:2px;margin-top:2px">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div></div><div style="font-size:13px;color:var(--mid);line-height:1.7">Comanda a ajuns in 24h, produsul exact ca la imagine. Am cumparat disc de frana si filtru ulei, totul perfect. Recomand!</div></div>
-        <div style="background:#fafbfc;border-radius:12px;padding:16px 18px;border:1px solid var(--border)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:32px;height:32px;border-radius:50%;background:var(--blue,#2563eb);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800">M</div><div><div style="font-size:13.5px;font-weight:700">Maria Ionescu</div><div style="display:flex;gap:2px;margin-top:2px">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div></div><div style="font-size:13px;color:var(--mid);line-height:1.7">Selectorul de vehicul m-a ajutat sa gasesc rapid piesele compatibile cu Dacia Duster-ul meu. Preturile sunt cu adevarat competitive.</div></div>
-      </div>
-    </div>
-  </div>
-  <div>
-    <div class="sidebar-card">
-      <h3>Date de contact</h3>
-      <div class="sidebar-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span>Str. Agricultori nr. 2<br>Sector 2, București</span></div>
-      <div class="sidebar-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6z"/></svg><a href="tel:0731284932" style="color:var(--red);font-weight:700">0731 284 932</a></div>
-      <div class="sidebar-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:contact@motoras.ro" style="color:var(--red);font-weight:700">contact@motoras.ro</a></div>
-      <div style="height:1px;background:var(--border);margin:14px 0"></div>
-      <a href="category.html?cat=piese" style="display:block;width:100%;text-align:center;background:var(--red);color:#fff;padding:12px;border-radius:9px;font-size:14px;font-weight:700;transition:background .15s" onmouseover="this.style.background='var(--red2)'" onmouseout="this.style.background='var(--red)'">Exploreaz? catalogul →</a>
-    </div>
-  </div>
+ <div>
+ <div class="content-card">
+ <h2><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Ce este Motoraș?</h2>
+ <p>Motoraș este un magazin online din București dedicat pieselor auto originale și aftermarket, accesoriilor și consumabilelor pentru întreținerea mașinii. Ne concentrăm pe selecție clară, compatibilitate ușor de urmărit și suport rapid înainte de comandă.</p>
+ <p>Lucrăm cu furnizori verificați și mărci de încredere — Bosch, Castrol, TRW, Varta, NGK, Valeo și multe altele — pentru a garanta calitatea fiecărui produs livrat.</p>
+ </div>
+ <div class="content-card">
+ <h2><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Cum functionam</h2>
+ <div class="timeline">
+ <div class="tl-item"><div class="tl-dot"><svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><div class="tl-body"><h4>Selecție produse</h4><p>Catalogul este construit cu atenție — fiecare produs are compatibilitate verificată, specificații complete și imagini reale.</p></div></div>
+ <div class="tl-item"><div class="tl-dot"><svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg></div><div class="tl-body"><h4>Comenzi rapide</h4><p>Procesăm comenzile în aceeași zi, lucrăm cu curieri de încredere și trimitem AWB-ul imediat după expediere.</p></div></div>
+ <div class="tl-item"><div class="tl-dot"><svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div class="tl-body"><h4>Suport post-vânzare</h4><p>Nu dispărem după comandă. Garanții, retururi și întrebări tehnice — suntem disponibili prin email și telefon.</p></div></div>
+ </div>
+ </div>
+ <div class="content-card">
+ <h2><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Ce spun clientii</h2>
+ <div style="display:flex;flex-direction:column;gap:14px">
+ <div style="background:#fafbfc;border-radius:12px;padding:16px 18px;border:1px solid var(--border)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:32px;height:32px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800">I</div><div><div style="font-size:13.5px;font-weight:700">Ion Popescu</div><div style="display:flex;gap:2px;margin-top:2px">★★★★★</div></div></div><div style="font-size:13px;color:var(--mid);line-height:1.7">Comanda a ajuns in 24h, produsul exact ca la imagine. Am cumparat disc de frana si filtru ulei, totul perfect. Recomand!</div></div>
+ <div style="background:#fafbfc;border-radius:12px;padding:16px 18px;border:1px solid var(--border)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:32px;height:32px;border-radius:50%;background:var(--blue,#2563eb);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800">M</div><div><div style="font-size:13.5px;font-weight:700">Maria Ionescu</div><div style="display:flex;gap:2px;margin-top:2px">★★★★★</div></div></div><div style="font-size:13px;color:var(--mid);line-height:1.7">Selectorul de vehicul m-a ajutat sa gasesc rapid piesele compatibile cu Dacia Duster-ul meu. Preturile sunt cu adevarat competitive.</div></div>
+ </div>
+ </div>
+ </div>
+ <div>
+ <div class="sidebar-card">
+ <h3>Date de contact</h3>
+ <div class="sidebar-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span>Str. Agricultori nr. 2<br>Sector 2, București</span></div>
+ <div class="sidebar-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6z"/></svg><a href="tel:0731284932" style="color:var(--red);font-weight:700">0731 284 932</a></div>
+ <div class="sidebar-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:contact@motoras.ro" style="color:var(--red);font-weight:700">contact@motoras.ro</a></div>
+ <div style="height:1px;background:var(--border);margin:14px 0"></div>
+ <a href="category.html?cat=piese" style="display:block;width:100%;text-align:center;background:var(--red);color:#fff;padding:12px;border-radius:9px;font-size:14px;font-weight:700;transition:background .15s" onmouseover="this.style.background='var(--red2)'" onmouseout="this.style.background='var(--red)'">Explorează catalogul →</a>
+ </div>
+ </div>
 </div>
+<section style="margin-top:24px">
+ <div class="content-card">
+ <h2><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Întrebări frecvente</h2>
+ <div class="faq-item"><div class="faq-q">Motoraș livrează doar în București?<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">Nu. Motoraș are punct de lucru în București, dar livrează piese auto și accesorii în toată România, prin curier rapid, cu opțiune de ridicare personală din depozit.</div></div>
+ <div class="faq-item"><div class="faq-q">Ce tipuri de produse pot comanda online?<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">Poți comanda piese auto, filtre, uleiuri, baterii, accesorii și produse detailing din toate categoriile disponibile în catalogul online Motoraș.</div></div>
+ <div class="faq-item"><div class="faq-q">Produsele sunt originale sau aftermarket?<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">Vindem atât piese originale OEM, cât și aftermarket de calitate de la mărci verificate: Bosch, TRW, Valeo, NGK, Castrol, Varta și altele.</div></div>
+ <div class="faq-item"><div class="faq-q">Cum verific compatibilitatea cu mașina mea?<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">Folosește selectorul de vehicul din pagina principală — selectezi marca, modelul și anul, iar catalogul afișează automat produsele compatibile cu mașina ta.</div></div>
+ </div>
+</section>
 </div>
 <footer class="footer"><div class="footer-in">
-  <div class="footer-grid">
-    <div><img src="assets/logo.png?v=20260409-3" class="footer-brand-img" alt="Motoraș"/><p class="footer-brand">Piese auto originale si aftermarket. Livrare rapida in toata Romania.</p></div>
-    <div class="footer-col"><h4>Magazin</h4><a href="category.html?cat=piese">Piese Auto</a><a href="category.html?cat=baterii">Baterii</a><a href="category.html?cat=uleiuri">Uleiuri</a><a href="category.html?cat=filtre">Filtre</a></div>
-    <div class="footer-col"><h4>Ajutor</h4><a href="livrare.html">Livrare &amp; plata</a><a href="retururi.html">Retururi</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
-    <div class="footer-col"><h4>Legal</h4><a href="termeni.html">Termeni și condiții</a><a href="confidentialitate.html">Confidențialitate</a><a href="cookies.html">Cookies</a><a href="https://anpc.ro" target="_blank">ANPC</a></div>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-legal"><a href="termeni.html">Termeni</a><a href="confidentialitate.html">Confidențialitate</a><a href="cookies.html">Cookies</a><a href="retururi.html">Retur</a></div>
-    <div class="footer-copy">© 2026 Motoraș SRL · CUI: RO52459678 · Reg. Com.: J2025067651008 · <a href="https://anpc.ro" target="_blank" rel="noopener">ANPC</a> | <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">SOL UE</a></div>
-  </div>
+ <div class="footer-grid">
+ <div><img src="assets/logo.png?v=20260409-3" class="footer-brand-img" alt="Motoraș"/><p class="footer-brand">Piese auto originale și aftermarket. Livrare rapidă în toată România.</p></div>
+ <div class="footer-col"><h4>Magazin</h4><a href="category.html?cat=piese">Piese Auto</a><a href="category.html?cat=baterii">Baterii</a><a href="category.html?cat=uleiuri">Uleiuri</a><a href="category.html?cat=filtre">Filtre</a><a href="category.html?cat=prelate">Prelate</a><a href="category.html?cat=huse-prelate">Huse Exterior</a></div>
+ <div class="footer-col"><h4>Ajutor</h4><a href="livrare.html">Livrare & plata</a><a href="retururi.html">Retururi</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
+ <div class="footer-col"><h4>Legal</h4><a href="termeni.html">Termeni și condiții</a><a href="confidentialitate.html">Confidențialitate</a><a href="cookies.html">Cookies</a><a href="https://anpc.ro" target="_blank">ANPC</a></div>
+ </div>
+ <div class="footer-bottom">
+ <div class="footer-legal"><a href="termeni.html">Termeni</a><a href="confidentialitate.html">Confidențialitate</a><a href="cookies.html">Cookies</a><a href="retururi.html">Retur</a></div>
+ <div class="footer-copy">© 2026 Motoraș SRL · CUI: RO52459678 · Reg. Com.: J2025067651008 · <a href="https://anpc.ro" target="_blank" rel="noopener">ANPC</a> | <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">SOL UE</a></div>
+ </div>
 </div></footer>
 <script>
 const _c=JSON.parse(localStorage.getItem('motoras_cart')||'[]');
@@ -286,15 +307,68 @@ const _n=_c.reduce((s,i)=>s+i.qty,0);
 const _d=document.getElementById('cartDot');
 if(_d)_d.textContent=_n;
 document.querySelectorAll('.faq-q').forEach(q=>{
-  q.addEventListener('click',()=>q.closest('.faq-item').classList.toggle('open'));
+ q.addEventListener('click',()=>q.closest('.faq-item').classList.toggle('open'));
 });
+</script>
+<script>
+(function () {
+ function normalizeText(value) {
+ return String(value || '').replace(/\s+/g, ' ').trim();
+ }
+
+ function appendJsonLd(payload) {
+ var node = document.createElement('script');
+ node.type = 'application/ld+json';
+ node.textContent = JSON.stringify(payload);
+ document.head.appendChild(node);
+ }
+
+ appendJsonLd({
+ '@context': 'https://schema.org',
+ '@type': 'BreadcrumbList',
+ itemListElement: [
+ { '@type': 'ListItem', position: 1, name: 'Acasă', item: 'https://www.pieseautomotoras.ro/' },
+ { '@type': 'ListItem', position: 2, name: 'Despre Motoraș', item: 'https://www.pieseautomotoras.ro/despre.html' }
+ ]
+ });
+
+ appendJsonLd({
+ '@context': 'https://schema.org',
+ '@type': 'AboutPage',
+ url: 'https://www.pieseautomotoras.ro/despre.html',
+ name: 'Despre Motoraș',
+ inLanguage: 'ro-RO',
+ description: 'Despre magazinul online Motoraș, piese auto din București cu livrare rapidă în toată România.',
+ mainEntity: {
+ '@type': 'Organization',
+ name: 'Motoraș',
+ url: 'https://www.pieseautomotoras.ro/',
+ telephone: '+40731284932',
+ areaServed: 'RO'
+ }
+ });
+
+ var questions = Array.from(document.querySelectorAll('.faq-item')).map(function (item) {
+ var question = normalizeText(item.querySelector('.faq-q') ? item.querySelector('.faq-q').textContent : '');
+ var answer = normalizeText(item.querySelector('.faq-a') ? item.querySelector('.faq-a').textContent : '');
+ if (!question || !answer) return null;
+ return {
+ '@type': 'Question',
+ name: question,
+ acceptedAnswer: { '@type': 'Answer', text: answer }
+ };
+ }).filter(Boolean);
+
+ if (questions.length) {
+ appendJsonLd({
+ '@context': 'https://schema.org',
+ '@type': 'FAQPage',
+ inLanguage: 'ro-RO',
+ mainEntity: questions
+ });
+ }
+})();
 </script>
 </body>
 </html>
-
-
-
-
-
-
 

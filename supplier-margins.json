@@ -1,0 +1,14 @@
+﻿{
+    "bravus":  {
+                   "enabled":  true,
+                   "margin":  30
+               },
+    "carhub":  {
+                   "enabled":  true,
+                   "margin":  25
+               },
+    "globiz":  {
+                   "enabled":  true,
+                   "margin":  22
+               }
+}

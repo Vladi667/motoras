@@ -1,0 +1,30 @@
+/* ==========================================================================
+   LOADER BOOST (v2 — PERFORMANCE TUNED)
+   Subtle polish layered over page-loader.css. No expensive filters or loops
+   that keep running background work. Loader is now short (~180ms).
+   ========================================================================== */
+
+/* Remove expensive backdrop-filter for snappier first-paint */
+.page-loader{
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+/* Slightly tighter shadow under car */
+.page-loader__shadow{
+  background:
+    radial-gradient(ellipse, rgba(204,17,17,.18) 0%, rgba(20,25,34,.18) 35%, transparent 75%) !important;
+}
+
+/* Faster wheel spin — keeps supercar feel but no filter cost */
+.page-loader__wheel-rim{
+  animation:loaderWheelFast .38s linear infinite !important;
+}
+@keyframes loaderWheelFast{
+  to{ transform:rotate(360deg); }
+}
+
+/* Reduced-motion fallback */
+@media (prefers-reduced-motion: reduce){
+  .page-loader__wheel-rim{ animation:none !important; }
+}

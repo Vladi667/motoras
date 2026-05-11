@@ -1,6 +1,8 @@
 .chrome-headless
+.chrome-live-check
 .codex-browser-check.html
 .codex-browser-check.out.html
 .codex-index.out.html
 .codex-product.out.html
+codex-last.txt
 tools

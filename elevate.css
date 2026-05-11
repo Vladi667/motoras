@@ -1,0 +1,286 @@
+/* ==========================================================================
+   MOTORAȘ · ELEVATION LAYER (v2 — PERFORMANCE TUNED)
+   Non-destructive motion + polish. 60fps. Respects prefers-reduced-motion.
+   ========================================================================== */
+
+/* ---------- 0. Tokens ---------- */
+:root{
+  --elev-red: #cc1111;
+  --elev-red-glow: rgba(204,17,17,.45);
+  --elev-red-soft: rgba(204,17,17,.12);
+  --elev-ease-snap: cubic-bezier(.34,1.56,.64,1);
+  --elev-ease-out: cubic-bezier(.22,1,.36,1);
+}
+
+/* ---------- 1. Scroll-reveal (fast, no will-change to save GPU) ---------- */
+[data-reveal]{
+  opacity:0;
+  transform:translate3d(0,20px,0);
+  transition:opacity .45s var(--elev-ease-out), transform .45s var(--elev-ease-out);
+}
+[data-reveal].is-in{
+  opacity:1;
+  transform:translate3d(0,0,0);
+}
+
+/* ---------- 2. Hero polish (interaction-only, no continuous loops) ---------- */
+.hero-title{ color:#fff; }
+.hero-title em{ color:rgba(255,220,205,.88); }
+
+/* Word-rise on page load (one-shot, forwards fill) */
+.hero-title .elev-word{
+  display:inline-block;
+  opacity:0;
+  transform:translate3d(0,22px,0);
+  animation:elevWordRise .6s cubic-bezier(.22,1,.36,1) forwards;
+}
+.hero-title .elev-word-em{
+  display:block;
+  opacity:0;
+  transform:translate3d(0,22px,0);
+  animation:elevWordRise .6s cubic-bezier(.22,1,.36,1) .25s forwards;
+}
+@keyframes elevWordRise{
+  from{ opacity:0; transform:translate3d(0,22px,0); }
+  to  { opacity:1; transform:translate3d(0,0,0); }
+}
+
+/* CTA: interaction feedback only (no continuous pulse) */
+.btn-cta{
+  position:relative;
+  overflow:hidden;
+  transition:transform .2s var(--elev-ease-snap), box-shadow .22s ease;
+}
+.btn-cta:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 40px rgba(0,0,0,.38), 0 0 40px rgba(204,17,17,.28);
+}
+
+/* ---------- 3. Trust-bar polish (no marquee, hover only) ---------- */
+.trust-it{ transition:transform .25s var(--elev-ease-snap), background .2s ease; }
+.trust-it:hover{
+  transform:translateY(-3px);
+  background:#fff8f8 !important;
+}
+.trust-ico{ transition:transform .3s var(--elev-ease-snap); }
+.trust-it:hover .trust-ico{
+  transform:rotate(-8deg) scale(1.1);
+  background:rgba(204,17,17,.14) !important;
+}
+
+/* ---------- 4. Section headers: accent line draw on reveal ---------- */
+.section-hdr h2{
+  position:relative;
+  display:inline-block;
+  padding-left:18px;
+}
+.section-hdr h2::before{
+  content:'';
+  position:absolute;
+  left:0; top:18%; bottom:18%;
+  width:4px;
+  background:linear-gradient(180deg,var(--elev-red),#ff3838);
+  border-radius:3px;
+  transform-origin:top;
+  transform:scaleY(0);
+  transition:transform .5s var(--elev-ease-out);
+}
+.section-hdr.elev-in h2::before{ transform:scaleY(1); }
+.section-hdr a{
+  position:relative;
+  transition:transform .2s var(--elev-ease-snap);
+}
+.section-hdr a::after{
+  content:'';
+  position:absolute; left:0; bottom:-2px;
+  width:100%; height:2px;
+  background:var(--elev-red);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .28s var(--elev-ease-out);
+}
+.section-hdr a:hover{ transform:translateX(2px); }
+.section-hdr a:hover::after{ transform:scaleX(1); }
+
+/* ---------- 5. Category cards: simple CSS hover (no JS pointermove) ---------- */
+.cat-card{
+  transition:transform .28s var(--elev-ease-snap), box-shadow .28s ease, border-color .25s ease;
+}
+.cat-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 20px 40px rgba(204,17,17,.12), 0 8px 20px rgba(15,17,22,.08);
+  border-color:rgba(204,17,17,.22);
+}
+.cat-card .cat-img img{
+  transition:transform .4s var(--elev-ease-out);
+}
+.cat-card:hover .cat-img img{
+  transform:translate3d(0,-3px,0) scale(1.06);
+}
+
+/* ---------- 6. Product cards: hover only, no continuous loops ---------- */
+.prod-card{
+  transition:transform .22s var(--elev-ease-snap), box-shadow .25s ease, border-color .2s ease;
+}
+.prod-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 16px 38px rgba(204,17,17,.14), 0 4px 14px rgba(15,17,22,.06) !important;
+  border-color:rgba(204,17,17,.35) !important;
+}
+.prod-card .prod-img img{
+  transition:transform .4s var(--elev-ease-out);
+}
+.prod-card:hover .prod-img img{ transform:scale(1.06); }
+.prod-card .prod-wish{
+  transition:transform .2s var(--elev-ease-snap), background .18s ease, border-color .18s ease;
+}
+.prod-card .prod-wish:hover{
+  transform:scale(1.12) rotate(-6deg);
+}
+.prod-card .prod-wish svg{ transition:color .18s ease; }
+
+/* Add-to-cart button */
+.btn-add{
+  position:relative;
+  overflow:hidden;
+  transition:transform .15s var(--elev-ease-snap), background .18s ease, box-shadow .2s ease;
+}
+.btn-add:hover{
+  box-shadow:0 6px 18px rgba(204,17,17,.32);
+}
+.btn-add:active{ transform:scale(.96); }
+.btn-add.elev-thunk{
+  animation:elevBtnThunk .36s var(--elev-ease-snap);
+}
+@keyframes elevBtnThunk{
+  0%{ transform:scale(1); }
+  40%{ transform:scale(.93); }
+  70%{ transform:scale(1.05); }
+  100%{ transform:scale(1); }
+}
+
+/* ---------- 7. Flying "+1" chip for cart feedback ---------- */
+.elev-fly-chip{
+  position:fixed;
+  z-index:1200;
+  pointer-events:none;
+  padding:8px 14px;
+  background:var(--elev-red);
+  color:#fff;
+  border-radius:999px;
+  font:800 12px/1 'Nunito Sans', sans-serif;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  box-shadow:0 14px 34px rgba(204,17,17,.44);
+}
+
+/* ---------- 8. Cart / fav badge kick ---------- */
+.cart-count.elev-kick,
+.fav-count.elev-kick{
+  animation:elevBadgeKick .45s var(--elev-ease-snap);
+}
+@keyframes elevBadgeKick{
+  0%{ transform:scale(1); }
+  30%{ transform:scale(1.45); }
+  60%{ transform:scale(.95); }
+  100%{ transform:scale(1); }
+}
+
+/* ---------- 9. Header scroll shadow ---------- */
+.header{
+  transition:box-shadow .25s ease, background .25s ease;
+}
+.header.elev-scrolled{
+  box-shadow:0 4px 22px rgba(15,17,22,.09) !important;
+  background:rgba(255,255,255,.98) !important;
+}
+
+/* ---------- 10. Nav link underline wipe ---------- */
+.nav-link{ position:relative; overflow:hidden; }
+.nav-link::after{
+  content:'';
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:3px;
+  background:#fff;
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .25s var(--elev-ease-out);
+}
+.nav-link:hover::after{ transform:scaleX(1); }
+
+/* ---------- 11. Buttons: hover polish (no continuous animations) ---------- */
+.search-btn{ transition:background .18s ease, transform .18s var(--elev-ease-snap); }
+.search-btn:hover{ transform:translateY(-1px); }
+
+.btn-vs{ transition:transform .18s var(--elev-ease-snap), box-shadow .22s ease; }
+.btn-vs:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 28px rgba(204,17,17,.38);
+}
+
+/* ---------- 12. Promo polish (static, no glow loop) ---------- */
+.pbadge{
+  transition:transform .25s var(--elev-ease-snap), border-color .2s ease, background .2s ease;
+}
+.pbadge:hover{
+  transform:translateY(-2px);
+  border-color:rgba(204,17,17,.35) !important;
+  background:rgba(204,17,17,.07) !important;
+}
+
+/* ---------- 13. Mobile nav: staggered entrance (one-shot) ---------- */
+.mob-nav.open .mob-nav-inner > *{
+  animation:elevMobNavIn .3s var(--elev-ease-out) both;
+}
+.mob-nav.open .mob-nav-inner > *:nth-child(1){ animation-delay:.02s; }
+.mob-nav.open .mob-nav-inner > *:nth-child(2){ animation-delay:.04s; }
+.mob-nav.open .mob-nav-inner > *:nth-child(3){ animation-delay:.06s; }
+.mob-nav.open .mob-nav-inner > *:nth-child(4){ animation-delay:.08s; }
+.mob-nav.open .mob-nav-inner > *:nth-child(5){ animation-delay:.10s; }
+.mob-nav.open .mob-nav-inner > *:nth-child(6){ animation-delay:.12s; }
+.mob-nav.open .mob-nav-inner > *:nth-child(7){ animation-delay:.14s; }
+.mob-nav.open .mob-nav-inner > *:nth-child(n+8){ animation-delay:.16s; }
+@keyframes elevMobNavIn{
+  from{ opacity:0; transform:translate3d(-10px,0,0); }
+  to  { opacity:1; transform:translate3d(0,0,0); }
+}
+
+/* ---------- 14. Cart drawer polish ---------- */
+.cart-item{ transition:background .18s ease; }
+.cart-item:hover{ background:#fafbfc; }
+
+.btn-checkout{
+  transition:transform .2s var(--elev-ease-snap), box-shadow .22s ease;
+}
+.btn-checkout:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 36px rgba(204,17,17,.42);
+}
+
+/* ---------- 15. Focus rings (a11y) ---------- */
+.btn-add:focus-visible,
+.btn-cart:focus-visible,
+.btn-cta:focus-visible,
+.btn-vs:focus-visible,
+.btn-checkout:focus-visible,
+.nav-link:focus-visible{
+  outline:2px solid var(--elev-red);
+  outline-offset:3px;
+}
+
+/* ---------- 16. Reduced-motion kill switch ---------- */
+@media (prefers-reduced-motion: reduce){
+  [data-reveal],
+  .hero-title .elev-word,
+  .hero-title .elev-word-em,
+  .btn-add.elev-thunk,
+  .cart-count.elev-kick,
+  .fav-count.elev-kick,
+  .mob-nav.open .mob-nav-inner > *{
+    animation:none !important;
+    transition:none !important;
+    opacity:1 !important;
+    transform:none !important;
+  }
+}

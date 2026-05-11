@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<script>(function(){try{if(sessionStorage.getItem('motoras_page_loader_nav'))document.documentElement.classList.add('page-loader-boot');}catch(e){}})();</script>
+<script src="page-loader-boot.js" defer></script>
 <link rel="stylesheet" href="page-loader.css?v=20260413-4"/>
 <script src="page-loader.js?v=20260413-4" defer></script>
 <link rel='icon' type='image/png' href='assets/favicon.png?v=20260409-4'/>
@@ -90,48 +90,71 @@ tr:last-child td{border-bottom:none}
 .ts-line.done{background:var(--green)}
 @media(max-width:900px){#accountDash.show{grid-template-columns:1fr}.acc-sidebar{position:static}.form-grid{grid-template-columns:1fr}.form-grid .full{grid-column:1}}
 @media(max-width:600px){th,td{padding:9px 12px;font-size:12.5px}}
+@media(max-width:480px){
+ #accountDash{padding:0 10px}
+ #accountDash.show{gap:14px;margin:16px auto}
+ .acc-sidebar{border-radius:12px}
+ .acc-user-block{padding:14px}
+ .acc-avatar{width:36px;height:36px;font-size:14px}
+ .card-title{font-size:16px;padding:14px 16px}
+ .form-grid{padding:14px 16px;gap:12px}
+ .form-footer{padding:12px 16px}
+ .tracking-card{padding:14px}
+ .track-steps{gap:0}
+ .ts-dot{width:28px;height:28px}
+ .ts-label{font-size:10px}
+ .ts-line{margin-top:14px}
+ th{padding:8px 10px;font-size:10.5px}
+ td{padding:10px 10px;font-size:12.5px}
+ .inv-pdf{font-size:11px;padding:4px 8px}
+}
+@media(max-width:360px){
+ #accountDash{padding:0 8px}
+ .acc-nav-item{font-size:12.5px;padding:10px 14px}
+ .card-title{font-size:15px}
+}
 
 /* ── Info pages design upgrade ── */
 :root {
-  --red:#c8100e;--red2:#a30d0b;--dark:#0d0f14;--dark2:#13161f;
-  --mid:#505568;--muted:#8892a0;--border:#e4e8ef;--bg:#edf0f5;
-  --gold:#e09618;--green:#18955f;
-  --shadow:0 4px 20px rgba(0,0,0,.07);
+ --red:#c8100e;--red2:#a30d0b;--dark:#0d0f14;--dark2:#13161f;
+ --mid:#505568;--muted:#8892a0;--border:#e4e8ef;--bg:#edf0f5;
+ --gold:#e09618;--green:#18955f;
+ --shadow:0 4px 20px rgba(0,0,0,.07);
 }
 body { -webkit-font-smoothing:antialiased; }
 .header { box-shadow:0 1px 0 var(--border),0 4px 24px rgba(0,0,0,.05); }
 .btn-cart-mini {
-  background:var(--red);border-radius:9px;padding:8px 18px;
-  font-size:13px;font-weight:800;
-  box-shadow:0 4px 14px rgba(200,16,14,.28);
-  transition:all .18s;
+ background:var(--red);border-radius:9px;padding:8px 18px;
+ font-size:13px;font-weight:800;
+ box-shadow:0 4px 14px rgba(200,16,14,.28);
+ transition:all .18s;
 }
 .btn-cart-mini:hover { background:var(--red2);transform:translateY(-1px); }
 .page-banner {
-  background:linear-gradient(135deg,var(--dark2) 0%,#151929 55%,var(--dark3,#1a1e2a) 100%);
-  border-radius:20px;padding:44px 48px;
+ background:linear-gradient(135deg,var(--dark2) 0%,#151929 55%,var(--dark3,#1a1e2a) 100%);
+ border-radius:20px;padding:44px 48px;
 }
 .page-banner h1 { font-size:44px;letter-spacing:-.8px; }
 .content-card {
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  border:1.5px solid var(--border);
+ border-radius:18px;
+ box-shadow:var(--shadow);
+ border:1.5px solid var(--border);
 }
 .content-card h2 {
-  font-size:20px;letter-spacing:.2px;
-  gap:10px;padding-bottom:14px;
+ font-size:20px;letter-spacing:.2px;
+ gap:10px;padding-bottom:14px;
 }
 .content-card p { font-size:14px;line-height:1.85;color:var(--mid); }
 .content-card ul li { font-size:14px;line-height:1.75; }
 .info-chip {
-  border-radius:14px;border:1.5px solid var(--border);
-  transition:all .2s;
+ border-radius:14px;border:1.5px solid var(--border);
+ transition:all .2s;
 }
 .info-chip:hover { box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px); }
 .info-chip-ico {
-  width:42px;height:42px;border-radius:11px;
-  background:linear-gradient(135deg,rgba(200,16,14,.09),rgba(200,16,14,.04));
-  border:1px solid rgba(200,16,14,.10);
+ width:42px;height:42px;border-radius:11px;
+ background:linear-gradient(135deg,rgba(200,16,14,.09),rgba(200,16,14,.04));
+ border:1px solid rgba(200,16,14,.10);
 }
 .info-chip strong { font-size:13.5px;font-weight:800;color:var(--dark); }
 .info-chip span { font-size:13px;color:var(--muted); }
@@ -164,280 +187,497 @@ body { -webkit-font-smoothing:antialiased; }
 
 </style>
 <script src="text-normalize.js?v=20260412-6" defer></script>
+<!-- MOTORAS ELEVATE -->
+<link rel="stylesheet" href="/elevate.css"/>
+<link rel="stylesheet" href="/loader-boost.css"/>
+<script defer src="/elevate.js"></script>
+
 </head>
 <body>
 <header class="header">
-  <div class="header-in">
-    <a href="index.html" class="logo"><img src="assets/logo.png?v=20260409-3" alt="Motoras"/></a>
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.3px">Contul meu</div>
-    <div class="hdr-r">
-      <a href="index.html" style="font-size:13px;font-weight:700;color:var(--mid);display:flex;align-items:center;gap:5px;transition:color .15s" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--mid)'"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Inapoi la magazin</a>
-      <button class="btn-cart" onclick="window.location.href='index.html'"><svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Cos<span class="cart-count" id="cartBadge">0</span></button>
-    </div>
-  </div>
+ <div class="header-in">
+ <a href="index.html" class="logo"><img src="assets/logo.png?v=20260409-3" alt="Motoras"/></a>
+ <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.3px">Contul meu</div>
+ <div class="hdr-r">
+ <a href="index.html" style="font-size:13px;font-weight:700;color:var(--mid);display:flex;align-items:center;gap:5px;transition:color .15s" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--mid)'"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Inapoi la magazin</a>
+ <button class="btn-cart" onclick="window.location.href='index.html'"><svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Cos<span class="cart-count" id="cartBadge">0</span></button>
+ </div>
+ </div>
 </header>
 
 <!-- LOGIN WALL -->
 <div id="loginWall">
-  <div class="auth-card">
-    <div style="text-align:center;margin-bottom:22px">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--dark);text-transform:uppercase">Contul meu</div>
-      <div style="font-size:13px;color:var(--mid);margin-top:5px">Intra in cont sau creeaza un cont nou</div>
-    </div>
-    <div class="auth-tabs">
-      <div class="auth-tab active" id="loginTab" onclick="showAuth('login')">Autentificare</div>
-      <div class="auth-tab" id="registerTab" onclick="showAuth('register')">Cont nou</div>
-    </div>
-    <!-- Login form -->
-    <div id="loginForm">
-      <label class="flabel">Email</label>
-      <input class="finput" type="email" id="loginEmail" placeholder="nume@domeniu.ro" autocomplete="email"/>
-      <label class="flabel">Parola</label>
-      <input class="finput" type="password" id="loginPassword" placeholder="Parola ta" autocomplete="current-password"/>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-        <label style="display:flex;align-items:center;gap:7px;font-size:13px;color:var(--mid);cursor:pointer"><input type="checkbox" style="accent-color:var(--red)"/> Tine-ma minte</label>
-        <a href="mailto:contact@motoras.rosubject=Resetare%20parola" style="font-size:13px;color:var(--red);font-weight:700">Am uitat parola</a>
-      </div>
-      <button class="btn-auth" onclick="doLogin()">Autentificare</button>
-    </div>
-    <!-- Register form -->
-    <div id="registerForm" style="display:none">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:0">
-        <div><label class="flabel">Prenume</label><input class="finput" type="text" placeholder="Prenume"/></div>
-        <div><label class="flabel">Nume</label><input class="finput" type="text" placeholder="Nume"/></div>
-      </div>
-      <label class="flabel">Email</label>
-      <input class="finput" type="email" placeholder="nume@domeniu.ro"/>
-      <label class="flabel">Telefon</label>
-      <input class="finput" type="tel" placeholder="07xx xxx xxx"/>
-      <label class="flabel">Parola</label>
-      <input class="finput" type="password" placeholder="Minim 8 caractere"/>
-      <label class="flabel">Confirma parola</label>
-      <input class="finput" type="password" placeholder="Repeta parola"/>
-      <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:16px">
-        <input type="checkbox" id="terms" style="accent-color:var(--red);margin-top:2px"/>
-        <label for="terms" style="font-size:13px;color:var(--mid);cursor:pointer">Sunt de acord cu <a href="termeni.html" style="color:var(--red);font-weight:700">Termenii si Conditiile</a> si <a href="confidentialitate.html" style="color:var(--red);font-weight:700">Politica de Confidentialitate</a></label>
-      </div>
-      <button class="btn-auth" onclick="doRegister()">Creeaza cont</button>
-    </div>
-  </div>
+ <div class="auth-card">
+ <div style="text-align:center;margin-bottom:22px">
+ <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--dark);text-transform:uppercase">Contul meu</div>
+ <div style="font-size:13px;color:var(--mid);margin-top:5px">Intra in cont sau creeaza un cont nou</div>
+ </div>
+ <div class="auth-tabs">
+ <div class="auth-tab active" id="loginTab" onclick="showAuth('login')">Autentificare</div>
+ <div class="auth-tab" id="registerTab" onclick="showAuth('register')">Cont nou</div>
+ </div>
+ <!-- Login form -->
+ <div id="loginForm">
+ <label class="flabel">Email</label>
+ <input class="finput" type="email" id="loginEmail" placeholder="nume@domeniu.ro" autocomplete="email"/>
+ <label class="flabel">Parola</label>
+ <input class="finput" type="password" id="loginPassword" placeholder="Parola ta" autocomplete="current-password"/>
+ <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+ <label style="display:flex;align-items:center;gap:7px;font-size:13px;color:var(--mid);cursor:pointer"><input type="checkbox" style="accent-color:var(--red)"/> Tine-ma minte</label>
+ <a href="mailto:contact@motoras.rosubject=Resetare%20parola" style="font-size:13px;color:var(--red);font-weight:700">Am uitat parola</a>
+ </div>
+ <button class="btn-auth" onclick="doLogin()">Autentificare</button>
+ </div>
+ <!-- Register form -->
+ <div id="registerForm" style="display:none">
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:0">
+ <div><label class="flabel">Prenume</label><input class="finput" type="text" id="regFirstName" placeholder="Prenume" autocomplete="given-name"/></div>
+ <div><label class="flabel">Nume</label><input class="finput" type="text" id="regLastName" placeholder="Nume" autocomplete="family-name"/></div>
+ </div>
+ <label class="flabel">Email</label>
+ <input class="finput" type="email" id="regEmail" placeholder="nume@domeniu.ro" autocomplete="email"/>
+ <label class="flabel">Telefon</label>
+ <input class="finput" type="tel" id="regPhone" placeholder="07xx xxx xxx" autocomplete="tel"/>
+ <label class="flabel">Parola</label>
+ <input class="finput" type="password" id="regPassword" placeholder="Minim 8 caractere" autocomplete="new-password"/>
+ <label class="flabel">Confirma parola</label>
+ <input class="finput" type="password" id="regPassword2" placeholder="Repeta parola" autocomplete="new-password"/>
+ <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:16px">
+ <input type="checkbox" id="terms" style="accent-color:var(--red);margin-top:2px"/>
+ <label for="terms" style="font-size:13px;color:var(--mid);cursor:pointer">Sunt de acord cu <a href="termeni.html" style="color:var(--red);font-weight:700">Termenii si Conditiile</a> si <a href="confidentialitate.html" style="color:var(--red);font-weight:700">Politica de Confidentialitate</a></label>
+ </div>
+ <button class="btn-auth" onclick="doRegister()">Creeaza cont</button>
+ </div>
+ </div>
 </div>
 
 <!-- ACCOUNT DASHBOARD (shown after login) -->
 <div id="accountDash">
-  <aside class="acc-sidebar">
-    <div class="acc-user-block">
-      <div class="acc-avatar" id="accInitials">IP</div>
-      <div><div class="acc-user-name" id="accName">Client Motoras</div><div class="acc-user-email" id="accEmail">client@motoras.ro</div></div>
-    </div>
-    <nav class="acc-nav">
-      <div class="acc-nav-item active" onclick="showPanel('orders',this)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Comenzile mele</div>
-      <div class="acc-nav-item" onclick="showPanel('tracking',this)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Urmarire colete</div>
-      <div class="acc-nav-item" onclick="showPanel('invoices',this)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Facturile mele</div>
-      <div class="acc-nav-item" onclick="showPanel('profile',this)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profilul meu</div>
-      <div class="acc-nav-item" onclick="showPanel('addresses',this)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Adresele mele</div>
-      <div class="acc-nav-item" onclick="doLogout()" style="margin-top:8px;color:var(--red)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg onclick="sessionStorage.removeItem('motoras_user');location.reload();" style="cursor:pointer">Deconectare</div>
-    </nav>
-  </aside>
+ <aside class="acc-sidebar">
+ <div class="acc-user-block">
+ <div class="acc-avatar" id="accInitials">IP</div>
+ <div><div class="acc-user-name" id="accName">Client Motoras</div><div class="acc-user-email" id="accEmail">client@motoras.ro</div></div>
+ </div>
+ <nav class="acc-nav">
+ <div class="acc-nav-item active" onclick="showPanel('orders',this)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Comenzile mele</div>
+ <div class="acc-nav-item" onclick="showPanel('tracking',this)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Urmarire colete</div>
+ <div class="acc-nav-item" onclick="showPanel('invoices',this)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Facturile mele</div>
+ <div class="acc-nav-item" onclick="showPanel('profile',this)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profilul meu</div>
+ <div class="acc-nav-item" onclick="showPanel('addresses',this)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Adresele mele</div>
+ <div class="acc-nav-item" onclick="doLogout()" style="margin-top:8px;color:var(--red)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg onclick="sessionStorage.removeItem('motoras_user');location.reload();" style="cursor:pointer">Deconectare</div>
+ </nav>
+ </aside>
 
-  <div>
-    <!-- ORDERS -->
-    <div class="acc-panel active" id="panel-orders">
-      <div class="card">
-        <div class="card-title">Comenzile mele
-          <a href="index.html" style="font-size:12px;color:var(--red);font-weight:700;text-transform:none;letter-spacing:0">+ Comanda noua</a>
-        </div>
-        <div style="overflow-x:auto">
-          <table>
-            <thead><tr><th>Nr.</th><th>Data</th><th>Produse</th><th>Total</th><th>Status</th><th>Actiuni</th></tr></thead>
-            <tbody>
-              <tr><td style="font-weight:700;color:var(--red)">#ORD-1042</td><td style="color:var(--mid);font-size:12.5px">06 Apr 2025</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Castrol EDGE 5W-30 5L</td><td style="font-weight:700">189 RON</td><td><span class="status-badge sb-delivered">Livrat</span></td><td><a href="confirmation.html" class="inv-pdf">Detalii</a></td></tr>
-              <tr><td style="font-weight:700;color:var(--red)">#ORD-1041</td><td style="color:var(--mid);font-size:12.5px">06 Apr 2025</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Disc Frana TRW x2</td><td style="font-weight:700">284 RON</td><td><span class="status-badge sb-shipped">Expediat</span></td><td><a href="confirmation.html" class="inv-pdf">Urmarire</a></td></tr>
-              <tr><td style="font-weight:700;color:var(--red)">#ORD-1040</td><td style="color:var(--mid);font-size:12.5px">05 Apr 2025</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Baterie Varta 60Ah</td><td style="font-weight:700">395 RON</td><td><span class="status-badge sb-processing">In procesare</span></td><td><a href="confirmation.html" class="inv-pdf">Detalii</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+ <div>
+ <!-- ORDERS -->
+ <div class="acc-panel active" id="panel-orders">
+ <div class="card">
+ <div class="card-title">Comenzile mele
+ <a href="index.html" style="font-size:12px;color:var(--red);font-weight:700;text-transform:none;letter-spacing:0">+ Comanda noua</a>
+ </div>
+ <div style="overflow-x:auto">
+ <table>
+ <thead><tr><th>Nr.</th><th>Data</th><th>Produse</th><th>Total</th><th>Status</th><th>Actiuni</th></tr></thead>
+ <tbody id="ordersTableBody">
+ <tr><td colspan="6" style="text-align:center;padding:28px;color:var(--mid)">Se incarca comenzile...</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
 
-    <!-- TRACKING -->
-    <div class="acc-panel" id="panel-tracking">
-      <div class="card" style="margin-bottom:20px">
-        <div class="card-title">Urmarire colet</div>
-        <div style="padding:18px 22px;display:flex;gap:10px;flex-wrap:wrap">
-          <input type="text" placeholder="AWB / Nr. comanda" style="flex:1;min-width:180px;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/>
-          <button style="padding:11px 22px;background:var(--red);color:#fff;border:none;border-radius:9px;font-size:13.5px;font-weight:700;cursor:pointer">Cauta</button>
-        </div>
-      </div>
-      <div class="tracking-card">
-        <div class="track-header">
-          <div><div class="track-id">#ORD-1041</div><div style="font-size:12.5px;color:var(--mid);margin-top:2px">Curier rapid &bull; status disponibil in pagina comenzii</div></div>
-          <span class="status-badge sb-shipped" style="font-size:12px">Expediat</span>
-        </div>
-        <div class="track-steps">
-          <div class="ts"><div class="ts-dot done"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="ts-label">Plasata</div></div>
-          <div class="ts-line done"></div>
-          <div class="ts"><div class="ts-dot done"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="ts-label">Confirmata</div></div>
-          <div class="ts-line done"></div>
-          <div class="ts"><div class="ts-dot active"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="ts-label">Expediat</div></div>
-          <div class="ts-line"></div>
-          <div class="ts"><div class="ts-dot" style="border-color:var(--border)"><svg width="14" height="14" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><div class="ts-label">Livrat</div></div>
-        </div>
-        <div style="margin-top:16px;padding:12px 14px;background:#f8f9fb;border-radius:8px;font-size:13px;color:var(--mid)">
-          <strong style="color:var(--dark)">Estimat livrare:</strong> Maine, 07 Apr 2025 pana la 18:00 &bull; <a href="https://www.fancourier.ro/" target="_blank" rel="noopener" style="color:var(--red);font-weight:700">Urmareste pe Fan Courier &#8599;</a>
-        </div>
-      </div>
-    </div>
+ <!-- TRACKING -->
+ <div class="acc-panel" id="panel-tracking">
+ <div id="trackingContent">
+ <div class="card" style="margin-bottom:20px">
+ <div class="card-title">Urmarire colete</div>
+ <div id="trackingList" style="padding:14px 22px 18px">
+ <div style="text-align:center;color:var(--mid);padding:16px">Se incarca...</div>
+ </div>
+ </div>
+ </div>
+ </div>
 
-    <!-- INVOICES -->
-    <div class="acc-panel" id="panel-invoices">
-      <div class="card">
-        <div class="card-title">Facturile mele</div>
-        <div style="overflow-x:auto">
-          <table>
-            <thead><tr><th>Nr. factura</th><th>Comanda</th><th>Total</th><th>TVA</th><th>Data</th><th>PDF</th></tr></thead>
-            <tbody>
-              <tr><td style="font-weight:700">FACT-2025-1042</td><td style="color:var(--red);font-weight:700">#ORD-1042</td><td style="font-weight:700">189 RON</td><td style="color:var(--mid)">35.91 RON</td><td style="color:var(--mid);font-size:12.5px">06 Apr 2025</td><td><span class="inv-pdf"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF</span></td></tr>
-              <tr><td style="font-weight:700">FACT-2026-1041</td><td style="color:var(--red);font-weight:700">#ORD-1041</td><td style="font-weight:700">284 RON</td><td style="color:var(--mid)">53.96 RON</td><td style="color:var(--mid);font-size:12.5px">06 Apr 2025</td><td><span class="inv-pdf"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+ <!-- INVOICES -->
+ <div class="acc-panel" id="panel-invoices">
+ <div class="card">
+ <div class="card-title">Facturile mele</div>
+ <div style="overflow-x:auto">
+ <table>
+ <thead><tr><th>Nr. factura</th><th>Comanda</th><th>Total</th><th>Data</th><th>PDF</th></tr></thead>
+ <tbody id="invoicesTableBody">
+ <tr><td colspan="5" style="text-align:center;padding:28px;color:var(--mid)">Se incarca facturile...</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
 
-    <!-- PROFILE -->
-    <div class="acc-panel" id="panel-profile">
-      <div class="card">
-        <div class="card-title">Informatiile mele</div>
-        <div class="form-grid">
-          <div><label class="flabel">Prenume</label><input type="text" value="Client" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
-          <div><label class="flabel">Nume</label><input type="text" value="Motoras" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
-          <div class="full"><label class="flabel">Email</label><input type="email" value="client@motoras.ro" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
-          <div class="full"><label class="flabel">Telefon</label><input type="tel" value="0722 111 222" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
-        </div>
-        <div class="form-footer"><button class="btn-save">Salveaza modificarile</button></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Schimba parola</div>
-        <div class="form-grid">
-          <div class="full"><label class="flabel">Parola actuala</label><input type="password" placeholder="Parola actuala" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
-          <div><label class="flabel">Parola noua</label><input type="password" placeholder="Parola noua" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
-          <div><label class="flabel">Confirma parola</label><input type="password" placeholder="Confirma" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
-        </div>
-        <div class="form-footer"><button class="btn-outline">Anuleaza</button><button class="btn-save">Schimba parola</button></div>
-      </div>
-    </div>
+ <!-- PROFILE -->
+ <div class="acc-panel" id="panel-profile">
+ <div class="card">
+ <div class="card-title">Informatiile mele</div>
+ <div class="form-grid">
+ <div><label class="flabel">Prenume</label><input type="text" value="Client" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
+ <div><label class="flabel">Nume</label><input type="text" value="Motoras" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
+ <div class="full"><label class="flabel">Email</label><input type="email" value="client@motoras.ro" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
+ <div class="full"><label class="flabel">Telefon</label><input type="tel" value="0722 111 222" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
+ </div>
+ <div class="form-footer"><button class="btn-save">Salveaza modificarile</button></div>
+ </div>
+ <div class="card">
+ <div class="card-title">Schimba parola</div>
+ <div class="form-grid">
+ <div class="full"><label class="flabel">Parola actuala</label><input type="password" placeholder="Parola actuala" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
+ <div><label class="flabel">Parola noua</label><input type="password" placeholder="Parola noua" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
+ <div><label class="flabel">Confirma parola</label><input type="password" placeholder="Confirma" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;outline:none"/></div>
+ </div>
+ <div class="form-footer"><button class="btn-outline">Anuleaza</button><button class="btn-save">Schimba parola</button></div>
+ </div>
+ </div>
 
-    <!-- ADDRESSES -->
-    <div class="acc-panel" id="panel-addresses">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-        <div class="card">
-          <div class="card-title" style="font-size:15px">Adresa implicita
-            <span style="background:rgba(204,17,17,.1);color:var(--red);font-size:10px;font-weight:800;padding:3px 8px;border-radius:5px;text-transform:none;letter-spacing:0">Implicita</span>
-          </div>
-          <div style="padding:16px 20px;font-size:13.5px;line-height:2;color:var(--mid)">Client Motoras<br>Adauga adresa ta de livrare pentru a salva comenzi si facturi intr-un singur loc</div>
-          <div style="padding:0 20px 16px;display:flex;gap:8px"><button class="btn-outline" style="font-size:12px;padding:7px 14px">Editeaza</button><button class="btn-outline" style="font-size:12px;padding:7px 14px;color:var(--red);border-color:rgba(204,17,17,.3)">Sterge</button></div>
-        </div>
-        <div class="card" style="border-style:dashed;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;padding:40px;min-height:180px" onclick="alert('Adauga adresa noua')">
-          <div style="width:44px;height:44px;border-radius:50%;background:rgba(204,17,17,.08);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-          <div style="font-size:13.5px;font-weight:700;color:var(--mid)">Adauga adresa noua</div>
-        </div>
-      </div>
-    </div>
-  </div>
+ <!-- ADDRESSES -->
+ <div class="acc-panel" id="panel-addresses">
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+ <div class="card">
+ <div class="card-title" style="font-size:15px">Adresa implicita
+ <span style="background:rgba(204,17,17,.1);color:var(--red);font-size:10px;font-weight:800;padding:3px 8px;border-radius:5px;text-transform:none;letter-spacing:0">Implicita</span>
+ </div>
+ <div style="padding:16px 20px;font-size:13.5px;line-height:2;color:var(--mid)">Client Motoras<br>Adauga adresa ta de livrare pentru a salva comenzi si facturi intr-un singur loc</div>
+ <div style="padding:0 20px 16px;display:flex;gap:8px"><button class="btn-outline" style="font-size:12px;padding:7px 14px">Editeaza</button><button class="btn-outline" style="font-size:12px;padding:7px 14px;color:var(--red);border-color:rgba(204,17,17,.3)">Sterge</button></div>
+ </div>
+ <div class="card" style="border-style:dashed;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;padding:40px;min-height:180px" onclick="alert('Adauga adresa noua')">
+ <div style="width:44px;height:44px;border-radius:50%;background:rgba(204,17,17,.08);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+ <div style="font-size:13.5px;font-weight:700;color:var(--mid)">Adauga adresa noua</div>
+ </div>
+ </div>
+ </div>
+ </div>
 </div>
 
 <script>
-// Cart badge
 window.MotorasStore.updateBadges();
-// Auth
-function showAuth(type){
-  document.getElementById('loginForm').style.display=type==='login''block':'none';
-  document.getElementById('registerForm').style.display=type==='register''block':'none';
-  document.getElementById('loginTab').classList.toggle('active',type==='login');
-  document.getElementById('registerTab').classList.toggle('active',type==='register');
+
+const USER_KEY = 'motoras_user_v2';
+
+function saveSession(token, user) {
+ localStorage.setItem(USER_KEY, JSON.stringify({ token, user }));
 }
-function doLogin(){
-  const email=document.getElementById('loginEmail').value.trim().toLowerCase();
-  const pass=document.getElementById('loginPassword').value;
-  if(!email||!pass){alert('Completeaza emailul si parola.');return;}
-  // TODO: Replace with real auth API
-  const valid = false;
-  if(!valid){setMsg('login','Autentificarea nu este disponibilă momentan. Contactați-ne pe WhatsApp.','error');return;}
-  sessionStorage.setItem('motoras_user',JSON.stringify({email,name:'Client Motoras'}));
-  showDashboard(email,'Client Motoras');
+function loadSession() {
+ try { return JSON.parse(localStorage.getItem(USER_KEY) || 'null'); } catch(_) { return null; }
 }
-function doRegister(){
-  alert('Cont creat cu succes! Vei primi un email de confirmare.');
-  showAuth('login');
-}
-function doLogout(){
-  sessionStorage.removeItem('motoras_user');
-  document.getElementById('loginWall').style.display='block';
-  document.getElementById('accountDash').classList.remove('show');
+function clearSession() { localStorage.removeItem(USER_KEY); }
+
+function setMsg(form, msg, type) {
+ const el = document.getElementById(form + 'Msg');
+ if (!el) return;
+ el.textContent = msg;
+ el.style.color = type === 'error' ? 'var(--red)' : '#1a9e4a';
+ el.style.display = msg ? 'block' : 'none';
 }
 
-async function loadOrdersFromApi(){
-  if(!window.MotApi) return;
-  const res = await window.MotApi.getOrders();
-  if(!res.ok || !res.items.length) return;
-  const tbody = document.querySelector('#panel-orders table tbody');
-  if(!tbody) return;
-  const statusMap = {
-    pending:    ['sb-pending','In asteptare'],
-    processing: ['sb-processing','In procesare'],
-    shipped:    ['sb-shipped','Expediat'],
-    delivered:  ['sb-delivered','Livrat'],
-    cancelled:  ['sb-cancelled','Anulat'],
-  };
-  tbody.innerHTML = res.items.slice(0,10).map(o => {
-    const [cls,label] = statusMap[o.status] || ['sb-pending','-'];
-    const date = new Date(o.createdAt).toLocaleDateString('ro-RO');
-    const prod = (o.items||[]).map(i=>i.name).join(', ').substring(0,40);
-    return `<tr>
-      <td style="font-weight:700;color:var(--red)">#${o.id}</td>
-      <td style="color:var(--mid);font-size:12.5px">${date}</td>
-      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${prod}</td>
-      <td style="font-weight:700">${o.total.toLocaleString('ro-RO')} RON</td>
-      <td><span class="status-badge ${cls}">${label}</span></td>
-      <td><a href="confirmation.htmlorder=${o.id}" class="inv-pdf">Detalii</a></td>
-    </tr>`;
-  }).join('');
+function showAuth(type) {
+ document.getElementById('loginForm').style.display = type === 'login' ? 'block' : 'none';
+ document.getElementById('registerForm').style.display = type === 'register' ? 'block' : 'none';
+ document.getElementById('loginTab').classList.toggle('active', type === 'login');
+ document.getElementById('registerTab').classList.toggle('active', type === 'register');
+ setMsg('login','',''); setMsg('register','','');
 }
 
-function showDashboard(email,name){
-  document.getElementById('loginWall').style.display='none';
-  document.getElementById('accountDash').classList.add('show');
-  loadOrdersFromApi();
-  document.getElementById('accEmail').textContent=email;
-  document.getElementById('accName').textContent=name;
-  document.getElementById('accInitials').textContent=name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
+async function apiPost(url, body) {
+ const res = await fetch(url, {
+ method: 'POST',
+ headers: { 'Content-Type': 'application/json' },
+ body: JSON.stringify(body),
+ });
+ return res.json();
 }
-function showPanel(id,el){
-  document.querySelectorAll('.acc-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.acc-nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById('panel-'+id).classList.add('active');
-  if(el)el.classList.add('active');
+
+async function doLogin() {
+ const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+ const password = document.getElementById('loginPassword').value;
+ if (!email || !password) { setMsg('login', 'Completeaza emailul si parola.', 'error'); return; }
+ const btn = document.querySelector('#loginForm .btn-auth');
+ btn.disabled = true; btn.textContent = 'Se verifica...';
+ try {
+ const data = await apiPost('/api/auth/login', { email, password });
+ if (!data.ok) { setMsg('login', data.error || 'Eroare la autentificare.', 'error'); return; }
+ saveSession(data.token, data.user);
+ showDashboard(data.user);
+ } catch(_) {
+ setMsg('login', 'Eroare de conexiune. Incearca din nou.', 'error');
+ } finally {
+ btn.disabled = false; btn.textContent = 'Autentificare';
+ }
 }
-// Auto-login if session exists
-const user=JSON.parse(sessionStorage.getItem('motoras_user')||'null');
-if(user)showDashboard(user.email,user.name);
+
+async function doRegister() {
+ const firstName = document.getElementById('regFirstName').value.trim();
+ const lastName = document.getElementById('regLastName').value.trim();
+ const email = document.getElementById('regEmail').value.trim().toLowerCase();
+ const phone = document.getElementById('regPhone').value.trim();
+ const password = document.getElementById('regPassword').value;
+ const password2 = document.getElementById('regPassword2').value;
+ const terms = document.getElementById('terms').checked;
+
+ if (!firstName || !lastName) { setMsg('register', 'Completeaza prenumele si numele.', 'error'); return; }
+ if (!email) { setMsg('register', 'Adresa de email este obligatorie.', 'error'); return; }
+ if (password.length < 8) { setMsg('register', 'Parola trebuie sa aiba minim 8 caractere.', 'error'); return; }
+ if (password !== password2) { setMsg('register', 'Parolele nu coincid.', 'error'); return; }
+ if (!terms) { setMsg('register', 'Accepta termenii si conditiile pentru a continua.', 'error'); return; }
+
+ const btn = document.querySelector('#registerForm .btn-auth');
+ btn.disabled = true; btn.textContent = 'Se creeaza contul...';
+ try {
+ const data = await apiPost('/api/auth/register', { firstName, lastName, email, phone, password });
+ if (!data.ok) { setMsg('register', data.error || 'Eroare la creare cont.', 'error'); return; }
+ saveSession(data.token, data.user);
+ showDashboard(data.user);
+ } catch(_) {
+ setMsg('register', 'Eroare de conexiune. Incearca din nou.', 'error');
+ } finally {
+ btn.disabled = false; btn.textContent = 'Creeaza cont';
+ }
+}
+
+function doLogout() {
+ clearSession();
+ document.getElementById('loginWall').style.display = 'block';
+ document.getElementById('accountDash').classList.remove('show');
+ showAuth('login');
+}
+
+var cachedOrders = [];
+
+function buildInvoiceNumber(orderId) {
+ var year = new Date().getFullYear();
+ var seq = String(orderId || '').replace(/\D/g,'').slice(-6).padStart(6,'0');
+ return 'INV-' + year + '-' + seq;
+}
+
+var COURIER_TRACKING = {
+ 'Fan Courier': 'https://www.fancourier.ro/en/awb-tracking/?tracking=',
+ 'DPD Romania': 'https://tracking.dpd.de/status/ro_RO/parcel/',
+ 'Cargus': 'https://www.cargus.ro/tracking-colet/?awb=',
+ 'DHL Romania': 'https://www.dhl.com/ro-en/home/tracking.html?tracking-id=',
+ 'Sameday': 'https://sameday.ro/search?AWB=',
+ 'GLS Romania': 'https://gls-group.com/track/?match=',
+ 'UPS': 'https://www.ups.com/track?tracknum=',
+};
+
+var STATUS_LABELS = {
+ pending: ['sb-pending', 'In asteptare'],
+ pending_payment: ['sb-pending', 'In asteptare'],
+ processing: ['sb-processing','In procesare'],
+ ordered_supplier: ['sb-processing','La furnizor'],
+ shipped: ['sb-shipped', 'Expediat'],
+ delivered: ['sb-delivered', 'Livrat'],
+ cancelled: ['sb-cancelled', 'Anulat'],
+};
+
+function getStatusBadge(status) {
+ var s = STATUS_LABELS[status] || ['sb-pending', status || '-'];
+ return '<span class="status-badge ' + s[0] + '">' + s[1] + '</span>';
+}
+
+function escHtml(v) {
+ return String(v ?? '').replace(/&/g,'&').replace(/</g,'<').replace(/>/g,'>').replace(/"/g,'"');
+}
+
+function downloadPdf(orderId, userEmail) {
+ var url = '/api/orders?id=' + encodeURIComponent(orderId) + '&pdf=1';
+ if (userEmail) url += '&email=' + encodeURIComponent(userEmail);
+ var a = document.createElement('a');
+ a.href = url;
+ a.download = 'Factura-' + buildInvoiceNumber(orderId) + '.pdf';
+ document.body.appendChild(a);
+ a.click();
+ document.body.removeChild(a);
+}
+
+async function loadOrdersFromApi() {
+ if (!window.MotApi) return;
+ var session = loadSession();
+ var userEmail = session && session.user && session.user.email;
+ try {
+ var res = await window.MotApi.getOrders({ email: userEmail });
+ if (!res.ok) { renderOrdersEmpty(); return; }
+ cachedOrders = res.items || [];
+ renderOrdersTable(userEmail);
+ renderInvoicesTable(userEmail);
+ renderTrackingPanel();
+ } catch(e) {
+ renderOrdersEmpty();
+ }
+}
+
+function renderOrdersEmpty() {
+ var tb = document.getElementById('ordersTableBody');
+ if (tb) tb.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--mid)">Nu ai comenzi plasate inca. <a href="index.html" style="color:var(--red);font-weight:700">Incepe cumparaturile</a></td></tr>';
+ var ib = document.getElementById('invoicesTableBody');
+ if (ib) ib.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:28px;color:var(--mid)">Nicio factura disponibila.</td></tr>';
+ var tl = document.getElementById('trackingList');
+ if (tl) tl.innerHTML = '<div style="text-align:center;color:var(--mid);padding:16px">Nicio comanda cu expediere activa.</div>';
+}
+
+function renderOrdersTable(userEmail) {
+ var tb = document.getElementById('ordersTableBody');
+ if (!tb) return;
+ if (!cachedOrders.length) { renderOrdersEmpty(); return; }
+ tb.innerHTML = cachedOrders.slice(0,20).map(function(o) {
+ var date = new Date(o.createdAt).toLocaleDateString('ro-RO');
+ var prod = (o.items||[]).map(function(i){return i.name;}).join(', ');
+ if (prod.length > 48) prod = prod.substring(0,48) + '…';
+ var invNr = buildInvoiceNumber(o.id);
+ return '<tr>' +
+ '<td style="font-weight:700;color:var(--red)">' + escHtml(o.id) + '</td>' +
+ '<td style="color:var(--mid);font-size:12.5px">' + date + '</td>' +
+ '<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px">' + escHtml(prod) + '</td>' +
+ '<td style="font-weight:700">' + Number(o.total||0).toLocaleString('ro-RO',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' RON</td>' +
+ '<td>' + getStatusBadge(o.status) + '</td>' +
+ '<td style="white-space:nowrap;display:flex;gap:6px;align-items:center">' +
+ '<a href="confirmation.html?order=' + encodeURIComponent(o.id) + '" class="inv-pdf">Detalii</a>' +
+ '<span class="inv-pdf" style="cursor:pointer" onclick="downloadPdf(\'' + escHtml(o.id) + '\',\'' + escHtml(userEmail||'') + '\')">' +
+ '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF</span>' +
+ '</td></tr>';
+ }).join('');
+}
+
+function renderInvoicesTable(userEmail) {
+ var ib = document.getElementById('invoicesTableBody');
+ if (!ib) return;
+ var TVA_ENABLED=false;var TVA_RATE=0.19;var paid = cachedOrders.filter(function(o){ return o.payment === 'paid' || o.paymentStatus === 'paid'; });
+ if (!paid.length) { ib.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--mid)">Nicio factura disponibila.</td></tr>'; return; }
+ ib.innerHTML = paid.slice(0,20).map(function(o) {
+ var invNr = buildInvoiceNumber(o.id);
+ var total = Number(o.total||0);
+ var vat = TVA_ENABLED ? total - total / (1 + TVA_RATE) : 0;
+ var date = new Date(o.createdAt).toLocaleDateString('ro-RO');
+ return '<tr>' +
+ '<td style="font-weight:700;font-family:monospace;font-size:12.5px">' + escHtml(invNr) + '</td>' +
+ '<td style="color:var(--red);font-weight:700">' + escHtml(o.id) + '</td>' +
+ '<td style="font-weight:700">' + total.toFixed(2) + ' RON</td>' +
+
+ '<td style="color:var(--mid);font-size:12.5px">' + date + '</td>' +
+ '<td><span class="inv-pdf" style="cursor:pointer" onclick="downloadPdf(\'' + escHtml(o.id) + '\',\'' + escHtml(userEmail||'') + '\')">' +
+ '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descarca PDF</span></td>' +
+ '</tr>';
+ }).join('');
+}
+
+function renderTrackingPanel() {
+ var tl = document.getElementById('trackingList');
+ if (!tl) return;
+ var shipped = cachedOrders.filter(function(o){ return o.tracking_number; });
+ if (!shipped.length) {
+ tl.innerHTML = '<div style="text-align:center;color:var(--mid);padding:16px">Nicio comanda in curs de expediere.</div>';
+ return;
+ }
+ tl.innerHTML = shipped.map(function(o) {
+ var trackUrl = o.tracking_courier && COURIER_TRACKING[o.tracking_courier]
+ ? COURIER_TRACKING[o.tracking_courier] + encodeURIComponent(o.tracking_number)
+ : null;
+ var steps = ['pending','processing','shipped','delivered'];
+ var curStep = steps.indexOf(o.status);
+ if (curStep < 0) curStep = o.status === 'shipped' ? 2 : 1;
+ var stepLabels = ['Plasata','Confirmata','Expediata','Livrata'];
+ var stepsHtml = stepLabels.map(function(lbl, i) {
+ var isDone = i < curStep;
+ var isActive = i === curStep;
+ var dotClass = isDone ? 'done' : (isActive ? 'active' : '');
+ var checkSvg = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+ var truckSvg = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>';
+ var homeSvg = '<svg width="14" height="14" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>';
+ var icon = isDone ? checkSvg : (isActive && i === 2 ? truckSvg : (isActive ? checkSvg : homeSvg));
+ var lineAfter = i < stepLabels.length - 1 ? '<div class="ts-line' + (isDone ? ' done' : '') + '"></div>' : '';
+ return '<div class="ts"><div class="ts-dot ' + dotClass + '">' + icon + '</div><div class="ts-label">' + lbl + '</div></div>' + lineAfter;
+ }).join('');
+
+ return '<div class="tracking-card">' +
+ '<div class="track-header">' +
+ '<div><div class="track-id">' + escHtml(o.id) + '</div>' +
+ (o.tracking_courier ? '<div style="font-size:12.5px;color:var(--mid);margin-top:2px">' + escHtml(o.tracking_courier) + '</div>' : '') +
+ '</div>' +
+ getStatusBadge(o.status) +
+ '</div>' +
+ '<div class="track-steps">' + stepsHtml + '</div>' +
+ '<div style="margin-top:14px;padding:11px 14px;background:#f8f9fb;border-radius:8px;font-size:13px;color:var(--mid);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">' +
+ '<span><strong style="color:var(--dark)">AWB:</strong> <span style="font-family:monospace;font-weight:700;color:var(--dark);letter-spacing:.5px">' + escHtml(o.tracking_number) + '</span></span>' +
+ (trackUrl ? '<a href="' + escHtml(trackUrl) + '" target="_blank" rel="noopener" style="color:var(--red);font-weight:700;font-size:13px">Urmareste coletul ↗</a>' : '') +
+ '</div>' +
+ '</div>';
+ }).join('');
+}
+
+function showDashboard(user) {
+ document.getElementById('loginWall').style.display = 'none';
+ document.getElementById('accountDash').classList.add('show');
+ document.getElementById('accEmail').textContent = user.email;
+ var name = user.name || ((user.firstName || '') + ' ' + (user.lastName || '')).trim();
+ document.getElementById('accName').textContent = name;
+ document.getElementById('accInitials').textContent = name.split(' ').map(function(n){return n[0]||'';}).join('').substring(0,2).toUpperCase();
+ loadOrdersFromApi();
+}
+
+function showPanel(id, el) {
+ document.querySelectorAll('.acc-panel').forEach(function(p){p.classList.remove('active');});
+ document.querySelectorAll('.acc-nav-item').forEach(function(n){n.classList.remove('active');});
+ document.getElementById('panel-'+id).classList.add('active');
+ if (el) el.classList.add('active');
+}
+
+// Add message containers if missing
+['login','register'].forEach(function(form) {
+ var container = document.getElementById(form + 'Form');
+ if (container && !document.getElementById(form + 'Msg')) {
+ var msg = document.createElement('div');
+ msg.id = form + 'Msg';
+ msg.style.cssText = 'display:none;font-size:13px;font-weight:600;margin-bottom:10px;padding:8px 12px;border-radius:6px;background:rgba(204,17,17,.08)';
+ container.insertBefore(msg, container.firstChild);
+ }
+});
+
+window.downloadPdf = downloadPdf;
+
+// Auto-login from saved session
+var savedSession = loadSession();
+if (savedSession && savedSession.token && savedSession.user) {
+ fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + savedSession.token } })
+ .then(function(r){ return r.json(); })
+ .then(function(data) {
+ if (data.ok) { showDashboard(data.user); saveSession(savedSession.token, data.user); }
+ else { clearSession(); }
+ })
+ .catch(function() { showDashboard(savedSession.user); });
+}
+
 // Hash navigation
-const hash=location.hash.replace('#','');
-if(hash&&document.getElementById('panel-'+hash)){
-  if(user){const navItem=document.querySelector('[onclick*="'+hash+'"]');if(navItem)showPanel(hash,navItem);}
+var hash = location.hash.replace('#','');
+if (hash && document.getElementById('panel-'+hash) && savedSession && savedSession.user) {
+ var navItem = document.querySelector('[onclick*="'+hash+'"]');
+ if (navItem) showPanel(hash, navItem);
 }
 </script>
-<script src="api.js?v=20260409-categories-4"></script>
+<script src="api.js?v=20260416-clean-1"></script>
+
+<!-- ===== WHATSAPP FLOATING BUTTON ===== -->
+<style>
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;align-items:center;gap:10px;flex-direction:row-reverse}
+.wa-btn{width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.45);cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;flex-shrink:0}
+.wa-btn:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(37,211,102,.6)}
+.wa-btn svg{width:30px;height:30px;fill:#fff}
+.wa-tooltip{background:#fff;color:#1a1a1a;font-size:13px;font-weight:600;padding:7px 14px;border-radius:20px;box-shadow:0 2px 12px rgba(0,0,0,.15);white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none}
+.wa-float:hover .wa-tooltip{opacity:1;transform:translateX(0)}
+@keyframes wa-pulse{0%,100%{box-shadow:0 4px 16px rgba(37,211,102,.45)}50%{box-shadow:0 4px 28px rgba(37,211,102,.75)}}
+.wa-btn{animation:wa-pulse 2.5s ease-in-out infinite}
+.wa-btn:hover{animation:none}
+</style>
+<div class="wa-float">
+ <a class="wa-btn" href="https://wa.me/40731284932?text=Bun%C4%83%20ziua%2C%20am%20o%20%C3%AEntrebare%20despre%20un%20produs." target="_blank" rel="noopener" aria-label="Chat pe WhatsApp">
+ <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+ </a>
+ <span class="wa-tooltip">Chat pe WhatsApp</span>
+</div>
+<!-- ===== END WHATSAPP ===== -->
 </body></html>
-
-
-
-
-
-
-
-
-
-
 

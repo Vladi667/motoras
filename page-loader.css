@@ -14,7 +14,7 @@
 }
 
 html.page-loader-boot body {
-  opacity: 0;
+  opacity: 1;
 }
 
 body.page-loader-lock {

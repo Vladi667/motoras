@@ -4,12 +4,18 @@
   "redirects": [],
   "headers": [
     {
+      "source": "/catalog-micro.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    },
+    {
       "source": "/catalog.json",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=600" }]
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }]
     },
     {
       "source": "/catalog-lite.json",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=600" }]
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }]
     },
     {
       "source": "/supplier-feed.xml",
@@ -20,12 +26,20 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=600" }]
     },
     {
-      "source": "/(.*)\\.html",
+      "source": "/supplier-margins.json",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=60, stale-while-revalidate=120" }]
+    },
+    {
+      "source": "/(.*)\\.html",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }]
     },
     {
       "source": "/(.*)\\.js",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=3600" }]
+    },
+    {
+      "source": "/product-sitemap.xml",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }]
     },
     {
       "source": "/assets/(.*)",
@@ -33,6 +47,37 @@
     }
   ],
   "routes": [
+    { "src": "/api/webhook", "dest": "/api/orders" },
+    { "src": "/api/admin/([^/]+)", "dest": "/api/admin/[action]?action=$1" },
+    { "src": "/api/auth/([^/]+)", "dest": "/api/auth/[action]?action=$1" },
+    { "src": "/piese-auto", "dest": "/category.html?cat=piese" },
+    { "src": "/detailing", "dest": "/category.html?cat=detailing" },
+    { "src": "/baterii", "dest": "/category.html?cat=baterii" },
+    { "src": "/uleiuri", "dest": "/category.html?cat=uleiuri" },
+    { "src": "/filtre", "dest": "/category.html?cat=filtre" },
+    { "src": "/prelate", "dest": "/category.html?cat=prelate" },
+    { "src": "/huse-prelate", "dest": "/category.html?cat=huse-prelate" },
+    { "src": "/ambreiaje", "dest": "/category.html?cat=ambreiaje" },
+    { "src": "/accesorii", "dest": "/category.html?cat=accesorii" },
+    { "src": "/piese-auto-online", "dest": "/piese-auto-online.html" },
+    { "src": "/piese-auto-bucuresti", "dest": "/piese-auto-bucuresti.html" },
+    { "src": "/magazin-piese-auto-romania", "dest": "/magazin-piese-auto-romania.html" },
+    { "src": "/piese-auto-livrare-nationala", "dest": "/piese-auto-livrare-nationala.html" },
+    { "src": "/piese-auto-ieftine", "dest": "/piese-auto-ieftine.html" },
+    { "src": "/cumpara-piese-auto-online", "dest": "/cumpara-piese-auto-online.html" },
+    { "src": "/piese-auto-dupa-marca-si-model", "dest": "/piese-auto-dupa-marca-si-model.html" },
+    { "src": "/verificare-compatibilitate-piese-auto", "dest": "/verificare-compatibilitate-piese-auto.html" },
+    { "src": "/piese-auto-dupa-cod-oem", "dest": "/piese-auto-dupa-cod-oem.html" },
+    { "src": "/piese-auto-dacia-logan", "dest": "/piese-auto-dacia-logan.html" },
+    { "src": "/piese-auto-volkswagen-golf", "dest": "/piese-auto-volkswagen-golf.html" },
+    { "src": "/piese-auto-bmw-seria-3", "dest": "/piese-auto-bmw-seria-3.html" },
+    { "src": "/piese-auto-audi-a4", "dest": "/piese-auto-audi-a4.html" },
+    { "src": "/piese-auto-skoda-octavia", "dest": "/piese-auto-skoda-octavia.html" },
+    { "src": "/piese-auto-ford-focus", "dest": "/piese-auto-ford-focus.html" },
+    { "src": "/piese-auto-opel-astra", "dest": "/piese-auto-opel-astra.html" },
+    { "src": "/piese-auto-renault-clio", "dest": "/piese-auto-renault-clio.html" },
+    { "src": "/harta-pagini-piese-auto", "dest": "/harta-pagini-piese-auto.html" },
+    { "src": "/product-sitemap.xml", "dest": "/api/product-sitemap" },
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/404.html", "status": 404 }
   ]
