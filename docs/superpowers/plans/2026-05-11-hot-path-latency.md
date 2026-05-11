@@ -1,10 +1,17 @@
-# Hot Path Latency — Phase 3
+# Hot Path Latency — Phase 3 (zero-risk revision)
 
 > **For agentic workers:** Same execution style as Phase 1 and Phase 2. Each task is independently shippable. Each task ends with one commit. Gates are explicit.
 
-**Goal:** Drop `/api/products` median latency from ~520 ms warm / ~3.3 s cold down toward edge-cache territory (<100 ms p95 for cached responses, <800 ms cold), without architectural rework.
+**Revision history:**
+- Initial draft (2026-05-11): goal-driven plan with cache invalidation, full legacy removal, and aspirational latency targets.
+- Zero-risk revision (2026-05-11): three changes after risk audit:
+  1. **Task 1 now only caches price-free responses.** Anything containing prices/stock/badges (which can change on admin write) is left uncached. The "Vercel purge API" path is removed because that API doesn't exist for serverless responses. Result: no stale-price risk.
+  2. **Task 2 now STUBS legacy `_ensureCatalog` as `return []` instead of deleting it.** Heavy classifier code (25 KB) still gets removed, but the safety-net surface is preserved so any forgotten caller gets an empty array instead of a `ReferenceError`. Result: no silent-breakage risk.
+  3. **Success criteria now express HIT vs MISS distributions explicitly**, not aspirational p50 numbers. Result: no over-promising.
 
-**Architecture:** No changes. Same Vercel serverless functions, same gateway, same suppliers. Just smarter caching, observability, and legacy-code removal.
+**Goal:** Cut `/api/products?view=categories` to ≤ 100 ms on cache HIT (was 520 ms) without ever returning stale prices, and drop `api.js` raw size by ~25 KB without removing the legacy-fallback safety net.
+
+**Architecture:** No changes. Same Vercel serverless functions, same gateway, same suppliers. Just smarter caching of price-free responses and dead-code removal.
 
 **Tech stack:** unchanged.
 
@@ -27,15 +34,16 @@
 
 ---
 
-## Success Criteria
+## Success Criteria (revised for honesty)
 
-- `/api/products?view=categories` median latency: ≤ 100 ms (was 520 ms).
-- `/api/products?view=featured&limit=12` median latency: ≤ 150 ms (was 520 ms).
-- `/api/products?cat=<cat>&limit=24&page=1` median latency: ≤ 200 ms (was 530 ms).
-- `/api/products?id=<id>` median latency: ≤ 300 ms (was 520 ms).
-- Cache invalidation respects admin changes within ≤ 10 minutes (margin save → public price update).
-- `api.js` raw size drops from ~85 KB to ≤ 60 KB.
-- Production has no console 404s for `/text-normalize.js` / `/text-fix.js` / `/_mojibake_fix.js` after the legacy stubs are removed AND CDN caches rotate.
+- `/api/products?view=categories` (price-free; safe to cache aggressively):
+  - **Cache HIT** (returning visitors, ~80 % of homepage traffic): ≤ 100 ms (was 520 ms).
+  - **Cache MISS** (first visitor in region after TTL expiry): unchanged ~520 ms.
+- `/api/products?view=featured`, `?cat=...`, `?id=...` (contain prices/stock — NOT cached at edge): unchanged ~520 ms. **Zero stale-price risk by design.**
+- **Zero risk that any admin change is visible to customers later than the next page request.** Achieved by NOT caching anything that contains admin-mutable data.
+- `api.js` raw size drops from ~85 KB to ≤ 60 KB by removing the dead client-side classifier (~25 KB).
+- **The `_ensureCatalog` symbol still exists** as a one-line `return []` stub so any forgotten caller fails gracefully instead of throwing `ReferenceError`.
+- Production has no console 404s for `/text-normalize.js` / `/text-fix.js` / `/_mojibake_fix.js` after Phase 2's CDN cache window (≥ 48 h) and the script tags are removed.
 - Server-Timing headers expose `cache`, `db`, and `total` durations on every `/api/products` response so future regressions are detectable from any browser.
 
 ## Non-Goals
@@ -48,24 +56,35 @@
 
 ---
 
-## Task 1: Edge-cacheable `/api/products` Responses
+## Task 1: Edge-cache ONLY the Price-Free `/api/products` Responses
 
 **Files:**
-- Modify: `vercel.json` (route headers for `/api/products*`)
-- Modify: `api/products/index.js` (set `Cache-Control` on safe views)
-- Modify: `lib/api/catalog/gateway.js` (cache key includes admin-config hash so margin changes invalidate)
-- Modify: `api/admin/[action].js` (`writeMargins` and `writeProductOverride` clear gateway cache and respond with a cache-busting timestamp)
+- Modify: `api/products/index.js` (set `Cache-Control` only on responses with zero admin-mutable content)
+- Modify: `lib/api/catalog/gateway.js` (Server-Timing instrumentation, classify which response types are price-free)
 
-**Pre-flight:** The current `vercel.json` does not set Cache-Control on `/api/products`. Responses are returned with `Cache-Control: no-store` by default for serverless functions. We need to opt the function into edge caching deliberately.
+**Design principle that brings stale-price risk to ZERO:**
+
+A response is **safe to cache** if and only if it cannot change due to an admin action. The only response that satisfies this on `/api/products` is `?view=categories` — a list of `{key, label, count}` triples with no price, no stock, no badge.
+
+| Response type | Contains | Admin-mutable? | Cache decision |
+|---|---|---|---|
+| `?view=categories` | category key + label + count | only on supplier-source-disabled (rare) | **CACHE 5 min** |
+| `?view=featured` | products with price + stock | yes (margin, override) | **NO CACHE** |
+| `?cat=...` | products with price + stock | yes | **NO CACHE** |
+| `?id=...` | one product with price + stock | yes | **NO CACHE** |
+| `?view=summary` | counts only | only on source-disabled | **CACHE 5 min** |
+
+This means **every customer-visible price always comes from a fresh function execution.** The 5-minute cache on categories only ever makes the count slightly stale — an entirely cosmetic effect that the user-base of one admin can tolerate.
+
+**No Vercel cache-purge API is invoked anywhere.** That API does not exist for serverless response caching, and the design no longer depends on it.
 
 - [ ] **Step 1: Add Server-Timing to gateway**
 
-  In `lib/api/catalog/gateway.js`, wrap `queryProducts`, `getView`, `getProduct` with a thin timer that returns `{ result, timings }`. Surface `timings` to the handler via a hidden response property OR via a `Server-Timing` HTTP header. Header is preferred — DevTools shows it inline.
+  In `lib/api/catalog/gateway.js`, instrument `queryProducts`, `getView`, `getProduct` with a millisecond timer per phase. Surface timings via `Server-Timing` HTTP header on every response so DevTools shows them inline.
 
   Sketch:
 
   ```js
-  // gateway.js
   async function timed(label, fn) {
     const t0 = Date.now();
     const result = await fn();
@@ -73,120 +92,118 @@
   }
   ```
 
-  Handler attaches `Server-Timing: cache;dur=N, db;dur=N, total;dur=N`.
+  Handler attaches `Server-Timing: total;dur=N, gateway;dur=N`.
 
-- [ ] **Step 2: Compute admin-config hash for cache key**
+- [ ] **Step 2: Set Cache-Control ONLY on price-free views**
 
-  In `lib/api/catalog/admin-config.js`, add `configHash()` that returns a short string built from margins + overrides JSON. Use that hash as the `_etag` value in gateway responses so the CDN can bust on admin change.
-
-  ```js
-  const crypto = require('crypto');
-  function configHash(config) {
-    return crypto.createHash('sha1').update(JSON.stringify(config)).digest('hex').slice(0, 12);
-  }
-  ```
-
-- [ ] **Step 3: Set Cache-Control on safe responses**
-
-  In `api/products/index.js`, after computing the response:
+  In `api/products/index.js`, after computing the response, decide:
 
   ```js
-  const isMutation = query.method && query.method !== 'GET';
-  const isPersonalized = false; // /api/products is never user-specific
-  if (!isMutation && !isPersonalized) {
-    const tag = result.configHash || 'static';
+  const view = String(query.view || '').trim().toLowerCase();
+  const SAFE_VIEWS = new Set(['categories', 'summary', 'brands', 'sources']);
+  const isPriceFree = SAFE_VIEWS.has(view) && !query.id && !query.sku && !query.oem;
+
+  if (isPriceFree) {
     res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600');
-    res.setHeader('ETag', `"${tag}"`);
-    res.setHeader('Vary', '');
+  } else {
+    res.setHeader('Cache-Control', 'no-store');
   }
   ```
 
-  Vercel's edge CDN respects `s-maxage` — 5 minutes hot cache, 1 hour stale-while-revalidate. Repeat visitors within 5 min get instant edge responses (~30 ms).
+  Result: `?view=categories` lands in the Vercel edge cache and serves at ~50 ms for ~99 % of repeat traffic. Every other call goes through the function (~520 ms) and reflects current admin state instantly.
 
-- [ ] **Step 4: Admin write paths must purge edge cache**
-
-  In `api/admin/[action].js`, after a successful `writeMargins` or `writeProductOverride`, call Vercel's purge API:
-
-  ```js
-  async function purgeProductsCache() {
-    if (!process.env.VERCEL_API_TOKEN || !process.env.VERCEL_PROJECT_ID) return;
-    try {
-      await fetch(`https://api.vercel.com/v1/data-cache/purge?projectId=${process.env.VERCEL_PROJECT_ID}`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${process.env.VERCEL_API_TOKEN}` },
-        body: JSON.stringify({ paths: ['/api/products*'] }),
-      });
-    } catch (_) { /* best-effort */ }
-  }
-  ```
-
-  Also bump in-memory cache: call `clearCache('gateway:')` from `lib/api/catalog/cache.js`.
-
-- [ ] **Step 5: Verify cache behavior**
-
-  Local + production smoke:
+- [ ] **Step 3: Verify with curl**
 
   ```bash
-  # First request → MISS, function runs
-  curl -sI "https://www.pieseautomotoras.ro/api/products?view=categories" | grep -iE "cache|server-timing|x-vercel"
-  # Second request → HIT, edge returns
-  curl -sI "https://www.pieseautomotoras.ro/api/products?view=categories" | grep -iE "cache|server-timing|x-vercel"
+  # First request → MISS, ~520 ms
+  curl -sI "https://www.pieseautomotoras.ro/api/products?view=categories"
+  # Second request → HIT, ~50-100 ms, x-vercel-cache: HIT
+  curl -sI "https://www.pieseautomotoras.ro/api/products?view=categories"
+  # Confirm price-bearing view is NOT cached
+  curl -sI "https://www.pieseautomotoras.ro/api/products?cat=detailing&limit=24" | grep -i cache-control
+  # Expected: Cache-Control: no-store
   ```
 
-  Expected: second call shows `x-vercel-cache: HIT` and dramatically shorter latency.
+- [ ] **Step 4: Admin write paths must NOT need to purge anything**
 
-- [ ] **Step 6: Commit**
+  Because nothing admin-mutable is cached, admin writes work as today. No new code in `api/admin/[action].js`. No Vercel cache-purge API call. No env-var requirements.
+
+- [ ] **Step 5: Commit**
 
   ```bash
-  git add vercel.json api/products/index.js lib/api/catalog/gateway.js lib/api/catalog/admin-config.js api/admin/[action].js
-  git commit -m "perf: edge-cache /api/products with admin-config-aware invalidation"
+  git add api/products/index.js lib/api/catalog/gateway.js
+  git commit -m "perf: edge-cache only the price-free /api/products responses (view=categories|summary|brands|sources)"
   ```
 
 ---
 
-## Task 2: Drop Legacy `_ensureCatalog` + Client-Side Classifier From `api.js`
+## Task 2: Replace Legacy Code With No-Op Stubs (keep the safety surface)
 
 **Files:**
 - Modify: `api.js`
 
-**Pre-flight gate:** Production must have ≥ 48 h of stable `/api/products` traffic with no recurring 500s. Run:
+**Design principle that brings the safety-net risk to ZERO:**
 
-```bash
-npx vercel logs https://www.pieseautomotoras.ro --since 48h 2>&1 | grep -iE "error|500" | head -20
-```
+The 25 KB of code in `api.js` we want gone consists of two layers:
 
-If matches appear, halt and investigate.
+1. **The heavy classifier**: `_subcategoryConfig` (40 lines of regex), `_resolveCategory`, `_resolveSubcategory`, `_scoreMatches`, `_subcategoryLabel`, `_categoryLabel`, `_stripDiacritics`, `_flattenSpecText`, `_inferCategory`. **DELETE.** These are now duplicated server-side in `lib/api/catalog/classify.js`; the browser never needs them again.
 
-- [ ] **Step 1: Inventory symbols to remove**
+2. **The fallback fetch chain**: `_ensureCatalog`, `_fetchCatalogJson`, `_fetchFeedCatalogs`, `_normalizeCatalogItem`, `_mergeCatalogItems`, `_readCatalogCache`, `_writeCatalogCache`, `_needsFullCatalog`, `_getCatalogCandidates`, the three `_*CatalogCandidates` constants, `_CATALOG_CACHE_*`, `_feedSources`. **STUB** the public entry point (`_ensureCatalog`) so any forgotten caller gets `[]` instead of `ReferenceError`. DELETE the rest because nothing else outside `_ensureCatalog` should reference them.
+
+This preserves the safety surface: if a code path I missed in the audit calls `await _ensureCatalog()`, the call returns `[]` (no crash, no silent fallback to deleted catalog files, no broken UX worse than what we already have when the API is unreachable).
+
+**Pre-flight gate:** Production must have ≥ 48 h of stable `/api/products` traffic with no recurring 500s. Verify in Vercel dashboard → motoras project → Logs → past 48 h. If any `/api/products` 500s appear, halt and investigate.
+
+- [ ] **Step 1: Inventory symbols**
 
   ```bash
   grep -nE "^(function|const) (_ensureCatalog|_fetchCatalogJson|_fetchFeedCatalogs|_microCatalogCandidates|_liteCatalogCandidates|_fullCatalogCandidates|_feedSources|_CATALOG_CACHE_VERSION|_CATALOG_CACHE_KEY|_CATALOG_CACHE_TTL|_readCatalogCache|_writeCatalogCache|_needsFullCatalog|_getCatalogCandidates|_normalizeCatalogItem|_mergeCatalogItems|_resolveCategory|_resolveSubcategory|_subcategoryConfig|_subcategoryLabel|_categoryLabel|_stripDiacritics|_flattenSpecText|_inferCategory|_scoreMatches)\b" api.js
   ```
 
-  Expected: ~20 declarations. Confirm zero MotApi public methods reference them after Phase 1 Task 10.
+  Expected: ~20 declarations.
 
-- [ ] **Step 2: Replace each fallback with a graceful empty-state response**
+- [ ] **Step 2: Rewrite remote-first callers to NOT fall back through `_ensureCatalog`**
 
-  Any remaining caller that does `(await _ensureCatalog()).filter(...)` should be rewritten to call `/api/products` with the same filter. If the request fails, return `{ ok: false, items: [], error: 'Catalogul nu este disponibil momentan.' }` instead of silently falling back to the local cache.
+  Search `api.js` for `await _ensureCatalog`. For each occurrence:
+  - If inside a `MotApi.*` method: rewrite the fallback path to return `{ ok: false, items: [], error: 'Catalogul nu este disponibil momentan.' }`. Phase 1 Task 10 already did most of this; this step catches anything missed.
+  - If inside an internal helper: keep the call. After Step 3 it will receive `[]` from the stub, which is safe.
 
-  Specifically, in `api.js` re-inspect:
-  - `getCatalogSnapshot` — paginate `/api/products?limit=500` (already remote-first in Phase 1 — verify)
-  - `getHomepageData` fallback to `getCatalogSnapshot()` — keep, it now hits the remote
-  - `getBravusCatalog` fallback that uses `_filterLocalBravusItems(await _ensureCatalog(), …)` — rewrite to call `/api/bravus` only
-  - `getProduct(id)` — already remote-first (Phase 1)
-  - `_setupProductDataPrefetching` — already uses `_requestJson`
+- [ ] **Step 3: Delete the heavy classifier — keep the safety stub**
 
-- [ ] **Step 3: Delete the legacy symbols**
+  Replace the multi-hundred-line block containing `_subcategoryConfig` through `_resolveCategory` with a header comment. Then replace `_ensureCatalog` (currently ~80 lines of fetch-fallback-merge logic) with:
 
-  Remove their declarations and any orphaned helper they relied on. After this, the only places `catalog-micro.json` / `catalog-lite.json` / `catalog.json` / `supplier-feed.xml` appear are inside `_audit/` (immune) and in deploy-time bundles read by serverless functions.
+  ```js
+  // Phase 3 (Task 2): legacy client-side classifier and catalog-fetch fallback
+  // chain were removed. All product data now comes exclusively from
+  // /api/products. This stub stays as a safety surface so any internal
+  // caller that still references _ensureCatalog returns [] instead of
+  // throwing ReferenceError. Safe to delete entirely once the codebase has
+  // been verified clean for one full release cycle.
+  async function _ensureCatalog() { return []; }
+  ```
+
+  Same one-line stub treatment for `_resolveSubcategory(item)` (returns `'general'`) and `_subcategoryLabel(cat, sub)` (returns `'Selecție'`) if any MotApi method still calls them for display fallback.
+
+  DELETE outright (no stub needed because nothing should ever call them again):
+  - `_microCatalogCandidates`, `_liteCatalogCandidates`, `_fullCatalogCandidates`, `_feedSources`
+  - `_CATALOG_CACHE_VERSION`, `_CATALOG_CACHE_KEY`, `_CATALOG_CACHE_TTL`
+  - `_readCatalogCache`, `_writeCatalogCache`, `_needsFullCatalog`, `_getCatalogCandidates`
+  - `_fetchCatalogJson`, `_fetchFeedCatalogs`, `_normalizeCatalogItem`, `_mergeCatalogItems`
+  - `_subcategoryConfig`, `_resolveCategory`, `_scoreMatches`, `_categoryLabel`, `_stripDiacritics`, `_flattenSpecText`, `_inferCategory`
 
 - [ ] **Step 4: Static grep validation**
 
   ```bash
-  grep -nE "_ensureCatalog|_fetchCatalogJson|_fetchFeedCatalogs|catalog-micro|catalog-lite|catalog\.json|supplier-feed" api.js
+  grep -nE "catalog-micro|catalog-lite|catalog\.json|supplier-feed\.xml|supplier-feed-globiz" api.js
   ```
 
-  Expected: zero matches (except inline comments referencing the removal).
+  Expected: zero matches. The constants and fetchers are gone.
+
+  ```bash
+  grep -n "async function _ensureCatalog" api.js
+  ```
+
+  Expected: exactly one match — the safety stub.
 
 - [ ] **Step 5: Run perf-audit**
 
@@ -204,7 +221,7 @@ If matches appear, halt and investigate.
 
   ```bash
   git add api.js
-  git commit -m "perf: remove legacy _ensureCatalog fallback and client-side classifier"
+  git commit -m "perf: remove client-side classifier and 3-tier fetch chain; keep _ensureCatalog as safety stub"
   ```
 
 ---
@@ -362,17 +379,23 @@ If matches appear, halt and investigate.
 
   Run the 5×latency probe per endpoint, capture median and tail.
 
-- [ ] **Step 2: Side-by-side**
+- [ ] **Step 2: Side-by-side with HIT vs MISS distinction**
 
-  | Endpoint | Pre-Phase-3 warm | Post-Phase-3 HIT | Δ |
-  |---|---:|---:|---:|
+  | Endpoint | Pre | Post MISS | Post HIT | Cache? |
+  |---|---:|---:|---:|---|
+  | `/api/products?view=categories` | 520 ms | ~520 ms (1 in 50+) | ≤ 100 ms (rest) | yes |
+  | `/api/products?view=summary` | 520 ms | ~520 ms (1 in 50+) | ≤ 100 ms (rest) | yes |
+  | `/api/products?view=featured` | 520 ms | 520 ms | n/a | **no** (prices) |
+  | `/api/products?cat=...` | 530 ms | 530 ms | n/a | **no** (prices) |
+  | `/api/products?id=...` | 520 ms | 520 ms | n/a | **no** (prices) |
 
-  Required improvements:
-  - `view=categories`: ≤ 100 ms (from 520 ms) — **≥ 80% faster**
-  - `view=featured`: ≤ 150 ms — **≥ 70% faster**
-  - `cat=<cat>`: ≤ 200 ms — **≥ 60% faster**
-  - `id=<id>`: ≤ 300 ms — **≥ 40% faster**
-  - `api.js` raw: ≤ 60 KB (from ~85 KB) — **≥ 30% smaller**
+  Required outcomes:
+  - `view=categories` HIT latency ≤ 100 ms (≥ 80 % faster than today's 520 ms)
+  - HIT rate ≥ 90 % within the first hour of traffic (verifiable via `x-vercel-cache: HIT` header sampling)
+  - Price-bearing endpoints **unchanged** by design — zero stale-price risk
+  - `api.js` raw size ≤ 60 KB (≥ 30 % smaller)
+  - `_ensureCatalog` exists as a stub (one-line `return []`)
+  - Zero `ReferenceError` in production logs from removed symbols
 
 - [ ] **Step 3: Commit**
 
@@ -383,22 +406,26 @@ If matches appear, halt and investigate.
 
 ---
 
-## Risks And Mitigations (every task → zero)
+## Risks And Mitigations (every task → genuinely zero)
 
-### Task 1 (edge cache)
-| Risk | Mitigation → zero |
-|---|---|
-| Admin saves margins → users see stale prices for 5 minutes | TTL is 5 min by design. Acceptable for non-flash-sale e-commerce. Admin write also fires Vercel cache purge for instant invalidation. |
-| Cache key ignores admin overrides → hidden products leak | `ETag` includes `configHash(margins + overrides)`. Any change to either flips the cache key. |
-| Edge cache pollution from query-string variations | Use `Vary` thoughtfully; cache on full URL incl. query. Vercel default is correct here. |
-| `x-vercel-cache: STALE` returned during SWR window | That's the desired behavior — user gets stale fast, revalidation happens in background. |
+### Task 1 (edge cache) — risks neutralized by design
 
-### Task 2 (legacy code removal)
-| Risk | Mitigation → zero |
+| Original risk | Why it's now zero |
 |---|---|
-| `/api/products` has unknown 500s in last 48 h | Explicit pre-flight `vercel logs --since 48h` grep. Halts if any errors. |
-| Hidden caller still uses `_ensureCatalog` | Static grep before deletion; full HTML smoke after. |
-| Removing fallback = site goes dark on /api/products outage | Replace silent fallback with explicit "Catalogul nu este disponibil momentan." message + retry hint. Better UX than the silent bug it was masking. |
+| Admin saves margins → users see stale prices for 5 min | **Prices are never cached.** Only `?view=categories` / `summary` / `brands` / `sources` get cached. None contain prices. |
+| Cache invalidation via Vercel API may not exist | **No purge API is invoked.** The plan never needs one because admin-mutable responses are not cached in the first place. |
+| Hidden products leak via stale cache | **Hidden products don't appear in cached responses.** The cached responses are counts/categories, computed against the live admin config at every cache miss. After the next miss (≤ 5 min), counts reflect the hide. The product itself was never in a cached response that the customer would see. |
+| Edge cache fragmented by query strings | The cached endpoints have a tiny query-space (only `view=` values). High cache hit rate by construction. |
+| CDN-edge cache stampede on TTL expiry | `stale-while-revalidate=3600` lets the edge serve stale while one request rebuilds. Vercel coordinates per-region. |
+
+### Task 2 (legacy code removal) — risks neutralized by design
+
+| Original risk | Why it's now zero |
+|---|---|
+| `/api/products` has unknown 500s in last 48 h | Explicit pre-flight Vercel dashboard log review. Halts if any errors. |
+| Hidden caller still uses `_ensureCatalog` after deletion | **`_ensureCatalog` is kept as a one-line stub returning `[]`.** Any forgotten caller succeeds with empty data instead of crashing. The 25 KB savings come from deleting the classifier underneath, not from removing the entry point. |
+| Removing fallback = site goes dark on /api/products outage | **Same as today.** The stub returns `[]`, which produces an empty-state message — the same UX the silent fallback would have produced once `catalog-micro.json` started returning 404 (Phase 2 Task 4). No new failure mode. |
+| Static-file fallback paths still referenced | Static grep validates zero references to catalog files in `api.js` after the refactor. |
 
 ### Task 3 (stub deletion)
 | Risk | Mitigation → zero |
@@ -415,8 +442,9 @@ If matches appear, halt and investigate.
 ### Task 5 (deploy)
 | Risk | Mitigation → zero |
 |---|---|
-| First post-deploy request shows MISS → users see normal latency | Pre-warm via 5 curl hits to each endpoint immediately after deploy. |
-| Cache purge endpoint fails silently if env vars missing | Setup gate: confirm `VERCEL_API_TOKEN` + `VERCEL_PROJECT_ID` env vars present in Vercel before Task 1 deploy. |
+| First post-deploy request shows MISS → users see normal latency | Pre-warm via curl hits to each cached endpoint immediately after deploy. The cached endpoints are very few (4 view values) so warming is exhaustive. |
+| Cache purge endpoint fails silently if env vars missing | **N/A — no purge endpoint is invoked.** No env vars required. |
+| Edge cache for the bad build outlives rollback | Only `view=categories|summary|brands|sources` is cached, max 5 min. Rolling back a price-bearing path is instant because nothing is cached. The worst case is one stale category-count for ≤ 5 min after rollback. |
 
 ### Task 6 (measure)
 Zero-risk (read-only).
