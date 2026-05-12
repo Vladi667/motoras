@@ -58,7 +58,6 @@
     { "src": "/filtre", "dest": "/category.html?cat=filtre" },
     { "src": "/prelate", "dest": "/category.html?cat=prelate" },
     { "src": "/huse-prelate", "dest": "/category.html?cat=huse-prelate" },
-    { "src": "/ambreiaje", "dest": "/category.html?cat=ambreiaje" },
     { "src": "/accesorii", "dest": "/category.html?cat=accesorii" },
     { "src": "/piese-auto-online", "dest": "/piese-auto-online.html" },
     { "src": "/piese-auto-bucuresti", "dest": "/piese-auto-bucuresti.html" },

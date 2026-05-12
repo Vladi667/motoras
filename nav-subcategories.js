@@ -23,9 +23,6 @@
  'huse-prelate': {
  title: 'Huse Exterior',
  },
- ambreiaje: {
- title: 'Ambreiaje',
- },
  };
 
  function parseCategoryFromHref(href) {

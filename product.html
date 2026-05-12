@@ -2281,7 +2281,7 @@ async function initProductPage() {
  document.getElementById('prodSku').textContent = prod.sku;
  document.getElementById('prodPrice').textContent = formatCatalogPrice(prod.price);
  document.getElementById('prodDesc').textContent = prod.desc;
- const categoryLabels = { piese: 'Piese Auto', accesorii: 'Accesorii Auto', detailing: 'Detailing', baterii: 'Baterii & Acumulatori', filtre: 'Filtre', prelate: 'Prelate', 'huse-prelate': 'Huse Exterior', ambreiaje: 'Ambreiaje' };
+ const categoryLabels = { piese: 'Piese Auto', accesorii: 'Accesorii Auto', detailing: 'Detailing', baterii: 'Baterii & Acumulatori', filtre: 'Filtre', prelate: 'Prelate', 'huse-prelate': 'Huse Exterior' };
  const bcCat = document.getElementById('bcCat');
  const bcSub = document.getElementById('bcSub');
  const bcSubSep = document.getElementById('bcSubSep');
@@ -2341,8 +2341,8 @@ async function initProductPage() {
  var canonical = document.querySelector('link[rel="canonical"]');
  if (canonical) canonical.href = 'https://www.pieseautomotoras.ro/product.html?id=' + encodeURIComponent(prod.id || prod.sku);
  // BreadcrumbList schema
- var catLabels = { piese: 'Piese Auto', accesorii: 'Accesorii Auto', detailing: 'Detailing Auto', baterii: 'Baterii & Acumulatori', filtre: 'Filtre Auto', prelate: 'Prelate Auto', 'huse-prelate': 'Huse Exterior', ambreiaje: 'Ambreiaje' };
- var catSlug = { piese: 'piese-auto', accesorii: 'accesorii', detailing: 'detailing', baterii: 'baterii', filtre: 'filtre', prelate: 'prelate', 'huse-prelate': 'huse-prelate', ambreiaje: 'ambreiaje' };
+ var catLabels = { piese: 'Piese Auto', accesorii: 'Accesorii Auto', detailing: 'Detailing Auto', baterii: 'Baterii & Acumulatori', filtre: 'Filtre Auto', prelate: 'Prelate Auto', 'huse-prelate': 'Huse Exterior' };
+ var catSlug = { piese: 'piese-auto', accesorii: 'accesorii', detailing: 'detailing', baterii: 'baterii', filtre: 'filtre', prelate: 'prelate', 'huse-prelate': 'huse-prelate' };
  var bc2 = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
  { '@type': 'ListItem', position: 1, name: 'Acas\u0103', item: 'https://www.pieseautomotoras.ro/' },
  { '@type': 'ListItem', position: 2, name: catLabels[prod.cat] || 'Piese Auto', item: 'https://www.pieseautomotoras.ro/' + (catSlug[prod.cat] || 'piese-auto') },
