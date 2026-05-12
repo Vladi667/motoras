@@ -6,32 +6,34 @@
 <link rel='icon' type='image/png' href='assets/favicon.png?v=20260409-4'/>
 <link rel='shortcut icon' href='assets/favicon.png?v=20260409-4'/>
 <link rel='apple-touch-icon' href='assets/favicon.png?v=20260409-4'/>
-<meta name="description" content="Detalii produs | Motoraș. Piese auto originale și aftermarket cu livrare rapidă."/>
+<meta name="description" content="Catalog piese auto | Motoraș. Filtrează după marcă, preț și stoc. Livrare rapidă."/>
 <meta name="robots" content="index, follow"/>
-<link rel="canonical" href="https://www.pieseautomotoras.ro/product.html"/>
-<meta property="og:type" content="product"/>
+<link rel="canonical" href="https://www.pieseautomotoras.ro/category.html"/>
+<meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Motoraș"/>
-<meta property="og:title" content="Produs | Motoraș"/>
-<meta property="og:description" content="Piese auto originale și aftermarket cu livrare rapidă în toată România. Garanție 2 ani."/>
-<meta property="og:url" content="https://www.pieseautomotoras.ro/product.html"/>
+<meta property="og:title" content="Catalog Piese Auto | Motoraș"/>
+<meta property="og:description" content="Catalog piese auto și aftermarket. Filtrează după marcă, preț și stoc. Livrare rapidă în toată România."/>
+<meta property="og:url" content="https://www.pieseautomotoras.ro/category.html"/>
 <meta property="og:image" content="https://www.pieseautomotoras.ro/assets/og-default.png"/>
 <meta property="og:locale" content="ro_RO"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Produs | Motoraș"/>
-<meta name="twitter:description" content="Piese auto originale și aftermarket cu livrare rapidă în toată România."/>
+<meta name="twitter:title" content="Catalog Piese Auto | Motoraș"/>
+<meta name="twitter:description" content="Catalog piese auto și aftermarket. Filtrează după marcă, preț și stoc. Livrare rapidă în toată România."/>
 <meta name="twitter:image" content="https://www.pieseautomotoras.ro/assets/og-default.png"/>
 <link rel="dns-prefetch" href="//www.carhub.ro"/>
 <link rel="dns-prefetch" href="//crm.carguard.ro"/>
+<link rel="dns-prefetch" href="//images.unsplash.com"/>
 
 <script src="page-loader-boot.js" defer></script>
 <link rel="stylesheet" href="page-loader.css?v=20260413-4"/>
 <link rel="stylesheet" href="nav-subcategories.css?v=20260412-4"/>
 <script src="page-loader.js?v=20260413-4" defer></script>
-<title>Produs | Motoraș</title>
+<title>Categorii | Motoraș</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://www.carhub.ro" crossorigin>
 <link rel="preconnect" href="https://crm.carguard.ro" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 
@@ -124,6 +126,8 @@ button{font-family:inherit;cursor:pointer}
  .search-form{display:none}
  /* Mobile search bar — always visible */
  .mob-search-bar{display:flex !important}
+ /* Hide toggle since bar is always visible */
+ .mob-search-toggle{display:none !important}
  /* Account btn: compact icon pill */
  .btn-acc{padding:8px;border:1.5px solid var(--border);background:#fafbfc;border-radius:9px;gap:0;margin-right:0;min-width:38px;justify-content:center}
  .btn-acc:hover{background:#f0f0f0;border-color:var(--dark);transform:none}
@@ -141,8 +145,6 @@ button{font-family:inherit;cursor:pointer}
  .btn-cart svg{color:#fff;stroke:#fff;width:20px;height:20px}
  .cart-count{background:#fff;color:var(--red);top:-7px;right:-7px;font-size:9px;min-width:16px;height:16px}
  .fav-count{top:-6px;right:-6px}
- /* Hide toggle — bar is always visible */
- .mob-search-toggle{display:none !important}
 }
 @media(max-width:480px){
  .header-in{padding:0 12px}
@@ -524,8 +526,11 @@ button{font-family:inherit;cursor:pointer}
  .hero{height:460px}
  .hero-title{font-size:38px;line-height:1.08}
  .hero-in{padding:0 14px 30px}
+ .hero-pill{font-size:10px;padding:4px 12px}
+ .btn-cta{font-size:15px;padding:12px 20px}
  .trust-it{min-width:140px;padding:12px 14px;gap:8px}
  .trust-ico{width:32px;height:32px}
+ .section{padding:28px 0}
 }
 @media(max-width:480px){
  .cookie-in{flex-direction:column;gap:12px}
@@ -535,7 +540,7 @@ button{font-family:inherit;cursor:pointer}
 
 /* === ANIMATIONS === */
 @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-.hero-left>*{animation:fadeUp .75s cubic-bezier(.22,1,.36,1) both}
+.hero-leftC*{animation:fadeUp .75s cubic-bezier(.22,1,.36,1) both}
 .hero-pill{animation-delay:.05s}
 .hero-title{animation-delay:.15s}
 .hero-bullets{animation-delay:.27s}
@@ -612,31 +617,38 @@ button{font-family:inherit;cursor:pointer}
 .btn-cont{width:100%;display:flex;align-items:center;justify-content:center;gap:7px;background:transparent;color:var(--mid);padding:11px;border-radius:9px;border:1.5px solid var(--border);font-size:13px;font-weight:700;cursor:pointer;transition:all .18px;margin-top:9px}
 .btn-cont:hover{border-color:var(--dark);color:var(--dark)}
 
-.prod-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:48px}
-.thumb-list{display:flex;flex-direction:column;gap:8px}
-.thumb{width:68px;height:68px;border-radius:10px;overflow:hidden;border:2px solid var(--border);cursor:pointer;flex-shrink:0;transition:border-color .18s}
-.thumb.active,.thumb:hover{border-color:var(--red)}
-.thumb img{width:100%;height:100%;object-fit:cover}
-.main-img-wrap{flex:1;border-radius:16px;overflow:hidden;background:#f8f8f8;aspect-ratio:1;border:1.5px solid var(--border)}
-.main-img-wrap img{width:100%;height:100%;object-fit:cover}
-.btn-add-main{flex:1;min-width:180px;display:flex;align-items:center;justify-content:center;gap:9px;background:var(--dark);color:#fff;padding:14px 20px;border-radius:10px;border:none;font-size:16px;font-weight:800;font-family:'Barlow Condensed',sans-serif;letter-spacing:.4px;text-transform:uppercase;cursor:pointer;transition:background .2s;box-shadow:0 4px 16px rgba(0,0,0,.18)}
-.btn-add-main:hover{background:var(--red)}
-.btn-buy-now{width:100%;display:flex;align-items:center;justify-content:center;gap:9px;background:var(--red);color:#fff;padding:14px;border-radius:10px;border:none;font-size:16px;font-weight:800;font-family:'Barlow Condensed',sans-serif;letter-spacing:.4px;text-transform:uppercase;cursor:pointer;transition:background .2s;box-shadow:0 4px 16px rgba(204,17,17,.28);margin-bottom:16px}
-.btn-buy-now:hover{background:var(--red2)}
-.tab-btn{padding:12px 20px;font-size:14px;font-weight:700;color:var(--mid);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .18s;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit}
-.tab-btn.active{color:var(--red);border-bottom-color:var(--red)}
-.tab-panel{display:none}.tab-panel.active{display:block}
-.spec-table{width:100%;max-width:600px;border-collapse:collapse}
-.spec-table tr:nth-child(even){background:#fafbfc}
-.spec-table td{padding:11px 16px;font-size:13.5px;border-bottom:1px solid var(--border)}
-.spec-table td:first-child{font-weight:700;color:var(--mid);width:40%;font-size:12.5px;text-transform:uppercase;letter-spacing:.3px}
-.related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.qty-box{display:flex;align-items:center;border:1.5px solid var(--border);border-radius:10px;overflow:hidden}
-.qty-box button{width:40px;height:44px;border:none;background:#f8f8f8;font-size:20px;color:var(--dark);cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center}
-.qty-box button:hover{background:#eee}
-.qty-box input{width:52px;height:44px;border:none;outline:none;text-align:center;font-size:16px;font-weight:700;color:var(--dark);font-family:inherit}
-@media(max-width:1000px){.prod-layout{grid-template-columns:1fr}.related-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.related-grid{grid-template-columns:1fr 1fr}.prod-layout .thumb-list{flex-direction:row;overflow-x:auto}}
+.pw{max-width:1320px;margin:0 auto;padding:36px 20px 28px;display:grid;grid-template-columns:260px 1fr;gap:28px;align-items:start}
+.sf{background:#fff;border-radius:16px;border:1.5px solid var(--border);padding:20px;position:sticky;top:90px}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sort-sel{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23888' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") right 12px center no-repeat;border:1.5px solid var(--border);border-radius:9px;padding:8px 34px 8px 14px;font-size:13px;color:var(--dark);cursor:pointer;outline:none;transition:border-color .2s}
+.sort-sel:focus{border-color:var(--red)}
+.pi{padding:9px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;width:100%;outline:none;transition:border-color .2s;font-family:inherit}
+.pi:focus{border-color:var(--red)}
+.subcat-shell{display:grid;gap:12px;margin:0 0 20px}
+.subcat-head{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8b95a7}
+.subcat-rail{display:flex;gap:10px;overflow:auto;padding-bottom:4px;scrollbar-width:none}
+.subcat-rail::-webkit-scrollbar{display:none}
+.subcat-chip{display:inline-flex;align-items:center;gap:9px;border:1px solid #e7e9ee;background:#fff;border-radius:999px;padding:10px 14px;font-size:13px;font-weight:700;color:#334155;white-space:nowrap;cursor:pointer;transition:all .18s ease}
+.subcat-chip:hover{border-color:#d7dce5;background:#fafbfc;transform:translateY(-1px)}
+.subcat-chip.active{background:#111827;color:#fff;border-color:#111827;box-shadow:0 10px 24px rgba(17,24,39,.12)}
+.subcat-chip-count{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:#eef0f4;color:#6b7280;font-size:11px;font-weight:800}
+.subcat-chip.active .subcat-chip-count{background:rgba(255,255,255,.18);color:#fff}
+.mob-filter-btn{display:none;align-items:center;gap:6px;background:rgba(204,17,17,.1);color:var(--red);border:1px solid rgba(204,17,17,.2);border-radius:8px;padding:6px 14px;font-size:12.5px;font-weight:700;cursor:pointer}
+.pgn{display:flex;align-items:center;gap:8px;margin-top:28px;justify-content:center;flex-wrap:wrap}
+.pb{width:38px;height:38px;border-radius:9px;border:1.5px solid var(--border);background:#fff;font-size:13px;font-weight:700;color:var(--mid);cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center}
+.pb:hover,.pb.act{background:var(--red);color:#fff;border-color:var(--red)}
+.pb.nav{width:auto;min-width:38px;padding:0 14px;border-radius:999px}
+.pb.is-disabled{opacity:.38;cursor:default;pointer-events:none}
+.pb-gap{display:flex;align-items:center;justify-content:center;min-width:20px;color:#98a2b3;font-size:13px;font-weight:800;letter-spacing:.12em}
+@media(max-width:1000px){.pw{grid-template-columns:1fr;padding-top:24px}.sf{position:static;display:none}.sf.show{display:block}.pg{grid-template-columns:repeat(2,1fr)}.mob-filter-btn{display:inline-flex}}
+@media(max-width:520px){.pg{grid-template-columns:1fr}}
+@media(max-width:480px){
+ .pw{padding:22px 12px}
+ .sf{padding:16px}
+ .mob-filter-btn{font-size:12px;padding:5px 12px}
+ .pgn{gap:6px;margin-top:20px}
+ .pb{width:34px;height:34px;font-size:12px;border-radius:8px}
+}
 
 /* === QUICK-ADD OVERLAY ON IMAGE HOVER === */
 
@@ -1200,9 +1212,12 @@ body { font-family: 'Nunito Sans', sans-serif; -webkit-font-smoothing: antialias
 .btn-cookie-decline:hover { background: rgba(255,255,255,.14); }
 
 /* -- Breadcrumb -- */
-.breadcrumb { background: var(--card); border-bottom: 1px solid var(--border); }
-.bc-in a { color: var(--muted); font-weight: 600; }
-.bc-in a:hover { color: var(--red); }
+.breadcrumb{background:#f8f9fb;border-bottom:1px solid var(--border)}
+.bc-in{max-width:1320px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mid);font-weight:600;flex-wrap:wrap}
+.bc-sep{color:#bbb;font-size:11px}
+.bc-current{color:var(--dark);font-weight:700}
+.bc-in a{color:var(--mid);transition:color .15s}
+.bc-in a:hover{color:var(--red)}
 .bc-current { color: var(--dark); font-weight: 700; }
 
 /* -- Section background alternation -- */
@@ -1223,6 +1238,11 @@ body { font-family: 'Nunito Sans', sans-serif; -webkit-font-smoothing: antialias
 .mob-search-inner { background: #f4f6fb; border-radius: 10px; height: 46px; }
 .mob-search-inner:focus-within { background: #fff; border-color: var(--red); box-shadow: 0 0 0 3px rgba(200,16,14,.07); }
 .mob-search-inner button { background: var(--red); border-radius: 0 8px 8px 0; width: 50px; }
+
+@keyframes fadeUp {
+ from { opacity:0; transform:translateY(14px); }
+ to { opacity:1; transform:translateY(0); }
+}
 
 /* === PRODUCT CARD OVERLAY | authoritative === */
 
@@ -1311,117 +1331,33 @@ body { -webkit-font-smoothing:antialiased; font-family:'Nunito Sans',sans-serif;
 .btn-checkout:hover{background:var(--red2);transform:translateY(-2px)}
 .btn-cont{width:100%;display:flex;align-items:center;justify-content:center;gap:7px;background:transparent;color:var(--mid);padding:11px;border-radius:9px;border:1.5px solid var(--line);font-size:13px;font-weight:700;cursor:pointer;transition:all .18s;margin-top:9px;font-family:inherit}
 .btn-cont:hover{border-color:var(--ink);color:var(--ink)}
-/* Premium product page overrides */
-.product-shell{max-width:1320px;margin:0 auto;padding:28px 20px}
-.product-stage{align-items:start;gap:28px}
-.product-gallery{display:flex;gap:14px;align-items:flex-start}
-.thumb-list{display:grid;gap:10px;align-content:start}
-.thumb{width:76px;height:76px;border-radius:22px;border:1px solid rgba(15,17,22,.08);background:linear-gradient(180deg,#fff,#f5f7fb);box-shadow:0 18px 34px rgba(15,23,42,.08)}
-.thumb img{width:100%;height:100%;object-fit:contain;padding:10px}
-.thumb.active{border-color:rgba(204,17,17,.26);box-shadow:0 20px 40px rgba(204,17,17,.14)}
-.main-img-wrap{min-height:560px;width:min(100%,620px);display:flex;align-items:center;justify-content:center;padding:34px;border-radius:34px;background:radial-gradient(circle at top left, rgba(255,255,255,.96), rgba(242,245,250,.96) 48%, rgba(233,237,244,.92)),linear-gradient(180deg,#ffffff,#eef2f7);border:1px solid rgba(15,17,22,.06);box-shadow:0 36px 80px rgba(15,23,42,.12);position:relative;overflow:hidden}
-.main-img-wrap::before{content:'';position:absolute;inset:18px;border-radius:26px;border:1px solid rgba(255,255,255,.85);pointer-events:none}
-.main-img-wrap img{width:100%;max-width:470px;max-height:460px;object-fit:contain;filter:drop-shadow(0 28px 44px rgba(15,23,42,.16))}
-.product-summary-card{background:rgba(255,255,255,.92);border:1px solid rgba(15,17,22,.07);border-radius:30px;box-shadow:0 24px 60px rgba(15,23,42,.10);padding:30px;position:sticky;top:104px}
-.product-meta-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-.product-stock-pill{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 12px;border-radius:999px;background:#eef7f1;color:#1e7a44;font-size:12px;font-weight:800}
-.product-divider{height:1px;background:linear-gradient(90deg,rgba(15,17,22,.10),rgba(15,17,22,.03));margin:18px 0}
-.product-tax-note{font-size:12px;color:#6b7280;font-weight:700;margin-bottom:18px}
-.product-qty-label{font-size:12px;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
-.product-actions{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
-.btn-add-main{min-height:54px;padding:0 22px;border-radius:16px;box-shadow:0 18px 32px rgba(204,17,17,.22)}
-.btn-buy-now{min-height:54px;border-radius:16px;font-weight:800;letter-spacing:-.02em}
-.product-benefits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:18px 0 0;border-top:1px solid rgba(15,17,22,.08)}
-.product-benefit{display:flex;align-items:center;gap:8px;min-height:48px;padding:0 14px;border-radius:16px;background:#f6f8fb;color:#556070;font-size:12px;font-weight:700}
-.product-tabs{display:flex;gap:0;border-bottom:2px solid var(--border);margin:34px 0 24px}
-.product-related{margin-top:52px}
-.product-related-title{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--dark);text-transform:uppercase;margin-bottom:20px}
-.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.prod-card{position:relative;display:flex;flex-direction:column;min-height:100%;border:1px solid rgba(15,17,22,.08);border-radius:26px;overflow:hidden;background:rgba(255,255,255,.94);box-shadow:0 20px 48px rgba(15,23,42,.10);transition:transform .24s ease, box-shadow .24s ease, border-color .24s ease}
-.prod-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(15,23,42,.14);border-color:rgba(15,17,22,.12)}
-.prod-img{position:relative;display:flex;align-items:center;justify-content:center;min-height:180px;padding:18px;background:radial-gradient(circle at top, rgba(255,255,255,.95), rgba(244,247,251,.95) 58%, rgba(235,240,246,.92)),linear-gradient(180deg,#fff,#eff4f8)}
-.prod-img img{width:100%;max-width:160px;max-height:138px;object-fit:contain;filter:drop-shadow(0 18px 24px rgba(15,23,42,.12))}
-.prod-img-overlay{position:absolute;right:14px;bottom:14px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;opacity:0;transform:translateY(10px);transition:opacity .2s ease, transform .2s ease}
-.prod-img:hover .prod-img-overlay,.prod-img:focus-within .prod-img-overlay{opacity:1;transform:translateY(0);pointer-events:auto}
-.btn-quick-add,.btn-quick-view{width:42px;min-width:42px;height:42px;min-height:42px;border:none;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;position:relative;overflow:visible}
-.btn-quick-add{background:rgba(17,24,39,.88);color:#fff;box-shadow:0 14px 28px rgba(15,23,42,.20)}
-.btn-quick-view{background:rgba(255,255,255,.92);color:#111827;border:1px solid rgba(148,163,184,.18);box-shadow:0 12px 24px rgba(15,23,42,.14)}
-.btn-quick-add::after,.btn-quick-view::after{content:attr(data-label);position:absolute;right:calc(100% + 10px);top:50%;transform:translateY(-50%) translateX(8px);opacity:0;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.96);color:#111827;font-size:11px;font-weight:800;letter-spacing:.02em;white-space:nowrap;box-shadow:0 12px 26px rgba(15,23,42,.12);pointer-events:none;transition:opacity .18s ease, transform .18s ease}
-.prod-img:hover .btn-quick-add::after,.prod-img:hover .btn-quick-view::after,.prod-img:focus-within .btn-quick-add::after,.prod-img:focus-within .btn-quick-view::after,.btn-quick-add:focus-visible::after,.btn-quick-view:focus-visible::after{opacity:1;transform:translateY(-50%) translateX(0)}
-@media(max-width:640px){.btn-quick-add::after,.btn-quick-view::after{display:none}}
-.prod-body{display:flex;flex:1;flex-direction:column;gap:10px;padding:18px 18px 20px}
-.prod-brand{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#8a93a1}
-.prod-name{font-size:15px;line-height:1.45;font-weight:800;color:#111827;min-height:44px}
-.prod-pricing{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.prod-price{font-size:24px;font-weight:900;letter-spacing:-.03em;color:#111827}
-.prod-old{font-size:13px;color:#9ca3af;text-decoration:line-through;font-weight:700}
-.prod-stk{display:inline-flex;align-items:center;min-height:28px;width:max-content;padding:0 10px;border-radius:999px;font-size:11px;font-weight:800}
-.prod-stk.ok{background:#eef7f1;color:#1e7a44}
-.prod-stk.low{background:#fff7e8;color:#b56d10}
-.prod-stk.out{background:#fff0f0;color:#c62828}
-.btn-add{min-height:46px;margin-top:auto;border:none;border-radius:16px;background:#111827;color:#fff;font-size:13px;font-weight:800;letter-spacing:-.01em;transition:transform .2s ease, background .2s ease}
-.btn-add:hover{transform:translateY(-1px);background:#0b1220}
-.reviews-layout{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:22px;align-items:start}
-.review-summary-card,.review-form-card,.review-item{background:rgba(255,255,255,.94);border:1px solid rgba(15,17,22,.08);border-radius:26px;box-shadow:0 20px 48px rgba(15,23,42,.08)}
-.review-summary-card,.review-form-card{padding:24px}
-.review-summary-card{position:sticky;top:108px;display:grid;gap:18px}
-.review-summary-top{display:flex;align-items:flex-end;justify-content:space-between;gap:18px}
-.review-summary-score{font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:800;line-height:.95;color:#111827}
-.review-summary-caption{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8a93a1}
-.review-summary-copy{font-size:13px;line-height:1.7;color:#5b6472}
-.review-stars-display{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.review-stars-display .stars{gap:4px}
-.review-stars-display .star{width:14px;height:14px}
-.review-summary-meta{font-size:13px;font-weight:700;color:#5b6472}
-.review-form-card{display:grid;gap:18px}
-.review-form-title{font-size:22px;font-weight:800;letter-spacing:-.03em;color:#111827}
-.review-form-copy{font-size:13px;line-height:1.7;color:#5b6472}
-.review-form{display:grid;gap:14px}
-.review-rating-picker{display:grid;gap:12px}
-.review-rating-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.review-rating-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.review-star-btn{width:42px;height:42px;border:none;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#f4f6fb;color:#c7ced9;cursor:pointer;transition:transform .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease}
-.review-star-btn:hover,.review-star-btn.active{background:#fff4dd;color:#e09618;box-shadow:0 10px 24px rgba(224,150,24,.18);transform:translateY(-1px)}
-.review-star-btn svg{width:18px;height:18px;fill:currentColor}
-.review-rating-label{font-size:13px;font-weight:800;color:#111827}
-.review-form input,.review-form textarea{width:100%;border:1px solid rgba(148,163,184,.26);border-radius:16px;background:#fbfcfe;color:#111827;font:inherit;padding:14px 16px;transition:border-color .18s ease, box-shadow .18s ease, background .18s ease}
-.review-form textarea{min-height:132px;resize:vertical}
-.review-form input:focus,.review-form textarea:focus{outline:none;border-color:rgba(204,17,17,.34);box-shadow:0 0 0 4px rgba(204,17,17,.08);background:#fff}
-.review-form-footer{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.review-form-message{font-size:12px;font-weight:700;color:#667085;min-height:18px}
-.review-form-message.success{color:#1e7a44}
-.review-form-message.error{color:#c62828}
-.review-submit{min-width:200px;min-height:48px;border:none;border-radius:999px;background:#111827;color:#fff;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:transform .18s ease, background .18s ease, box-shadow .18s ease}
-.review-submit:hover{background:#0b1220;transform:translateY(-1px);box-shadow:0 16px 30px rgba(15,23,42,.16)}
-.review-submit:disabled{opacity:.68;cursor:wait;transform:none;box-shadow:none}
-.review-list{display:grid;gap:16px}
-.review-item{padding:22px}
-.review-item-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
-.review-item-author{display:flex;align-items:center;gap:12px}
-.review-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#111827,#394150);color:#fff;font-size:14px;font-weight:800;letter-spacing:.02em;flex-shrink:0}
-.review-item-name{font-size:14px;font-weight:800;color:#111827}
-.review-item-date{font-size:12px;font-weight:700;color:#8a93a1;margin-top:3px}
-.review-item-text{font-size:14px;line-height:1.75;color:#475467}
-.review-empty{padding:36px 28px;border-radius:26px;border:1px dashed rgba(148,163,184,.38);background:rgba(255,255,255,.76);text-align:center;font-size:14px;line-height:1.8;color:#667085}
-@media(max-width:1024px){.reviews-layout{grid-template-columns:1fr}.review-summary-card{position:static}}
-@media(max-width:640px){.review-summary-card,.review-form-card,.review-item{padding:20px}.review-summary-top{align-items:center}.review-summary-score{font-size:48px}.review-form-footer{align-items:stretch}.review-submit{width:100%}}
-@media(max-width:1024px){.product-summary-card{position:static}.main-img-wrap{min-height:480px}}
-@media(max-width:768px){.product-shell{padding:20px 14px}.product-gallery{flex-direction:column-reverse}.thumb-list{grid-auto-flow:column;grid-auto-columns:76px;overflow-x:auto;width:100%}.main-img-wrap{width:100%;min-height:360px;padding:22px;border-radius:28px}.product-summary-card{padding:22px;border-radius:24px}.product-benefits{grid-template-columns:1fr}.product-tabs{overflow:auto}}
-@media(max-width:480px){
- .product-shell{padding:14px 10px}
- .product-summary-card{padding:16px;border-radius:20px}
- .main-img-wrap{min-height:280px;padding:16px;border-radius:20px}
- .related-grid{grid-template-columns:1fr 1fr;gap:12px}
- .product-tabs{font-size:13px}
- .spec-table td{padding:9px 12px;font-size:13px}
- .review-item{padding:16px}
-}
-@media(max-width:360px){
- .product-shell{padding:12px 8px}
- .related-grid{grid-template-columns:1fr}
- .product-summary-card{padding:14px}
- .main-img-wrap{min-height:240px;padding:12px}
-}
+</style>
+<style>
+.prod-card{background:linear-gradient(180deg,#fff 0%,#fbfcff 100%) !important;border:1px solid #e7ebf2 !important;border-radius:26px !important;box-shadow:0 22px 48px rgba(15,23,42,.07) !important;overflow:hidden}
+.prod-card:hover{transform:translateY(-6px) !important;box-shadow:0 28px 66px rgba(15,23,42,.12) !important;border-color:#d4dbe6 !important}
+.prod-img{height:164px !important;padding:22px !important;background:radial-gradient(circle at top,#fbfdff 0%,#eef2f7 65%,#e6ebf2 100%) !important;display:flex !important;align-items:center !important;justify-content:center !important}
+.prod-img img{width:100% !important;height:100% !important;object-fit:contain !important;mix-blend-mode:multiply}
+.prod-img-overlay{left:auto !important;right:14px !important;bottom:14px !important;display:flex !important;flex-direction:column !important;align-items:flex-end !important;gap:10px !important;opacity:0 !important;transform:translateY(10px) !important;pointer-events:none !important;transition:opacity .2s ease, transform .2s ease !important}
+.prod-img:hover .prod-img-overlay,.prod-img:focus-within .prod-img-overlay{opacity:1 !important;transform:translateY(0) !important;pointer-events:auto !important}
+.btn-quick-add,.btn-quick-view{width:42px !important;height:42px !important;min-width:42px !important;padding:0 !important;border-radius:999px !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;position:relative !important;overflow:visible !important}
+.btn-quick-add{background:rgba(17,24,39,.88) !important;color:#fff !important;box-shadow:0 14px 28px rgba(15,23,42,.20) !important}
+.btn-quick-add:hover{background:#0f172a !important;transform:translateY(-1px) scale(1.02) !important}
+.btn-quick-view{width:42px !important;height:42px !important;border-radius:50% !important;background:rgba(255,255,255,.92) !important;color:#111827 !important;box-shadow:0 12px 24px rgba(15,23,42,.14) !important;border:1px solid rgba(148,163,184,.18) !important}
+.btn-quick-view:hover{transform:translateY(-1px) scale(1.02) !important;background:#fff !important}
+.btn-quick-add::after,.btn-quick-view::after{content:attr(data-label) !important;position:absolute !important;right:calc(100% + 10px) !important;top:50% !important;transform:translateY(-50%) translateX(8px) !important;opacity:0 !important;padding:8px 12px !important;border-radius:999px !important;background:rgba(255,255,255,.96) !important;color:#111827 !important;font-size:11px !important;font-weight:800 !important;letter-spacing:.02em !important;white-space:nowrap !important;box-shadow:0 12px 26px rgba(15,23,42,.12) !important;pointer-events:none !important;transition:opacity .18s ease, transform .18s ease !important}
+.prod-img:hover .btn-quick-add::after,.prod-img:hover .btn-quick-view::after,.prod-img:focus-within .btn-quick-add::after,.prod-img:focus-within .btn-quick-view::after,.btn-quick-add:focus-visible::after,.btn-quick-view:focus-visible::after{opacity:1 !important;transform:translateY(-50%) translateX(0) !important}
+@media(max-width:640px){.btn-quick-add::after,.btn-quick-view::after{display:none !important}}
+.prod-body{padding:18px !important}
+.prod-brand{color:#98a2b3 !important;letter-spacing:.16em !important}
+.prod-name{font-size:14px !important;line-height:1.5 !important;min-height:3em !important}
+.prod-price{font-size:28px !important;color:#111827 !important}
+.btn-add{margin-top:14px !important;border-radius:999px !important;background:#eef2f7 !important;color:#111827 !important}
+.btn-add:hover{background:#111827 !important;color:#fff !important}
+.prod-stk{margin-top:4px !important;display:inline-flex !important;align-items:center !important;border-radius:999px !important;padding:6px 10px !important;font-size:11px !important;font-weight:800 !important}
+.prod-stk.ok{background:#ecfdf3 !important;color:#027a48 !important}
+.prod-stk.low{background:#fffaeb !important;color:#b54708 !important}
+.prod-stk.out{background:#fff1f3 !important;color:#b42318 !important}
+@media(max-width:640px){.prod-img{height:148px !important;padding:18px !important}}
 </style>
 <style>
 /* ================================================================
@@ -1566,113 +1502,83 @@ body { -webkit-font-smoothing:antialiased; font-family:'Nunito Sans',sans-serif;
 </div>
 </header>
 
-<nav class="navbar"><div class="navbar-in"><a href="category.html?cat=piese" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx='12' cy='12' r='3'/><path d='M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4'/></svg>Piese Auto</a><a href="category.html?cat=accesorii" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d='M7 7h10v10H7z'/><path d='M3 10h4M17 10h4M10 3v4M10 17v4'/></svg>Accesorii</a><a href="category.html?cat=detailing" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>Detailing</a><a href="category.html?cat=baterii" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x='2' y='7' width='20' height='11' rx='2'/><path d='M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2'/></svg>Baterii & Acumulatori</a><a href="category.html?cat=filtre" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points='22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3'/></svg>Filtre</a><a href="category.html?cat=prelate" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x='2' y='7' width='20' height='13' rx='3'/><path d='M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2'/></svg>Prelate</a><a href="category.html?cat=huse-prelate" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x='2' y='7' width='20' height='13' rx='3'/><path d='M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2'/></svg>Huse Exterior</a></div></nav>
+ <nav class="navbar"><div class="navbar-in"><a href="category.html?cat=piese" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx='12' cy='12' r='3'/><path d='M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4'/></svg>Piese Auto</a><a href="category.html?cat=accesorii" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d='M7 7h10v10H7z'/><path d='M3 10h4M17 10h4M10 3v4M10 17v4'/></svg>Accesorii</a><a href="category.html?cat=uleiuri" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d='M12 2C9 7 6 10 6 14a6 6 0 0012 0c0-4-3-7-6-12z'/></svg>Uleiuri</a><a href="category.html?cat=detailing" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>Detailing</a><a href="category.html?cat=baterii" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x='2' y='7' width='20' height='11' rx='2'/><path d='M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2'/></svg>Baterii & Acumulatori</a><a href="category.html?cat=filtre" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points='22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3'/></svg>Filtre</a><a href="category.html?cat=prelate" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x='2' y='7' width='20' height='13' rx='3'/><path d='M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2'/></svg>Prelate</a><a href="category.html?cat=huse-prelate" class="nav-link"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x='2' y='7' width='20' height='13' rx='3'/><path d='M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2'/></svg>Huse Exterior</a></div></nav>
 
-<div class="breadcrumb"><div class="bc-in"><a href="index.html">Acasă</a><span class="bc-sep">›</span><a href="category.html?cat=piese" id="bcCat">Piese Auto</a><span class="bc-sep" id="bcSubSep" style="display:none">›</span><a href="category.html?cat=piese" id="bcSub" style="display:none">Subcategorie</a><span class="bc-sep">›</span><span class="bc-current" id="bcProd">Produs</span></div></div>
-<div class="product-shell">
- <div class="prod-layout product-stage">
- <div class="product-gallery">
- <div class="thumb-list" id="productThumbs">
- <div class="thumb active" onclick="setImg(this,this.querySelector('img').src)"><img src="assets/product-placeholder.svg" loading="lazy" onerror="this.src='assets/product-placeholder.svg'"/ decoding="async"></div>
+<div class="breadcrumb"><div class="bc-in"><a href="index.html">Acasă</a><span class="bc-sep">›</span><span class="bc-current" id="bcCurrent">Piese Auto</span></div></div>
+<div class="pw">
+ <aside class="sf" id="sidebarFilters">
+ <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+ <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--dark);text-transform:uppercase">Filtre</div>
+ <button onclick="clearFilters()" style="font-size:12px;font-weight:700;color:var(--red);background:none;border:none;cursor:pointer;text-decoration:underline">Resetează</button>
  </div>
- <div class="main-img-wrap"><img id="mainImg" src="assets/product-placeholder.svg" alt="Produs" onerror="this.src='assets/product-placeholder.svg'"/></div>
+ <div style="margin-bottom:20px">
+ <div style="font-size:12px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Marca</div>
+ <div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="ATE" id="bATE" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bATE" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">ATE</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Bosch" id="bBosch" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bBosch" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Bosch</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="CarPassion" id="bCarPassion" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bCarPassion" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">CarPassion</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="CarPro" id="bCarPro" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bCarPro" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">CarPro</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Castrol" id="bCastrol" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bCastrol" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Castrol</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Continental" id="bContinental" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bContinental" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Continental</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="DriveMax" id="bDriveMax" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bDriveMax" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">DriveMax</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Elf" id="bElf" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bElf" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Elf</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Exide" id="bExide" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bExide" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Exide</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Gates" id="bGates" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bGates" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Gates</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="LUK" id="bLUK" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bLUK" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">LUK</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Liqui Moly" id="bLiquiMoly" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bLiquiMoly" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Liqui Moly</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Mahle" id="bMahle" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bMahle" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Mahle</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Mann" id="bMann" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bMann" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Mann</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Meyle" id="bMeyle" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bMeyle" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Meyle</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Mobil" id="bMobil" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bMobil" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Mobil</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Motul" id="bMotul" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bMotul" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Motul</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="NGK" id="bNGK" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bNGK" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">NGK</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Osram" id="bOsram" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bOsram" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Osram</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Philips" id="bPhilips" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bPhilips" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Philips</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Purflux" id="bPurflux" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bPurflux" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Purflux</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Sachs" id="bSachs" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bSachs" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Sachs</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Shell" id="bShell" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bShell" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Shell</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Stanley" id="bStanley" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bStanley" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Stanley</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="TRW" id="bTRW" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bTRW" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">TRW</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Textar" id="bTextar" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bTextar" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Textar</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Total" id="bTotal" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bTotal" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Total</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Valeo" id="bValeo" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bValeo" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Valeo</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Varta" id="bVarta" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bVarta" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Varta</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Xiaomi" id="bXiaomi" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bXiaomi" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Xiaomi</label></div><div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" class="brand-filter" value="Yuasa" id="bYuasa" style="accent-color:var(--red);width:15px;height:15px;cursor:pointer"/><label for="bYuasa" style="font-size:13.5px;color:var(--mid);cursor:pointer;font-weight:500">Yuasa</label></div>
  </div>
- <div class="product-summary-card">
- <div id="prodBrand" style="display:inline-flex;align-items:center;background:rgba(204,17,17,.08);color:var(--red);font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:4px 12px;border-radius:99px;border:1px solid rgba(204,17,17,.18);margin-bottom:14px">TRW</div>
- <h1 id="prodTitle" style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;color:var(--dark);line-height:1.1;letter-spacing:-.5px;margin-bottom:10px">Produs</h1>
- <div style="font-size:12px;color:var(--mid);font-weight:600;margin-bottom:12px">SKU: <span id="prodSku">?</span></div>
- <div class="product-meta-row">
- <div class="stars" id="prodStars"></div>
- <span style="font-size:13px;color:var(--mid);font-weight:600" id="prodReviews">(0 recenzii)</span>
- <span id="prodStock" style="font-size:12px;font-weight:700;color:var(--green)">✓ În stoc</span>
+ <div style="margin-bottom:20px">
+ <div style="font-size:12px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Preț (RON)</div>
+ <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+ <input type="number" id="pMin" placeholder="Min" value="0" class="pi" style="max-width:80px"/>
+ <span style="color:#ccc">-</span>
+ <input type="number" id="pMax" placeholder="Max" value="9999" class="pi" style="max-width:80px"/>
  </div>
- <div class="product-divider"></div>
- <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:6px">
- <span style="font-family:'Barlow Condensed',sans-serif;font-size:44px;font-weight:800;color:var(--ink,#0b0d12);letter-spacing:-.5px" id="prodPrice">?</span>
- <span style="font-size:16px;color:#bbb;text-decoration:line-through;font-weight:600" id="prodOld"></span>
- <span id="prodSave" style="background:#eaf7ef;color:var(--green);font-size:13px;font-weight:800;padding:4px 10px;border-radius:7px"></span>
+ <button onclick="applyFilters()" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Aplică filtrul</button>
  </div>
- <!-- TVA note: uncomment when company becomes TVA registered -->
- <!-- <div style="font-size:12px;color:var(--mid);font-weight:600;margin-bottom:18px">Preț cu TVA inclus</div> -->
- <div class="product-divider"></div>
- <div style="font-size:12px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Cantitate</div>
- <div class="product-actions">
- <div class="qty-box">
- <button onclick="changeQtyPage(-1)">−</button>
- <input type="number" id="pageQty" value="1" min="1" max="99"/>
- <button onclick="changeQtyPage(1)">+</button>
+ <div>
+ <div style="font-size:12px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Disponibilitate</div>
+ <div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" id="inStock" style="accent-color:var(--red);width:15px;height:15px" onchange="applyFilters()"/><label for="inStock" style="font-size:13.5px;color:var(--mid);cursor:pointer">În stoc</label></div>
+ <div style="display:flex;align-items:center;gap:9px;padding:5px 0"><input type="checkbox" id="onSale" style="accent-color:var(--red);width:15px;height:15px" onchange="applyFilters()"/><label for="onSale" style="font-size:13.5px;color:var(--mid);cursor:pointer">La reducere</label></div>
  </div>
- <button class="btn-add-main" onclick="addProductToCart()">
- <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
- Adaugă în coș
- </button>
+ </aside>
+ <div>
+ <div style="background:linear-gradient(135deg,var(--dark2),#1e2235);border-radius:16px;padding:26px 32px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden">
+ <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 100% at 80% 50%,rgba(204,17,17,.12),transparent)"></div>
+ <div style="position:relative"><div style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:-.5px" id="catBannerTitle">Piese Auto</div><div style="font-size:13px;color:rgba(255,255,255,.5);margin-top:4px" id="catBannerDesc">Piese originale și aftermarket</div></div>
+ <img id="catBannerImg" src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=900&q=80&fit=crop" style="height:100px;object-fit:contain;position:relative;filter:drop-shadow(0 8px 24px rgba(0,0,0,.3))" loading="lazy"/ decoding="async">
  </div>
- <button class="btn-buy-now" onclick="buyNow()">Cumpără acum | Checkout rapid</button>
- <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
- <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--mid)"><svg width="14" height="14" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Livrare 24h</div>
- <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--mid)"><svg width="14" height="14" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Garanție 2 ani</div>
- <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--mid)"><svg width="14" height="14" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>Retur 30 zile</div>
- <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--mid)"><svg width="14" height="14" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Plată securizată</div>
+ <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+ <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+ <div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;color:var(--dark);text-transform:uppercase" id="catH1">Piese Auto</div>
+ <span style="font-size:13px;color:var(--mid);font-weight:600" id="resCount">0 produse</span>
+ <button class="mob-filter-btn" onclick="document.getElementById('sidebarFilters').classList.toggle('show')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>Filtre</button>
  </div>
+ <select id="sortSelect" class="sort-sel" onchange="applyFilters()">
+ <option value="popular">Cele mai populare</option>
+<option value="price_asc">Preț: mic - mare</option>
+<option value="price_desc">Preț: mare - mic</option>
+ <option value="rating">Rating</option>
+ </select>
  </div>
+ <div class="subcat-shell" id="subcatShell" hidden>
+ <div class="subcat-head">Subcategorii</div>
+ <div class="subcat-rail" id="subcatRail"></div>
  </div>
- <!-- TABS -->
- <div class="product-tabs">
- <button class="tab-btn active" onclick="showTab('desc',this)">Descriere</button>
- <button class="tab-btn" onclick="showTab('spec',this)">Specificații</button>
- <button class="tab-btn" onclick="showTab('rev',this)">Recenzii</button>
- <button class="tab-btn" onclick="showTab('compat',this)">Compatibilitate</button>
+ <section id="categorySeoBlock" style="margin:0 0 20px">
+ <div style="background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);border:1px solid #e7ebf3;border-radius:20px;padding:22px 24px;box-shadow:0 12px 34px rgba(15,23,42,.05)">
+ <h2 id="categorySeoTitle" style="font-family:'Barlow Condensed',sans-serif;font-size:28px;line-height:1.05;color:var(--dark);text-transform:uppercase;margin:0 0 10px">Piese auto online cu livrare rapidă în România</h2>
+ <p id="categorySeoLead" style="font-size:14.5px;line-height:1.85;color:var(--mid);margin:0 0 12px"></p>
+ <p id="categorySeoBody" style="font-size:14.5px;line-height:1.85;color:var(--mid);margin:0 0 16px"></p>
+ <div style="display:flex;flex-wrap:wrap;gap:10px">
+ <a href="/piese-auto" style="display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;background:#fff5f5;border:1px solid rgba(204,17,17,.14);color:var(--red);font-size:13px;font-weight:800">Piese auto</a>
+ <a href="/filtre" style="display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;background:#fff5f5;border:1px solid rgba(204,17,17,.14);color:var(--red);font-size:13px;font-weight:800">Filtre auto</a>
+ <a href="/uleiuri" style="display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;background:#fff5f5;border:1px solid rgba(204,17,17,.14);color:var(--red);font-size:13px;font-weight:800">Uleiuri auto</a>
+ <a href="/baterii" style="display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;background:#fff5f5;border:1px solid rgba(204,17,17,.14);color:var(--red);font-size:13px;font-weight:800">Baterii auto</a>
+ <a href="verificare-compatibilitate-piese-auto.html" style="display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;background:#f8fafc;border:1px solid #dde4ee;color:var(--dark);font-size:13px;font-weight:800">Verificare compatibilitate</a>
+ <a href="piese-auto-dupa-cod-oem.html" style="display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;background:#f8fafc;border:1px solid #dde4ee;color:var(--dark);font-size:13px;font-weight:800">Căutare după cod OEM</a>
+ <a href="livrare.html" style="display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;background:#f8fafc;border:1px solid #dde4ee;color:var(--dark);font-size:13px;font-weight:800">Livrare națională</a>
+ <a href="faq.html" style="display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;background:#f8fafc;border:1px solid #dde4ee;color:var(--dark);font-size:13px;font-weight:800">Întrebări frecvente</a>
+ <a href="contact.html" style="display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;background:#f8fafc;border:1px solid #dde4ee;color:var(--dark);font-size:13px;font-weight:800">Contact București</a>
  </div>
- <div id="tp-desc" class="tab-panel active"><div id="prodDesc" style="font-size:14.5px;color:var(--mid);line-height:1.85;max-width:760px">?</div></div>
- <div id="tp-spec" class="tab-panel"><table class="spec-table"><tbody id="specsBody"></tbody></table></div>
- <div id="tp-rev" class="tab-panel">
- <div class="reviews-layout">
- <div class="review-summary-card" id="productReviewSummary"></div>
- <div style="display:grid;gap:18px">
- <div class="review-form-card">
- <div class="review-form-title">Evaluează produsul</div>
- <div class="review-form-copy">Lasă rapid o impresie utilă pentru următorii clienți. Ratingul se actualizează imediat în catalog.</div>
- <form class="review-form" id="productReviewForm">
- <input type="hidden" id="reviewRatingValue" value="5"/>
- <div class="review-rating-picker">
- <div class="review-rating-row">
- <div class="review-rating-actions">
- <button class="review-star-btn" type="button" data-review-star="1" aria-label="1 stea"><svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.4l-5.8 3.06 1.11-6.46-4.7-4.58 6.49-.94L12 2.6z"/></svg></button>
- <button class="review-star-btn" type="button" data-review-star="2" aria-label="2 stele"><svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.4l-5.8 3.06 1.11-6.46-4.7-4.58 6.49-.94L12 2.6z"/></svg></button>
- <button class="review-star-btn" type="button" data-review-star="3" aria-label="3 stele"><svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.4l-5.8 3.06 1.11-6.46-4.7-4.58 6.49-.94L12 2.6z"/></svg></button>
- <button class="review-star-btn" type="button" data-review-star="4" aria-label="4 stele"><svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.4l-5.8 3.06 1.11-6.46-4.7-4.58 6.49-.94L12 2.6z"/></svg></button>
- <button class="review-star-btn" type="button" data-review-star="5" aria-label="5 stele"><svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.4l-5.8 3.06 1.11-6.46-4.7-4.58 6.49-.94L12 2.6z"/></svg></button>
- </div>
- <div class="review-rating-label" id="reviewRatingLabel">Excelent</div>
- </div>
- </div>
- <input id="reviewAuthor" type="text" maxlength="40" placeholder="Numele tău"/>
- <textarea id="reviewComment" maxlength="600" placeholder="Cum ți s-a părut produsul?"></textarea>
- <div class="review-form-footer">
- <div class="review-form-message" id="reviewFormMessage"></div>
- <button class="review-submit" type="submit">Trimite recenzia</button>
- </div>
- </form>
- </div>
- <div class="review-list" id="productReviewList"></div>
- </div>
- </div>
- </div>
- <div id="tp-compat" class="tab-panel"><div id="compatContent"><div style="color:var(--mid);font-size:13.5px">Informații de compatibilitate indisponibile pentru acest produs.</div></div></div>
- <section id="productSeoAssist" style="margin-top:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:18px">
- <div style="background:#fff;border:1px solid var(--border);border-radius:22px;padding:22px 24px;box-shadow:0 18px 40px rgba(15,23,42,.05)">
- <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--dark);text-transform:uppercase;line-height:1;margin-bottom:10px">Întrebări Frecvente Despre Compatibilitate Și Livrare</div>
- <div id="productFaqItems" style="display:grid;gap:12px"></div>
- </div>
- <div style="background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);border:1px solid #e7ebf3;border-radius:22px;padding:22px 24px;box-shadow:0 18px 40px rgba(15,23,42,.05)">
- <div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;color:var(--dark);text-transform:uppercase;line-height:1.05;margin-bottom:10px">Pagini Utile Înainte De Comandă</div>
- <div id="productSeoLinks" style="display:grid;gap:10px"></div>
  </div>
  </section>
- <!-- Related -->
- <div class="product-related">
- <div class="product-related-title">Produse similare</div>
- <div class="related-grid" id="relatedGrid"></div>
+ <div class="pg" id="prodsGrid"></div>
+ <div class="pgn" id="pgn"></div>
+ <section id="categoryFaqSection" style="margin:22px 0 0">
+ <div style="background:#fff;border:1px solid #e7ebf3;border-radius:22px;padding:22px 24px;box-shadow:0 18px 40px rgba(15,23,42,.05)">
+ <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--dark);text-transform:uppercase;line-height:1;margin-bottom:10px">Întrebări Frecvente Despre Categoria Curentă</div>
+ <div id="categoryFaqGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px"></div>
+ </div>
+ </section>
  </div>
 </div>
 <footer class="footer"><div class="footer-in">
@@ -1752,10 +1658,9 @@ function searchByVehicle() {
  const chip = document.getElementById('vsChip'); if (chip) chip.textContent = label;
  document.getElementById('vsActiveBanner').classList.add('show');
  document.getElementById('vsReset').style.display = 'block';
- // Navigate to search results for this vehicle
- const target = 'search.html?q=' + encodeURIComponent(label) + '&vehicle=1';
- if (window.MotorasPageLoader?.navigate) window.MotorasPageLoader.navigate(target);
- else window.location.href = target;
+ currentPage = 1;
+ renderProducts(1);
+ document.getElementById('produse').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function resetVehicle() {
@@ -1767,10 +1672,12 @@ function resetVehicle() {
  document.getElementById('vsAn').disabled = true;
  document.getElementById('vsActiveBanner').classList.remove('show');
  document.getElementById('vsReset').style.display = 'none';
+ currentPage = 1;
+ renderProducts(1);
 }
 
-// Restore saved vehicle on product page
-(function restoreVehicleProduct() {
+// Restore saved vehicle on page load
+(function restoreVehicleCategory() {
  try {
  const saved = JSON.parse(localStorage.getItem('motoras_vehicle') || 'null');
  if (!saved?.active || !saved.marca) return;
@@ -1828,10 +1735,7 @@ function toggleMobSearch() {
  }
 }
 function closeMobSearch() {
- const bar = document.getElementById('mobSearchBar');
- const toggle = document.getElementById('mobSearchToggle');
- if (bar) bar.style.display = 'none';
- if (toggle) toggle.classList.remove('active');
+ // bar is always visible on mobile — nothing to hide
 }
 
 // === CART ===
@@ -1944,7 +1848,7 @@ updateCart();
 
 function toggleMobNav(){const nav=document.getElementById('mobNav');const btn=document.getElementById('mobMenuBtn');closeMobSearch();nav.classList.toggle('open');btn.classList.toggle('open');document.body.style.overflow=nav.classList.contains('open')?'hidden':'';}
 function closeMobNav(){document.getElementById('mobNav').classList.remove('open');document.getElementById('mobMenuBtn').classList.remove('open');document.body.style.overflow='';}
-function toggleMobSearch(){const bar=document.getElementById('mobSearchBar');const t=document.getElementById('mobSearchToggle');if(!bar)return;const open=bar.style.display==='flex';if(open){bar.style.display='none';if(t)t.classList.remove('active');}else{bar.style.display='flex';if(t)t.classList.add('active');setTimeout(()=>{const inp=bar.querySelector('input');if(inp)inp.focus();},80);}}
+function toggleMobSearch(){/* bar always visible — just focus the input */const inp=document.getElementById("mobSearchBar")?.querySelector("input");if(inp)inp.focus();}
 function closeMobSearch(){/* bar always visible */}
 function acceptCookies(){localStorage.setItem('cookies','accepted');document.getElementById('cookieBanner').classList.remove('show');}
 function declineCookies(){localStorage.setItem('cookies','declined');document.getElementById('cookieBanner').classList.remove('show');}
@@ -1954,529 +1858,302 @@ window.addEventListener('load',()=>{if(!localStorage.getItem('cookies')){setTime
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closeMobNav();closeMobSearch();}});
 
 let ALL_PRODS = [];
-let prod = null;
-let selectedReviewRating = 5;
-const REVIEW_RATING_LABELS = {
- 1: 'Slab',
- 2: 'Acceptabil',
- 3: 'Bun',
- 4: 'Foarte bun',
- 5: 'Excelent',
+
+async function loadCategoryCatalog() {
+ if (!window.MotApi) return [];
+ const categoryKey = getCurrentCategoryKey();
+ if (typeof window.MotApi.getCategoryCatalog === 'function') {
+ try {
+ ALL_PRODS = await window.MotApi.getCategoryCatalog(categoryKey);
+ CATALOG = ALL_PRODS;
+ if (Array.isArray(ALL_PRODS) && ALL_PRODS.length) return ALL_PRODS;
+ } catch (_) {}
+ }
+
+ await window.MotApi.ready();
+ ALL_PRODS = await window.MotApi.getCatalogSnapshot();
+ CATALOG = ALL_PRODS;
+ return ALL_PRODS;
+}
+const CAT_META = {
+ "piese": { "title": "Piese Auto", "slug": "piese-auto", "metaDesc": "Cumpără piese auto originale și aftermarket online cu livrare rapidă în România. Garanție 2 ani, retur 30 zile.", "desc": "Componente originale și aftermarket pentru întreținere și reparații auto", "img": "https://images.unsplash.com/photo-1588017530244-c57df911f73b?w=900&q=80&fit=crop" },
+ "accesorii": { "title": "Accesorii Auto", "slug": "accesorii", "metaDesc": "Accesorii auto: becuri, adaptoare, gadgeturi și produse utile pentru mașina ta. Livrare rapidă în toată România.", "desc": "Becuri, adaptoare, gadgeturi și accesorii utile pentru mașina ta", "img": "https://images.unsplash.com/photo-1557245526-45dc0f1a8745?w=900&q=80&fit=crop" },
+ "detailing": { "title": "Detailing Auto", "slug": "detailing", "metaDesc": "Produse detailing auto: polish, ceară, șampoane și accesorii de curățare profesionale. Cosmetică auto premium online.", "desc": "Cosmetică auto profesională — polish, ceară, șampoane și accesorii de curățare", "img": "https://images.unsplash.com/photo-1608506375591-b90e1f955e4b?w=900&q=80&fit=crop" },
+ "baterii": { "title": "Baterii & Acumulatori Auto", "slug": "baterii", "metaDesc": "Baterii auto și acumulatori de calitate pentru orice marcă și model. Prețuri competitive, livrare rapidă în România.", "desc": "Baterii auto și moto pentru orice marcă și model — preț corect, livrare rapidă", "img": "https://images.unsplash.com/photo-1676337167752-2062c6ca7366?w=900&q=80&fit=crop" },
+ "uleiuri": { "title": "Uleiuri & Lubrifianți Auto", "slug": "uleiuri", "metaDesc": "Uleiuri motor, antigel, aditivi și lichide tehnice auto. Gamă completă pentru întreținerea mașinii tale.", "desc": "Uleiuri motor, antigel, aditivi și lichide tehnice pentru întreținere optimă", "img": "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=900&q=80&fit=crop" },
+ "filtre": { "title": "Filtre Auto", "slug": "filtre", "metaDesc": "Filtre auto: ulei, aer, combustibil și habitaclu pentru orice marcă și model. Calitate garantată, livrare rapidă.", "desc": "Filtre ulei, aer, combustibil și habitaclu compatibile cu orice model de mașină", "img": "https://images.unsplash.com/photo-1588294020274-1e23a4815b72?w=900&q=80&fit=crop" },
+ "prelate": { "title": "Prelate Auto", "slug": "prelate", "metaDesc": "Prelate auto impermeabile pentru protecție completă împotriva intemperiilor. Universale și pe model specific.", "desc": "Prelate impermeabile de exterior pentru protecție completă împotriva intemperiilor", "img": "https://images.unsplash.com/photo-1626966473515-71dc32f2aedd?w=900&q=80&fit=crop" },
+ "huse-prelate":{ "title": "Huse Exterior Auto", "slug": "huse-prelate", "metaDesc": "Huse și prelate auto dedicate pe marcă și model. Protecție precisă pentru mașina ta, livrare în România.", "desc": "Prelate și huse dedicate pe marcă și model pentru protecție precisă", "img": "https://images.unsplash.com/photo-1596165494776-c27e37f666fe?w=900&q=80&fit=crop" },
+ "ambreiaje": { "title": "Ambreiaje Auto", "slug": "ambreiaje", "metaDesc": "Kituri ambreiaj și discuri ambreiaj pentru toate mărcile și modelele de mașini. Livrare rapidă în România.", "desc": "Kituri complete și discuri ambreiaj pentru toate mărcile și modelele", "img": "https://images.unsplash.com/photo-1588017530244-c57df911f73b?w=900&q=80&fit=crop" }
 };
+let currentPage = 1;
+const PAGE_SIZE = 12;
 
-function formatCatalogPrice(value) {
- const num = Number(value || 0);
- if (!Number.isFinite(num)) return '0,00 RON';
- return num.toLocaleString('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' RON';
+function getCurrentCategoryKey() {
+ return new URLSearchParams(location.search).get('cat') || 'piese';
 }
 
-function getProductGalleryImages(product) {
- const pool = Array.isArray(product?.images) && product.images.length
- ? product.images
- : [product?.img || 'assets/product-placeholder.svg'];
- const unique = [];
- const seen = new Set();
- pool.forEach((value) => {
- const image = String(value || '').trim() || 'assets/product-placeholder.svg';
- if (seen.has(image)) return;
- seen.add(image);
- unique.push(image);
+function getSelectedSubcategoryKey() {
+ return new URLSearchParams(location.search).get('subcat') || 'all';
+}
+
+function getCategorySourceKeys(catKey = getCurrentCategoryKey()) {
+ return [catKey];
+}
+
+function getCategoryProducts(catKey = getCurrentCategoryKey()) {
+ const allowedKeys = new Set(getCategorySourceKeys(catKey));
+ return ALL_PRODS.filter(product => allowedKeys.has(product.cat));
+}
+
+function getSubcategoryCounts(catKey = getCurrentCategoryKey()) {
+ const counts = new Map();
+ getCategoryProducts(catKey).forEach((product) => {
+ const key = product.subcat || 'general';
+ const label = product.subcatLabel || key;
+ if (!counts.has(key)) counts.set(key, { key, label, count: 0 });
+ counts.get(key).count += 1;
  });
- return unique.length ? unique : ['assets/product-placeholder.svg'];
+ return Array.from(counts.values()).sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, 'ro'));
 }
 
-function escapeProductHtml(value) {
- return String(value || '').replace(/[&<>"']/g, (char) => ({
- '&': '&amp;',
- '<': '&lt;',
- '>': '&gt;',
- '"': '&quot;',
- "'": '&#39;',
- }[char]));
+function setSubcategory(subcat) {
+ const params = new URLSearchParams(location.search);
+ if (!subcat || subcat === 'all') params.delete('subcat');
+ else params.set('subcat', subcat);
+ history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+ currentPage = 1;
+ renderSubcategoryRail();
+ renderProducts(1);
 }
 
-function buildStarMarkup(rating) {
- const rounded = Math.round(Number(rating || 0));
- return Array.from({ length: 5 }, (_, index) => `<div class="star${index < rounded ? '' : ' e'}"></div>`).join('');
-}
+function renderSubcategoryRail() {
+ const shell = document.getElementById('subcatShell');
+ const rail = document.getElementById('subcatRail');
+ if (!shell || !rail) return;
 
-function formatReviewDate(value) {
- const date = new Date(value);
- if (Number.isNaN(date.getTime())) return '';
- return date.toLocaleDateString('ro-RO', {
- day: '2-digit',
- month: 'short',
- year: 'numeric',
- });
-}
+ const selected = getSelectedSubcategoryKey();
+ const items = getSubcategoryCounts();
+ const total = items.reduce((sum, item) => sum + item.count, 0);
 
-function updateProductRatingMeta(summary) {
- if (!summary) return;
- const starsEl = document.getElementById('prodStars');
- const reviewsEl = document.getElementById('prodReviews');
- if (starsEl) starsEl.innerHTML = summary.reviews > 0 ? buildStarMarkup(summary.rating) : '';
- if (reviewsEl) reviewsEl.textContent = summary.reviews > 0 ? '(' + summary.reviews + ' recenzii)' : 'Fără recenzii';
- if (prod) {
- prod.rating = summary.rating;
- prod.reviews = summary.reviews;
- }
- const current = ALL_PRODS.find(item => prod && item.id === prod.id);
- if (current) {
- current.rating = summary.rating;
- current.reviews = summary.reviews;
- }
-}
-
-function setSelectedReviewRating(rating) {
- selectedReviewRating = Math.min(5, Math.max(1, Number(rating || 5)));
- document.querySelectorAll('[data-review-star]').forEach((button) => {
- const active = Number(button.dataset.reviewStar) <= selectedReviewRating;
- button.classList.toggle('active', active);
- button.setAttribute('aria-pressed', active ? 'true' : 'false');
- });
- const valueField = document.getElementById('reviewRatingValue');
- const label = document.getElementById('reviewRatingLabel');
- if (valueField) valueField.value = String(selectedReviewRating);
- if (label) label.textContent = REVIEW_RATING_LABELS[selectedReviewRating] || REVIEW_RATING_LABELS[5];
-}
-
-function renderProductReviewSection(summary, reviews) {
- const summaryNode = document.getElementById('productReviewSummary');
- const listNode = document.getElementById('productReviewList');
- if (!summaryNode || !listNode) return;
-
- summaryNode.innerHTML = `
- <div class="review-summary-top">
- <div>
- <div class="review-summary-caption">Rating live</div>
- <div class="review-summary-score">${summary.reviews > 0 ? Number(summary.rating || 0).toFixed(1) : '?'}</div>
- </div>
- <div class="review-stars-display">
- <div class="stars">${summary.reviews > 0 ? buildStarMarkup(summary.rating) : ''}</div>
- </div>
- </div>
- <div class="review-summary-meta">${summary.reviews > 0 ? `${summary.reviews} recenzii in total` : 'Nicio evaluare reală încă'}</div>
- <div class="review-summary-copy">${summary.reviews > 0 ? 'Scorul se actualizează cu fiecare recenzie nouă trimisă direct din pagina produsului.' : 'Ratingul va apărea doar după ce produsul primește recenzii reale.'}</div>
- `;
-
- if (!reviews.length) {
- listNode.innerHTML = '<div class="review-empty">Inca nu exista recenzii scrise pentru acest produs. Fii primul care lasa o impresie utila.</div>';
+ if (!items.length) {
+ shell.hidden = true;
+ rail.innerHTML = '';
  return;
  }
 
- listNode.innerHTML = reviews.map((review) => {
- const initials = escapeProductHtml(review.name.split(/\s+/).slice(0, 2).map(part => part.charAt(0)).join('').toUpperCase() || 'M');
- const comment = review.comment ? `<div class="review-item-text">${escapeProductHtml(review.comment)}</div>` : '';
- return `
- <article class="review-item">
- <div class="review-item-head">
- <div class="review-item-author">
- <div class="review-avatar">${initials}</div>
- <div>
- <div class="review-item-name">${escapeProductHtml(review.name)}</div>
- <div class="review-item-date">${escapeProductHtml(formatReviewDate(review.createdAt))}</div>
- </div>
- </div>
- <div class="review-stars-display">
- <div class="stars">${buildStarMarkup(review.rating)}</div>
- </div>
- </div>
- ${comment}
- </article>
- `;
- }).join('');
+ shell.hidden = false;
+ rail.innerHTML = [
+ `<button class="subcat-chip${selected === 'all' ? ' active' : ''}" type="button" onclick="setSubcategory('all')"><span>Toate</span><span class="subcat-chip-count">${total}</span></button>`,
+ ...items.map(item => `<button class="subcat-chip${selected === item.key ? ' active' : ''}" type="button" onclick="setSubcategory('${item.key}')"><span>${item.label}</span><span class="subcat-chip-count">${item.count}</span></button>`),
+ ].join('');
 }
 
-async function loadProductReviews() {
- if (!window.MotApi || !prod) return;
- const response = await window.MotApi.getProductReviews(prod.id);
- if (!response?.ok) return;
- updateProductRatingMeta(response.summary);
- renderProductReviewSection(response.summary, response.items || []);
-}
-
-async function handleProductReviewSubmit(event) {
- event.preventDefault();
- if (!window.MotApi || !prod) return;
-
- const form = event.currentTarget;
- const submit = form.querySelector('.review-submit');
- const message = document.getElementById('reviewFormMessage');
- const name = document.getElementById('reviewAuthor').value.trim();
- const comment = document.getElementById('reviewComment').value.trim();
-
- if (submit) {
- submit.disabled = true;
- submit.textContent = 'Se trimite...';
- }
- if (message) {
- message.textContent = '';
- message.className = 'review-form-message';
- }
-
- try {
- const response = await window.MotApi.addProductReview(prod.id, {
- rating: selectedReviewRating,
- name,
- comment,
- });
-
- if (!response?.ok) {
- throw new Error(response?.error || 'Recenzia nu a putut fi trimisă.');
- }
-
- updateProductRatingMeta(response.summary);
- renderProductReviewSection(response.summary, response.items || []);
- form.reset();
- setSelectedReviewRating(5);
- if (message) {
- message.textContent = 'Recenzia a fost salvată.';
- message.className = 'review-form-message success';
- }
- } catch (error) {
- if (message) {
- message.textContent = error?.message || 'A apărut o eroare.';
- message.className = 'review-form-message error';
- }
- } finally {
- if (submit) {
- submit.disabled = false;
- submit.textContent = 'Trimite recenzia';
- }
- }
-}
-
-function enhanceProductSummaryCard() {
- const stockEl = document.getElementById('prodStock');
- if (stockEl) stockEl.className = 'product-stock-pill';
-
- const qtyLabel = document.querySelector('.product-summary-card > div[style*="text-transform:uppercase"]');
- if (qtyLabel) qtyLabel.className = 'product-qty-label';
-
- const benefitWrap = Array.from(document.querySelectorAll('.product-summary-card > div')).find((el) => {
- return el.textContent && el.textContent.includes('Livrare 24h') && el.textContent.includes('Retur 30 zile');
- });
- if (benefitWrap) {
- benefitWrap.className = 'product-benefits';
- Array.from(benefitWrap.children).forEach((child) => child.className = 'product-benefit');
- }
-}
-
-function renderProductGallery(product) {
- const images = getProductGalleryImages(product);
- const thumbs = document.getElementById('productThumbs');
- const mainImgEl = document.getElementById('mainImg');
- if (mainImgEl) {
- mainImgEl.src = images[0];
- mainImgEl.alt = product.name;
- }
- if (!thumbs) return;
- thumbs.innerHTML = images.map((image, index) => `
- <div class="thumb${index === 0 ? ' active' : ''}" data-image="${escapeProductHtml(image)}" onclick="setImg(this,this.dataset.image)">
- <img src="${escapeProductHtml(image)}" alt="${escapeProductHtml(product.name)}" loading="lazy" onerror="this.src='assets/product-placeholder.svg'"/ decoding="async">
- </div>
- `).join('');
- thumbs.style.display = images.length > 1 ? '' : 'none';
-}
-
-function withProductTimeout(promise, ms = 8000, label = 'request') {
- return Promise.race([
- promise,
- new Promise((_, reject) => setTimeout(() => reject(new Error(label + ' timed out')), ms)),
- ]);
-}
-
-function showProductLoadError(message) {
- const safeMessage = message || 'Produsul nu a putut fi încărcat. Te rugăm să revii la catalog și să încerci din nou.';
- const title = document.getElementById('prodTitle');
- const brand = document.getElementById('prodBrand');
- const sku = document.getElementById('prodSku');
- const price = document.getElementById('prodPrice');
- const desc = document.getElementById('prodDesc');
- const stock = document.getElementById('prodStock');
- if (brand) brand.textContent = 'Produs indisponibil';
- if (title) title.textContent = 'Nu am găsit produsul';
- if (sku) sku.textContent = 'indisponibil';
- if (price) price.textContent = '—';
- if (desc) desc.textContent = safeMessage;
- if (stock) {
- stock.textContent = 'Verifică în catalog';
- stock.style.color = '#c62828';
- stock.style.background = '#fff0f0';
- }
-}
-
-async function loadRelatedProductsAfterRender(product) {
- if (!product || typeof window.MotApi?.getRelatedProducts !== 'function') {
- return;
- }
- try {
- const related = await withProductTimeout(window.MotApi.getRelatedProducts(product, 4), 5000, 'related products');
- const cleanRelated = (Array.isArray(related) ? related : []).filter(item => item && item.id !== product.id);
- if (!cleanRelated.length) {
- renderRelated();
- return;
- }
- ALL_PRODS = [product].concat(cleanRelated);
- CATALOG = ALL_PRODS;
- const relatedSection = document.getElementById('relatedGrid')?.closest('section');
- if (relatedSection) relatedSection.style.display = '';
- renderRelated();
- } catch (_) {
- renderRelated();
- }
-}
-
-async function initProductPage() {
- if (!window.MotApi) {
- showProductLoadError('Catalogul nu este disponibil momentan.');
- return;
- }
- const pid = new URLSearchParams(location.search).get('id');
- let usedSnapshotFallback = false;
-
- if (pid && typeof window.MotApi.getProduct === 'function') {
- try {
- const response = await window.MotApi.getProduct(pid);
- if (response && response.ok && response.product) {
- prod = response.product;
- ALL_PRODS = [prod];
- CATALOG = ALL_PRODS;
- }
- } catch (error) {
- console.warn('[Product] detail request failed', error);
- }
- }
-
- if (!prod) {
- usedSnapshotFallback = true;
- try {
- ALL_PRODS = typeof window.MotApi.getCatalogSnapshot === 'function'
- ? await withProductTimeout(window.MotApi.getCatalogSnapshot(), 8000, 'catalog fallback')
- : [];
- } catch (error) {
- console.warn('[Product] catalog fallback failed', error);
- ALL_PRODS = [];
- }
- CATALOG = ALL_PRODS;
- const fallbackId = pid ? decodeURIComponent(String(pid)) : '';
- prod = fallbackId
- ? ALL_PRODS.find(p => String(p.id) === fallbackId || String(p.sku) === fallbackId)
- : null;
- }
- if (!prod) {
- showProductLoadError(pid ? 'Produsul cerut nu există în catalog sau nu mai este disponibil.' : 'Lipsește identificatorul produsului din URL.');
- return;
- }
-
- if (!usedSnapshotFallback && (!Array.isArray(ALL_PRODS) || !ALL_PRODS.length)) {
- ALL_PRODS = [prod];
- CATALOG = ALL_PRODS;
- }
-
- renderProductGallery(prod);
-
- document.getElementById('prodBrand').textContent = prod.brand;
- document.getElementById('prodTitle').textContent = prod.name;
- document.getElementById('prodSku').textContent = prod.sku;
- document.getElementById('prodPrice').textContent = formatCatalogPrice(prod.price);
- document.getElementById('prodDesc').textContent = prod.desc;
- const categoryLabels = { piese: 'Piese Auto', accesorii: 'Accesorii Auto', detailing: 'Detailing', baterii: 'Baterii & Acumulatori', filtre: 'Filtre', prelate: 'Prelate', 'huse-prelate': 'Huse Exterior', ambreiaje: 'Ambreiaje' };
- const bcCat = document.getElementById('bcCat');
- const bcSub = document.getElementById('bcSub');
- const bcSubSep = document.getElementById('bcSubSep');
- if (bcCat) { bcCat.href = 'category.html?cat=' + encodeURIComponent(prod.cat || 'piese'); bcCat.textContent = categoryLabels[prod.cat] || 'Piese Auto'; }
- if (bcSub && bcSubSep && prod.subcat && prod.subcatLabel) {
- bcSub.href = 'category.html?cat=' + encodeURIComponent(prod.cat || 'piese') + '&subcat=' + encodeURIComponent(prod.subcat);
- bcSub.textContent = prod.subcatLabel;
- bcSub.style.display = '';
- bcSubSep.style.display = '';
- }
- document.getElementById('bcProd').textContent = prod.name.substring(0, 45) + (prod.name.length > 45 ? '...' : '');
- document.title = prod.name + ' - Motora\u0219';
- updateProductRatingMeta({ rating: prod.rating, reviews: prod.reviews });
-
- // JSON-LD Product schema
- (function() {
- var existing = document.getElementById('jsonld-product');
- if (existing) existing.remove();
- var availability = prod.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock';
- var schema = {
- '@context': 'https://schema.org',
- '@type': 'Product',
- name: prod.name,
- description: prod.desc || prod.name,
- sku: prod.sku || prod.id,
- brand: prod.brand ? { '@type': 'Brand', name: prod.brand } : undefined,
- image: prod.img ? [prod.img] : ['https://www.pieseautomotoras.ro/assets/product-placeholder.svg'],
- offers: {
- '@type': 'Offer',
- url: 'https://www.pieseautomotoras.ro/product.html?id=' + encodeURIComponent(prod.id || prod.sku),
- priceCurrency: 'RON',
- price: prod.price ? prod.price.toFixed(2) : '0.00',
- availability: availability,
- seller: { '@type': 'Organization', name: 'Motora\u0219' }
- }
- };
- if (prod.rating && prod.reviews > 0) {
- schema.aggregateRating = { '@type': 'AggregateRating', ratingValue: prod.rating, reviewCount: prod.reviews };
- }
- // remove undefined keys
- var clean = JSON.parse(JSON.stringify(schema));
- var el = document.createElement('script');
- el.type = 'application/ld+json';
- el.id = 'jsonld-product';
- el.textContent = JSON.stringify(clean);
- document.head.appendChild(el);
-
- // update OG tags dynamically
- var setMeta = function(sel, val) { var m = document.querySelector(sel); if (m) m.setAttribute('content', val); };
- setMeta('meta[property="og:title"]', prod.name + ' | Motora\u0219');
- setMeta('meta[property="og:description"]', prod.desc || prod.name);
- setMeta('meta[property="og:image"]', prod.img || 'https://www.pieseautomotoras.ro/assets/og-default.png');
- setMeta('meta[name="twitter:title"]', prod.name + ' | Motora\u0219');
- setMeta('meta[name="twitter:description"]', (prod.desc || prod.name).substring(0, 200));
- setMeta('meta[name="twitter:image"]', prod.img || 'https://www.pieseautomotoras.ro/assets/og-default.png');
- setMeta('meta[name="description"]', (prod.desc || prod.name).substring(0, 155));
- var canonical = document.querySelector('link[rel="canonical"]');
- if (canonical) canonical.href = 'https://www.pieseautomotoras.ro/product.html?id=' + encodeURIComponent(prod.id || prod.sku);
+function initCategory() {
+ const catKey = getCurrentCategoryKey();
+ const meta = CAT_META[catKey] || CAT_META.piese;
+ ['catBannerTitle','catH1'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=meta.title; });
+ const desc=document.getElementById('catBannerDesc'); if(desc) desc.textContent=meta.desc;
+ const img=document.getElementById('catBannerImg'); if(img) img.src=meta.img;
+ const bc=document.getElementById('bcCurrent'); if(bc) bc.innerHTML=meta.title;
+ const cleanTitle = meta.title.replace(/&/g,'&');
+ document.title = cleanTitle + ' | Motoraș — Piese Auto București';
+ // Update meta description
+ const metaDesc = document.querySelector('meta[name="description"]');
+ if (metaDesc) metaDesc.setAttribute('content', meta.metaDesc || cleanTitle + ' — Motoraș. Livrare rapidă în România.');
+ // Update canonical to clean URL
+ const slug = meta.slug || catKey;
+ const canonicalUrl = 'https://www.pieseautomotoras.ro/' + slug;
+ const canonical = document.querySelector('link[rel="canonical"]');
+ if (canonical) canonical.href = canonicalUrl;
+ // Update OG tags
+ const setMeta = (sel, val) => { const m = document.querySelector(sel); if (m) m.setAttribute('content', val); };
+ setMeta('meta[property="og:title"]', cleanTitle + ' | Motoraș');
+ setMeta('meta[property="og:description"]', meta.metaDesc || cleanTitle + ' — livrare rapidă în România.');
+ setMeta('meta[property="og:url"]', canonicalUrl);
+ setMeta('meta[name="twitter:title"]', cleanTitle + ' | Motoraș');
+ setMeta('meta[name="twitter:description"]', meta.metaDesc || cleanTitle + ' — livrare rapidă în România.');
  // BreadcrumbList schema
- var catLabels = { piese: 'Piese Auto', accesorii: 'Accesorii Auto', detailing: 'Detailing Auto', baterii: 'Baterii & Acumulatori', filtre: 'Filtre Auto', prelate: 'Prelate Auto', 'huse-prelate': 'Huse Exterior', ambreiaje: 'Ambreiaje' };
- var catSlug = { piese: 'piese-auto', accesorii: 'accesorii', detailing: 'detailing', baterii: 'baterii', filtre: 'filtre', prelate: 'prelate', 'huse-prelate': 'huse-prelate', ambreiaje: 'ambreiaje' };
- var bc2 = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
- { '@type': 'ListItem', position: 1, name: 'Acas\u0103', item: 'https://www.pieseautomotoras.ro/' },
- { '@type': 'ListItem', position: 2, name: catLabels[prod.cat] || 'Piese Auto', item: 'https://www.pieseautomotoras.ro/' + (catSlug[prod.cat] || 'piese-auto') },
- { '@type': 'ListItem', position: 3, name: prod.name, item: 'https://www.pieseautomotoras.ro/product.html?id=' + encodeURIComponent(prod.id || prod.sku) }
- ]};
- var bcEl = document.getElementById('jsonld-breadcrumb');
- if (!bcEl) { bcEl = document.createElement('script'); bcEl.type = 'application/ld+json'; bcEl.id = 'jsonld-breadcrumb'; document.head.appendChild(bcEl); }
- bcEl.textContent = JSON.stringify(bc2);
- })();
-
- if (prod.old) {
- document.getElementById('prodOld').textContent = formatCatalogPrice(prod.old);
- document.getElementById('prodSave').textContent = 'Economisești ' + formatCatalogPrice(prod.old - prod.price).replace(' RON', '');
- } else {
- document.getElementById('prodOld').style.display = 'none';
- document.getElementById('prodSave').style.display = 'none';
- }
-
- const stockEl = document.getElementById('prodStock');
- if (prod.stock > 10) {
- stockEl.textContent = 'În stoc (' + prod.stock + ' buc.)';
- stockEl.style.color = '#1e7a44';
- stockEl.style.background = '#eef7f1';
- } else if (prod.stock > 0) {
- stockEl.textContent = 'Doar ' + prod.stock + ' rămase';
- stockEl.style.color = '#b56d10';
- stockEl.style.background = '#fff7e8';
- } else {
- stockEl.textContent = 'Epuizat';
- stockEl.style.color = '#c62828';
- stockEl.style.background = '#fff0f0';
- }
-
- const tbody = document.getElementById('specsBody');
- if (tbody && prod.specs) tbody.innerHTML = Object.entries(prod.specs).map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
-
- if (prod.compat) {
- const cc = document.getElementById('compatContent');
- if (cc) {
- const cars = prod.compat.split(';').map(s => s.trim()).filter(Boolean);
- cc.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">' + cars.map(c => `<div style="background:#fafbfc;border:1px solid var(--border);border-radius:9px;padding:11px 13px;font-size:13px;font-weight:600">${c}</div>`).join('') + '</div>';
- }
- }
-
- enhanceProductSummaryCard();
- loadRelatedProductsAfterRender(prod);
- renderProductSeoAssist();
- setSelectedReviewRating(5);
- await loadProductReviews();
-}
-
-function renderRelated() {
- const grid = document.getElementById('relatedGrid');
- if (!grid || !prod) return;
- const related = ALL_PRODS.filter(item => item.cat === prod.cat && item.id !== prod.id).slice(0, 4);
- if (!related.length) { const section = grid.closest('section'); if (section) section.style.display = 'none'; return; }
- grid.innerHTML = related.map(p => {
- const encodedId = encodeURIComponent(String(p.id));
- const image = p.img || 'assets/product-placeholder.svg';
- const stockClass = p.stock > 10 ? 'ok' : (p.stock > 0 ? 'low' : 'out');
- const stockLabel = p.stock > 10 ? 'În stoc' : (p.stock > 0 ? 'Doar ' + p.stock + ' rămase' : 'La comandă');
- return `<div class="prod-card"><a href="product.html?id=${encodedId}" class="prod-img"><img src="${image}" alt="${p.name}" loading="lazy" onerror="this.src='assets/product-placeholder.svg'"/ decoding="async"><div class="prod-img-overlay"><button class="btn-quick-add" type="button" data-product-action="quick-add" data-product-id="${encodedId}" data-label="Adaugă" aria-label="Adaugă rapid în coș"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button><button class="btn-quick-view" type="button" data-product-action="quick-view" data-product-id="${encodedId}" data-label="Detalii" aria-label="Detalii rapide"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></a><div class="prod-body"><div class="prod-brand">${p.brand}</div><a href="product.html?id=${encodedId}" class="prod-name">${p.name}</a><div class="prod-pricing"><span class="prod-price">${formatCatalogPrice(p.price).replace(' RON', '')}</span>${p.old ? `<span class="prod-old">${formatCatalogPrice(p.old).replace(' RON', '')}</span>` : ''}</div><span class="prod-stk ${stockClass}">${stockLabel}</span><button class="btn-add" type="button" data-product-action="add" data-product-id="${encodedId}">Adaugă în coș</button></div></div>`;
- }).join('');
-}
-
-function renderProductSeoAssist() {
- if (!prod) return;
- const faqRoot = document.getElementById('productFaqItems');
- const linksRoot = document.getElementById('productSeoLinks');
- if (!faqRoot || !linksRoot) return;
-
- const compatText = String(prod.compat || 'Compatibilitatea se verifică la cerere cu ajutorul echipei Motoraș.').trim();
- const deliveryText = String(prod.eta || 'Livrare rapidă în România, în funcție de disponibilitatea produsului.').trim();
- const categoryLabel = String(prod.subcatLabel || prod.cat || 'piese auto').trim();
-
- const faqItems = [
- {
- q: 'Cum verific dacă ' + prod.name + ' este compatibil cu mașina mea?',
- a: 'Compatibilitatea se poate verifica după marcă, model, motorizare și cod OEM. ' + compatText
- },
- {
- q: 'Pot comanda online această piesă auto cu livrare în România?',
- a: 'Da. Motoraș livrează național, iar pentru acest produs estimarea afișată este: ' + deliveryText
- },
- {
- q: 'Ce fac dacă am nevoie de confirmare înainte să cumpăr?',
- a: 'Poți intra pe pagina de contact sau pe WhatsApp și trimite seria de șasiu, codul OEM sau detaliile mașinii pentru confirmare rapidă.'
- }
- ];
-
- faqRoot.innerHTML = faqItems.map(function (item) {
- return '<div class="faq-item" style="border:1px solid #e7ebf3;border-radius:16px;background:#fafbfc;padding:16px 18px">' +
- '<strong style="display:block;font-size:14px;color:var(--dark);margin-bottom:8px">' + item.q + '</strong>' +
- '<span style="font-size:13.5px;line-height:1.8;color:var(--mid)">' + item.a + '</span>' +
- '</div>';
- }).join('');
-
- linksRoot.innerHTML = [
- { href: 'piese-auto-dupa-marca-si-model.html', label: 'Piese auto după marcă și model', copy: 'Ghid comercial pentru verificarea corectă a compatibilității.' },
- { href: 'verificare-compatibilitate-piese-auto.html', label: 'Verificare compatibilitate', copy: 'Pagină dedicată verificării după VIN, OEM și motorizare înainte de comandă.' },
- { href: 'piese-auto-dupa-cod-oem.html', label: 'Piese auto după cod OEM', copy: 'Utilă când ai deja codul original și vrei o potrivire mai precisă.' },
- { href: 'cumpara-piese-auto-online.html', label: 'Cumpără piese auto online', copy: 'Pagină utilă pentru utilizatorii aflați deja în etapa de comandă.' },
- { href: 'contact.html', label: 'Contact pentru compatibilitate', copy: 'Telefon, WhatsApp și suport direct înainte de checkout.' },
- { href: 'livrare.html', label: 'Livrare și plată', copy: 'Vezi detaliile despre expediere, costuri și ridicare locală.' },
- { href: 'harta-pagini-piese-auto.html', label: 'Harta paginilor Motoraș', copy: 'Hub intern cu principalele categorii și pagini comerciale.' }
- ].map(function (item) {
- return '<a href="' + item.href + '" style="display:block;padding:14px 16px;border-radius:16px;background:#fff;border:1px solid #e7ebf3">' +
- '<strong style="display:block;font-size:13px;color:var(--dark);margin-bottom:4px">' + item.label + '</strong>' +
- '<span style="font-size:12.8px;line-height:1.7;color:var(--mid)">' + item.copy + ' Pentru produsul curent, categoria relevantă este ' + categoryLabel + '.</span>' +
- '</a>';
- }).join('');
-
- var faqScript = document.getElementById('jsonld-product-faq');
- if (!faqScript) {
- faqScript = document.createElement('script');
- faqScript.type = 'application/ld+json';
- faqScript.id = 'jsonld-product-faq';
- document.head.appendChild(faqScript);
- }
- faqScript.textContent = JSON.stringify({
+ const breadcrumb = {
  '@context': 'https://schema.org',
- '@type': 'FAQPage',
- inLanguage: 'ro-RO',
- mainEntity: faqItems.map(function (item) {
- return {
- '@type': 'Question',
- name: item.q,
- acceptedAnswer: {
- '@type': 'Answer',
- text: item.a
- }
+ '@type': 'BreadcrumbList',
+ itemListElement: [
+ { '@type': 'ListItem', position: 1, name: 'Acasă', item: 'https://www.pieseautomotoras.ro/' },
+ { '@type': 'ListItem', position: 2, name: cleanTitle, item: canonicalUrl }
+ ]
  };
- })
+ let bcs = document.getElementById('jsonld-breadcrumb');
+ if (!bcs) { bcs = document.createElement('script'); bcs.type = 'application/ld+json'; bcs.id = 'jsonld-breadcrumb'; document.head.appendChild(bcs); }
+ bcs.textContent = JSON.stringify(breadcrumb);
+ renderSubcategoryRail();
+ renderProducts();
+}
+
+function getFiltered() {
+ const catKey = getCurrentCategoryKey();
+ const selectedSubcat = getSelectedSubcategoryKey();
+ let prods = ALL_PRODS.filter(p => p.cat === catKey);
+ if (selectedSubcat !== 'all') prods = prods.filter(p => p.subcat === selectedSubcat);
+ // Vehicle filter: text-match against name/compat/desc when a vehicle is saved
+ try {
+ const sv = JSON.parse(localStorage.getItem('motoras_vehicle') || 'null');
+ if (sv?.active && sv.marca) {
+ const marcaLow = sv.marca.toLowerCase();
+ const modelLow = (sv.model || '').toLowerCase();
+ const vehicleFiltered = prods.filter(p => {
+ const txt = [p.name, p.compat, p.desc, p.brand].join(' ').toLowerCase();
+ return txt.includes(marcaLow) || (modelLow && txt.includes(modelLow));
  });
+ // Only apply if we get meaningful results (>0); otherwise show all with a hint
+ if (vehicleFiltered.length > 0) prods = vehicleFiltered;
+ }
+ } catch(_) {}
+ const checkedBrands = [...document.querySelectorAll('.brand-filter:checked')].map(c=>c.value);
+ if (checkedBrands.length > 0) prods = prods.filter(p => checkedBrands.includes(p.brand));
+ const minP = parseFloat(document.getElementById('pMin')?.value) || 0;
+ const maxP = parseFloat(document.getElementById('pMax')?.value) || 99999;
+ prods = prods.filter(p => p.price >= minP && p.price <= maxP);
+ if (document.getElementById('inStock')?.checked) prods = prods.filter(p => p.stock > 0);
+ if (document.getElementById('onSale')?.checked) prods = prods.filter(p => p.old);
+ const sort = document.getElementById('sortSelect')?.value || 'popular';
+ if (sort === 'price_asc') prods.sort((a,b) => a.price - b.price);
+ if (sort === 'price_desc') prods.sort((a,b) => b.price - a.price);
+ if (sort === 'rating') prods.sort((a,b) => (b.rating||0) - (a.rating||0));
+ return prods;
+}
+
+function renderProducts(page) {
+ if(page) currentPage = page;
+ const prods = getFiltered();
+ const total = prods.length;
+ const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+ if(currentPage > totalPages) currentPage = totalPages;
+ if(currentPage < 1) currentPage = 1;
+ const start = (currentPage-1)*PAGE_SIZE;
+ const slice = prods.slice(start, start+PAGE_SIZE);
+ const resCount = document.getElementById('resCount');
+ if(resCount) resCount.textContent = total + ' produse';
+ const grid = document.getElementById('prodsGrid');
+ if(!grid) return;
+ if(slice.length === 0) {
+ grid.innerHTML = '<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--mid);font-size:15px;font-weight:600;background:#fff;border-radius:12px;border:1.5px dashed var(--border)">Niciun produs găsit cu filtrele selectate.<br><button onclick="clearFilters()" style="margin-top:12px;padding:8px 20px;background:var(--red);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-family:inherit">Resetează filtrele</button></div>';
+ document.getElementById('pgn')?.replaceChildren(); return;
+ }
+ grid.innerHTML = slice.map(p => cardHtmlEnhanced(p)).join('');
+ window.MotorasFavorites?.syncButtons(grid);
+ renderPagination(total);
+}
+
+function goToPage(page) {
+ renderProducts(page);
+ const results = document.getElementById('prodsGrid');
+ if(results) {
+ results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+ }
+}
+
+function cardHtml(p) {
+ const old = (p.old && p.old > p.price) ? `<span class="prod-old">${p.old} RON</span>` : '';
+ const save = (p.old && p.old > p.price) && Math.round((1-p.price/p.old)*100) >= 5 ? `<span class="prod-save">-${Math.round((1-p.price/p.old)*100)}%</span>` : '';
+ const bdg = p.badge==='hot' ? '<span class="prod-badge badge-hot">🔥 Popular</span>'
+ : p.badge==='new' ? '<span class="prod-badge badge-new">Nou</span>'
+ : p.badge==='sale' && p.old && p.old > p.price ? `<span class="prod-badge badge-sale">Ofertă</span>` : '';
+ const stk = p.stock > 10 ? '<span class="prod-stk ok">✓ În stoc</span>'
+ : p.stock > 0 ? `<span class="prod-stk low">⚠ Doar ${p.stock} rămase</span>`
+ : '<span class="prod-stk out">✗ Epuizat</span>';
+ const encodedId = encodeURIComponent(String(p.id));
+ return `<div class="prod-card" data-product-id="${encodedId}" style="animation:fadeUp .3s ease both;animation-delay:calc(var(--i,0)*.05s)">
+ ${bdg}
+ <button class="prod-wish" type="button" data-product-id="${encodedId}" aria-label="Favorite" aria-pressed="false"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+ <a href="product.html?id=${encodedId}" class="prod-img"><img src="${p.img}" alt="${p.name}" loading="lazy"/ decoding="async"></a>
+ <div class="prod-body">
+ <div class="prod-brand">${p.brand}</div>
+ <div class="prod-name">${p.name}</div>
+ ${renderCatalogRating(p)}
+ <div class="prod-pricing"><span class="prod-price">${p.price} RON</span>${old}${save}</div>
+ ${stk}
+ <button class="btn-add" type="button" data-product-action="add" data-product-id="${encodedId}">
+ <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+ Adaugă în coș
+ </button>
+ </div>
+ </div>`;
+}
+
+function renderPagination(total) {
+ const pgn = document.getElementById('pgn');
+ if(!pgn) return;
+ const pages = Math.ceil(total/PAGE_SIZE);
+ if(pages <= 1) { pgn.innerHTML=''; return; }
+ const tokens = [];
+ const pushPage = (value) => tokens.push({ type: 'page', value });
+ const pushGap = (key) => tokens.push({ type: 'gap', key });
+
+ if(pages <= 7) {
+ for(let i = 1; i <= pages; i += 1) pushPage(i);
+ } else {
+ pushPage(1);
+ let start = Math.max(2, currentPage - 1);
+ let end = Math.min(pages - 1, currentPage + 1);
+ if(currentPage <= 3) { start = 2; end = 4; }
+ if(currentPage >= pages - 2) { start = pages - 3; end = pages - 1; }
+ if(start > 2) pushGap('left');
+ for(let i = start; i <= end; i += 1) pushPage(i);
+ if(end < pages - 1) pushGap('right');
+ pushPage(pages);
+ }
+
+ let html = `<button class="pb nav${currentPage === 1 ? ' is-disabled' : ''}" ${currentPage === 1 ? 'type="button" disabled' : `type="button" onclick="goToPage(${currentPage-1})"`} aria-label="Pagina anterioară">←</button>`;
+ html += tokens.map(token => {
+ if(token.type === 'gap') return '<span class="pb-gap">...</span>';
+ return `<button class="pb${token.value===currentPage?' act':''}" type="button" onclick="goToPage(${token.value})" aria-label="Pagina ${token.value}">${token.value}</button>`;
+ }).join('');
+ html += `<button class="pb nav${currentPage === pages ? ' is-disabled' : ''}" ${currentPage === pages ? 'type="button" disabled' : `type="button" onclick="goToPage(${currentPage+1})"`} aria-label="Pagina următoare">→</button>`;
+ pgn.innerHTML = html;
+}
+
+function applyFilters() { currentPage=1; renderProducts(); }
+function clearFilters() {
+ document.querySelectorAll('.brand-filter').forEach(c=>c.checked=false);
+ document.querySelectorAll('#inStock,#onSale').forEach(c=>c.checked=false);
+ document.getElementById('pMin').value='0'; document.getElementById('pMax').value='9999';
+ applyFilters();
+}
+
+function cardHtmlEnhanced(p) {
+ const encodedId = encodeURIComponent(String(p.id));
+ const old = (p.old && p.old > p.price) ? `<span class="prod-old">${p.old} RON</span>` : '';
+ const save = (p.old && p.old > p.price) && Math.round((1-p.price/p.old)*100) >= 5 ? `<span class="prod-save">-${Math.round((1-p.price/p.old)*100)}%</span>` : '';
+ const bdg = p.badge==='hot' ? '<span class="prod-badge badge-hot">🔥 Popular</span>'
+ : p.badge==='new' ? '<span class="prod-badge badge-new">Nou</span>'
+ : p.badge==='sale'&&p.old&&p.old>p.price ? `<span class="prod-badge badge-sale">Ofertă</span>` : '';
+ const stk = p.stock>10 ? '<span class="prod-stk ok">✓ În stoc</span>'
+ : p.stock>0 ? `<span class="prod-stk low">⚠ Doar ${p.stock} rămase</span>`
+ : '<span class="prod-stk out">✗ Epuizat</span>';
+ return `<div class="prod-card" data-product-id="${encodedId}" style="animation:fadeUp .3s ease both;animation-delay:calc(var(--i,0)*.05s)">
+ ${bdg}
+ <button class="prod-wish" type="button" data-product-id="${encodedId}" aria-label="Favorite" aria-pressed="false"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+ <a href="product.html?id=${encodedId}" class="prod-img">
+ <img src="${p.img}" alt="${p.name}" loading="lazy"/ decoding="async">
+ <div class="prod-img-overlay">
+ <button class="btn-quick-add" type="button" data-product-action="quick-add" data-product-id="${encodedId}" data-label="Adaugă" aria-label="Adaugă rapid în coș">
+ <svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+ </button>
+ <button class="btn-quick-view" type="button" data-product-action="quick-view" data-product-id="${encodedId}" data-label="Detalii" aria-label="Detalii rapide" title="Vizualizare rapidă"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+ </div>
+ </a>
+ <div class="prod-body">
+ <div class="prod-brand">${p.brand}</div>
+ <a href="product.html?id=${encodedId}" class="prod-name" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--dark);text-decoration:none;font-size:13.5px;font-weight:700;line-height:1.45;min-height:2.9em;flex:1">${p.name}</a>
+ ${renderCatalogRating(p)}
+ <div class="prod-pricing"><span class="prod-price">${p.price} RON</span>${old}${save}</div>
+ ${stk}
+ <button class="btn-add" type="button" data-product-action="add" data-product-id="${encodedId}">
+ <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+ Adaugă în coș
+ </button>
+ </div>
+ </div>`;
 }
 
 // === CATALOG ===
@@ -2497,7 +2174,7 @@ function showToast(name, price, img, type='cart') {
  <img class="toast-img" src="${img}" alt="${name}" onerror="this.style.display='none'"/>
  <div class="toast-text">
  <div class="toast-title">${type==='cart' ? '✓ Adăugat în coș' : '❤ Adăugat la favorite'}</div>
- <div class="toast-sub">${name.length>38 ? name.substring(0,38)+'...' : name}</div>
+ <div class="toast-sub">${name.length > 38 ? name.substring(0,38)+'...' : name}</div>
  </div>
  <div class="toast-price">${price} RON</div>
  `;
@@ -2527,14 +2204,14 @@ function openQuickView(productId) {
  if(!p) return;
  const modal = document.getElementById('qvModal');
  if(!modal) return;
- document.getElementById('qvImg').src = p.img || 'assets/product-placeholder.svg';
+ document.getElementById('qvImg').src = p.img;
  document.getElementById('qvBrand').textContent = p.brand;
  document.getElementById('qvName').textContent = p.name;
- document.getElementById('qvPrice').textContent = formatCatalogPrice(p.price);
+ document.getElementById('qvPrice').textContent = p.price + ' RON';
  const qvOld = document.getElementById('qvOld');
  const qvSave = document.getElementById('qvSave');
  if(p.old && p.old > p.price) {
- qvOld.textContent = formatCatalogPrice(p.old); qvOld.style.display='';
+ qvOld.textContent = p.old + ' RON'; qvOld.style.display='';
  const _d=Math.round((1-p.price/p.old)*100); if(_d>=5){qvSave.textContent='-'+_d+'%';qvSave.style.display='';}else{qvSave.style.display='none';}
  } else { qvOld.style.display='none'; qvSave.style.display='none'; }
  document.getElementById('qvDesc').textContent = p.desc || '';
@@ -2572,11 +2249,20 @@ function updateStickyBar() {
 // === WISH BUTTON TOGGLE ===
 document.addEventListener('click', e => {
  const btn = e.target.closest('.prod-wish');
- if(!btn) return;
+ if(!btn || !window.MotorasFavorites) return;
+ e.preventDefault();
+ e.stopPropagation();
  const product = getCatalogProductById(btn.dataset.productId);
- if(!product || !window.MotorasFavorites) return;
+ if(!product) return;
  const result = window.MotorasFavorites.toggleFavorite(product);
- if(result.added) showToast(product.name, product.price, product.img, 'wish');
+ if(result.added) {
+ showToast(product.name, product.price, product.img, 'wish');
+ }
+});
+window.addEventListener('storage', (event) => {
+ if (event.key === window.MotorasFavorites?.STORAGE_KEY) {
+ window.MotorasFavorites.syncButtons(document);
+ }
 });
 
 document.addEventListener('click', e => {
@@ -2607,23 +2293,67 @@ document.addEventListener('click', e => {
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeQuickView(); });
 
 // === INIT ===
-(() => {
+document.addEventListener('DOMContentLoaded', () => {
  updateStickyBar();
- setSelectedReviewRating(5);
- document.querySelectorAll('[data-review-star]').forEach((button) => {
- button.addEventListener('click', () => setSelectedReviewRating(button.dataset.reviewStar));
- });
- document.getElementById('productReviewForm')?.addEventListener('submit', handleProductReviewSubmit);
  // Update sticky bar when storage changes (other tabs)
  window.addEventListener('storage', updateStickyBar);
- initProductPage();
-})();;
+});
 
-function setImg(el,src){document.getElementById('mainImg').src=src||'assets/product-placeholder.svg';document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
-function showTab(id,btn){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tp-'+id).classList.add('active');btn.classList.add('active');}
-function changeQtyPage(d){const inp=document.getElementById('pageQty');inp.value=Math.max(1,Math.min(99,parseInt(inp.value||1)+d));}
-function addProductToCart(){const qty=parseInt(document.getElementById('pageQty').value)||1;for(let i=0;i<qty;i++)addToCart(prod.name,prod.brand,prod.price,prod.img,prod.id);}
-function buyNow(){addProductToCart();if(window.MotorasPageLoader?.navigate){window.MotorasPageLoader.navigate('checkout.html');return;}window.location.href='checkout.html';}
+document.addEventListener('DOMContentLoaded', async () => {
+ await loadCategoryCatalog();
+ initCategory();
+});
+
+function formatCatalogPrice(value) {
+ return `${Number(value || 0).toFixed(2).replace('.00', '')} RON`;
+}
+
+function renderCatalogRating(product) {
+ if (!product || Number(product.reviews || 0) <= 0) {
+ return '<div class="prod-stars"><span class="prod-rating">Fără recenzii</span></div>';
+ }
+ const stars = Array.from({length:5},(_,i)=>`<div class="star${i < Math.round(product.rating || 0) ? '' : ' e'}"></div>`).join('');
+ return `<div class="prod-stars"><div class="stars">${stars}</div><span class="prod-rating">(${product.reviews})</span></div>`;
+}
+
+cardHtmlEnhanced = function (p) {
+ const encodedId = encodeURIComponent(String(p.id));
+ const old = (p.old && p.old > p.price) ? `<span class="prod-old">${formatCatalogPrice(p.old)}</span>` : '';
+ const save = (p.old && p.old > p.price) && Math.round((1-p.price/p.old)*100) >= 5 ? `<span class="prod-save">-${Math.round((1-p.price/p.old)*100)}%</span>` : '';
+ const badge = p.badge === 'hot'
+ ? '<span class="prod-badge badge-hot">Popular</span>'
+ : p.badge === 'new'
+ ? '<span class="prod-badge badge-new">Nou</span>'
+ : p.badge === 'sale' && p.old
+ ? `<span class="prod-badge badge-sale">Ofertă</span>`
+ : '';
+ const stock = p.stock > 10
+ ? '<span class="prod-stk ok">În stoc</span>'
+ : p.stock > 0
+ ? `<span class="prod-stk low">Doar ${p.stock} rămase</span>`
+ : '<span class="prod-stk out">La comandă</span>';
+ return `<div class="prod-card" data-product-id="${encodedId}" style="animation:fadeUp .3s ease both;animation-delay:calc(var(--i,0)*.05s)">
+ ${badge}
+ <button class="prod-wish" type="button" data-product-id="${encodedId}" aria-label="Favorite" aria-pressed="false"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+ <a href="product.html?id=${encodedId}" class="prod-img">
+ <img src="${p.img}" alt="${p.name}" loading="lazy"/ decoding="async">
+ <div class="prod-img-overlay">
+ <button class="btn-quick-add" type="button" data-product-action="quick-add" data-product-id="${encodedId}" data-label="Adaugă" aria-label="Adaugă rapid în coș">
+ <svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+ </button>
+ <button class="btn-quick-view" type="button" data-product-action="quick-view" data-product-id="${encodedId}" data-label="Detalii" aria-label="Detalii rapide" title="Vizualizare rapidă"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+ </div>
+ </a>
+ <div class="prod-body">
+ <div class="prod-brand">${p.brand}</div>
+ <a href="product.html?id=${encodedId}" class="prod-name" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--dark);text-decoration:none">${p.name}</a>
+ ${renderCatalogRating(p)}
+ <div class="prod-pricing"><span class="prod-price">${formatCatalogPrice(p.price)}</span>${old}${save}</div>
+ ${stock}
+ <button class="btn-add" type="button" data-product-action="add" data-product-id="${encodedId}">Adaugă în coș</button>
+ </div>
+ </div>`;
+};
 
 
 }; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
@@ -2657,7 +2387,7 @@ function buyNow(){addProductToCart();if(window.MotorasPageLoader?.navigate){wind
  Adaugă în coș
  </button>
  <a id="qvDetailBtn" href="product.html" style="width:100%;display:flex;align-items:center;justify-content:center;gap:7px;background:transparent;color:var(--mid);padding:11px;border-radius:9px;border:1.5px solid var(--border);font-size:13px;font-weight:700;transition:all .18s;text-decoration:none" onmouseover="this.style.borderColor='var(--dark)';this.style.color='var(--dark)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--mid)'">
- Vezi detalii complete ?
+ Vezi detalii complete
  </a>
  </div>
  </div>
@@ -2675,32 +2405,18 @@ function buyNow(){addProductToCart();if(window.MotorasPageLoader?.navigate){wind
 <script src="api.js?v=20260512-phase4" defer></script>
 <script src="nav-subcategories.js?v=20260414-2" defer></script>
 <script>
-/* phase4-defer-gate */
-(function () { var __run = function () {
-
 (function () {
- function normalizeText(value) {
- return String(value || '').replace(/\s+/g, ' ').trim();
- }
-
- function absoluteUrl(value) {
- var input = normalizeText(value);
- if (!input) return '';
- if (/^https?:\/\//i.test(input)) return input;
- return 'https://www.pieseautomotoras.ro/' + input.replace(/^\/+/, '');
- }
-
- function setProductMediaHints() {
- var mainImage = document.getElementById('mainImg');
- if (mainImage) {
- mainImage.setAttribute('decoding', 'async');
- mainImage.setAttribute('fetchpriority', 'high');
- if (!mainImage.hasAttribute('sizes')) mainImage.setAttribute('sizes', '(max-width: 768px) 92vw, 680px');
- }
- document.querySelectorAll('.thumb img, .prod-img img').forEach(function (img) {
+ function setCategoryMediaHints(root) {
+ (root || document).querySelectorAll('.prod-img img').forEach(function (img) {
  if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
- if (!img.hasAttribute('sizes')) img.setAttribute('sizes', '(max-width: 768px) 32vw, 120px');
+ if (!img.hasAttribute('sizes')) img.setAttribute('sizes', '(max-width: 768px) 46vw, (max-width: 1200px) 23vw, 280px');
  });
+ var banner = document.getElementById('catBannerImg');
+ if (banner) {
+ banner.setAttribute('decoding', 'async');
+ banner.setAttribute('fetchpriority', 'high');
+ if (!banner.hasAttribute('sizes')) banner.setAttribute('sizes', '(max-width: 768px) 90vw, 280px');
+ }
  }
 
  function upsertJsonLd(id, payload) {
@@ -2714,145 +2430,177 @@ function buyNow(){addProductToCart();if(window.MotorasPageLoader?.navigate){wind
  node.textContent = JSON.stringify(payload);
  }
 
- async function emitAdvancedProductSchema() {
- if (typeof prod === 'undefined' || !prod) return;
- var productId = normalizeText(prod.id || prod.sku);
- if (!productId) return;
+ function emitCategorySeoEnhancements() {
+ if (typeof CAT_META === 'undefined' || typeof getCurrentCategoryKey !== 'function' || typeof getFiltered !== 'function') return;
+ var catKey = getCurrentCategoryKey();
+ var meta = CAT_META[catKey] || CAT_META.piese;
+ var cleanTitle = String(meta.title || 'Piese Auto').replace(/&/g, '&');
+ var canonical = 'https://www.pieseautomotoras.ro/' + (meta.slug || catKey);
+ var products = getFiltered().slice(0, 24);
+ var selectedSubcat = typeof getSelectedSubcategoryKey === 'function' ? getSelectedSubcategoryKey() : 'all';
+ var subcats = typeof getSubcategoryCounts === 'function' ? getSubcategoryCounts(catKey) : [];
+ var currentSubcat = subcats.find(function (item) { return item.key === selectedSubcat; });
+ var visibleLabel = currentSubcat ? currentSubcat.label : cleanTitle;
 
- var canonical = 'https://www.pieseautomotoras.ro/product.html?id=' + encodeURIComponent(productId);
- var ratingSummary = { rating: Number(prod.rating || 0), reviews: Number(prod.reviews || 0) };
- var reviews = [];
-
- try {
- if (window.MotApi && typeof window.MotApi.getProductReviews === 'function') {
- var response = await window.MotApi.getProductReviews(productId);
- if (response && response.ok) {
- ratingSummary = response.summary || ratingSummary;
- reviews = Array.isArray(response.items) ? response.items.slice(0, 5) : [];
- }
- }
- } catch (_) {}
-
- var payload = {
+ upsertJsonLd('jsonld-category-collection', {
  '@context': 'https://schema.org',
- '@type': 'Product',
- '@id': canonical + '#product',
+ '@type': 'CollectionPage',
+ '@id': canonical + '#collection',
  url: canonical,
- name: normalizeText(prod.name),
- description: normalizeText([prod.desc, prod.compat, prod.eta].filter(Boolean).join(' | ')) || normalizeText(prod.name),
- sku: normalizeText(prod.sku || productId),
- mpn: normalizeText(prod.sku || productId),
- category: normalizeText(prod.subcatLabel || prod.cat || 'Piese Auto'),
- image: Array.isArray(prod.images) && prod.images.length ? prod.images.map(absoluteUrl) : [absoluteUrl(prod.img || 'assets/product-placeholder.svg')],
- brand: prod.brand ? { '@type': 'Brand', name: normalizeText(prod.brand) } : undefined,
- additionalProperty: [
- { '@type': 'PropertyValue', name: 'Categorie', value: normalizeText(prod.subcatLabel || prod.cat || 'Piese Auto') },
- prod.oem ? { '@type': 'PropertyValue', name: 'Cod OEM', value: normalizeText(prod.oem) } : null,
- prod.compat ? { '@type': 'PropertyValue', name: 'Compatibilitate', value: normalizeText(prod.compat) } : null,
- prod.eta ? { '@type': 'PropertyValue', name: 'Livrare', value: normalizeText(prod.eta) } : null
- ].filter(Boolean),
- offers: {
- '@type': 'Offer',
- url: canonical,
- priceCurrency: 'RON',
- price: Number(prod.price || 0).toFixed(2),
- availability: Number(prod.stock || 0) > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
- itemCondition: 'https://schema.org/NewCondition',
- seller: {
- '@type': 'Organization',
+ name: cleanTitle + ' | Motoraș',
+ description: meta.metaDesc || meta.desc || cleanTitle,
+ inLanguage: 'ro-RO',
+ isPartOf: {
+ '@type': 'WebSite',
  name: 'Motoraș',
  url: 'https://www.pieseautomotoras.ro/'
  },
- shippingDetails: {
- '@type': 'OfferShippingDetails',
- shippingDestination: {
- '@type': 'DefinedRegion',
- addressCountry: 'RO'
+ about: {
+ '@type': 'Thing',
+ name: visibleLabel
  },
- deliveryTime: {
- '@type': 'ShippingDeliveryTime',
- handlingTime: {
- '@type': 'QuantitativeValue',
- minValue: 0,
- maxValue: 1,
- unitCode: 'DAY'
- },
- transitTime: {
- '@type': 'QuantitativeValue',
- minValue: 1,
- maxValue: 3,
- unitCode: 'DAY'
+ mainEntity: {
+ '@id': canonical + '#itemlist'
  }
- }
- },
- hasMerchantReturnPolicy: {
- '@type': 'MerchantReturnPolicy',
- applicableCountry: 'RO',
- returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
- merchantReturnDays: 30,
- returnMethod: 'https://schema.org/ReturnByMail',
- returnFees: 'https://schema.org/ReturnFeesCustomerResponsibility'
- }
- }
- };
+ });
 
- if (Number(ratingSummary.reviews || 0) > 0 && Number(ratingSummary.rating || 0) > 0) {
- payload.aggregateRating = {
- '@type': 'AggregateRating',
- ratingValue: Number(ratingSummary.rating).toFixed(1),
- reviewCount: Number(ratingSummary.reviews)
- };
- }
-
- if (reviews.length) {
- payload.review = reviews.map(function (review) {
+ upsertJsonLd('jsonld-category-itemlist', {
+ '@context': 'https://schema.org',
+ '@type': 'ItemList',
+ '@id': canonical + '#itemlist',
+ itemListOrder: 'https://schema.org/ItemListOrderAscending',
+ numberOfItems: products.length,
+ itemListElement: products.map(function (product, index) {
+ var productUrl = 'https://www.pieseautomotoras.ro/product.html?id=' + encodeURIComponent(String(product.id || ''));
  return {
- '@type': 'Review',
- author: {
- '@type': 'Person',
- name: normalizeText(review.name || 'Client Motoraș')
- },
- datePublished: normalizeText(String(review.createdAt || '').split('T')[0]),
- reviewBody: normalizeText(review.comment || 'Recenzie client Motoraș.'),
- reviewRating: {
- '@type': 'Rating',
- ratingValue: Number(review.rating || 5),
- bestRating: 5,
- worstRating: 1
+ '@type': 'ListItem',
+ position: index + 1,
+ url: productUrl,
+ item: {
+ '@type': 'Product',
+ name: String(product.name || 'Produs'),
+ sku: String(product.sku || product.id || ''),
+ image: product.img ? [product.img] : undefined,
+ brand: product.brand ? { '@type': 'Brand', name: String(product.brand) } : undefined,
+ offers: {
+ '@type': 'Offer',
+ url: productUrl,
+ priceCurrency: 'RON',
+ price: Number(product.price || 0).toFixed(2),
+ availability: Number(product.stock || 0) > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock'
+ }
  }
  };
+ })
  });
+
+ var title = document.getElementById('categorySeoTitle');
+ var lead = document.getElementById('categorySeoLead');
+ var body = document.getElementById('categorySeoBody');
+ if (title) title.textContent = visibleLabel + ' cu livrare rapidă în toată România';
+ if (lead) {
+ lead.textContent = 'În categoria ' + visibleLabel + ' găsești produse afișate clar cu preț, stoc și filtre rapide după brand, buget și disponibilitate. Secțiunea adaugă context comercial util pentru interogări precum „piese auto online”, „magazin piese auto România” sau căutări pe familii de produse.';
+ }
+ if (body) {
+ body.textContent = 'Motoraș este un magazin de piese auto din București cu livrare națională și ridicare locală. Pentru verificare compatibilitate, detalii despre cod OEM, livrare, retur și contact rapid, poți continua direct către paginile suport fără să ieși din fluxul de cumpărare.';
+ }
  }
 
- upsertJsonLd('jsonld-product', payload);
+ function refreshCategoryEnhancements() {
+ setCategoryMediaHints(document);
+ emitCategorySeoEnhancements();
  }
 
- (function () {
- setProductMediaHints();
- setTimeout(emitAdvancedProductSchema, 900);
- setTimeout(emitAdvancedProductSchema, 1800);
- var gallery = document.querySelector('.product-gallery');
- if (gallery && typeof MutationObserver !== 'undefined') {
- new MutationObserver(function () {
- setProductMediaHints();
- setTimeout(emitAdvancedProductSchema, 100);
- }).observe(gallery, { childList: true, subtree: true, attributes: true, attributeFilter: ['src'] });
+ document.addEventListener('DOMContentLoaded', function () {
+ refreshCategoryEnhancements();
+ var grid = document.getElementById('prodsGrid');
+ if (grid && typeof MutationObserver !== 'undefined') {
+ new MutationObserver(function () { refreshCategoryEnhancements(); }).observe(grid, { childList: true, subtree: true });
  }
- var reviewForm = document.getElementById('productReviewForm');
- if (reviewForm) {
- reviewForm.addEventListener('submit', function () {
- setTimeout(emitAdvancedProductSchema, 1200);
+ var rail = document.getElementById('subcatRail');
+ if (rail && typeof MutationObserver !== 'undefined') {
+ new MutationObserver(function () { setTimeout(refreshCategoryEnhancements, 120); }).observe(rail, { childList: true, subtree: true });
+ }
  });
- }
- })();;
 })();
+</script>
+<script>
+(function () {
+ function appendJsonLd(id, payload) {
+ var node = document.getElementById(id);
+ if (!node) {
+ node = document.createElement('script');
+ node.type = 'application/ld+json';
+ node.id = id;
+ document.head.appendChild(node);
+ }
+ node.textContent = JSON.stringify(payload);
+ }
 
-}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
+ function buildCategoryFaq() {
+ if (typeof CAT_META === 'undefined' || typeof getCurrentCategoryKey !== 'function' || typeof getFiltered !== 'function') return;
+ var catKey = getCurrentCategoryKey();
+ var meta = CAT_META[catKey] || CAT_META.piese;
+ var title = String(meta.title || 'Piese Auto').replace(/&/g, '&');
+ var products = getFiltered();
+ var grid = document.getElementById('categoryFaqGrid');
+ if (!grid) return;
+
+ var faqItems = [
+ {
+ q: 'Pot comanda ' + title + ' online cu livrare în România?',
+ a: 'Da. Motoraș livrează național, iar în categoria ' + title + ' ai acces la produse afișate cu preț, stoc și filtre rapide.'
+ },
+ {
+ q: 'Cum verific compatibilitatea pentru produsele din ' + title + '?',
+ a: 'Poți verifica după marcă, model, cod OEM sau cu ajutorul echipei Motoraș prin telefon, WhatsApp ori pagina de contact.'
+ },
+ {
+ q: 'Categoria ' + title + ' este potrivită pentru căutări după marcă și model?',
+ a: 'Da. Poți porni din categoria curentă și apoi continua spre verificarea compatibilității pentru marca și modelul mașinii tale înainte de comandă.'
+ },
+ {
+ q: 'Câte produse sunt afișate acum în ' + title + '?',
+ a: 'În acest moment sunt afișate ' + products.length + ' produse filtrate în categoria ' + title + ', în funcție de selecția activă din pagină.'
+ }
+ ];
+
+ grid.innerHTML = faqItems.map(function (item) {
+ return '<div class="faq-item" style="border:1px solid #e7ebf3;border-radius:18px;background:#fafbfc;padding:18px">' +
+ '<strong style="display:block;font-size:14px;color:var(--dark);margin-bottom:8px">' + item.q + '</strong>' +
+ '<span style="font-size:13.5px;line-height:1.8;color:var(--mid)">' + item.a + '</span>' +
+ '</div>';
+ }).join('');
+
+ appendJsonLd('jsonld-category-faq', {
+ '@context': 'https://schema.org',
+ '@type': 'FAQPage',
+ inLanguage: 'ro-RO',
+ mainEntity: faqItems.map(function (item) {
+ return {
+ '@type': 'Question',
+ name: item.q,
+ acceptedAnswer: {
+ '@type': 'Answer',
+ text: item.a
+ }
+ };
+ })
+ });
+ }
+
+ document.addEventListener('DOMContentLoaded', function () {
+ buildCategoryFaq();
+ var grid = document.getElementById('prodsGrid');
+ if (grid && typeof MutationObserver !== 'undefined') {
+ new MutationObserver(function () { setTimeout(buildCategoryFaq, 120); }).observe(grid, { childList: true, subtree: true });
+ }
+ });
+})();
 </script>
 
 <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
 <style>
-@media(max-width:900px){#productSeoAssist{grid-template-columns:1fr !important;}}
 .wa-float{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;align-items:center;gap:10px;flex-direction:row-reverse}
 .wa-btn{width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.45);cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;flex-shrink:0}
 .wa-btn:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(37,211,102,.6)}

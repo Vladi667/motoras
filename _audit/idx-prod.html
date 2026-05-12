@@ -404,6 +404,7 @@ button{font-family:inherit;cursor:pointer}
 .cat-card[data-cat="piese"]{--cat-accent:#d53d2d;--cat-surface-2:#f8f2f0}
 .cat-card[data-cat="detailing"]{--cat-accent:#a12525;--cat-surface-2:#faf1f2}
 .cat-card[data-cat="baterii"]{--cat-accent:#bb4c24;--cat-surface-2:#faf4ef}
+.cat-card[data-cat="uleiuri"]{--cat-accent:#b46222;--cat-surface-2:#fbf5ef}
 .cat-card[data-cat="filtre"]{--cat-accent:#9b4f29;--cat-surface-2:#faf4f1}
 .cat-card[data-cat="prelate"]{--cat-accent:#83382a;--cat-surface-2:#f8f2f1}
 .cat-card[data-cat="ambreiaje"]{--cat-accent:#702626;--cat-surface-2:#f7f1f2}
@@ -1843,6 +1844,7 @@ const HOME_CATEGORY_META = {
  detailing: { label: 'Detailing', href: 'category.html?cat=detailing', blurb: 'Îngrijire premium cu produse curate și bine prezentate.', image: 'https://images.unsplash.com/photo-1608506375591-b90e1f955e4b?w=900&q=80&fit=crop' },
  baterii: { label: 'Baterii', href: 'category.html?cat=baterii', blurb: 'Acumulatori și soluții de alimentare cu imagine clară.', image: 'https://images.unsplash.com/photo-1676337167752-2062c6ca7366?w=900&q=80&fit=crop' },
  filtre: { label: 'Filtre', href: 'category.html?cat=filtre', blurb: 'Selecție clară de filtre și consumabile de flux.', image: 'https://images.unsplash.com/photo-1588294020274-1e23a4815b72?w=900&q=80&fit=crop' },
+ uleiuri: { label: 'Uleiuri & Lubrifianți', href: 'category.html?cat=uleiuri', blurb: 'Uleiuri motor, antigel, aditivi și lichide tehnice.', image: 'https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=900&q=80&fit=crop' },
  prelate: { label: 'Prelate', href: 'category.html?cat=prelate', blurb: 'Protecție discretă pentru exterior și textile auto.', image: 'https://images.unsplash.com/photo-1626966473515-71dc32f2aedd?w=900&q=80&fit=crop' },
  'huse-prelate': { label: 'Huse Exterior', href: 'category.html?cat=huse-prelate', blurb: 'Prelate dedicate pe marcă, model și dimensiune.', image: 'https://images.unsplash.com/photo-1596165494776-c27e37f666fe?w=900&q=80&fit=crop' },
 };
@@ -1899,7 +1901,7 @@ function getHomeCategoryCount(category) {
 function renderHomeCategoryCards() {
  const container = document.getElementById('homeCategoryCards');
  if (!container) return;
- const ordered = ['piese', 'accesorii', 'detailing', 'baterii', 'filtre', 'prelate', 'huse-prelate']
+ const ordered = ['piese', 'accesorii', 'uleiuri', 'detailing', 'baterii', 'filtre', 'prelate', 'huse-prelate']
  .filter(key => getHomeCategoryCount(key) > 0);
 
  if (!ordered.length) {
@@ -2018,7 +2020,7 @@ function renderHomeCategoryTabs() {
  const container = document.getElementById('homeCategoryTabs');
  const link = document.getElementById('homeCategoryLink');
  if (!container) return;
- const ordered = ['all', 'piese', 'accesorii', 'detailing', 'baterii', 'filtre', 'prelate', 'huse-prelate'];
+ const ordered = ['all', 'piese', 'accesorii', 'uleiuri', 'detailing', 'baterii', 'filtre', 'prelate', 'huse-prelate'];
  container.innerHTML = ordered.map(key => {
  const meta = HOME_CATEGORY_META[key];
  const count = getHomeCategoryCount(key);

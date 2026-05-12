@@ -55,7 +55,6 @@
     { "src": "/piese-auto", "dest": "/category.html?cat=piese" },
     { "src": "/detailing", "dest": "/category.html?cat=detailing" },
     { "src": "/baterii", "dest": "/category.html?cat=baterii" },
-    { "src": "/uleiuri", "dest": "/category.html?cat=uleiuri" },
     { "src": "/filtre", "dest": "/category.html?cat=filtre" },
     { "src": "/prelate", "dest": "/category.html?cat=prelate" },
     { "src": "/huse-prelate", "dest": "/category.html?cat=huse-prelate" },
