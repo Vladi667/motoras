@@ -96,6 +96,10 @@ button,input,select{font:inherit}
 </main>
 <script src="api.js?v=20260512-phase4" defer></script>
 <script>
+/* phase4-defer-gate */
+(function () { var __run = function () {
+
+
 (function(){
 const TVA_ENABLED=false;const TVA_RATE=0.19;const state={cart:[],shipping:'courier',payment:'card',stripe:{instance:null,elements:null,card:null,ready:false}};
 const money=v=>Number(v||0).toLocaleString('ro-RO',{minimumFractionDigits:2,maximumFractionDigits:2})+' RON';
@@ -123,6 +127,11 @@ window.addEventListener('pageshow',renderSummary);
 renderSummary();
 initStripe();
 })();
+
+
+
+/* phase4-expose-globals */ try { Object.assign(window, { createStripeIntent, initStripe, handleCardPayment, submitOrder }); } catch (_) {}
+}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 
 <!-- ===== WHATSAPP FLOATING BUTTON ===== -->

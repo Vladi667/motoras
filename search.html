@@ -1500,8 +1500,12 @@ body { -webkit-font-smoothing:antialiased; font-family:'Nunito Sans',sans-serif;
 <script src="favorites.js?v=20260512-phase4" defer></script>
 <script src="vehicle-selector-data.js?v=20260512-phase4" defer></script>
 <script>
-let MODELS = {};
-let YEARS = {};
+/* phase4-defer-gate */
+(function () { var __run = function () {
+
+
+const MODELS = window.MotorasVehicleData?.MODELS || {};
+const YEARS = window.MotorasVehicleData?.YEARS || {};
 
 function loadModels() {
  const marca = document.getElementById('vsMarca').value;
@@ -2025,7 +2029,35 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeQuickView(
  window.addEventListener('storage', updateStickyBar);
 })();;
 
-
+(async () => { if (window.__motorasSearchHandled) return;
+ await loadSearchCatalog();
+ const q=new URLSearchParams(location.search).get('q')||'';
+ const inp=document.getElementById('searchInput');
+ if(inp){inp.value=q;inp.addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});}
+ const title=document.getElementById('searchTitle');
+ const sub=document.getElementById('searchSub');
+ const grid=document.getElementById('resultsGrid');
+ const noQuery=document.getElementById('noQuery');
+ const noResults=document.getElementById('noResults');
+ if(!q){doSearch();if(title)title.textContent='Toate produsele';if(sub)sub.textContent='Introdu un termen de căutare';document.title='Caută | Motoraș';return;}
+ document.title='Caută: '+q+' | Motoraș';
+ const ql=q.toLowerCase();
+ const results=ALL_PRODS.filter(p=>(p.name&&p.name.toLowerCase().includes(ql))||(p.brand&&p.brand.toLowerCase().includes(ql))||(p.sku&&p.sku.toLowerCase().includes(ql))||(p.cat&&p.cat.toLowerCase().includes(ql))||(p.desc&&p.desc.toLowerCase().includes(ql)));
+ if(results.length===0){
+ if(title)title.textContent='Niciun rezultat pentru "'+q+'"';
+ if(sub)sub.textContent='Încearcă un alt termen de căutare';
+ if(noResults)noResults.style.display='block';
+ return;
+ }
+ if(title)title.textContent='Rezultate pentru "'+q+'"';
+ if(sub)sub.textContent=results.length+' produs'+(results.length===1?'':'e')+' găsit'+(results.length===1?'':'e');
+ if(grid)grid.innerHTML=results.map(p=>{
+ const old=p.old?`<span class="prod-old">${p.old} RON</span>`:'';
+ const save=p.old?`<span class="prod-save">Ofertă</span>`:'';
+ const stk=p.stock>10?'<span class="prod-stk ok">✓ În stoc</span>':p.stock>0?`<span class="prod-stk low">⚠ Doar ${p.stock}</span>`:'<span class="prod-stk out">Epuizat</span>';
+ return cardHtmlEnhanced(p)}).join('');
+ window.MotorasFavorites?.syncButtons(grid);
+})();;
 
 function formatCatalogPrice(value) {
  return `${Number(value || 0).toFixed(2).replace('.00', '')} RON`;
@@ -2071,38 +2103,10 @@ cardHtmlEnhanced = function (p) {
  </div>`;
 };
 
-document.addEventListener('DOMContentLoaded', async () => {
-MODELS = window.MotorasVehicleData && window.MotorasVehicleData.MODELS || {};
-YEARS = window.MotorasVehicleData && window.MotorasVehicleData.YEARS || {};
-if (window.__motorasSearchHandled) return;
- await loadSearchCatalog();
- const q=new URLSearchParams(location.search).get('q')||'';
- const inp=document.getElementById('searchInput');
- if(inp){inp.value=q;inp.addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});}
- const title=document.getElementById('searchTitle');
- const sub=document.getElementById('searchSub');
- const grid=document.getElementById('resultsGrid');
- const noQuery=document.getElementById('noQuery');
- const noResults=document.getElementById('noResults');
- if(!q){doSearch();if(title)title.textContent='Toate produsele';if(sub)sub.textContent='Introdu un termen de căutare';document.title='Caută | Motoraș';return;}
- document.title='Caută: '+q+' | Motoraș';
- const ql=q.toLowerCase();
- const results=ALL_PRODS.filter(p=>(p.name&&p.name.toLowerCase().includes(ql))||(p.brand&&p.brand.toLowerCase().includes(ql))||(p.sku&&p.sku.toLowerCase().includes(ql))||(p.cat&&p.cat.toLowerCase().includes(ql))||(p.desc&&p.desc.toLowerCase().includes(ql)));
- if(results.length===0){
- if(title)title.textContent='Niciun rezultat pentru "'+q+'"';
- if(sub)sub.textContent='Încearcă un alt termen de căutare';
- if(noResults)noResults.style.display='block';
- return;
- }
- if(title)title.textContent='Rezultate pentru "'+q+'"';
- if(sub)sub.textContent=results.length+' produs'+(results.length===1?'':'e')+' găsit'+(results.length===1?'':'e');
- if(grid)grid.innerHTML=results.map(p=>{
- const old=p.old?`<span class="prod-old">${p.old} RON</span>`:'';
- const save=p.old?`<span class="prod-save">Ofertă</span>`:'';
- const stk=p.stock>10?'<span class="prod-stk ok">✓ În stoc</span>':p.stock>0?`<span class="prod-stk low">⚠ Doar ${p.stock}</span>`:'<span class="prod-stk out">Epuizat</span>';
- return cardHtmlEnhanced(p)}).join('');
- window.MotorasFavorites?.syncButtons(grid);
-});
+
+
+/* phase4-expose-globals */ try { Object.assign(window, { loadModels, loadYears, searchByVehicle, resetVehicle, restoreVehicleSearch, toggleMobNav, closeMobNav, toggleMobSearch, closeMobSearch, loadCart, saveCart, syncCart, openCart, closeCart, goCheckout, addToCart, removeFromCart, changeQty, updateCart, acceptCookies, declineCookies, h, getSearchFieldValue, doSearch, syncSearchInputs, runSearchPage, renderCatalogRating, cardHtmlEnhanced, getCatalogProductById, showToast, openQuickView, closeQuickView, updateStickyBar, formatCatalogPrice }); } catch (_) {}
+}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 
 <!-- TOAST CONTAINER -->

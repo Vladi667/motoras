@@ -1697,8 +1697,12 @@ body { -webkit-font-smoothing:antialiased; font-family:'Nunito Sans',sans-serif;
 <script src="favorites.js?v=20260512-phase4" defer></script>
 <script src="vehicle-selector-data.js?v=20260512-phase4" defer></script>
 <script>
-let MODELS = {};
-let YEARS = {};
+/* phase4-defer-gate */
+(function () { var __run = function () {
+
+
+const MODELS = window.MotorasVehicleData?.MODELS || {};
+const YEARS = window.MotorasVehicleData?.YEARS || {};
 
 function loadModels() {
  const marca = document.getElementById('vsMarca').value;
@@ -2621,10 +2625,10 @@ function changeQtyPage(d){const inp=document.getElementById('pageQty');inp.value
 function addProductToCart(){const qty=parseInt(document.getElementById('pageQty').value)||1;for(let i=0;i<qty;i++)addToCart(prod.name,prod.brand,prod.price,prod.img,prod.id);}
 function buyNow(){addProductToCart();if(window.MotorasPageLoader?.navigate){window.MotorasPageLoader.navigate('checkout.html');return;}window.location.href='checkout.html';}
 
-document.addEventListener('DOMContentLoaded', async () => {
-MODELS = window.MotorasVehicleData && window.MotorasVehicleData.MODELS || {};
-YEARS = window.MotorasVehicleData && window.MotorasVehicleData.YEARS || {};
-});
+
+
+/* phase4-expose-globals */ try { Object.assign(window, { loadModels, loadYears, searchByVehicle, resetVehicle, restoreVehicleProduct, toggleMobNav, closeMobNav, toggleMobSearch, closeMobSearch, loadCart, saveCart, syncCart, openCart, closeCart, goCheckout, addToCart, removeFromCart, changeQty, updateCart, acceptCookies, declineCookies, h, formatCatalogPrice, getProductGalleryImages, escapeProductHtml, buildStarMarkup, formatReviewDate, updateProductRatingMeta, setSelectedReviewRating, renderProductReviewSection, loadProductReviews, handleProductReviewSubmit, enhanceProductSummaryCard, renderProductGallery, withProductTimeout, showProductLoadError, loadRelatedProductsAfterRender, initProductPage, renderRelated, renderProductSeoAssist, getCatalogProductById, showToast, openQuickView, closeQuickView, updateStickyBar, setImg, showTab, changeQtyPage, addProductToCart, buyNow }); } catch (_) {}
+}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 
 <!-- TOAST CONTAINER -->
@@ -2673,7 +2677,10 @@ YEARS = window.MotorasVehicleData && window.MotorasVehicleData.YEARS || {};
 <script src="api.js?v=20260512-phase4" defer></script>
 <script src="nav-subcategories.js?v=20260414-2" defer></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {(function () {
+/* phase4-defer-gate */
+(function () { var __run = function () {
+
+(function () {
  function normalizeText(value) {
  return String(value || '').replace(/\s+/g, ' ').trim();
  }
@@ -2841,7 +2848,10 @@ document.addEventListener('DOMContentLoaded', () => {(function () {
  }
  })();;
 })();
-});
+
+
+/* phase4-expose-globals */ try { Object.assign(window, { normalizeText, absoluteUrl, setProductMediaHints, upsertJsonLd, emitAdvancedProductSchema }); } catch (_) {}
+}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 
 <!-- ===== WHATSAPP FLOATING BUTTON ===== -->

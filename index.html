@@ -1612,8 +1612,11 @@ Folosim cookie-uri pentru a îmbunătăți experiența ta pe site. Prin continua
 <script src="favorites.js?v=20260512-phase4" defer></script>
 <script src="vehicle-selector-data.js?v=20260512-phase4" defer></script>
 <script>
-let MODELS = {};
-let YEARS = {};
+/* phase4-defer-gate */
+(function () { var __run = function () {
+
+const MODELS = window.MotorasVehicleData?.MODELS || {};
+const YEARS = window.MotorasVehicleData?.YEARS || {};
 
 function loadModels() {
  const marca = document.getElementById('vsMarca').value;
@@ -2340,13 +2343,15 @@ if (document.readyState === 'loading') {
 }
 updateCart();
 
-document.addEventListener('DOMContentLoaded', async () => {
-MODELS = window.MotorasVehicleData && window.MotorasVehicleData.MODELS || {};
-YEARS = window.MotorasVehicleData && window.MotorasVehicleData.YEARS || {};
-});
+
+/* phase4-expose-globals */ try { Object.assign(window, { loadModels, loadYears, searchByVehicle, resetVehicle, restoreVehicle, toggleMobNav, closeMobNav, toggleMobSearch, closeMobSearch, doSearch, wireSearchForms, loadCart, saveCart, syncCart, openCart, closeCart, goCheckout, addToCart, removeFromCart, changeQty, updateCart, escapeHtml, escapeJsString, formatPrice, formatCategoryCount, getCategoryImage, getHomeCategorySourceKeys, getHomeCategoryCount, renderHomeCategoryCards, initCatAutoScroll, tick, addToCartById, getHomeProductById, renderCatalogRating, getHomeCategoryItems, renderHomeCategoryTabs, ensureHomeCategoryItems, selectHomeCategory, updateHomepageStats, openHomeQuickView, closeHomeQuickView, renderHomepageProducts, initHomepageCatalog, startHomepageCatalog, acceptCookies, declineCookies }); } catch (_) {}
+}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {(function () {
+/* phase4-defer-gate */
+(function () { var __run = function () {
+
+(function () {
  function applyHomepageMediaHints(root) {
  (root || document).querySelectorAll('.prod-img img').forEach(function (img) {
  if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
@@ -2420,7 +2425,10 @@ document.addEventListener('DOMContentLoaded', () => {(function () {
  }
  })();;
 })();
-});
+
+
+/* phase4-expose-globals */ try { Object.assign(window, { applyHomepageMediaHints, upsertJsonLd, emitHomepageCommercialSchema }); } catch (_) {}
+}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 <script>
 (function () {
