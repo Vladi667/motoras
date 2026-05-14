@@ -130,7 +130,7 @@ initStripe();
 
 
 
-/* phase4-expose-globals */ try { Object.assign(window, { createStripeIntent, initStripe, handleCardPayment, submitOrder }); } catch (_) {}
+/* phase4-expose-globals */ try { window["createStripeIntent"] = createStripeIntent; } catch (_) {} try { window["initStripe"] = initStripe; } catch (_) {} try { window["handleCardPayment"] = handleCardPayment; } catch (_) {} try { window["submitOrder"] = submitOrder; } catch (_) {}
 }; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 
