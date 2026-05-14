@@ -2626,6 +2626,8 @@ function addProductToCart(){const qty=parseInt(document.getElementById('pageQty'
 function buyNow(){addProductToCart();if(window.MotorasPageLoader?.navigate){window.MotorasPageLoader.navigate('checkout.html');return;}window.location.href='checkout.html';}
 
 
+
+/* phase4-expose-globals */ try { Object.assign(window, { loadModels, loadYears, searchByVehicle, resetVehicle, restoreVehicleProduct, toggleMobNav, closeMobNav, toggleMobSearch, closeMobSearch, loadCart, saveCart, syncCart, openCart, closeCart, goCheckout, addToCart, removeFromCart, changeQty, updateCart, acceptCookies, declineCookies, h, formatCatalogPrice, getProductGalleryImages, escapeProductHtml, buildStarMarkup, formatReviewDate, updateProductRatingMeta, setSelectedReviewRating, renderProductReviewSection, loadProductReviews, handleProductReviewSubmit, enhanceProductSummaryCard, renderProductGallery, withProductTimeout, showProductLoadError, loadRelatedProductsAfterRender, initProductPage, renderRelated, renderProductSeoAssist, getCatalogProductById, showToast, openQuickView, closeQuickView, updateStickyBar, setImg, showTab, changeQtyPage, addProductToCart, buyNow }); } catch (_) {}
 }; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 
@@ -2847,6 +2849,8 @@ function buyNow(){addProductToCart();if(window.MotorasPageLoader?.navigate){wind
  })();;
 })();
 
+
+/* phase4-expose-globals */ try { Object.assign(window, { normalizeText, absoluteUrl, setProductMediaHints, upsertJsonLd, emitAdvancedProductSchema }); } catch (_) {}
 }; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 

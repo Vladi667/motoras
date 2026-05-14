@@ -2343,6 +2343,8 @@ if (document.readyState === 'loading') {
 }
 updateCart();
 
+
+/* phase4-expose-globals */ try { Object.assign(window, { loadModels, loadYears, searchByVehicle, resetVehicle, restoreVehicle, toggleMobNav, closeMobNav, toggleMobSearch, closeMobSearch, doSearch, wireSearchForms, loadCart, saveCart, syncCart, openCart, closeCart, goCheckout, addToCart, removeFromCart, changeQty, updateCart, escapeHtml, escapeJsString, formatPrice, formatCategoryCount, getCategoryImage, getHomeCategorySourceKeys, getHomeCategoryCount, renderHomeCategoryCards, initCatAutoScroll, tick, addToCartById, getHomeProductById, renderCatalogRating, getHomeCategoryItems, renderHomeCategoryTabs, ensureHomeCategoryItems, selectHomeCategory, updateHomepageStats, openHomeQuickView, closeHomeQuickView, renderHomepageProducts, initHomepageCatalog, startHomepageCatalog, acceptCookies, declineCookies }); } catch (_) {}
 }; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 <script>
@@ -2424,6 +2426,8 @@ updateCart();
  })();;
 })();
 
+
+/* phase4-expose-globals */ try { Object.assign(window, { applyHomepageMediaHints, upsertJsonLd, emitHomepageCommercialSchema }); } catch (_) {}
 }; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 <script>

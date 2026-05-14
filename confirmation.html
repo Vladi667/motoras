@@ -257,6 +257,8 @@ a{text-decoration:none;color:inherit}
 })();
 
 
+
+/* phase4-expose-globals */ try { Object.assign(window, { formatMoney, setTracker, renderPaymentStatus, renderNotice, renderItems }); } catch (_) {}
 }; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 

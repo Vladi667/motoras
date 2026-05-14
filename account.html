@@ -662,6 +662,8 @@ if (hash && document.getElementById('panel-'+hash) && savedSession && savedSessi
 
 });
 
+
+/* phase4-expose-globals */ try { Object.assign(window, { saveSession, loadSession, clearSession, setMsg, showAuth, apiPost, doLogin, doRegister, doLogout, buildInvoiceNumber, getStatusBadge, escHtml, downloadPdf, loadOrdersFromApi, renderOrdersEmpty, renderOrdersTable, renderInvoicesTable, renderTrackingPanel, showDashboard, showPanel }); } catch (_) {}
 }; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
 </script>
 <script src="api.js?v=20260512-phase4" defer></script>
