@@ -1603,12 +1603,8 @@ body { -webkit-font-smoothing:antialiased; font-family:'Nunito Sans',sans-serif;
 <script src="favorites.js?v=20260512-phase4" defer></script>
 <script src="vehicle-selector-data.js?v=20260512-phase4" defer></script>
 <script>
-/* phase4-defer-gate */
-(function () { var __run = function () {
-
-
-const MODELS = window.MotorasVehicleData?.MODELS || {};
-const YEARS = window.MotorasVehicleData?.YEARS || {};
+let MODELS = {};
+let YEARS = {};
 
 function loadModels() {
  const marca = document.getElementById('vsMarca').value;
@@ -2297,10 +2293,7 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeQuickView(
  window.addEventListener('storage', updateStickyBar);
 })();;
 
-(async () => {
- await loadCategoryCatalog();
- initCategory();
-})();;
+
 
 function formatCatalogPrice(value) {
  return `${Number(value || 0).toFixed(2).replace('.00', '')} RON`;
@@ -2353,10 +2346,12 @@ cardHtmlEnhanced = function (p) {
  </div>`;
 };
 
-
-
-/* phase4-expose-globals */ try { Object.assign(window, { loadModels, loadYears, searchByVehicle, resetVehicle, restoreVehicleCategory, toggleMobNav, closeMobNav, toggleMobSearch, closeMobSearch, loadCart, saveCart, syncCart, openCart, closeCart, goCheckout, addToCart, removeFromCart, changeQty, updateCart, acceptCookies, declineCookies, h, loadCategoryCatalog, getCurrentCategoryKey, getSelectedSubcategoryKey, getCategorySourceKeys, getCategoryProducts, getSubcategoryCounts, setSubcategory, renderSubcategoryRail, initCategory, getFiltered, renderProducts, goToPage, cardHtml, renderPagination, applyFilters, clearFilters, cardHtmlEnhanced, getCatalogProductById, showToast, openQuickView, closeQuickView, updateStickyBar, formatCatalogPrice, renderCatalogRating }); } catch (_) {}
-}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
+document.addEventListener('DOMContentLoaded', async () => {
+MODELS = window.MotorasVehicleData && window.MotorasVehicleData.MODELS || {};
+YEARS = window.MotorasVehicleData && window.MotorasVehicleData.YEARS || {};
+await loadCategoryCatalog();
+ initCategory();
+});
 </script>
 
 <!-- TOAST CONTAINER -->

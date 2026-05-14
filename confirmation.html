@@ -143,11 +143,7 @@ a{text-decoration:none;color:inherit}
 </div>
 <script src="api.js?v=20260512-phase4" defer></script>
 <script>
-/* phase4-defer-gate */
-(function () { var __run = function () {
-
-
-(async function () {
+document.addEventListener('DOMContentLoaded', async () => {
  const orderId = new URLSearchParams(window.location.search).get('order') || '';
  const statusIndex = { pending: 0, pending_payment: 0, processing: 1, shipped: 2, delivered: 3, cancelled: 0 };
  const statusLabels = {
@@ -254,12 +250,7 @@ a{text-decoration:none;color:inherit}
  renderNotice(order);
  renderItems(order.items || []);
  setTracker(order.status || 'pending');
-})();
-
-
-
-/* phase4-expose-globals */ try { Object.assign(window, { formatMoney, setTracker, renderPaymentStatus, renderNotice, renderItems }); } catch (_) {}
-}; if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __run); } else { __run(); } })();
+});
 </script>
 
 <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
