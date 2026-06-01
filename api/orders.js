@@ -14,6 +14,11 @@ const { sendTrackingEmail, sendConfirmationEmail, sendSupplierOrderEmail } = req
 const { generateInvoicePdf, buildInvoiceNumber } = require('../lib/api/invoice');
 const crypto = require('crypto');
 
+// In-memory rate-limit map for the supplier PATCH endpoint. Reset on each
+// cold start — good enough to prevent accidental double-submits and casual
+// abuse. A real attacker who has the token wins regardless.
+const supplierRateLimit = new Map();
+
 // ── Stripe webhook signature verification ─────────────────────────
 function verifyWebhookSignature(rawBody, sigHeader, secret) {
  const parts = Object.fromEntries((sigHeader || '').split(',').map(p => p.split('=')));
@@ -47,17 +52,21 @@ async function handleWebhook(req, res) {
  if (event.type === 'payment_intent.succeeded') {
  const intent = event.data?.object;
  if (intent?.metadata?.motoras_store === '1' && intent?.metadata?.confirmation_sent !== '1') {
+ // Idempotency: claim the slot BEFORE sending the email. If Stripe
+ // retries the webhook (which it will on any non-2xx), the metadata
+ // write above prevents a second email. Errors on the metadata write
+ // are surfaced (no silent catch) so we can debug duplicate sends.
  try {
- const order = mapIntentToOrder(intent);
- // Fire confirmation email (non-blocking for webhook response time)
- sendConfirmationEmail(order).catch(e => console.error('Confirmation email failed:', e.message));
- // Mark as notified in Stripe
- stripeRequest(`/payment_intents/${intent.id}`, {
+ await stripeRequest(`/payment_intents/${intent.id}`, {
  method: 'POST',
  body: { metadata: { ...intent.metadata, order_status: 'processing', confirmation_sent: '1' } },
- }).catch(() => {});
+ });
+ const order = mapIntentToOrder(intent);
+ sendConfirmationEmail(order).catch(e => console.error('Confirmation email failed:', e.message));
  } catch (err) {
  console.error('Webhook order processing error:', err.message);
+ // Returning 200 here would lose the order. Return 500 so Stripe retries.
+ return json(res, 500, { ok: false, error: 'Webhook processing failed.' });
  }
  }
  }
@@ -66,15 +75,24 @@ async function handleWebhook(req, res) {
 }
 
 async function listOrders() {
- const result = await stripeRequest('/payment_intents', {
- method: 'GET',
- query: {
- limit: 100,
- 'expand[0]': 'data.latest_charge',
- },
- });
+ // Paginate through all Stripe payment intents (the prior implementation
+ // capped at 100, silently dropping older orders). Cap at 10 pages = 1000
+ // intents as a safety bound; if we ever exceed that we should switch to
+ // a real DB rather than enlarging this loop.
+ const allIntents = [];
+ let startingAfter = null;
+ const MAX_PAGES = 10;
+ for (let page = 0; page < MAX_PAGES; page += 1) {
+ const query = { limit: 100, 'expand[0]': 'data.latest_charge' };
+ if (startingAfter) query.starting_after = startingAfter;
+ const result = await stripeRequest('/payment_intents', { method: 'GET', query });
+ if (!Array.isArray(result.data) || !result.data.length) break;
+ allIntents.push(...result.data);
+ if (!result.has_more) break;
+ startingAfter = result.data[result.data.length - 1].id;
+ }
 
- return result.data
+ return allIntents
  .filter(intent => intent.metadata?.motoras_store === '1')
  .filter(intent => intent.metadata?.order_finalized === '1' || ['succeeded', 'processing', 'requires_capture'].includes(intent.status))
  .map(mapIntentToOrder)
@@ -214,6 +232,29 @@ module.exports = async function handler(req, res) {
  if (payload.supplier_token && payload.tracking_number) {
  const intent = await findIntentBySupplierToken(payload.supplier_token);
  if (!intent) return json(res, 404, { ok: false, error: 'Invalid or expired supplier token.' });
+
+ // Token expiry: 90 days from issuance. Stored as ISO string in metadata.
+ const issuedAt = intent.metadata?.supplier_notified_at;
+ if (issuedAt) {
+ const ageMs = Date.now() - new Date(issuedAt).getTime();
+ if (Number.isFinite(ageMs) && ageMs > 90 * 24 * 60 * 60 * 1000) {
+ return json(res, 401, { ok: false, error: 'Supplier token expired.' });
+ }
+ }
+
+ // Rate-limit: at most one tracking write per 5 seconds per token.
+ const now = Date.now();
+ const last = supplierRateLimit.get(payload.supplier_token);
+ if (last && now - last < 5000) {
+ return json(res, 429, { ok: false, error: 'Too many requests.' });
+ }
+ supplierRateLimit.set(payload.supplier_token, now);
+ if (supplierRateLimit.size > 1000) {
+ for (const [key, ts] of supplierRateLimit) {
+ if (now - ts > 60_000) supplierRateLimit.delete(key);
+ }
+ }
+
  const updatedMeta = {
  ...intent.metadata,
  tracking_number: String(payload.tracking_number).trim(),

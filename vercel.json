@@ -77,6 +77,10 @@
     { "src": "/piese-auto-opel-astra", "dest": "/piese-auto-opel-astra.html" },
     { "src": "/piese-auto-renault-clio", "dest": "/piese-auto-renault-clio.html" },
     { "src": "/harta-pagini-piese-auto", "dest": "/harta-pagini-piese-auto.html" },
+    { "src": "/piese-auto-sector-2", "dest": "/piese-auto-sector-2.html" },
+    { "src": "/piese-auto-sector-3", "dest": "/piese-auto-sector-3.html" },
+    { "src": "/piese-auto-sector-4", "dest": "/piese-auto-sector-4.html" },
+    { "src": "/livrare-piese-auto-bucuresti", "dest": "/livrare-piese-auto-bucuresti.html" },
     { "src": "/product-sitemap.xml", "dest": "/api/product-sitemap" },
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/404.html", "status": 404 }

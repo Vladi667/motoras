@@ -3,6 +3,26 @@
    Non-destructive motion + polish. 60fps. Respects prefers-reduced-motion.
    ========================================================================== */
 
+/* Off-canvas cart drawer + nav drawer use translateX(100%) while closed,
+   which can cause horizontal scrollability on mobile. Lock horizontal
+   overflow at the document root. */
+html, body { overflow-x: hidden; }
+
+/* Apple-style polish: remove the pulsing WhatsApp halo. The button itself
+   stays — only the constant attention-grab loops are killed. */
+.wa-btn { animation: none !important; }
+
+/* Apple-style polish: generous vertical breathing room between sections,
+   tighter on mobile. The existing `.section` class uses 44px — bump it. */
+.section { padding: 96px 0; }
+@media (max-width: 768px) { .section { padding: 64px 0; } }
+@media (max-width: 480px) { .section { padding: 48px 0; } }
+
+/* Apple-style polish: tighter section headers + drop the all-caps shouting
+   on H2 across the homepage / category pages. */
+.section-hdr h2,
+.section h2 { font-weight: 700; letter-spacing: -.5px; text-transform: none; }
+
 /* ---------- 0. Tokens ---------- */
 :root{
   --elev-red: #cc1111;

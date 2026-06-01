@@ -1572,6 +1572,40 @@ window.MotApi.getHomepageData = async function getHomepageDataRemoteFirst(option
  };
 };
 
+// Premium detailing brands that should headline the "Produse populare" grid
+// when the active category is `detailing`. Order matters — first matches win.
+const HOMEPAGE_DETAILING_BRANDS = ['Meguiar’s', "Meguiar's", 'Meguiars', 'Koch Chemie', 'Koch-Chemie', 'Sonax', 'Rupes', 'Flex', 'Carguard'];
+
+// Reject items that are technically classified as `detailing` but read like
+// auto-accessories to a customer browsing detailing (e.g. windshield wipers
+// in the `spalare-exterior` subcat).
+function _isDetailingShowcaseItem(item) {
+ if (!item) return false;
+ const name = String(item.name || '').toLowerCase();
+ if (name.includes('ștergător') || name.includes('stergator') || name.includes('lama de stergere')) return false;
+ if (item.subcat === 'spalare-exterior') return false;
+ return true;
+}
+
+function _rankDetailingItems(items, limit) {
+ const showcase = items.filter(_isDetailingShowcaseItem);
+ const brandRank = (brand) => {
+ const idx = HOMEPAGE_DETAILING_BRANDS.findIndex(b => b.toLowerCase() === String(brand || '').toLowerCase());
+ return idx === -1 ? HOMEPAGE_DETAILING_BRANDS.length : idx;
+ };
+ const sorted = showcase.sort((a, b) =>
+ brandRank(a.brand) - brandRank(b.brand) ||
+ ((b.badge ? 1 : 0) - (a.badge ? 1 : 0)) ||
+ Number(b.reviews || 0) - Number(a.reviews || 0) ||
+ Number(b.price || 0) - Number(a.price || 0)
+ );
+ // If filtering left too few, top up with the rest of the original list.
+ if (sorted.length >= limit) return sorted.slice(0, limit);
+ const seen = new Set(sorted.map(i => i.id));
+ const fallback = items.filter(i => !seen.has(i.id));
+ return sorted.concat(fallback).slice(0, limit);
+}
+
 window.MotApi.getHomepageCategoryItems = async function getHomepageCategoryItemsRemoteFirst(category, options = {}) {
  await _delay(20);
  const categoryKey = String(category || 'all').trim();
@@ -1581,10 +1615,14 @@ window.MotApi.getHomepageCategoryItems = async function getHomepageCategoryItems
  const featured = await window.MotApi.getFeatured(limit);
  if (featured?.ok && Array.isArray(featured.items)) return featured.items;
  } else {
- const remote = await window.MotApi.getProducts({ cat: categoryKey, page: 1, limit: Math.max(limit * 2, 16) });
+ // Pull a larger pool than `limit` so we have room to filter+rank, then
+ // return the top `limit`. For `detailing` specifically, prefer premium
+ // brands and skip wiper-style items that read like accessories.
+ const remote = await window.MotApi.getProducts({ cat: categoryKey, page: 1, limit: Math.max(limit * 8, 64) });
  if (remote?.ok && Array.isArray(remote.items)) {
- return [...remote.items]
- .filter(item => Number(item.stock || 0) > 0)
+ const inStock = remote.items.filter(item => Number(item.stock || 0) > 0);
+ if (categoryKey === 'detailing') return _rankDetailingItems(inStock, limit);
+ return inStock
  .sort((a, b) => ((b.badge ? 1 : 0) - (a.badge ? 1 : 0)) || Number(b.reviews || 0) - Number(a.reviews || 0))
  .slice(0, limit);
  }

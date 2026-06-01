@@ -35,3 +35,12 @@ append_bardi.py
 update-bardi-images.py
 update_bardi_images.py
 scrape-bardi-images.js
+
+# Audit + one-off scripts that must not ship to production
+_audit
+_mojibake_fix.js
+_update_models.js
+text-fix.js
+text-normalize.js
+scripts
+docs

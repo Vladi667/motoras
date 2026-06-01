@@ -11,6 +11,7 @@
 <link rel='apple-touch-icon' href='assets/favicon.png?v=20260409-4'/>
 <title>Contul meu - Motoras</title>
 <meta name="description" content="Contul client Motoras: autentificare, comenzi, adrese si datele contului."/>
+<meta name="robots" content="noindex, follow"/>
 <link rel="stylesheet" href="css/app.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -223,7 +224,7 @@ body { -webkit-font-smoothing:antialiased; }
  <input class="finput" type="password" id="loginPassword" placeholder="Parola ta" autocomplete="current-password"/>
  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
  <label style="display:flex;align-items:center;gap:7px;font-size:13px;color:var(--mid);cursor:pointer"><input type="checkbox" style="accent-color:var(--red)"/> Tine-ma minte</label>
- <a href="mailto:contact@motoras.rosubject=Resetare%20parola" style="font-size:13px;color:var(--red);font-weight:700">Am uitat parola</a>
+ <a href="#" id="forgotPasswordLink" style="font-size:13px;color:var(--red);font-weight:700">Am uitat parola</a>
  </div>
  <button class="btn-auth" onclick="doLogin()">Autentificare</button>
  </div>
@@ -248,6 +249,25 @@ body { -webkit-font-smoothing:antialiased; }
  <button class="btn-auth" onclick="doRegister()">Creeaza cont</button>
  </div>
  </div>
+</div>
+
+<!-- FORGOT / RESET PASSWORD MODAL -->
+<div id="pwModalOverlay" style="display:none;position:fixed;inset:0;background:rgba(15,17,22,.55);z-index:9998;backdrop-filter:blur(2px)"></div>
+<div id="pwModal" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:14px;padding:28px;width:min(440px,calc(100vw - 32px));z-index:9999;box-shadow:0 20px 60px rgba(0,0,0,.25)">
+ <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px"><h3 id="pwModalTitle" style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;color:var(--dark);text-transform:uppercase;margin:0">Resetează parola</h3><button id="pwClose" type="button" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--mid);line-height:1">&times;</button></div>
+ <p id="pwModalBody" style="font-size:13.5px;color:var(--mid);margin-bottom:16px;line-height:1.6">Introdu adresa de email a contului. Îți trimitem un link de resetare valabil 30 de minute.</p>
+ <div id="pwForgotFields">
+ <label class="flabel" for="pwEmail">Email</label>
+ <input class="finput" type="email" id="pwEmail" placeholder="nume@domeniu.ro" autocomplete="email" style="margin-bottom:12px"/>
+ </div>
+ <div id="pwResetFields" style="display:none">
+ <label class="flabel" for="pwNew">Parola nouă</label>
+ <input class="finput" type="password" id="pwNew" placeholder="Minim 8 caractere" autocomplete="new-password" style="margin-bottom:8px"/>
+ <label class="flabel" for="pwNew2">Confirmă parola</label>
+ <input class="finput" type="password" id="pwNew2" placeholder="Repetă parola" autocomplete="new-password" style="margin-bottom:12px"/>
+ </div>
+ <div id="pwStatus" style="display:none;padding:10px 13px;border-radius:8px;font-size:13px;margin-bottom:12px"></div>
+ <button id="pwSubmit" type="button" class="btn-auth">Trimite linkul de resetare</button>
 </div>
 
 <!-- ACCOUNT DASHBOARD (shown after login) -->
@@ -359,7 +379,7 @@ body { -webkit-font-smoothing:antialiased; }
 (function () { var __run = function () {
 
 
-window.MotorasStore.updateBadges();
+try { window.MotorasCart?.updateCart?.(); } catch (_) {}
 
 const USER_KEY = 'motoras_user_v2';
 
@@ -449,6 +469,99 @@ function doLogout() {
  document.getElementById('accountDash').classList.remove('show');
  showAuth('login');
 }
+
+// ── PASSWORD RESET FLOW ───────────────────────────────────────────────
+var pwMode = 'forgot';
+var pwResetToken = '';
+
+function pwOpen(mode, token) {
+ pwMode = mode || 'forgot';
+ pwResetToken = token || '';
+ var overlay = document.getElementById('pwModalOverlay');
+ var modal = document.getElementById('pwModal');
+ var forgotFields = document.getElementById('pwForgotFields');
+ var resetFields = document.getElementById('pwResetFields');
+ var title = document.getElementById('pwModalTitle');
+ var body = document.getElementById('pwModalBody');
+ var submit = document.getElementById('pwSubmit');
+ var status = document.getElementById('pwStatus');
+ status.style.display = 'none'; status.textContent = '';
+ if (pwMode === 'reset') {
+ title.textContent = 'Alege o parolă nouă';
+ body.textContent = 'Introdu noua parolă pentru contul tău. Linkul expiră în 30 de minute.';
+ forgotFields.style.display = 'none';
+ resetFields.style.display = 'block';
+ submit.textContent = 'Salvează parola';
+ } else {
+ title.textContent = 'Resetează parola';
+ body.textContent = 'Introdu adresa de email a contului. Îți trimitem un link de resetare valabil 30 de minute.';
+ forgotFields.style.display = 'block';
+ resetFields.style.display = 'none';
+ submit.textContent = 'Trimite linkul de resetare';
+ }
+ overlay.style.display = 'block';
+ modal.style.display = 'block';
+}
+
+function pwClose() {
+ document.getElementById('pwModalOverlay').style.display = 'none';
+ document.getElementById('pwModal').style.display = 'none';
+}
+
+function pwSetStatus(msg, tone) {
+ var status = document.getElementById('pwStatus');
+ if (!msg) { status.style.display = 'none'; status.textContent = ''; return; }
+ status.style.display = 'block';
+ status.textContent = msg;
+ status.style.background = tone === 'ok' ? '#f0fdf4' : '#fef2f2';
+ status.style.color = tone === 'ok' ? '#166534' : '#b91c1c';
+ status.style.border = '1px solid ' + (tone === 'ok' ? '#bbf7d0' : '#fecaca');
+}
+
+async function pwSubmit() {
+ var button = document.getElementById('pwSubmit');
+ var original = button.textContent;
+ button.disabled = true;
+ button.textContent = 'Se procesează...';
+ try {
+ if (pwMode === 'reset') {
+ var p1 = document.getElementById('pwNew').value;
+ var p2 = document.getElementById('pwNew2').value;
+ if (p1.length < 8) { pwSetStatus('Parola trebuie să aibă minim 8 caractere.', 'err'); return; }
+ if (p1 !== p2) { pwSetStatus('Parolele nu coincid.', 'err'); return; }
+ var data = await apiPost('/api/auth/reset', { token: pwResetToken, password: p1 });
+ if (!data.ok) { pwSetStatus(data.error || 'Resetare eșuată.', 'err'); return; }
+ saveSession(data.token, data.user);
+ pwSetStatus('Parola a fost schimbată. Te conectăm acum...', 'ok');
+ setTimeout(function() { pwClose(); showDashboard(data.user); history.replaceState(null, '', 'account.html'); }, 1200);
+ } else {
+ var email = document.getElementById('pwEmail').value.trim().toLowerCase();
+ if (!email) { pwSetStatus('Completează adresa de email.', 'err'); return; }
+ var resp = await apiPost('/api/auth/forgot', { email: email });
+ if (!resp.ok) { pwSetStatus(resp.error || 'Eroare la trimiterea emailului.', 'err'); return; }
+ pwSetStatus('Dacă există un cont cu acel email, vei primi un link de resetare. Verifică-ți inboxul.', 'ok');
+ }
+ } catch (_) {
+ pwSetStatus('Eroare de conexiune. Încearcă din nou.', 'err');
+ } finally {
+ button.disabled = false;
+ button.textContent = original;
+ }
+}
+
+// __run already executes at DOMContentLoaded, wire directly.
+(function wirePwModal() {
+ var link = document.getElementById('forgotPasswordLink');
+ if (link) link.addEventListener('click', function(e) { e.preventDefault(); pwOpen('forgot'); });
+ var close = document.getElementById('pwClose');
+ if (close) close.addEventListener('click', pwClose);
+ var overlay = document.getElementById('pwModalOverlay');
+ if (overlay) overlay.addEventListener('click', pwClose);
+ var submit = document.getElementById('pwSubmit');
+ if (submit) submit.addEventListener('click', pwSubmit);
+ var resetToken = new URLSearchParams(location.search).get('reset');
+ if (resetToken) pwOpen('reset', resetToken);
+})();
 
 var cachedOrders = [];
 
