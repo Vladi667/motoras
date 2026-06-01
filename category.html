@@ -1888,7 +1888,13 @@ let currentPage = 1;
 const PAGE_SIZE = 12;
 
 function getCurrentCategoryKey() {
- return new URLSearchParams(location.search).get('cat') || 'piese';
+ const q = new URLSearchParams(location.search).get('cat');
+ if (q) return q;
+ // Derive from pretty-URL slug (e.g. /detailing, /piese-auto) so direct
+ // visits and crawlers see the same category the server rendered.
+ const path = location.pathname.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+ const bySlug = { 'piese-auto': 'piese', 'detailing': 'detailing', 'baterii': 'baterii', 'filtre': 'filtre', 'prelate': 'prelate', 'huse-prelate': 'huse-prelate', 'accesorii': 'accesorii' };
+ return bySlug[path] || 'piese';
 }
 
 function getSelectedSubcategoryKey() {
