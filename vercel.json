@@ -82,6 +82,7 @@
     { "src": "/piese-auto-sector-4", "dest": "/piese-auto-sector-4.html" },
     { "src": "/livrare-piese-auto-bucuresti", "dest": "/livrare-piese-auto-bucuresti.html" },
     { "src": "/product-sitemap.xml", "dest": "/api/product-sitemap" },
+    { "src": "/google-merchant-feed.xml", "dest": "/api/product-sitemap?type=merchant" },
     { "src": "^/product\\.html$", "dest": "/api/products?render=product" },
     { "src": "^/category\\.html$", "dest": "/api/products?render=category" },
     { "handle": "filesystem" },
