@@ -2122,6 +2122,11 @@ async function handleProductReviewSubmit(event) {
  });
 
  if (!response?.ok) {
+ if (response?.requiresAuth && message) {
+ message.innerHTML = 'Trebuie să ai cont. <a href="account.html" style="color:var(--red);font-weight:700;text-decoration:underline">Autentifică-te</a> ca să lași o recenzie.';
+ message.className = 'review-form-message error';
+ return;
+ }
  throw new Error(response?.error || 'Recenzia nu a putut fi trimisă.');
  }
 

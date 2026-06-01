@@ -1,6 +1,9 @@
 const { getProduct, getView, queryProducts } = require('../../lib/api/catalog/gateway');
 const { json } = require('../../lib/api/catalog/types');
 const { renderProductPage, renderCategoryPage } = require('../../lib/api/render-seo');
+const { getProductReviews, addReview } = require('../../lib/api/reviews');
+const { verifyUserToken, readBearerToken } = require('../../lib/api/auth-lib');
+const { readJson } = require('../../lib/api/stripe');
 
 // Phase 3 Task 1: only price-free response types are safe to cache at the
 // edge. Anything carrying prices/stock/badges/overrides must always run
@@ -9,6 +12,31 @@ const CACHEABLE_VIEWS = new Set(['categories', 'summary', 'brands', 'sources']);
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-User-Token');
+  if (req.method === 'OPTIONS') { res.statusCode = 204; return res.end(); }
+
+  // Product reviews API (folded in to respect the 12-function limit).
+  // GET ?reviews=<id> is public; POST requires a valid user token.
+  if (req.query && req.query.reviews !== undefined) {
+    if (req.method === 'GET') {
+      const id = String(req.query.reviews || req.query.id || '');
+      const data = await getProductReviews(id);
+      res.setHeader('Cache-Control', 'no-store');
+      return json(res, data.ok ? 200 : 400, data);
+    }
+    if (req.method === 'POST') {
+      const user = verifyUserToken(readBearerToken(req));
+      if (!user) return json(res, 401, { ok: false, error: 'Trebuie să fii autentificat pentru a lăsa o recenzie.' });
+      let body = {};
+      try { body = await readJson(req); } catch (_) { body = {}; }
+      const id = String(body.id || body.productId || req.query.reviews || '');
+      const result = await addReview(id, user, body);
+      res.setHeader('Cache-Control', 'no-store');
+      return json(res, result.ok ? 200 : (result.status || 400), result);
+    }
+    res.setHeader('Allow', 'GET, POST');
+    return json(res, 405, { ok: false, error: 'Method not allowed.' });
+  }
 
   // Server-side SEO render for /product.html and /category.html
   // (routed here via ?render=product|category).

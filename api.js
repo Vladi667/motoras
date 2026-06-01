@@ -1369,59 +1369,61 @@ window.MotApi.getRelatedProducts = async function getRelatedProductsRemoteFirst(
  .map(item => ({ ..._applyRatingSummary(item) }));
 };
 
+function _getUserToken() {
+ try { return (JSON.parse(localStorage.getItem('motoras_user_v2') || 'null') || {}).token || ''; }
+ catch (_) { return ''; }
+}
+
+// Server-backed reviews (Upstash via /api/products?reviews=). Falls back to
+// the legacy localStorage-derived summary only if the server is unreachable.
 window.MotApi.getProductReviews = async function getProductReviewsRemoteFirst(id) {
- await _delay(20);
+ try {
+ const res = await fetch(`${_serverProductsEndpoint}?reviews=${encodeURIComponent(id)}`, { headers: { Accept: 'application/json' } });
+ if (res.ok) {
+ const data = await res.json();
+ if (data && data.ok) {
+ return {
+ ok: true,
+ summary: data.summary || { rating: 0, reviews: 0, baseReviews: 0 },
+ items: Array.isArray(data.items) ? data.items.map(r => ({ ...r })) : [],
+ };
+ }
+ }
+ } catch (_) { /* fall through to local */ }
+
  const response = await window.MotApi.getProduct(id);
  if (!response?.ok || !response.product) return { ok: false, error: 'Produsul nu a fost găsit.' };
  const hydrated = response.product;
  return {
  ok: true,
- summary: {
- rating: hydrated.rating,
- reviews: hydrated.reviews,
- baseReviews: hydrated.baseReviews,
- },
- items: hydrated.reviewEntries.map(review => ({ ...review })),
+ summary: { rating: hydrated.rating, reviews: hydrated.reviews, baseReviews: hydrated.baseReviews },
+ items: (hydrated.reviewEntries || []).map(review => ({ ...review })),
  };
 };
 
+// Submitting a review requires a logged-in account. The author name comes
+// from the account server-side, so it cannot be spoofed.
 window.MotApi.addProductReview = async function addProductReviewRemoteFirst(id, payload = {}) {
- await _delay(80);
- const response = await window.MotApi.getProduct(id);
- const product = response?.product;
- if (!response?.ok || !product) return { ok: false, error: 'Produsul nu a fost găsit.' };
+ const token = _getUserToken();
+ if (!token) return { ok: false, requiresAuth: true, error: 'Trebuie să fii autentificat pentru a lăsa o recenzie.' };
 
  const rating = Math.min(5, Math.max(1, _safeInt(payload.rating, 0)));
  if (!rating) return { ok: false, error: 'Ratingul este obligatoriu.' };
-
- const name = String(payload.name || 'Client Motoraș').trim().slice(0, 40) || 'Client Motoraș';
  const comment = String(payload.comment || '').trim().slice(0, 600);
- const store = _readRatings();
- const key = String(id);
- const list = Array.isArray(store[key]) ? store[key] : [];
- list.unshift(_normalizeReview({
- id: `REV-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
- rating,
- name,
- comment,
- createdAt: new Date().toISOString(),
- }));
- store[key] = list.slice(0, 40);
- _writeRatings(store);
- _refreshCatalogRatings(id);
 
- const hydratedResponse = await window.MotApi.getProduct(id);
- const hydrated = hydratedResponse?.product || _applyRatingSummary(product);
- return {
- ok: true,
- product: { ...hydrated },
- summary: {
- rating: hydrated.rating,
- reviews: hydrated.reviews,
- baseReviews: hydrated.baseReviews,
- },
- items: hydrated.reviewEntries.map(review => ({ ...review })),
- };
+ try {
+ const res = await fetch(`${_serverProductsEndpoint}?reviews=1`, {
+ method: 'POST',
+ headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+ body: JSON.stringify({ id, rating, comment }),
+ });
+ const data = await res.json().catch(() => ({}));
+ if (res.status === 401) return { ok: false, requiresAuth: true, error: data.error || 'Sesiune expirată. Autentifică-te din nou.' };
+ if (res.ok && data.ok) return { ok: true, summary: data.summary, items: data.items };
+ return { ok: false, error: data.error || 'Recenzia nu a putut fi salvată.' };
+ } catch (_) {
+ return { ok: false, error: 'Eroare de rețea. Încearcă din nou.' };
+ }
 };
 
 window.MotApi.getProducts = async function getProductsRemoteFirst(params = {}) {
