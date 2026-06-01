@@ -1,5 +1,6 @@
 const { getProduct, getView, queryProducts } = require('../../lib/api/catalog/gateway');
 const { json } = require('../../lib/api/catalog/types');
+const { renderProductPage } = require('../../lib/api/render-seo');
 
 // Phase 3 Task 1: only price-free response types are safe to cache at the
 // edge. Anything carrying prices/stock/badges/overrides must always run
@@ -8,6 +9,15 @@ const CACHEABLE_VIEWS = new Set(['categories', 'summary', 'brands', 'sources']);
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
+
+  // Server-side SEO render for /product.html (routed here via ?render=product).
+  if (req.method === 'GET' && String((req.query && req.query.render) || '') === 'product') {
+    const out = await renderProductPage(req.query || {});
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', out.cacheControl);
+    return res.end(out.html);
+  }
 
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET');
